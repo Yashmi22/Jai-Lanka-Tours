@@ -1,38 +1,76 @@
-.App {
-  text-align: center;
+/* --- Header & Navigation Structure --- */
+.header-container {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid #eee;
+  display: flex;
+  flex-direction: column; /* Stack elements vertically */
+  align-items: center;
+  padding: 15px 0 0 0;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* Social Media & Contact Bar (Top Right) */
+.top-bar {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  padding: 5px 50px;
+  gap: 20px;
+  font-size: 13px;
+  color: #666;
+  box-sizing: border-box;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.top-bar a {
+  text-decoration: none;
+  color: #0f4c5c;
+  font-weight: bold;
+  transition: 0.3s;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.top-bar a:hover {
+  color: #e36414;
+}
+
+/* Centered Logo Section */
+.logo-centered {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 15px;
+}
+
+/* Horizontal Navigation Menu */
+.nav-menu {
+  display: flex;
+  list-style: none;
+  gap: 40px;
+  padding: 15px 0;
+  margin: 0;
+  border-top: 1px solid #f0f0f0;
+  width: 100%;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.nav-menu li a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 14px;
+  letter-spacing: 1px;
+  transition: 0.3s;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.nav-menu li a:hover {
+  color: #e36414;
+}
+
+/* Adjustment for Hero Section */
+.hero-section {
+  margin-top: 160px; /* Space for the taller header */
 }
