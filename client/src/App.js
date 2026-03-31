@@ -1,176 +1,222 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from 'react';
+import './index.css';
 
-// 1. Image Import
-import hero1 from './assets/hero1.avif'; 
+// Images Import (පින්තූර නිවැරදිව assets folder එකේ තිබිය යුතුය)
+import myLogo from './assets/logo.PNG';
+import hero1 from './assets/hero1.avif';
+import hero2 from './assets/hero2.avif';
+import hero3 from './assets/hero3.webp';
+import hero4 from './assets/hero4.avif';
 
 function App() {
-  const [tours, setTours] = useState([]);
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [currentImage, setCurrentImage] = useState(0);
+  const heroImages = [hero1, hero2, hero3, hero4];
 
   useEffect(() => {
-    setIsLoaded(true); // Page එක load වුණ ගමන් animation එක start වෙන්න
-    axios.get('http://localhost:5000/api/tours/all')
-      .then(res => setTours(res.data))
-      .catch(err => console.error("Database error:", err));
-  }, []);
+    const timer = setInterval(() => {
+      setCurrentImage((prev) => (prev + 1) % heroImages.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, [heroImages.length]);
 
   return (
-    <div style={{ fontFamily: "'Inter', sans-serif", backgroundColor: '#fff', margin: 0, overflowX: 'hidden' }}>
+    <div className="font-body bg-white text-slate-900">
       
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
-      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
+      {/* 1. Transparent Navigation Bar */}
+      <nav className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-gray-100 py-4 shadow-sm transition-all duration-300">
+        <div className="max-w-screen-2xl mx-auto px-10 flex justify-between items-center">
+          <div className="flex items-center gap-3">
+            <img src={myLogo} alt="Jai Lanka Logo" className="w-10 h-10 object-contain" />
+            <span className="text-xl font-headline font-bold text-[#005483] tracking-tight">Jai Lanka Travel & Tourism</span>
+          </div>
 
-      <style>{`
-        /* --- SMART ANIMATIONS --- */
-        @keyframes fadeInUp {
-          from { opacity: 0; transform: translateY(30px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
+          <div className="hidden lg:flex gap-10 text-[13px] font-semibold uppercase tracking-widest text-slate-600">
+            <a href="#home" className="hover:text-[#005483] transition-colors border-b-2 border-[#005483]">Home</a>
+            <a href="#itineraries" className="hover:text-[#005483] transition-colors">Itineraries</a>
+            <a href="#tours" className="hover:text-[#005483] transition-colors">Experiences</a>
+            <a href="#discover" className="hover:text-[#005483] transition-colors">Discover</a>
+          </div>
 
-        @keyframes scaleImg {
-          from { transform: scale(1.1); }
-          to { transform: scale(1); }
-        }
+          <div className="flex items-center gap-6">
+            <span className="material-symbols-outlined text-slate-500 cursor-pointer">search</span>
+            <button className="bg-[#005483] text-white px-7 py-2.5 rounded-sm text-xs font-bold uppercase tracking-widest hover:bg-blue-900 transition-all">
+              Book Now
+            </button>
+          </div>
+        </div>
+      </nav>
 
-        /* --- HEADER --- */
-        .header-wrap { 
-          position: absolute; width: 100%; top: 0; z-index: 1000; 
-          display: flex; justify-content: space-between; align-items: center;
-          padding: 30px 8%; box-sizing: border-box;
-        }
-
-        .logo-box { display: flex; align-items: center; gap: 12px; text-decoration: none; }
-        .logo-box i { font-size: 35px; color: #d4af37; }
-        .logo-box h1 { margin: 0; color: white; font-size: 26px; letter-spacing: 3px; text-transform: uppercase; }
-
-        .nav-bar { display: flex; list-style: none; gap: 35px; margin: 0; padding: 0; }
-        .nav-bar a { 
-          text-decoration: none; color: white; font-size: 11px; 
-          font-weight: 600; text-transform: uppercase; letter-spacing: 2px;
-          opacity: 0.8; transition: 0.3s;
-        }
-        .nav-bar a:hover { opacity: 1; color: #d4af37; }
-
-        /* --- SMART HERO --- */
-        .hero-wrap { 
-          position: relative; height: 100vh; overflow: hidden; background: #000; 
-          display: flex; align-items: center; justify-content: center;
-        }
-        .slide-bg { 
-          position: absolute; inset: 0; width: 100%; height: 100%; 
-          object-fit: cover; filter: brightness(0.7);
-          animation: scaleImg 2s ease-out forwards;
-        }
+      {/* 2. Hero Section with Zoom Effect */}
+      <section className="relative h-screen w-full flex items-center overflow-hidden" id="home">
+        <div className="absolute inset-0 z-0">
+          {heroImages.map((img, index) => (
+            <div key={index} className={`absolute inset-0 transition-opacity duration-1000 ${index === currentImage ? "opacity-100" : "opacity-0"}`}>
+              <img src={img} alt="Hero" className={`w-full h-full object-cover transition-transform duration-[6000ms] ease-out ${index === currentImage ? "scale-110" : "scale-100"}`} />
+              <div className="absolute inset-0 bg-black/30"></div>
+            </div>
+          ))}
+        </div>
         
-        .hero-txt { 
-          position: relative; z-index: 10; color: white; text-align: center; 
-          opacity: 0; animation: fadeInUp 1s ease-out 0.5s forwards;
-        }
-        .hero-txt h2 { 
-          font-family: 'Playfair Display', serif; font-size: clamp(50px, 8vw, 90px); 
-          font-weight: 700; margin: 0; line-height: 1.1;
-        }
-        .hero-txt p { 
-          font-size: 16px; margin-top: 20px; letter-spacing: 10px; 
-          text-transform: uppercase; opacity: 0.8;
-        }
-
-        .btn-smart { 
-          background: transparent; color: white; border: 1px solid rgba(255,255,255,0.4); 
-          padding: 18px 45px; margin-top: 40px; cursor: pointer; 
-          font-size: 12px; letter-spacing: 4px; text-transform: uppercase;
-          transition: 0.4s ease; overflow: hidden; position: relative;
-        }
-        .btn-smart:hover { background: #e63946; border-color: #e63946; transform: translateY(-5px); }
-
-        /* --- SMART CARDS --- */
-        .tour-section { padding: 120px 8%; background: #fff; }
-        .tour-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 50px; }
-        
-        .smart-card { 
-          background: #fff; border-radius: 0; overflow: hidden; 
-          transition: 0.5s cubic-bezier(0.19, 1, 0.22, 1);
-          border: 1px solid #f0f0f0;
-        }
-        .smart-card:hover { transform: translateY(-15px); box-shadow: 0 30px 60px rgba(0,0,0,0.08); }
-        
-        .img-box { height: 400px; background: #f8f8f8; overflow: hidden; position: relative; }
-        .img-box:after {
-          content: 'VIEW JOURNEY'; position: absolute; inset: 0; 
-          background: rgba(22, 22, 22, 0.7); color: white;
-          display: flex; align-items: center; justify-content: center;
-          letter-spacing: 5px; font-size: 10px; opacity: 0; transition: 0.4s;
-        }
-        .smart-card:hover .img-box:after { opacity: 1; }
-
-        /* --- FOOTER --- */
-        .footer-wrap { background: #111; padding: 80px 8%; color: white; display: flex; justify-content: space-between; align-items: flex-end; }
-        .footer-socials a { color: white; font-size: 20px; margin-right: 25px; opacity: 0.5; transition: 0.3s; }
-        .footer-socials a:hover { opacity: 1; color: #d4af37; }
-      `}</style>
-
-      {/* --- HEADER --- */}
-      <header className="header-wrap">
-        <a href="/" className="logo-box">
-          <i className="fa-solid fa-hotel"></i>
-          <h1>Jai Lanka</h1>
-        </a>
-        <ul className="nav-bar">
-          <li><a href="#home">Home</a></li>
-          <li><a href="#packages">Destinations</a></li>
-          <li><a href="#packages">Experiences</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </header>
-
-      {/* --- HERO --- */}
-      <section className="hero-wrap" id="home">
-        <img src={hero1} className="slide-bg" alt="Sri Lanka Smart Look" />
-        <div className="hero-txt">
-          <p>The Art of Travel</p>
-          <h2>Exquisite Ceylon</h2>
-          <button className="btn-smart">Explore Now</button>
+        <div className="relative z-10 max-w-screen-2xl mx-auto px-10 w-full text-white">
+          <p className="text-sm uppercase tracking-[0.4em] mb-6 font-bold opacity-80">Sri Lanka Awaits</p>
+          <h1 className="text-7xl md:text-8xl font-headline mb-8 leading-[1.1]">
+            The Call of <br /><span className="italic font-light">the Wild</span>
+          </h1>
+          <p className="text-lg md:text-xl font-light opacity-90 max-w-xl mb-10 leading-relaxed">
+            Experience the untouched beauty of the Pearl of the Indian Ocean through a lens of curated luxury.
+          </p>
+          <div className="flex gap-5">
+            <button className="bg-[#005483] text-white px-10 py-4 rounded-sm text-xs font-bold uppercase tracking-widest hover:bg-white hover:text-[#005483] transition-all">Plan Your Trip</button>
+            <button className="border border-white text-white px-10 py-4 rounded-sm text-xs font-bold uppercase tracking-widest hover:bg-white hover:text-[#005483] transition-all">Explore More</button>
+          </div>
         </div>
       </section>
 
-      {/* --- TOURS --- */}
-      <section className="tour-section" id="packages">
-        <div style={{ marginBottom: '80px' }}>
-          <h3 style={{ fontSize: '35px', fontWeight: '800', margin: 0 }}>Signature Tours</h3>
-          <div style={{ width: '50px', height: '3px', background: '#e63946', marginTop: '15px' }}></div>
+      {/* 3. Features Section */}
+      <section className="py-24 max-w-screen-2xl mx-auto px-10 grid grid-cols-1 md:grid-cols-3 gap-16 border-b border-gray-100">
+        {[
+          { icon: 'eco', title: 'Sustainability First', desc: 'Our journeys support local communities and preserve delicate ecosystems.' },
+          { icon: 'diamond', title: 'Curated Excellence', desc: 'Every experience is personally vetted for luxury and authenticity standards.' },
+          { icon: 'temple_hindu', title: 'Deep Heritage', desc: 'We connect you with the soul of Sri Lanka through expert guides.' }
+        ].map((f, i) => (
+          <div key={i} className="text-center md:text-left group">
+            <span className="material-symbols-outlined text-4xl text-[#005483] mb-6 group-hover:scale-110 transition-transform block">{f.icon}</span>
+            <h3 className="text-xl font-headline font-bold mb-4">{f.title}</h3>
+            <p className="text-slate-500 text-sm leading-relaxed">{f.desc}</p>
+          </div>
+        ))}
+      </section>
+
+      {/* 4. Trending Itineraries (Grid from Image) */}
+      <section className="py-24 max-w-screen-2xl mx-auto px-10" id="itineraries">
+        <div className="flex justify-between items-end mb-16">
+          <div>
+            <p className="text-xs font-bold text-slate-400 tracking-[0.2em] uppercase mb-3">Curated Collections</p>
+            <h2 className="text-5xl font-headline text-slate-900 font-bold">Trending Itineraries</h2>
+          </div>
+          <button className="text-xs font-bold uppercase tracking-widest border-b-2 border-[#005483] pb-1 hover:text-[#005483]">View All Itineraries</button>
         </div>
 
-        <div className="tour-grid">
-          {tours.length > 0 ? tours.map((tour) => (
-            <div key={tour._id} className="smart-card">
-              <div className="img-box"></div>
-              <div style={{ padding: '30px' }}>
-                <span style={{ color: '#d4af37', fontSize: '11px', fontWeight: 'bold', letterSpacing: '3px' }}>{tour.location}</span>
-                <h4 style={{ margin: '10px 0', fontSize: '22px' }}>{tour.title}</h4>
-                <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '25px', alignItems: 'center' }}>
-                  <span style={{ fontSize: '20px', fontWeight: '800' }}>${tour.price}</span>
-                  <i className="fa-solid fa-arrow-right" style={{ color: '#eee' }}></i>
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 h-[600px]">
+          {/* Main Card */}
+          <div className="md:col-span-8 relative rounded-2xl overflow-hidden group cursor-pointer shadow-2xl">
+            <img src="https://images.unsplash.com/photo-1544085311-11a028465b03?q=80&w=1200" alt="Beach" className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent"></div>
+            <div className="absolute bottom-0 left-0 p-12 text-white">
+              <div className="flex gap-3 mb-4 font-bold text-[10px] uppercase tracking-widest">
+                <span className="bg-[#005483] px-3 py-1">12 Days</span>
+                <span className="bg-white/20 backdrop-blur-md px-3 py-1">Luxury Boutique</span>
+              </div>
+              <h3 className="text-5xl font-headline mb-4">The Royal & Azure Loop</h3>
+              <button className="bg-white text-slate-900 px-8 py-3 rounded-sm text-[10px] font-bold uppercase tracking-widest">Learn More</button>
+            </div>
+          </div>
+
+          {/* Side Cards Stack */}
+          <div className="md:col-span-4 flex flex-col gap-8">
+            {[
+              { title: 'Wild Heart Safari', img: 'https://images.unsplash.com/photo-1620619076118-a1443d3b76bb?q=80&w=600', meta: '5 Days • Adventure' },
+              { title: 'Mystic Mountains', img: 'https://images.unsplash.com/photo-1558694440-03ade9215d7b?q=80&w=600', meta: '7 Days • Wellness' }
+            ].map((card, i) => (
+              <div key={i} className="flex-1 relative rounded-2xl overflow-hidden group cursor-pointer shadow-lg">
+                <img src={card.img} alt={card.title} className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                <div className="absolute inset-0 bg-black/40"></div>
+                <div className="absolute bottom-0 left-0 p-8 text-white">
+                  <h3 className="text-2xl font-headline mb-2">{card.title}</h3>
+                  <p className="text-[10px] font-bold uppercase tracking-widest opacity-70">{card.meta}</p>
                 </div>
               </div>
-            </div>
-          )) : <p style={{ opacity: 0.3 }}>Loading smart collection...</p>}
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* --- FOOTER --- */}
-      <footer className="footer-wrap">
-        <div>
-          <h2 style={{ letterSpacing: '5px', marginBottom: '10px' }}>JAI LANKA</h2>
-          <p style={{ opacity: 0.4, fontSize: '12px' }}>&copy; 2026 Crafted for Excellence.</p>
-        </div>
-        <div style={{ textAlign: 'right' }}>
-          <div className="footer-socials" style={{ marginBottom: '20px' }}>
-            <a href="#"><i className="fa-brands fa-facebook-f"></i></a>
-            <a href="#"><i className="fa-brands fa-instagram"></i></a>
-            <a href="#"><i className="fa-brands fa-whatsapp"></i></a>
+      {/* 5. Stories from the Island (New Section) */}
+      <section className="py-24 bg-slate-50">
+        <div className="max-w-screen-2xl mx-auto px-10">
+          <div className="text-center mb-16">
+             <h2 className="text-5xl font-headline mb-4">Stories from the Island</h2>
+             <p className="text-slate-500 max-w-lg mx-auto">Insights, travel tips, and our latest finds from the untamed corners of Sri Lanka.</p>
           </div>
-          <p style={{ fontSize: '14px', fontWeight: 'bold' }}>+94 77 123 4567</p>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+            {[
+              { title: 'The Architecture of Bliss', category: 'LIFESTYLE', img: 'https://images.unsplash.com/photo-1582650625119-3a31f8fa2699?q=80&w=600' },
+              { title: 'Spices and Soul', category: 'CULINARY', img: 'https://images.unsplash.com/photo-1596797052317-09d437149bc5?q=80&w=600' },
+              { title: 'Chasing Southern Light', category: 'TRAVEL', img: 'https://images.unsplash.com/photo-1563290240-422998399e52?q=80&w=600' }
+            ].map((story, i) => (
+              <div key={i} className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow">
+                <img src={story.img} className="w-full h-64 object-cover" alt={story.title} />
+                <div className="p-8">
+                  <p className="text-[10px] font-bold text-amber-600 tracking-widest mb-3">{story.category}</p>
+                  <h3 className="text-xl font-headline font-bold mb-4">{story.title}</h3>
+                  <button className="text-xs font-bold border-b border-black pb-1 hover:text-[#005483] hover:border-[#005483]">Read Story</button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 6. Testimonial Quote */}
+      <section className="py-32 bg-white text-center">
+        <div className="max-w-4xl mx-auto px-10">
+          <span className="material-symbols-outlined text-5xl text-[#005483] opacity-20 mb-8 italic">format_quote</span>
+          <p className="text-3xl md:text-4xl font-headline italic leading-relaxed text-slate-700 mb-10">
+            "Our trip with Jai Lanka was nothing short of transformative. They managed to find the perfect balance between high-end luxury and raw, authentic experiences."
+          </p>
+          <div className="flex flex-col items-center gap-3">
+             <img src="https://i.pravatar.cc/100?img=33" alt="Client" className="w-16 h-16 rounded-full border-4 border-slate-50" />
+             <p className="font-bold uppercase tracking-widest text-xs">Julian Alexander</p>
+             <p className="text-slate-400 text-[10px] uppercase tracking-widest">United Kingdom</p>
+          </div>
+        </div>
+      </section>
+
+      {/* 7. CTA - Footer Section */}
+      <footer className="bg-[#0a1a2e] text-white pt-24 pb-12">
+        <div className="max-w-screen-2xl mx-auto px-10">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-20 mb-20">
+            <div className="md:col-span-1">
+              <h4 className="text-2xl font-headline mb-6 text-[#005483]">Jai Lanka</h4>
+              <p className="text-slate-400 text-sm leading-relaxed mb-8">Pioneering sustainable luxury travel in the heart of the Indian Ocean.</p>
+              <div className="flex gap-4">
+                <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-[#005483] cursor-pointer transition-colors"><span className="material-symbols-outlined text-sm">facebook</span></div>
+                <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-[#005483] cursor-pointer transition-colors"><span className="material-symbols-outlined text-sm">camera_alt</span></div>
+              </div>
+            </div>
+
+            <div>
+              <h5 className="font-bold text-[10px] tracking-[0.3em] uppercase mb-8 opacity-50">Explore</h5>
+              <ul className="space-y-4 text-sm text-slate-300">
+                <li className="hover:text-white cursor-pointer transition-colors">Cultural Triangle</li>
+                <li className="hover:text-white cursor-pointer transition-colors">Tea Country</li>
+                <li className="hover:text-white cursor-pointer transition-colors">Southern Coast</li>
+              </ul>
+            </div>
+
+            <div>
+              <h5 className="font-bold text-[10px] tracking-[0.3em] uppercase mb-8 opacity-50">Support</h5>
+              <ul className="space-y-4 text-sm text-slate-300">
+                <li className="hover:text-white cursor-pointer transition-colors">About Us</li>
+                <li className="hover:text-white cursor-pointer transition-colors">Sustainability</li>
+                <li className="hover:text-white cursor-pointer transition-colors">Contact</li>
+              </ul>
+            </div>
+
+            <div>
+              <h5 className="font-bold text-[10px] tracking-[0.3em] uppercase mb-8 opacity-50">Newsletter</h5>
+              <p className="text-xs text-slate-400 mb-6">Stay inspired with curated travel stories.</p>
+              <div className="relative">
+                <input type="text" placeholder="Your Email" className="bg-white/5 border border-white/10 px-4 py-3 rounded-sm w-full text-sm outline-none focus:border-[#005483]" />
+                <button className="absolute right-2 top-2 bg-[#005483] p-1.5 rounded-sm"><span className="material-symbols-outlined text-sm">arrow_forward</span></button>
+              </div>
+            </div>
+          </div>
+          
+          <div className="pt-10 border-t border-white/5 text-center">
+            <p className="text-[10px] text-slate-500 uppercase tracking-widest">© 2026 Jai Lanka Travel & Tourism. All rights reserved.</p>
+          </div>
         </div>
       </footer>
     </div>
