@@ -8,113 +8,146 @@ import TourDetails from './pages/TourDetails';
 
 // Images Import
 import myLogo from './assets/logo.PNG';
-import hero1 from './assets/hero1.avif';
-import hero2 from './assets/hero2.avif';
-import hero3 from './assets/hero3.webp';
-import hero4 from './assets/hero4.avif';
+import hero1 from './assets/hero 1.jpg';
+import hero2 from './assets/hero 2.jpg';
+import hero3 from './assets/hero 3.jpg';
+import hero4 from './assets/hero 4.jpg';
 
-// --- Home Component (ඔයාගේ මුල් ලස්සන Design එක මෙතන තියෙන්නේ) ---
+// --- Home Component (Modern Elegant Version) ---
 const Home = ({ heroImages, currentImage }) => {
   return (
     <>
-      {/* 1. Hero Section */}
-      <section className="relative h-screen w-full flex items-center overflow-hidden" id="home">
-        <div className="absolute inset-0 z-0">
-          {heroImages.map((img, index) => (
-            <div key={index} className={`absolute inset-0 transition-opacity duration-1000 ${index === currentImage ? "opacity-100" : "opacity-0"}`}>
-              <img src={img} alt="Hero" className={`w-full h-full object-cover transition-transform duration-[6000ms] ease-out ${index === currentImage ? "scale-110" : "scale-100"}`} />
-              <div className="absolute inset-0 bg-black/30"></div>
-            </div>
-          ))}
+      {/* 1. New Elegant Hero Section */}
+<section className="relative h-screen w-full flex items-center justify-center overflow-hidden" id="home">
+  {/* Background Slider */}
+  <div className="absolute inset-0 z-0">
+    {heroImages.map((img, index) => (
+      <div key={index} className={`absolute inset-0 transition-opacity duration-1000 ${index === currentImage ? "opacity-100" : "opacity-0"}`}>
+        <img src={img} alt="Hero" className={`w-full h-full object-cover transition-transform duration-[8000ms] ease-out ${index === currentImage ? "scale-110" : "scale-100"}`} />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/20 to-black/60"></div>
+      </div>
+    ))}
+  </div>
+  
+  {/* Centered Content */}
+  <div className="relative z-10 max-w-screen-xl mx-auto px-6 w-full text-white text-center">
+    <div className="mb-6 inline-block py-1 px-4 rounded-full border border-white/30 bg-white/10 backdrop-blur-md">
+       <p className="text-[10px] uppercase tracking-[0.5em] font-bold">Discover the Pearl of the Indian Ocean</p>
+    </div>
+
+    <h1 className="text-4xl md:text-7xl font-headline mb-6 tracking-tight leading-[1.1] drop-shadow-2xl">
+      Beyond <span className="italic font-light">Expectations</span>
+    </h1>
+    
+    <p className="text-lg md:text-2xl font-light italic opacity-90 max-w-2xl mx-auto mb-12 drop-shadow-md">
+      Curating unforgettable journeys through the hidden gems of Sri Lanka.
+    </p>
+
+    {/* Modern Call to Action Buttons */}
+    <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+      <button className="group relative bg-[#00a2ff] text-white px-10 py-4 rounded-full text-xs font-bold uppercase tracking-[0.2em] overflow-hidden transition-all hover:scale-105 shadow-xl shadow-blue-500/20">
+        <span className="relative z-10">Start Your Journey</span>
+        <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+      </button>
+      
+      <button className="bg-white/10 backdrop-blur-md border border-white/40 text-white px-10 py-4 rounded-full text-xs font-bold uppercase tracking-[0.2em] hover:bg-white hover:text-black transition-all">
+        View Itineraries
+      </button>
+    </div>
+
+    {/* Scroll Indicator */}
+    <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce flex flex-col items-center gap-2 opacity-60">
+       <span className="text-[10px] uppercase tracking-widest font-bold">Scroll</span>
+       <span className="material-symbols-outlined">expand_more</span>
+    </div>
+  </div>
+</section>
+
+     
+      {/* 3. Intro Section (Text + Floating Image) */}
+      <section className="py-24 max-w-screen-xl mx-auto px-10 flex flex-col md:flex-row items-center gap-16">
+        <div className="w-full md:w-5/12">
+           <img src="/images/sigiriya.jpg" alt="Sigiriya" className="w-full rounded-tl-full rounded-tr-full border-8 border-slate-50 shadow-xl" />
         </div>
-        <div className="relative z-10 max-w-screen-2xl mx-auto px-10 w-full text-white">
-          <p className="text-sm uppercase tracking-[0.4em] mb-6 font-bold opacity-80">Sri Lanka Awaits</p>
-          <h1 className="text-7xl md:text-8xl font-headline mb-8 leading-[1.1]">
-            The Call of <br /><span className="italic font-light">the Wild</span>
-          </h1>
-          <p className="text-lg md:text-xl font-light opacity-90 max-w-xl mb-10 leading-relaxed">
-            Experience the untouched beauty of the Pearl of the Indian Ocean through a lens of curated luxury.
+        <div className="w-full md:w-7/12 text-center md:text-left">
+          <h2 className="text-4xl md:text-6xl font-headline text-slate-900 mb-6 leading-tight">
+            Magical Memories, <br />
+            <span className="italic font-light"> experiences</span>
+          </h2>
+          <p className="text-slate-500 text-sm leading-relaxed mb-6 font-light">
+            Ceylon is a truly beautiful island. From its cascading waterfalls to its emerald-green tea plantations and ancient ruins, our guides take you beyond the guidebook to uncover the soul of Sri Lanka. 
           </p>
-          <div className="flex gap-5">
-            <button className="bg-[#005483] text-white px-10 py-4 rounded-sm text-xs font-bold uppercase tracking-widest hover:bg-white hover:text-[#005483] transition-all">Plan Your Trip</button>
-            <button className="border border-white text-white px-10 py-4 rounded-sm text-xs font-bold uppercase tracking-widest hover:bg-white hover:text-[#005483] transition-all">Explore More</button>
-          </div>
+          <p className="text-slate-500 text-sm leading-relaxed mb-8 font-light">
+            Whether you desire a thrilling wildlife safari, a serene wellness retreat, or a deep dive into our rich cultural heritage, we curate journeys that are as unique as you are.
+          </p>
+          <button className="bg-[#e6004c] text-white px-8 py-3 rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-slate-900 transition-colors">
+            Read More About Us
+          </button>
         </div>
       </section>
 
-      {/* 2. Features Section */}
-      <section className="py-24 max-w-screen-2xl mx-auto px-10 grid grid-cols-1 md:grid-cols-3 gap-16 border-b border-gray-100">
-        {[
-          { icon: 'eco', title: 'Sustainability First', desc: 'Our journeys support local communities and preserve ecosystems.' },
-          { icon: 'diamond', title: 'Curated Excellence', desc: 'Every experience is personally vetted for luxury standards.' },
-          { icon: 'temple_hindu', title: 'Deep Heritage', desc: 'We connect you with the soul of Sri Lanka through expert guides.' }
-        ].map((f, i) => (
-          <div key={i} className="text-center md:text-left group">
-            <span className="material-symbols-outlined text-4xl text-[#005483] mb-6 block">{f.icon}</span>
-            <h3 className="text-xl font-headline font-bold mb-4">{f.title}</h3>
-            <p className="text-slate-500 text-sm">{f.desc}</p>
-          </div>
-        ))}
-      </section>
-
-      {/* 3. Trending Itineraries */}
-      <section className="py-24 max-w-screen-2xl mx-auto px-10" id="itineraries">
-        <div className="flex justify-between items-end mb-16">
-          <h2 className="text-5xl font-headline text-slate-900 font-bold">Trending Itineraries</h2>
-          <button className="text-xs font-bold uppercase tracking-widest border-b-2 border-[#005483] pb-1">View All</button>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 h-[600px]">
-          <div className="md:col-span-8 relative rounded-2xl overflow-hidden shadow-2xl">
-            <img src="https://images.unsplash.com/photo-1544085311-11a028465b03?q=80&w=1200" alt="Beach" className="absolute inset-0 w-full h-full object-cover" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent"></div>
-            <div className="absolute bottom-0 left-0 p-12 text-white text-left">
-              <h3 className="text-5xl font-headline mb-4">The Royal & Azure Loop</h3>
-              <button className="bg-white text-slate-900 px-8 py-3 text-[10px] font-bold uppercase">Learn More</button>
-            </div>
-          </div>
-          <div className="md:col-span-4 flex flex-col gap-8">
-            <div className="flex-1 relative rounded-2xl overflow-hidden bg-slate-200">
-               <img src="https://images.unsplash.com/photo-1620619076118-a1443d3b76bb?q=80&w=600" className="w-full h-full object-cover opacity-80" alt="Safari" />
-               <div className="absolute bottom-6 left-6 text-white text-left"><h3 className="text-2xl font-headline">Wild Heart Safari</h3></div>
-            </div>
-            <div className="flex-1 relative rounded-2xl overflow-hidden bg-slate-200">
-               <img src="https://images.unsplash.com/photo-1558694440-03ade9215d7b?q=80&w=600" className="w-full h-full object-cover opacity-80" alt="Wellness" />
-               <div className="absolute bottom-6 left-6 text-white text-left"><h3 className="text-2xl font-headline">Mystic Mountains</h3></div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 4. Stories Section */}
-      <section className="py-24 bg-slate-50">
-        <div className="max-w-screen-2xl mx-auto px-10">
-          <h2 className="text-5xl font-headline mb-16 text-center">Stories from the Island</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+      {/* 4. Curated Itineraries */}
+      <section className="py-24 bg-slate-50" id="itineraries">
+        <div className="max-w-screen-xl mx-auto px-10 text-center">
+          <h2 className="text-5xl font-headline text-slate-900 mb-16">Curated Itineraries</h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
-              { title: 'The Architecture of Bliss', category: 'LIFESTYLE', img: 'https://images.unsplash.com/photo-1582650625119-3a31f8fa2699?q=80&w=600' },
-              { title: 'Spices and Soul', category: 'CULINARY', img: 'https://images.unsplash.com/photo-1596797052317-09d437149bc5?q=80&w=600' },
-              { title: 'Chasing Southern Light', category: 'TRAVEL', img: 'https://images.unsplash.com/photo-1563290240-422998399e52?q=80&w=600' }
-            ].map((story, i) => (
-              <div key={i} className="bg-white rounded-xl overflow-hidden text-left shadow-sm">
-                <img src={story.img} className="w-full h-64 object-cover" alt={story.title} />
-                <div className="p-8">
-                  <p className="text-[10px] font-bold text-amber-600 mb-3">{story.category}</p>
-                  <h3 className="text-xl font-headline font-bold mb-4">{story.title}</h3>
-                  <button className="text-xs font-bold border-b border-black pb-1">Read Story</button>
+              { title: 'Visit Dambulla Cave Temple', img: 'https://images.unsplash.com/photo-1544085311-11a028465b03?q=80&w=600', desc: 'Indulge in romantic beach walks, sunset cruises, and private dinners.' },
+              { title: 'Sri Lanka Wellness Tour', img: 'https://images.unsplash.com/photo-1558694440-03ade9215d7b?q=80&w=600', desc: 'Rejuvenate your mind and body with Ayurveda and Yoga.' },
+              { title: 'Fascinating Sri Lanka', img: 'https://images.unsplash.com/photo-1620619076118-a1443d3b76bb?q=80&w=600', desc: 'A perfect blend of culture, wildlife, and breathtaking scenery.' }
+            ].map((item, i) => (
+              <div key={i} className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all p-4 border border-slate-100 group">
+                <div className="overflow-hidden rounded-xl mb-6 h-64">
+                   <img src={item.img} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt={item.title} />
                 </div>
+                <h3 className="text-2xl font-headline mb-3 text-slate-900">{item.title}</h3>
+                <p className="text-sm text-slate-500 font-light mb-6 px-4">{item.desc}</p>
+                <button className="text-[10px] font-bold text-[#00a2ff] uppercase tracking-widest mb-4 hover:text-[#e6004c] transition-colors">
+                  View More →
+                </button>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* 5. Testimonial */}
-      <section className="py-32 bg-white text-center">
-        <div className="max-w-4xl mx-auto px-10">
-          <p className="text-3xl md:text-4xl font-headline italic text-slate-700">"Our trip with Jai Lanka was nothing short of transformative. Perfect balance between luxury and raw experience."</p>
-          <div className="mt-10 flex flex-col items-center">
-            <img src="https://i.pravatar.cc/100?img=33" className="w-16 h-16 rounded-full mb-4" alt="Client" />
-            <p className="font-bold uppercase tracking-widest text-xs">Julian Alexander</p>
+      {/* 5. Custom Tour Banner */}
+      <section className="py-24 bg-white text-center">
+        <div className="max-w-3xl mx-auto px-10">
+           <h2 className="text-3xl md:text-5xl font-headline text-slate-900 mb-4">
+             Looking for an <br />
+             <span className="italic font-bold">Exclusive Customized Tour?</span>
+           </h2>
+           <p className="text-xl font-headline italic text-slate-500 mb-8">No Problem</p>
+           <button className="bg-[#e6004c] text-white px-10 py-3.5 rounded-full text-[11px] font-bold uppercase tracking-[0.2em] hover:bg-slate-900 transition-all shadow-lg shadow-red-500/30">
+              Tailor Make It
+           </button>
+        </div>
+      </section>
+
+      {/* 6. Travel Journal / Blog */}
+      <section className="py-24 bg-slate-50">
+        <div className="max-w-screen-xl mx-auto px-10 text-center">
+          <h2 className="text-5xl font-headline text-slate-900 mb-16">Our Travel Journal</h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              { title: 'Best Places for Photography', img: 'https://images.unsplash.com/photo-1582650625119-3a31f8fa2699?q=80&w=600' },
+              { title: 'The Majestic Elephants', img: 'https://images.unsplash.com/photo-1549366021-9f761d450615?q=80&w=600' },
+              { title: 'Climbing Adam\'s Peak', img: 'https://images.unsplash.com/photo-1563290240-422998399e52?q=80&w=600' }
+            ].map((story, i) => (
+              <div key={i} className="text-center group cursor-pointer">
+                <div className="overflow-hidden rounded-2xl mb-6 shadow-sm">
+                  <img src={story.img} className="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-500" alt={story.title} />
+                </div>
+                <p className="text-[10px] text-slate-400 uppercase tracking-widest font-bold mb-2">Travel Guide</p>
+                <h3 className="text-xl font-headline font-bold text-slate-800 mb-4 hover:text-[#00a2ff] transition-colors">{story.title}</h3>
+                <button className="text-[10px] font-bold text-[#00a2ff] uppercase tracking-widest">
+                  Read More
+                </button>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -138,67 +171,81 @@ function App() {
     <Router>
       <div className="font-body bg-white text-slate-900">
         
-        {/* Navigation Bar */}
-        <nav className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-gray-100 py-4 shadow-sm transition-all duration-300">
-          <div className="max-w-screen-2xl mx-auto px-10 flex justify-between items-center">
+        {/* Navigation Bar (Updated to look more transparent and clean) */}
+        <nav className="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-md border-b border-slate-100 py-3 shadow-sm transition-all duration-300">
+          <div className="max-w-screen-xl mx-auto px-6 flex justify-between items-center">
             <Link to="/" className="flex items-center gap-3">
-              <img src={myLogo} alt="Jai Lanka Logo" className="w-10 h-10 object-contain" />
-              <span className="text-xl font-headline font-bold text-[#005483] tracking-tight">Jai Lanka Travel & Tourism</span>
+              <img src={myLogo} alt="Jai Lanka Logo" className="w-12 h-12 object-contain" />
             </Link>
 
-            <div className="hidden lg:flex gap-10 text-[13px] font-semibold uppercase tracking-widest text-slate-600">
-              <Link to="/" className="hover:text-[#005483] transition-colors">Home</Link>
-              <a href="#itineraries" className="hover:text-[#005483] transition-colors">Itineraries</a>
-              <Link to="/day-tours" className="hover:text-[#005483] transition-colors">Day Tours</Link>
-              <a href="#discover" className="hover:text-[#005483] transition-colors">Discover</a>
+            <div className="hidden lg:flex gap-8 text-[11px] font-bold uppercase tracking-widest text-slate-600">
+              <Link to="/" className="hover:text-[#00a2ff] transition-colors">Home</Link>
+              <a href="#itineraries" className="hover:text-[#00a2ff] transition-colors">Itineraries</a>
+              <Link to="/day-tours" className="hover:text-[#00a2ff] transition-colors">Day Tours</Link>
+              <a href="#discover" className="hover:text-[#00a2ff] transition-colors">Discover</a>
             </div>
 
-            <div className="flex items-center gap-6">
-              <span className="material-symbols-outlined text-slate-500 cursor-pointer">search</span>
-              <button className="bg-[#005483] text-white px-7 py-2.5 rounded-sm text-xs font-bold uppercase tracking-widest hover:bg-blue-900">Book Now</button>
+            <div className="flex items-center gap-4">
+              <span className="material-symbols-outlined text-slate-500 cursor-pointer hover:text-slate-900">search</span>
+              <button className="bg-[#00a2ff] text-white px-6 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-slate-900 transition-colors">Enquire Now</button>
             </div>
           </div>
         </nav>
 
         {/* Content Routes */}
-        <Routes>
-          <Route path="/" element={<Home heroImages={heroImages} currentImage={currentImage} />} />
-          <Route path="/day-tours" element={<DayTours />} />
-          <Route path="/tour/:id" element={<TourDetails />} />
-        </Routes>
+        <div className="min-h-screen">
+          <Routes>
+            <Route path="/" element={<Home heroImages={heroImages} currentImage={currentImage} />} />
+            <Route path="/day-tours" element={<DayTours />} />
+            <Route path="/tour/:id" element={<TourDetails />} />
+          </Routes>
+        </div>
 
         {/* Footer */}
-        <footer className="bg-[#0a1a2e] text-white pt-24 pb-12">
-          <div className="max-w-screen-2xl mx-auto px-10">
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-20 mb-20 text-left">
+        <footer className="bg-[#0a1a2e] text-white pt-24 pb-12 mt-auto">
+          <div className="max-w-screen-xl mx-auto px-10">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-16 mb-16 text-left">
               <div>
-                <h4 className="text-2xl font-headline mb-6 text-[#005483]">Jai Lanka</h4>
-                <p className="text-slate-400 text-sm">Pioneering sustainable luxury travel in Sri Lanka.</p>
-              </div>
-              <div>
-                <h5 className="font-bold text-[10px] tracking-widest uppercase mb-8 opacity-50">Explore</h5>
-                <ul className="space-y-4 text-sm text-slate-300">
-                  <li>Cultural Triangle</li>
-                  <li>Tea Country</li>
-                  <li>Southern Coast</li>
-                </ul>
-              </div>
-              <div>
-                <h5 className="font-bold text-[10px] tracking-widest uppercase mb-8 opacity-50">Support</h5>
-                <ul className="space-y-4 text-sm text-slate-300">
-                  <li>About Us</li>
-                  <li>Contact</li>
-                </ul>
-              </div>
-              <div>
-                <h5 className="font-bold text-[10px] tracking-widest uppercase mb-8 opacity-50">Newsletter</h5>
-                <div className="relative mt-4">
-                  <input type="text" placeholder="Email" className="bg-white/5 border border-white/10 px-4 py-3 rounded-sm w-full outline-none" />
+                <img src={myLogo} alt="Logo" className="w-16 h-16 mb-6 grayscale brightness-200" />
+                <p className="text-slate-400 text-sm leading-relaxed mb-6">Hallmark of Sri Lankan Travel. Specializing in bespoke luxury tours.</p>
+                <div className="flex gap-4">
+                   <div className="w-8 h-8 rounded-full border border-slate-500 flex items-center justify-center cursor-pointer hover:bg-slate-800"><span className="material-symbols-outlined text-sm">public</span></div>
+                   <div className="w-8 h-8 rounded-full border border-slate-500 flex items-center justify-center cursor-pointer hover:bg-slate-800"><span className="material-symbols-outlined text-sm">mail</span></div>
                 </div>
               </div>
+              <div>
+                <h5 className="font-bold text-[10px] tracking-widest uppercase mb-8 text-slate-500">Quick Links</h5>
+                <ul className="space-y-4 text-sm text-slate-300">
+                  <li><Link to="/" className="hover:text-white transition-colors">Home</Link></li>
+                  <li><Link to="/day-tours" className="hover:text-white transition-colors">Day Tours</Link></li>
+                  <li><a href="#" className="hover:text-white transition-colors">About Us</a></li>
+                  <li><a href="#" className="hover:text-white transition-colors">Contact Us</a></li>
+                </ul>
+              </div>
+              <div>
+                <h5 className="font-bold text-[10px] tracking-widest uppercase mb-8 text-slate-500">Experiences</h5>
+                <ul className="space-y-4 text-sm text-slate-300">
+                  <li>Wildlife Safari</li>
+                  <li>Cultural Triangle</li>
+                  <li>Honeymoon Tours</li>
+                  <li>Wellness & Ayurveda</li>
+                </ul>
+              </div>
+              <div>
+                <h5 className="font-bold text-[10px] tracking-widest uppercase mb-8 text-slate-500">Contact</h5>
+                <ul className="space-y-4 text-sm text-slate-300">
+                  <li className="flex items-center gap-3"><span className="material-symbols-outlined text-sm text-[#00a2ff]">call</span> +94 11 234 5678</li>
+                  <li className="flex items-center gap-3"><span className="material-symbols-outlined text-sm text-[#00a2ff]">mail</span> hello@jailanka.com</li>
+                  <li className="flex items-center gap-3"><span className="material-symbols-outlined text-sm text-[#00a2ff]">location_on</span> Colombo, Sri Lanka</li>
+                </ul>
+              </div>
             </div>
-            <div className="pt-10 border-t border-white/5 text-center">
-              <p className="text-[10px] text-slate-500 uppercase tracking-widest">© 2026 Jai Lanka Travel & Tourism.</p>
+            <div className="pt-8 border-t border-white/10 text-center md:flex md:justify-between md:items-center">
+              <p className="text-[10px] text-slate-500 uppercase tracking-widest mb-4 md:mb-0">© 2026 Jai Lanka Tours. All Rights Reserved.</p>
+              <div className="flex justify-center gap-6 text-[10px] text-slate-500 uppercase tracking-widest">
+                 <span className="hover:text-white cursor-pointer">Privacy Policy</span>
+                 <span className="hover:text-white cursor-pointer">Terms of Service</span>
+              </div>
             </div>
           </div>
         </footer>
