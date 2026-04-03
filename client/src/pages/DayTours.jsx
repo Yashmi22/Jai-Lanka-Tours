@@ -1,153 +1,159 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-// --- Premium Tour Card Component ---
-const TourCard = ({ image, title, category, duration, difficulty, price, isLarge }) => {
-  return (
-    <div className={`group relative overflow-hidden rounded-3xl bg-white transition-all duration-700 hover:shadow-[0_30px_60px_-15px_rgba(0,84,131,0.25)] ${isLarge ? 'md:col-span-2 h-[500px]' : 'h-[500px]'}`}>
-      {/* Image with subtle zoom on hover */}
-      <img 
-        src={image} 
-        alt={title} 
-        className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1.5s] ease-out group-hover:scale-110" 
-      />
-      
-      {/* Premium Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-[#0a1a2e]/90 via-[#0a1a2e]/20 to-transparent"></div>
-
-      {/* Floating Category Tag */}
-      <div className="absolute top-6 left-6">
-        <span className="bg-white/10 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold px-4 py-1.5 rounded-full uppercase tracking-[0.2em]">
-          {category}
-        </span>
-      </div>
-
-      {/* Content Area */}
-      <div className="absolute bottom-0 left-0 w-full p-10 text-white">
-        <div className="flex items-center gap-2 mb-4 opacity-70">
-          <span className="material-symbols-outlined text-[18px]">schedule</span>
-          <span className="text-[11px] font-bold uppercase tracking-widest">{duration}</span>
-          <span className="mx-2 opacity-30">|</span>
-          <span className="material-symbols-outlined text-[18px]">tavel_explore</span>
-          <span className="text-[11px] font-bold uppercase tracking-widest">{difficulty}</span>
-        </div>
-
-        <h3 className={`${isLarge ? 'text-5xl' : 'text-3xl'} font-headline font-bold mb-6 leading-tight transition-transform duration-500 group-hover:-translate-y-2`}>
-          {title}
-        </h3>
-
-        <div className="flex items-center justify-between pt-6 border-t border-white/10">
-          <div>
-            <p className="text-[10px] uppercase tracking-widest opacity-50 mb-1">Price per person</p>
-            <p className="text-3xl font-bold font-headline">Rs. {price}</p>
-          </div>
-          
-         
-<Link 
-  to={`/tour/${title.toLowerCase().replace(/ /g, '-')}`} 
-  className="bg-white text-[#005483] px-8 py-3.5 rounded-full text-[11px] font-bold uppercase tracking-[0.15em] transition-all duration-300 hover:bg-[#005483] hover:text-white inline-block text-center"
->
-  View Details
-</Link>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-// --- Main Day Tours Page ---
 const DayTours = () => {
+  const [searchQuery, setSearchQuery] = useState("");
+
   const tours = [
     {
-      title: "Sigiriya: The Lion Rock Fortress",
-      category: "World Heritage",
+      id: "sigiriya-rock-hike",
+      title: "Sigiriya Rock Hike",
+      category: "Most Popular",
       image: "/images/sigiriya.jpg",
-      duration: "04 Hours",
+      duration: "4 Hours",
       difficulty: "Moderate",
-      price: "5000",
-      isLarge: true
+      price: "45",
+      rating: 5,
+      reviews: "153"
     },
     {
-      title: "Galle Fort Colonial Walk",
+      id: "galle-fort-walk",
+      title: "Galle Fort Heritage Walk",
       category: "Heritage",
       image: "/images/galle_fort.jpg",
-      duration: "03 Hours",
+      duration: "3 Hours",
       difficulty: "Easy",
-      price: "3500",
-      isLarge: false
+      price: "30",
+      rating: 4,
+      reviews: "98"
     },
     {
-      title: "Nine Arch Bridge & Ella Rock Hike",
+      id: "udawalawe-safari",
+      title: "Udawalawe Safari",
       category: "Wildlife",
-      image: "/images/nine_arch.jpg",
-      duration: "06 Hours",
-      difficulty: "Adventure",
-      price: "8500",
-      isLarge: false
-    },
-    {
-      title: "Kandy: The Sacred City Tour",
-      category: "Cultural",
-      image: "/images/temple_truth.jpg",
-      duration: "05 Hours",
+      image: "images/udawalawe.jpg",
+      duration: "5 Hours",
       difficulty: "Relaxed",
-      price: "4000",
-      isLarge: true
+      price: "65",
+      rating: 5,
+      reviews: "210"
     }
   ];
 
   return (
-    <div className="bg-white">
-      {/* Header Section with Extra Padding for Navbar */}
-      <div className="pt-40 pb-24 bg-slate-50">
-        <div className="max-w-screen-2xl mx-auto px-10">
-          <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
-            <p className="text-[#005483] font-bold text-[11px] uppercase tracking-[0.4em] mb-6">Unforgettable Moments</p>
-            <h1 className="text-6xl md:text-7xl font-headline font-bold text-slate-900 mb-8 leading-[1.1]">
-              Curated Day <span className="italic font-light text-[#005483]">Excursions</span>
-            </h1>
-            <div className="w-20 h-1 bg-[#005483] mb-8 rounded-full"></div>
-            <p className="text-slate-500 text-lg font-light leading-relaxed">
-              Step beyond the ordinary. Our handpicked day tours are designed for the discerning traveler, blending cultural depth with unparalleled comfort.
-            </p>
-          </div>
-        </div>
-      </div>
+    <div className="bg-[#f8f9fa] min-h-screen pt-32 pb-20">
+      <div className="max-w-screen-2xl mx-auto px-6">
+        
+        <div className="flex flex-col lg:flex-row gap-10">
+          
+          {/* Left Sidebar - Filters (From image_a52ec8.jpg) */}
+          <aside className="lg:w-1/4">
+            <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 sticky top-32">
+              <div className="mb-8 bg-[#005483] text-white p-6 rounded-xl text-center">
+                <p className="text-sm opacity-80 uppercase tracking-widest">Tours starting at</p>
+                <h2 className="text-4xl font-headline font-bold">Rs.5000</h2>
+              </div>
 
-      {/* Modern Grid Layout */}
-      <div className="max-w-screen-2xl mx-auto px-10 -mt-12 mb-32">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-          {tours.map((tour, index) => (
-            <TourCard key={index} {...tour} />
-          ))}
-        </div>
-      </div>
+              {/* Search Box */}
+              <div className="mb-8">
+                <label className="text-[10px] font-bold uppercase tracking-widest text-slate-400 block mb-3">Where to go?</label>
+                <div className="relative">
+                  <input 
+                    type="text" 
+                    placeholder="Search tours..." 
+                    className="w-full bg-slate-50 border border-slate-200 py-3 px-4 rounded-lg text-sm focus:border-[#005483] outline-none"
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                  />
+                </div>
+              </div>
 
-      {/* Enhanced CTA / Contact Section */}
-      <section className="max-w-screen-2xl mx-auto px-10 mb-32">
-        <div className="relative rounded-[40px] overflow-hidden bg-[#0a1a2e] py-24 px-16 flex flex-col md:flex-row items-center justify-between border border-white/5">
-          {/* Background subtle pattern */}
-          <div className="absolute inset-0 opacity-10 pointer-events-none">
-            <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(#005483_1px,transparent_1px)] [background-size:20px_20px]"></div>
-          </div>
+              {/* Filter Categories */}
+              <div className="space-y-6">
+                <div>
+                  <h4 className="font-bold text-slate-900 mb-4 border-b pb-2">Categories</h4>
+                  {['Wildlife', 'Cultural', 'Adventure', 'Heritage'].map(cat => (
+                    <label key={cat} className="flex items-center gap-3 text-sm text-slate-600 mb-3 cursor-pointer hover:text-[#005483]">
+                      <input type="checkbox" className="w-4 h-4 rounded border-gray-300 accent-[#005483]" /> {cat}
+                    </label>
+                  ))}
+                </div>
 
-          <div className="relative z-10 max-w-xl text-left">
-            <h2 className="text-5xl font-headline text-white font-bold mb-6">Looking for a <span className="italic font-light">Custom Journey?</span></h2>
-            <p className="text-slate-400 text-lg mb-10 font-light">Let our travel specialists craft a bespoke itinerary tailored exclusively to your preferences.</p>
-            <button className="bg-white text-[#0a1a2e] px-10 py-4 rounded-full font-bold text-[11px] uppercase tracking-widest hover:bg-[#005483] hover:text-white transition-all shadow-xl">
-              Inquire Now
-            </button>
-          </div>
-
-          <div className="relative z-10 mt-16 md:mt-0">
-            <div className="w-80 h-80 rounded-full border border-white/10 flex items-center justify-center p-4">
-               <div className="w-full h-full rounded-full overflow-hidden border-4 border-white/5">
-                  <img src="https://images.unsplash.com/photo-1586902197503-e71026292412?q=80&w=600" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" alt="Specialist" />
-               </div>
+                <div>
+                  <h4 className="font-bold text-slate-900 mb-4 border-b pb-2">Star Rating</h4>
+                  {[5, 4, 3].map(star => (
+                    <label key={star} className="flex items-center gap-3 text-sm text-slate-600 mb-3 cursor-pointer">
+                      <input type="checkbox" className="w-4 h-4 accent-[#005483]" />
+                      <div className="flex text-amber-400">
+                        {Array(star).fill().map((_, i) => <span key={i} className="material-symbols-outlined text-sm fill-current">star</span>)}
+                      </div>
+                    </label>
+                  ))}
+                </div>
+              </div>
             </div>
-          </div>
+          </aside>
+
+          {/* Right Side - Tour Cards (From image_274405.jpg) */}
+          <main className="lg:w-3/4">
+            
+            {/* Sort Bar */}
+            <div className="bg-white p-4 rounded-xl shadow-sm border border-slate-100 mb-8 flex justify-between items-center">
+              <p className="text-sm text-slate-500 font-medium">Showing {tours.length} Day Tours</p>
+              <div className="flex gap-4">
+                <select className="bg-slate-50 border-none text-xs font-bold py-2 px-4 rounded-lg outline-none">
+                  <option>Sort By: Most Popular</option>
+                  <option>Price: Low to High</option>
+                </select>
+                <div className="flex bg-slate-100 rounded-lg p-1">
+                  <button className="bg-white p-1 rounded shadow-sm"><span className="material-symbols-outlined text-sm">grid_view</span></button>
+                  <button className="p-1"><span className="material-symbols-outlined text-sm">list</span></button>
+                </div>
+              </div>
+            </div>
+
+            {/* Tour Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+              {tours.map((tour) => (
+                <div key={tour.id} className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-slate-100 group">
+                  <div className="relative h-56 overflow-hidden">
+                    <img src={tour.image} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt={tour.title} />
+                    <div className="absolute top-4 left-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full shadow-sm">
+                      <span className="text-[9px] font-bold text-[#005483] uppercase tracking-widest">{tour.category}</span>
+                    </div>
+                  </div>
+                  
+                  <div className="p-6">
+                    <div className="flex items-center gap-1 mb-2">
+                      <div className="flex text-amber-400">
+                        {Array(tour.rating).fill().map((_, i) => <span key={i} className="material-symbols-outlined text-[14px] fill-current">star</span>)}
+                      </div>
+                      <span className="text-[10px] text-slate-400 font-bold">({tour.reviews} Reviews)</span>
+                    </div>
+
+                    <h3 className="text-xl font-headline font-bold text-slate-900 mb-4 h-14 line-clamp-2">{tour.title}</h3>
+                    
+                    <div className="flex items-center gap-4 text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-6">
+                      <span className="flex items-center gap-1"><span className="material-symbols-outlined text-sm">schedule</span> {tour.duration}</span>
+                      <span className="flex items-center gap-1"><span className="material-symbols-outlined text-sm">signal_cellular_alt</span> {tour.difficulty}</span>
+                    </div>
+
+                    <div className="flex items-center justify-between pt-5 border-t border-slate-50">
+                      <div>
+                        <p className="text-[8px] uppercase tracking-widest text-slate-400">From</p>
+                        <p className="text-2xl font-bold text-[#005483]">${tour.price}</p>
+                      </div>
+                      <Link to={`/tour/${tour.id}`} className="bg-[#005483] text-white px-6 py-2.5 rounded-lg text-[10px] font-bold uppercase tracking-widest hover:bg-slate-900 transition-colors">
+                        Details
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </main>
         </div>
-      </section>
+
+      </div>
     </div>
   );
 };
