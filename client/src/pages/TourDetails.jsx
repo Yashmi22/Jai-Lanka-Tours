@@ -1,92 +1,186 @@
 import React from 'react';
-import { useParams, Link } from 'react-router-dom';
 
-const TourDetails = () => {
-  const { id } = useParams();
-
-  // මෙතන තියෙන්නේ උදාහරණයක් විදිහට දත්ත කිහිපයක්. 
-  // පසුව අපිට මේවා Database එකකින් ගන්න පුළුවන්.
-  const tourData = {
-    "sigiriya": {
-      title: "Sigiriya: The Lion Rock Fortress",
-      image: "https://images.unsplash.com/photo-1588598106205-094e92ec4915?q=80&w=1200",
-      description: "Experience the eighth wonder of the world. Sigiriya is an ancient rock fortress located in the northern Matale District near the town of Dambulla in the Central Province, Sri Lanka.",
-      duration: "04 Hours",
-      price: "55",
-      includes: ["English Speaking Guide", "Luxury Transport", "Entrance Fees", "Traditional Lunch"],
-      itinerary: [
-        { time: "08:00 AM", activity: "Pick up from hotel and transfer to Sigiriya." },
-        { time: "09:30 AM", activity: "Starting the climb to the summit of the Rock." },
-        { time: "11:30 AM", activity: "Exploring the Mirror Wall and Frescoes." },
-        { time: "01:00 PM", activity: "Traditional Sri Lankan Lunch." }
-      ]
-    }
-  };
-
-  // දැනට Sigiriya විස්තර විතරක් පෙන්වීමට සකසා ඇත
-  const tour = tourData["sigiriya"]; 
-
+const JaiLankaTourLayout = () => {
   return (
-    <div className="bg-white min-h-screen">
-      {/* Hero Image Section */}
-      <div className="relative h-[60vh] w-full">
-        <img src={tour.image} className="w-full h-full object-cover" alt={tour.title} />
-        <div className="absolute inset-0 bg-black/40"></div>
-        <div className="absolute inset-0 flex flex-col items-center justify-center text-white px-6 text-center">
-          <Link to="/day-tours" className="mb-6 flex items-center gap-2 text-xs font-bold uppercase tracking-widest opacity-80 hover:opacity-100">
-            <span className="material-symbols-outlined text-sm">arrow_back</span> Back to Day Tours
-          </Link>
-          <h1 className="text-5xl md:text-7xl font-headline font-bold mb-4">{tour.title}</h1>
-        </div>
-      </div>
+    // මුළු පිටුවටම අදාළ ලා නිල්/අළු gradient පසුබිම
+    <div className="w-full bg-gradient-to-b from-[#87b9df] via-[#dadbdb] to-[#f4f7f6] font-sans text-slate-800 min-h-screen">
 
-      {/* Content Section */}
-      <div className="max-w-screen-xl mx-auto px-10 py-20 grid grid-cols-1 lg:grid-cols-3 gap-16">
+      {/* --- 1. Hero Section --- */}
+      <section className="relative h-[90vh] w-full flex flex-col items-center justify-center text-center text-white overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+           <img 
+             src="/images/anuradhapura imghero.webp" 
+             alt="Anuradhapura Day Tour" 
+             className="w-full h-full object-cover" 
+           />
+           {/* Dark overlay for text visibility */}
+           <div className="absolute inset-0 bg-black/40"></div>
+        </div>
         
-        {/* Left Side: Details */}
-        <div className="lg:col-span-2">
-          <h2 className="text-3xl font-headline font-bold mb-6 text-slate-900">Experience Highlights</h2>
-          <p className="text-slate-500 text-lg leading-relaxed mb-12 font-light">{tour.description}</p>
-          
-          <h3 className="text-xl font-headline font-bold mb-6">Planned Itinerary</h3>
-          <div className="space-y-8 border-l-2 border-slate-100 pl-8 ml-2">
-            {tour.itinerary.map((item, index) => (
-              <div key={index} className="relative">
-                <div className="absolute -left-[41px] top-1 w-4 h-4 rounded-full bg-[#005483] border-4 border-white shadow-sm"></div>
-                <p className="text-xs font-bold text-[#005483] mb-1">{item.time}</p>
-                <p className="text-slate-700 font-medium">{item.activity}</p>
-              </div>
-            ))}
-          </div>
-        </div>
+        {/* Navigation */}
+        <nav className="absolute top-0 w-full p-8 flex justify-center items-center gap-6 md:gap-12 text-[10px] md:text-xs tracking-[0.2em] font-bold z-10 uppercase">
+           <span className="cursor-pointer hover:opacity-70 transition">About</span>
+           <span className="cursor-pointer hover:opacity-70 transition">Package</span>
+           <span className="text-2xl md:text-3xl font-serif normal-case mx-4 tracking-normal">JAB TOUR</span>
+           <span className="cursor-pointer hover:opacity-70 transition">Stories</span>
+           <span className="cursor-pointer hover:opacity-70 transition">Contact</span>
+        </nav>
+        
+        {/* Center Content */}
+        <div className="relative z-10 mt-10 px-4">
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif tracking-[0.15em] mb-6 drop-shadow-2xl">
+            WHERE NEXT ?
+          </h1>
+          <p className="tracking-[0.25em] text-[10px] md:text-sm uppercase opacity-90 mb-12 drop-shadow-md font-medium">
+            Anuradhapura Tourist Visit
+          </p>
 
-        {/* Right Side: Booking Summary Card */}
-        <div className="lg:col-span-1">
-          <div className="bg-slate-50 p-10 rounded-3xl sticky top-32 border border-slate-100">
-            <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-2">Starting from</p>
-            <h3 className="text-4xl font-headline font-bold text-slate-900 mb-8">${tour.price} <span className="text-sm font-normal opacity-50">/ pp</span></h3>
+          {/* --- BOOK TOUR BUTTON ADDED HERE --- */}
+          <button className="bg-[#005483] hover:bg-white hover:text-[#005483] text-white px-10 py-4 rounded-full font-bold tracking-[0.2em] text-[10px] uppercase transition-all duration-500 shadow-2xl border-2 border-[#005483]">
+            Book This Tour
+          </button>
+        </div>
+      </section>
+
+
+      {/* --- 2. Featured Section (Asymmetric Layout) --- */}
+      <section className="max-w-screen-xl mx-auto px-6 py-24">
+         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
             
-            <div className="space-y-4 mb-10">
-              <div className="flex items-center gap-3 text-sm text-slate-600">
-                <span className="material-symbols-outlined text-[#005483]">check_circle</span>
-                <span>Instant Confirmation</span>
-              </div>
-              <div className="flex items-center gap-3 text-sm text-slate-600">
-                <span className="material-symbols-outlined text-[#005483]">timer</span>
-                <span>Duration: {tour.duration}</span>
-              </div>
+            {/* Left Side: Large Image & Text */}
+            <div>
+               <img 
+                 src="/images/anuradhapura img01.webp" 
+                 alt="Anuradhapura" 
+                 className="w-full h-[400px] object-cover shadow-2xl mb-8" 
+               />
+               <h2 className="text-xl md:text-2xl font-bold tracking-widest uppercase mb-4 text-slate-900">
+                 Historical Place
+               </h2>
+               <p className="text-sm md:text-base leading-relaxed text-slate-700 font-medium max-w-lg">
+                 Step back in time to the foundation of Sri Lankan civilization. Anuradhapura offers a unique glimpse into ancient urban planning, massive hydraulic engineering, and deep-rooted spiritual traditions that have survived for millennia.
+               </p>
             </div>
 
-            <button className="w-full bg-[#005483] text-white py-4 rounded-xl font-bold uppercase tracking-widest hover:bg-slate-900 transition-all shadow-lg shadow-blue-900/10 mb-4">
-              Book This Experience
-            </button>
-            <p className="text-[10px] text-center text-slate-400 font-medium">Free cancellation up to 24 hours before.</p>
+            {/* Right Side: Text & Smaller Image */}
+            <div className="flex flex-col lg:pl-10">
+               <div className="mb-10 lg:text-left">
+                 <p className="text-[11px] font-bold tracking-[0.2em] uppercase mb-3 text-slate-600">
+                   How about go to
+                 </p>
+                 <h2 className="text-xl md:text-2xl font-bold tracking-widest uppercase mb-4 text-slate-900">
+                   Anuradhapura
+                 </h2>
+                 <p className="text-sm md:text-base leading-relaxed text-slate-700 font-medium max-w-sm">
+                   A sacred city filled with towering stupas and serene monastery ruins, offering a peaceful escape into history.
+                 </p>
+               </div>
+               <img 
+                 src="/images/anuradhapura img02.webp" 
+                 alt="Anuradhapura" 
+                 className="w-full lg:w-4/5 h-[450px] object-cover shadow-2xl" 
+               />
+            </div>
+
+         </div>
+      </section>
+
+
+      {/* --- 3. Discover Section (3 Column Grid) --- */}
+      <section className="max-w-screen-xl mx-auto px-6 py-10 mb-24 text-center">
+        <h2 className="text-5xl md:text-6xl font-serif tracking-wide mb-3 text-slate-900">Discover</h2>
+        <p className="text-sm text-slate-600 mb-16 font-medium tracking-widest uppercase">Select your destination</p>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 text-left">
+           
+           {/* Card 1 */}
+           <div className="group cursor-pointer">
+             <div className="overflow-hidden mb-6 shadow-lg">
+                <img src="/images/Anuradhapura img03.webp" alt="Ruwanwelisaya" className="w-full aspect-square object-cover group-hover:scale-105 transition-transform duration-500" />
+             </div>
+             <h3 className="text-base font-bold tracking-widest uppercase mb-3 text-slate-900">Ruwanwelisaya</h3>
+             <p className="text-xs leading-relaxed text-slate-700 font-medium">
+               The Great Stupa, built by King Dutugemunu, is one of the world's tallest ancient monuments and a masterpiece of Buddhist architecture.
+             </p>
+           </div>
+
+           {/* Card 2 */}
+           <div className="group cursor-pointer">
+             <div className="overflow-hidden mb-6 shadow-lg">
+                <img src="/images/anuradhapura img01.webp" alt="Sri Maha Bodhi" className="w-full aspect-square object-cover group-hover:scale-105 transition-transform duration-500" />
+             </div>
+             <h3 className="text-base font-bold tracking-widest uppercase mb-3 text-slate-900">Sri Maha Bodhi</h3>
+             <p className="text-xs leading-relaxed text-slate-700 font-medium">
+               A sacred fig tree that is the oldest human-planted tree in the world with a known planting date, living for over 2,300 years.
+             </p>
+           </div>
+
+           {/* Card 3 */}
+           <div className="group cursor-pointer">
+             <div className="overflow-hidden mb-6 shadow-lg">
+                <img src="/images/Anuradhapura img03.webp" alt="Abhayagiriya" className="w-full aspect-square object-cover group-hover:scale-105 transition-transform duration-500" />
+             </div>
+             <h3 className="text-base font-bold tracking-widest uppercase mb-3 text-slate-900">Abhayagiriya</h3>
+             <p className="text-xs leading-relaxed text-slate-700 font-medium">
+               An ancient monastic center that was once a global hub for Buddhist scholarship, featuring one of the largest stupas in the world.
+             </p>
+           </div>
+
+        </div>
+      </section>
+
+      {/* --- 4. Why You Shouldn't Miss This Section (ADDED AT THE END) --- */}
+      <section className="max-w-screen-xl mx-auto px-6 py-24 border-t border-slate-300/50">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl md:text-5xl font-serif text-slate-900 mb-6 italic">
+            Why You Shouldn't Miss This Experience
+          </h2>
+          <div className="w-24 h-1 bg-[#005483] mx-auto opacity-40"></div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
+          {/* Reason 1 */}
+          <div className="p-10 bg-white/30 backdrop-blur-md rounded-3xl border border-white/40 shadow-sm">
+            <h3 className="text-sm font-bold tracking-[0.2em] uppercase mb-4 text-slate-900">Living History</h3>
+            <p className="text-xs leading-relaxed text-slate-600 font-medium">
+              Anuradhapura is not just a museum; it is a living sacred city. Witness rituals and traditions that have been practiced continuously for over 2,500 years.
+            </p>
+          </div>
+
+          {/* Reason 2 */}
+          <div className="p-10 bg-white/30 backdrop-blur-md rounded-3xl border border-white/40 shadow-sm">
+            <h3 className="text-sm font-bold tracking-[0.2em] uppercase mb-4 text-slate-900">Spiritual Serenity</h3>
+            <p className="text-xs leading-relaxed text-slate-600 font-medium">
+              Find peace away from the modern world. The atmosphere around the sacred Bodhi tree and ancient stupas offers a spiritual tranquility found nowhere else.
+            </p>
+          </div>
+
+          {/* Reason 3 */}
+          <div className="p-10 bg-white/30 backdrop-blur-md rounded-3xl border border-white/40 shadow-sm">
+            <h3 className="text-sm font-bold tracking-[0.2em] uppercase mb-4 text-slate-900">Hidden Gems</h3>
+            <p className="text-xs leading-relaxed text-slate-600 font-medium">
+              Beyond the main stupas, our curated path takes you to the serene twin ponds (Kuttam Pokuna) and intricate stone carvings that most travelers overlook.
+            </p>
           </div>
         </div>
 
-      </div>
+        <div className="mt-16 text-center">
+            <button className="text-[10px] font-bold tracking-[0.4em] uppercase border-b-2 border-[#005483] pb-2 hover:text-[#005483] transition-all">
+                Plan Your Journey Today
+            </button>
+        </div>
+      </section>
+
+      {/* Simple Footer */}
+      <footer className="py-12 text-center opacity-50">
+        <p className="text-[10px] tracking-[0.2em] uppercase font-bold text-slate-600">
+            &copy; 2026 JAB TOUR - Ancient Kingdom Experiences
+        </p>
+      </footer>
+
     </div>
   );
 };
 
-export default TourDetails;
+export default JaiLankaTourLayout;
