@@ -7,6 +7,7 @@ import DayTours from './pages/DayTours';
 import TourDetails from './pages/TourDetails';
 import DiscoverSriLanka from './pages/DiscoverSriLanka';
 import OurStory from './pages/OurStory';
+import Itineraries from './pages/iternaries';
 
 // Images Import
 import myLogo from './assets/logo.PNG';
@@ -182,7 +183,7 @@ function App() {
 
             <div className="hidden lg:flex gap-8 text-[11px] font-bold uppercase tracking-widest text-slate-600">
               <Link to="/" className="hover:text-[#00a2ff] transition-colors">Home</Link>
-              <a href="#itineraries" className="hover:text-[#00a2ff] transition-colors">Itineraries</a>
+              <Link to="/itineraries" className="hover:text-[#00a2ff] transition-colors">Itineraries</Link>
               <Link to="/day-tours" className="hover:text-[#00a2ff] transition-colors">Day Tours</Link>
               <Link to="/discoversrilanka" className="hover:text-[#00a2ff] transition-colors">Discover Sri Lanka</Link>
               <Link to="/our-story" className="hover:text-[#00a2ff] transition-colors">Our Story</Link>
@@ -199,6 +200,7 @@ function App() {
         <div className="min-h-screen">
           <Routes>
             <Route path="/" element={<Home heroImages={heroImages} currentImage={currentImage} />} />
+            <Route path="/itineraries" element={<Itineraries />} />
             <Route path="/day-tours" element={<DayTours />} />
             <Route path="/tour/:id" element={<TourDetails />} />
             <Route path="/discoversrilanka" element={<DiscoverSriLanka />} />

@@ -1,0 +1,235 @@
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+// Material UI Icons - වඩාත් කාර්යක්ෂම ලෙස Import කර ඇත
+import Place from '@mui/icons-material/Place';
+import ArrowForward from '@mui/icons-material/ArrowForward';
+import AccessTime from '@mui/icons-material/AccessTime';
+import Schedule from '@mui/icons-material/Schedule';
+import Castle from '@mui/icons-material/Castle';
+import TempleHindu from '@mui/icons-material/TempleHindu';
+import LocalFlorist from '@mui/icons-material/LocalFlorist';
+import PhotoCamera from '@mui/icons-material/PhotoCamera';
+import LocationOn from '@mui/icons-material/LocationOn';
+
+const Itineraries = () => {
+    // Backend එකෙන් itineraries data ගබඩා කිරීමට state එක
+    const [itineraries, setItineraries] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    // API එකෙන් data ලබා ගැනීම (MERN Backend සම්බන්ධ කිරීම)
+    useEffect(() => {
+        const fetchItineraries = async () => {
+            try {
+                // ඔයාගේ Backend API URL එක (MERN setup එක අනුව වෙනස් කරගන්න)
+                const res = await axios.get('http://localhost:5000/api/itineraries'); 
+                setItineraries(res.data);
+                setLoading(false);
+            } catch (err) {
+                console.error("Error fetching itineraries", err);
+                setLoading(false);
+            }
+        };
+
+        fetchItineraries();
+    }, []);
+
+    // Placeholder Data - (Backend එක connect වන තුරු පෙන්වීමට)
+    const placeholderData = [
+        {
+            _id: '1',
+            title: 'Scenic Highland Railway',
+            description: 'A captivating blue train ride winding through misty mountains, lush tea estates, and historical tunnels of Ella.',
+            imageUrl: 'https://images.unsplash.com/photo-1552423116-2fd1b22e1176?q=80&w=1000',
+            days: 7,
+            category: 'Highlands'
+        },
+        {
+            _id: '2',
+            title: 'Southern Coast Adventure',
+            description: 'Surf the waves, dive into turquoise waters, and explore the golden beaches of Weligama and Mirissa.',
+            imageUrl: 'https://images.unsplash.com/photo-1565019053022-133077e0136d?q=80&w=1000',
+            days: 5,
+            category: 'Beach'
+        },
+        {
+            _id: '3',
+            title: 'Wild Sri Lanka Safari',
+            description: 'Embark on an epic wildlife safari to spot elusive leopards, elephants, and rare birds in Yala National Park.',
+            imageUrl: 'https://images.unsplash.com/photo-1540206395-68808572332f?q=80&w=1000',
+            days: 8,
+            category: 'Wildlife'
+        },
+        {
+            _id: '4',
+            title: 'Ancient Capitals and Culture',
+            description: 'Step back in time to explore the ruins of Sigiriya Rock Fortress, sacred temples of Kandy, and historical cities.',
+            imageUrl: 'https://images.unsplash.com/photo-1588598116712-2323e449c25f?q=80&w=1000',
+            days: 10,
+            category: 'Culture'
+        }
+    ];
+
+    // Backend එකේ data නැත්නම් placeholder data පාවිච්චි කරයි
+    const displayData = itineraries.length > 0 ? itineraries : placeholderData;
+
+    return (
+        <div className="bg-slate-50 font-sans text-slate-900">
+            {/* Top Navigation Bar */}
+            <nav className="fixed top-0 w-full z-50 bg-white shadow-sm border-b border-slate-100">
+                <div className="flex justify-between items-center px-12 py-4 max-w-screen-2xl mx-auto">
+                    <div className="flex items-center gap-2">
+                        <img src="/logo.png" alt="Jai Lanka Travels" className="h-10" />
+                    </div>
+                    <div className="hidden md:flex items-center space-x-8 font-medium">
+                        <a href="#" className="text-slate-600 hover:text-sky-800">Home</a>
+                        <a href="#" className="text-sky-700 font-semibold">Itineraries</a>
+                        <a href="#" className="text-slate-600 hover:text-sky-800">Destinations</a>
+                        <a href="#" className="text-slate-600 hover:text-sky-800">Tours</a>
+                    </div>
+                    <button className="bg-sky-800 text-white px-5 py-2.5 rounded-lg font-medium hover:bg-sky-900 active:scale-95 transition-all">Plan Your Trip</button>
+                </div>
+            </nav>
+
+            <main className="pt-24 pb-20">
+                {/* Hero Section */}
+                <section className="relative h-[550px] flex items-center justify-center overflow-hidden mb-20 shadow-lg">
+                    <div className="absolute inset-0 z-0">
+                        <img 
+                            className="w-full h-full object-cover" 
+                            src="https://images.unsplash.com/photo-1610419262174-8f0a0c9c4883?q=80&w=2070" 
+                            alt="Explore Jai Lanka" 
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/10 to-slate-50"></div>
+                    </div>
+                    <div className="relative z-10 text-center px-6">
+                        <span className="inline-block px-4 py-1.5 bg-sky-100 text-sky-800 rounded-full text-sm font-semibold mb-5">Premium Travel Curators</span>
+                        <h1 className="text-5xl md:text-7xl font-serif font-bold text-sky-950 mb-6 leading-tight drop-shadow-md">Explore Jai Lanka,<br /> Your Personalized Journey</h1>
+                        <p className="max-w-2xl mx-auto text-xl text-slate-800 leading-relaxed font-medium">Discover the authentic beauty, culture, and nature of the island through our expertly crafted itineraries.</p>
+                    </div>
+                </section>
+
+                {/* Itinerary Grid */}
+                <section className="max-w-screen-2xl mx-auto px-12 mb-20">
+                    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-10">
+                        {displayData.map((item) => (
+                            <div key={item._id} className="bg-white rounded-2xl overflow-hidden group shadow-md hover:shadow-2xl transition-all duration-500 border border-slate-100 flex flex-col">
+                                <div className="relative h-64 overflow-hidden">
+                                    <img 
+                                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
+                                        src={item.imageUrl} 
+                                        alt={item.title} 
+                                    />
+                                    <div className="absolute top-4 right-4 bg-white/95 px-3 py-1 rounded-full text-xs font-bold text-sky-900 shadow">{item.days} Days</div>
+                                </div>
+                                <div className="p-8 flex-grow flex flex-col">
+                                    <h3 className="text-2xl font-serif font-bold text-slate-900 mb-4 group-hover:text-sky-800 transition-colors">{item.title}</h3>
+                                    <p className="text-slate-600 text-sm leading-relaxed mb-8 flex-grow line-clamp-4">{item.description}</p>
+                                    <div className="mt-auto pt-6 flex items-center justify-between border-t border-slate-100">
+                                        <button className="text-sky-800 font-extrabold text-sm flex items-center gap-2 group-hover:gap-4 transition-all">
+                                            EXPLORE JOURNEY <ArrowForward fontSize="small" />
+                                        </button>
+                                        <div className="flex items-center gap-2 text-slate-400 text-sm">
+                                            <AccessTime fontSize="small"/> {item.category}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </section>
+
+                {/* Destination Spotlight */}
+                <section className="max-w-screen-2xl mx-auto px-12 bg-white py-20 rounded-3xl border border-slate-100 shadow-sm">
+                    <h2 className="text-4xl font-serif font-bold text-sky-950 text-center mb-16">Iconic Destination Spotlight</h2>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                        {/* Sigiriya Card */}
+                        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch bg-slate-50 p-8 rounded-2xl shadow-inner">
+                            <div className="md:col-span-7 group relative overflow-hidden rounded-xl h-[300px]">
+                                <img className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" src="https://images.unsplash.com/photo-1577717903315-1691ae25ab3f?w=600" alt="Sigiriya" />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                                <div className="absolute bottom-0 left-0 p-8 text-white">
+                                    <h2 className="text-3xl font-serif font-bold mb-3">Ancient Rock Fortress</h2>
+                                    <p className="max-w-md opacity-90 text-sm leading-relaxed">Sigiriya Lion Rock Citadel: A magnificent 5th-century palace in the sky.</p>
+                                </div>
+                            </div>
+                            <div className="md:col-span-5 flex flex-col justify-center space-y-6">
+                                <h4 className="text-xl font-serif font-bold text-sky-900 border-b pb-3 border-sky-100">Sigiriya Highlights</h4>
+                                <ul className="space-y-5">
+                                    <li className="flex gap-4"><Castle className="text-green-800" /> Lion Rock Citadel</li>
+                                    <li className="flex gap-4"><LocationOn className="text-amber-700" /> Dambulla Cave Temples</li>
+                                    <li className="flex gap-4"><LocalFlorist className="text-teal-700" /> Anuradhapura Ruins</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        {/* Kandy Card */}
+                        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch bg-slate-50 p-8 rounded-2xl shadow-inner">
+                            <div className="md:col-span-7 group relative overflow-hidden rounded-xl h-[300px]">
+                                <img className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" src="https://images.unsplash.com/photo-1520664269012-98acc6947271?w=600" alt="Kandy" />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                                <div className="absolute bottom-0 left-0 p-8 text-white">
+                                    <h2 className="text-3xl font-serif font-bold mb-3">Kandy, The Cultural Capital</h2>
+                                    <p className="max-w-md opacity-90 text-sm leading-relaxed">Explore the sacred Temple of the Tooth and lush botanical gardens.</p>
+                                </div>
+                            </div>
+                            <div className="md:col-span-5 flex flex-col justify-center space-y-6">
+                                <h4 className="text-xl font-serif font-bold text-sky-900 border-b pb-3 border-sky-100">Kandy Highlights</h4>
+                                <ul className="space-y-5">
+                                    <li className="flex gap-4"><TempleHindu className="text-sky-800" /> Temple of the Tooth</li>
+                                    <li className="flex gap-4"><Place className="text-red-700" /> Peradeniya Botanical Gardens</li>
+                                    <li className="flex gap-4"><Schedule className="text-slate-700" /> Pinnawala Elephant Orphanage</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+
+            {/* Footer */}
+            <footer className="bg-slate-950 text-slate-300">
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-12 px-12 py-16 max-w-screen-2xl mx-auto">
+                    <div className="space-y-6">
+                        <div className="text-xl font-serif text-white font-bold">Jai Lanka Travel</div>
+                        <p className="text-sm">Sustainable travel curators dedicated to showing you the authentic Sri Lanka beyond the tourist trails.</p>
+                        <div className="flex gap-4 text-white text-xl">
+                            <i className="fa-brands fa-facebook cursor-pointer hover:text-sky-400"></i>
+                            <i className="fa-brands fa-instagram cursor-pointer hover:text-sky-400"></i>
+                            <i className="fa-brands fa-twitter cursor-pointer hover:text-sky-400"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 className="font-bold text-white mb-6 uppercase tracking-wider text-xs">Quick Links</h4>
+                        <ul className="space-y-3 text-sm">
+                            <li className="hover:text-white cursor-pointer">Home</li>
+                            <li className="hover:text-white cursor-pointer">Destinations</li>
+                            <li className="hover:text-white cursor-pointer">Experiences</li>
+                            <li className="hover:text-white cursor-pointer">About Us</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 className="font-bold text-white mb-6 uppercase tracking-wider text-xs">Itineraries</h4>
+                        <ul className="space-y-3 text-sm">
+                            <li className="hover:text-white cursor-pointer">Highlands</li>
+                            <li className="hover:text-white cursor-pointer">Coastal</li>
+                            <li className="hover:text-white cursor-pointer">Wildlife</li>
+                            <li className="hover:text-white cursor-pointer">Cultural Triangle</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 className="font-bold text-white mb-6 uppercase tracking-wider text-xs">Support</h4>
+                        <ul className="space-y-3 text-sm">
+                            <li className="hover:text-white cursor-pointer">FAQs</li>
+                            <li className="hover:text-white cursor-pointer">Contact</li>
+                            <li className="hover:text-white cursor-pointer">Privacy Policy</li>
+                        </ul>
+                    </div>
+                </div>
+                <div className="px-12 py-8 border-t border-slate-800 text-center text-xs opacity-50">
+                    © 2026 Jai Lanka Travel & Tourism. All rights reserved. Curating unforgettable journeys in Sri Lanka.
+                </div>
+            </footer>
+        </div>
+    );
+};
+
+export default Itineraries;
