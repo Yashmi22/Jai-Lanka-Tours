@@ -78,7 +78,7 @@ const Itineraries = () => {
             <nav className="fixed top-0 w-full z-50 bg-white shadow-sm border-b border-slate-100">
                 <div className="flex justify-between items-center px-12 py-4 max-w-screen-2xl mx-auto">
                     <div className="flex items-center gap-2">
-                        <img src="/logo.png" alt="Jai Lanka Travels" className="h-10" />
+                        <img src="/logo.jpg" alt="Jai Lanka Travels" className="h-10" />
                     </div>
                     <div className="hidden md:flex items-center space-x-8 font-medium">
                         <a href="#" className="text-slate-600 hover:text-sky-800">Home</a>
