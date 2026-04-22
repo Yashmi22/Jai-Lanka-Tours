@@ -1,15 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-// Material UI Icons - වඩාත් කාර්යක්ෂම ලෙස Import කර ඇත
-import Place from '@mui/icons-material/Place';
-import ArrowForward from '@mui/icons-material/ArrowForward';
-import AccessTime from '@mui/icons-material/AccessTime';
-import Schedule from '@mui/icons-material/Schedule';
-import Castle from '@mui/icons-material/Castle';
-import TempleHindu from '@mui/icons-material/TempleHindu';
-import LocalFlorist from '@mui/icons-material/LocalFlorist';
-import PhotoCamera from '@mui/icons-material/PhotoCamera';
-import LocationOn from '@mui/icons-material/LocationOn';
+import { Link } from 'react-router-dom';
+import { Place, ArrowForward, AccessTime, Schedule, Castle, TempleHindu, LocalFlorist, Photoramone, LocationOn } from '@mui/icons-material';
+import Navbar from '../components/Navbar';
 
 const Itineraries = () => {
     // Backend එකෙන් itineraries data ගබඩා කිරීමට state එක
@@ -20,7 +13,7 @@ const Itineraries = () => {
     useEffect(() => {
         const fetchItineraries = async () => {
             try {
-                // ඔයාගේ Backend API URL එක (MERN setup එක අනුව වෙනස් කරගන්න)
+                // ඔයාගේ Backend API URL එක මෙතනට දාන්න (e.g., /api/itineraries)
                 const res = await axios.get('http://localhost:5000/api/itineraries'); 
                 setItineraries(res.data);
                 setLoading(false);
@@ -33,13 +26,13 @@ const Itineraries = () => {
         fetchItineraries();
     }, []);
 
-    // Placeholder Data - (Backend එක connect වන තුරු පෙන්වීමට)
+    // Placeholder Data (Backend එක වැඩ කරනකම් පාවිච්චි කරන්න - Image එකේ තියෙන data මයි)
     const placeholderData = [
         {
             _id: '1',
             title: 'Scenic Highland Railway',
             description: 'A captivating blue train ride winding through misty mountains, lush tea estates, and historical tunnels of Ella.',
-            imageUrl: 'https://images.unsplash.com/photo-1552423116-2fd1b22e1176?q=80&w=1000',
+            imageUrl: 'https://images.unsplash.com/photo-1552423116-2fd1b22e1176?q=80&w=1000', // Unsplash fixed link
             days: 7,
             category: 'Highlands'
         },
@@ -47,7 +40,7 @@ const Itineraries = () => {
             _id: '2',
             title: 'Southern Coast Adventure',
             description: 'Surf the waves, dive into turquoise waters, and explore the golden beaches of Weligama and Mirissa.',
-            imageUrl: 'https://images.unsplash.com/photo-1565019053022-133077e0136d?q=80&w=1000',
+            imageUrl: 'https://images.unsplash.com/photo-1565019053022-133077e0136d?q=80&w=1000', // Unsplash fixed link
             days: 5,
             category: 'Beach'
         },
@@ -55,7 +48,7 @@ const Itineraries = () => {
             _id: '3',
             title: 'Wild Sri Lanka Safari',
             description: 'Embark on an epic wildlife safari to spot elusive leopards, elephants, and rare birds in Yala National Park.',
-            imageUrl: 'https://images.unsplash.com/photo-1540206395-68808572332f?q=80&w=1000',
+            imageUrl: 'https://images.unsplash.com/photo-1540206395-68808572332f?q=80&w=1000', // Unsplash fixed link
             days: 8,
             category: 'Wildlife'
         },
@@ -63,7 +56,7 @@ const Itineraries = () => {
             _id: '4',
             title: 'Ancient Capitals and Culture',
             description: 'Step back in time to explore the ruins of Sigiriya Rock Fortress, sacred temples of Kandy, and historical cities.',
-            imageUrl: 'https://images.unsplash.com/photo-1588598116712-2323e449c25f?q=80&w=1000',
+            imageUrl: 'https://images.unsplash.com/photo-1588598116712-2323e449c25f?q=80&w=1000', // Unsplash fixed link
             days: 10,
             category: 'Culture'
         }
@@ -74,29 +67,16 @@ const Itineraries = () => {
 
     return (
         <div className="bg-slate-50 font-sans text-slate-900">
-            {/* Top Navigation Bar */}
-            <nav className="fixed top-0 w-full z-50 bg-white shadow-sm border-b border-slate-100">
-                <div className="flex justify-between items-center px-12 py-4 max-w-screen-2xl mx-auto">
-                    <div className="flex items-center gap-2">
-                        <img src="/logo.jpg" alt="Jai Lanka Travels" className="h-10" />
-                    </div>
-                    <div className="hidden md:flex items-center space-x-8 font-medium">
-                        <a href="#" className="text-slate-600 hover:text-sky-800">Home</a>
-                        <a href="#" className="text-sky-700 font-semibold">Itineraries</a>
-                        <a href="#" className="text-slate-600 hover:text-sky-800">Destinations</a>
-                        <a href="#" className="text-slate-600 hover:text-sky-800">Tours</a>
-                    </div>
-                    <button className="bg-sky-800 text-white px-5 py-2.5 rounded-lg font-medium hover:bg-sky-900 active:scale-95 transition-all">Plan Your Trip</button>
-                </div>
-            </nav>
+            {/* Navbar from App.js */}
+            <Navbar />
 
             <main className="pt-24 pb-20">
-                {/* Hero Section */}
+                {/* Hero Section - Image එකේ තියෙන Sigiriya Background එක */}
                 <section className="relative h-[550px] flex items-center justify-center overflow-hidden mb-20 shadow-lg">
                     <div className="absolute inset-0 z-0">
                         <img 
                             className="w-full h-full object-cover" 
-                            src="https://images.unsplash.com/photo-1610419262174-8f0a0c9c4883?q=80&w=2070" 
+                            src="https://images.unsplash.com/photo-1610419262174-8f0a0c9c4883?q=80&w=2070" // Unsplash Sigiriya fixed link
                             alt="Explore Jai Lanka" 
                         />
                         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/10 to-slate-50"></div>
@@ -108,7 +88,7 @@ const Itineraries = () => {
                     </div>
                 </section>
 
-                {/* Itinerary Grid */}
+                {/* Itinerary Grid - Image එකේ තියෙන ආකාරයට Card layout එක */}
                 <section className="max-w-screen-2xl mx-auto px-12 mb-20">
                     <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-10">
                         {displayData.map((item) => (
@@ -138,7 +118,7 @@ const Itineraries = () => {
                     </div>
                 </section>
 
-                {/* Destination Spotlight */}
+                {/* Destination Spotlight - Image එකේ පහළ තියෙන Section එක */}
                 <section className="max-w-screen-2xl mx-auto px-12 bg-white py-20 rounded-3xl border border-slate-100 shadow-sm">
                     <h2 className="text-4xl font-serif font-bold text-sky-950 text-center mb-16">Iconic Destination Spotlight</h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
@@ -165,7 +145,7 @@ const Itineraries = () => {
                         {/* Kandy Card */}
                         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch bg-slate-50 p-8 rounded-2xl shadow-inner">
                             <div className="md:col-span-7 group relative overflow-hidden rounded-xl h-[300px]">
-                                <img className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" src="https://images.unsplash.com/photo-1520664269012-98acc6947271?w=600" alt="Kandy" />
+                                <img className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" src="https://images.unsplash.com/photo-1577717903315-1691ae25ab3f?w=600" alt="Kandy" />
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
                                 <div className="absolute bottom-0 left-0 p-8 text-white">
                                     <h2 className="text-3xl font-serif font-bold mb-3">Kandy, The Cultural Capital</h2>
@@ -185,49 +165,7 @@ const Itineraries = () => {
                 </section>
             </main>
 
-            {/* Footer */}
-            <footer className="bg-slate-950 text-slate-300">
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-12 px-12 py-16 max-w-screen-2xl mx-auto">
-                    <div className="space-y-6">
-                        <div className="text-xl font-serif text-white font-bold">Jai Lanka Travel</div>
-                        <p className="text-sm">Sustainable travel curators dedicated to showing you the authentic Sri Lanka beyond the tourist trails.</p>
-                        <div className="flex gap-4 text-white text-xl">
-                            <i className="fa-brands fa-facebook cursor-pointer hover:text-sky-400"></i>
-                            <i className="fa-brands fa-instagram cursor-pointer hover:text-sky-400"></i>
-                            <i className="fa-brands fa-twitter cursor-pointer hover:text-sky-400"></i>
-                        </div>
-                    </div>
-                    <div>
-                        <h4 className="font-bold text-white mb-6 uppercase tracking-wider text-xs">Quick Links</h4>
-                        <ul className="space-y-3 text-sm">
-                            <li className="hover:text-white cursor-pointer">Home</li>
-                            <li className="hover:text-white cursor-pointer">Destinations</li>
-                            <li className="hover:text-white cursor-pointer">Experiences</li>
-                            <li className="hover:text-white cursor-pointer">About Us</li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h4 className="font-bold text-white mb-6 uppercase tracking-wider text-xs">Itineraries</h4>
-                        <ul className="space-y-3 text-sm">
-                            <li className="hover:text-white cursor-pointer">Highlands</li>
-                            <li className="hover:text-white cursor-pointer">Coastal</li>
-                            <li className="hover:text-white cursor-pointer">Wildlife</li>
-                            <li className="hover:text-white cursor-pointer">Cultural Triangle</li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h4 className="font-bold text-white mb-6 uppercase tracking-wider text-xs">Support</h4>
-                        <ul className="space-y-3 text-sm">
-                            <li className="hover:text-white cursor-pointer">FAQs</li>
-                            <li className="hover:text-white cursor-pointer">Contact</li>
-                            <li className="hover:text-white cursor-pointer">Privacy Policy</li>
-                        </ul>
-                    </div>
-                </div>
-                <div className="px-12 py-8 border-t border-slate-800 text-center text-xs opacity-50">
-                    © 2026 Jai Lanka Travel & Tourism. All rights reserved. Curating unforgettable journeys in Sri Lanka.
-                </div>
-            </footer>
+           
         </div>
     );
 };

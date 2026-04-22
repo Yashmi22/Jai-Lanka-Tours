@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
+import Navbar from '../components/Navbar';
 
 const DayTours = () => {
   // 1. States - Filter දත්ත තබා ගැනීමට
@@ -41,7 +42,9 @@ const DayTours = () => {
   };
 
   return (
-    <div className="bg-[#f8f9fa] min-h-screen pt-32 pb-20 font-body">
+    <>
+      <Navbar />
+      <div className="bg-[#f8f9fa] min-h-screen pt-32 pb-20 font-body">
       <div className="max-w-screen-2xl mx-auto px-6 flex flex-col lg:flex-row gap-10">
         
         {/* Sidebar Filters */}
@@ -136,7 +139,7 @@ const DayTours = () => {
                       <p className="text-[8px] uppercase tracking-widest text-slate-400 font-bold">From</p>
                       <p className="text-xl font-bold text-[#005483]">Rs.{tour.price}</p>
                     </div>
-                    <Link to={`/tour/Rs.{tour.id}`} className="bg-[#005483] text-white px-5 py-2 rounded-lg text-[10px] font-bold uppercase tracking-widest hover:bg-slate-900 transition-all">
+                    <Link to={`/tour/${tour.id}`}  className="bg-[#005483] text-white px-5 py-2 rounded-lg text-[10px] font-bold uppercase tracking-widest hover:bg-slate-900 transition-all">
                       Details
                     </Link>
                   </div>
@@ -153,7 +156,8 @@ const DayTours = () => {
           )}
         </main>
       </div>
-    </div>
+      </div>
+    </>
   );
 };
 

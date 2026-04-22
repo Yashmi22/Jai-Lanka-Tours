@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Navbar from '../components/Navbar';
 
 const DiscoverSriLanka = () => {
   // --- DATA ARRAYS ---
@@ -24,7 +25,9 @@ const DiscoverSriLanka = () => {
   const filteredItems = filter === 'All' ? currentData : currentData.filter(item => item.category === filter);
 
   return (
-    <div className="w-full min-h-screen bg-[#fcfdfe] font-sans text-[#1a1c1e] antialiased">
+    <>
+      <Navbar />
+      <div className="w-full min-h-screen bg-[#fcfdfe] font-sans text-[#1a1c1e] antialiased">
       
       {/* --- Header Section --- */}
       <section className="pt-32 pb-16 px-6 text-center">
@@ -120,7 +123,8 @@ const DiscoverSriLanka = () => {
       <footer className="py-20 bg-slate-50 text-center text-slate-400 text-[9px] tracking-[0.5em] uppercase">
         &copy; 2026 JAB TOUR - Curated Experiences
       </footer>
-    </div>
+      </div>
+    </>
   );
 };
 

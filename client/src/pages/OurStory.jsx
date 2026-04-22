@@ -1,8 +1,11 @@
 import React from 'react';
+import Navbar from '../components/Navbar';
 
 const OurStory = () => {
   return (
-    <div className="w-full min-h-screen bg-[#fcfdfe] font-sans text-[#1a1c1e] antialiased">
+    <>
+      <Navbar />
+      <div className="w-full min-h-screen bg-[#fcfdfe] font-sans text-[#1a1c1e] antialiased">
       
       {/* --- 1. HERO SECTION --- */}
       <section className="relative pt-32 pb-24 px-6 max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-20">
@@ -152,7 +155,8 @@ const OurStory = () => {
             <p className="mt-32 text-slate-300 text-[10px] tracking-[0.8em] uppercase">© 2026 JAI LANKA TRAVELS</p>
          </div>
       </footer>
-    </div>
+      </div>
+    </>
   );
 };
 
