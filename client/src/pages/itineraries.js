@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Place, ArrowForward, AccessTime, Schedule, Castle, TempleHindu, LocalFlorist, Photoramone, LocationOn } from '@mui/icons-material';
 import Navbar from '../components/Navbar';
 
@@ -8,12 +8,12 @@ const Itineraries = () => {
     // Backend එකෙන් itineraries data ගබඩා කිරීමට state එක
     const [itineraries, setItineraries] = useState([]);
     const [loading, setLoading] = useState(true);
+    const navigate = useNavigate(); 
 
     // API එකෙන් data ලබා ගැනීම (MERN Backend සම්බන්ධ කිරීම)
-    useEffect(() => {
+   useEffect(() => {
         const fetchItineraries = async () => {
             try {
-                // ඔයාගේ Backend API URL එක මෙතනට දාන්න (e.g., /api/itineraries)
                 const res = await axios.get('http://localhost:5000/api/itineraries'); 
                 setItineraries(res.data);
                 setLoading(false);
@@ -22,7 +22,6 @@ const Itineraries = () => {
                 setLoading(false);
             }
         };
-
         fetchItineraries();
     }, []);
 
@@ -70,7 +69,7 @@ const Itineraries = () => {
             {/* Navbar from App.js */}
             <Navbar />
 
-            <main className="pt-24 pb-20">
+            <main className="pt-0 pb-20">
                 {/* Hero Section - Image එකේ තියෙන Sigiriya Background එක */}
                 <section className="relative h-[550px] flex items-center justify-center overflow-hidden mb-20 shadow-lg">
                     <div className="absolute inset-0 z-0">
@@ -105,9 +104,12 @@ const Itineraries = () => {
                                     <h3 className="text-2xl font-serif font-bold text-slate-900 mb-4 group-hover:text-sky-800 transition-colors">{item.title}</h3>
                                     <p className="text-slate-600 text-sm leading-relaxed mb-8 flex-grow line-clamp-4">{item.description}</p>
                                     <div className="mt-auto pt-6 flex items-center justify-between border-t border-slate-100">
-                                        <button className="text-sky-800 font-extrabold text-sm flex items-center gap-2 group-hover:gap-4 transition-all">
+                                       <button 
+                                            onClick={() => navigate(`/itinerary/${item._id}`)}
+                                            className="text-sky-800 font-extrabold text-sm flex items-center gap-2 group-hover:gap-4 transition-all hover:text-sky-600"
+                                        >
                                             EXPLORE JOURNEY <ArrowForward fontSize="small" />
-                                        </button>
+                                        </button>   
                                         <div className="flex items-center gap-2 text-slate-400 text-sm">
                                             <AccessTime fontSize="small"/> {item.category}
                                         </div>

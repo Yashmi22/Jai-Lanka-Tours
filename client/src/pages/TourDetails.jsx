@@ -1,6 +1,9 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const JaiLankaTourLayout = () => {
+  const navigate = useNavigate();
+  
   return (
     // මුළු පිටුවටම අදාළ ලා නිල්/අළු gradient පසුබිම
     <div className="w-full bg-gradient-to-b from-[#87b9df] via-[#dadbdb] to-[#f4f7f6] font-sans text-slate-800 min-h-screen">
@@ -19,14 +22,14 @@ const JaiLankaTourLayout = () => {
         </div>
         
         {/* Navigation */}
-        <nav className="absolute top-0 w-full p-8 flex justify-center items-center gap-6 md:gap-12 text-[10px] md:text-xs tracking-[0.2em] font-bold z-10 uppercase">
+                          <nav className="absolute top-0 w-full p-8 flex justify-center items-center gap-6 md:gap-12 text-[10px] md:text-xs tracking-[0.2em] font-bold z-10 uppercase">       
            <span className="cursor-pointer hover:opacity-70 transition">About</span>
            <span className="cursor-pointer hover:opacity-70 transition">Package</span>
            <span className="text-2xl md:text-3xl font-serif normal-case mx-4 tracking-normal">JAB TOUR</span>
            <span className="cursor-pointer hover:opacity-70 transition">Stories</span>
            <span className="cursor-pointer hover:opacity-70 transition">Contact</span>
         </nav>
-        
+
         {/* Center Content */}
         <div className="relative z-10 mt-10 px-4">
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif tracking-[0.15em] mb-6 drop-shadow-2xl">
@@ -37,7 +40,10 @@ const JaiLankaTourLayout = () => {
           </p>
 
           {/* --- BOOK TOUR BUTTON ADDED HERE --- */}
-          <button className="bg-[#005483] hover:bg-white hover:text-[#005483] text-white px-10 py-4 rounded-full font-bold tracking-[0.2em] text-[10px] uppercase transition-all duration-500 shadow-2xl border-2 border-[#005483]">
+          
+          <button
+          onClick={() => navigate('/plan-journey')}
+           className="bg-[#005483] hover:bg-white hover:text-[#005483] text-white px-10 py-4 rounded-full font-bold tracking-[0.2em] text-[10px] uppercase transition-all duration-500 shadow-2xl border-2 border-[#005483]">
             Book This Tour
           </button>
         </div>
@@ -166,7 +172,9 @@ const JaiLankaTourLayout = () => {
         </div>
 
         <div className="mt-16 text-center">
-            <button className="text-[10px] font-bold tracking-[0.4em] uppercase border-b-2 border-[#005483] pb-2 hover:text-[#005483] transition-all">
+            <button 
+            onClick={() => navigate('/plan-journey')}
+            className="text-[10px] font-bold tracking-[0.4em] uppercase border-b-2 border-[#005483] pb-2 hover:text-[#005483] transition-all">
                 Plan Your Journey Today
             </button>
         </div>
