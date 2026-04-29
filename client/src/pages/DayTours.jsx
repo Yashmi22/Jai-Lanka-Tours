@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import Navbar from '../components/Navbar';
+
 
 const DayTours = () => {
   // 1. States - Filter දත්ත තබා ගැනීමට
@@ -43,7 +43,7 @@ const DayTours = () => {
 
   return (
     <>
-      <Navbar />
+     
       <div className="bg-[#f8f9fa] min-h-screen pt-32 pb-20 font-body">
       <div className="max-w-screen-2xl mx-auto px-6 flex flex-col lg:flex-row gap-10">
         

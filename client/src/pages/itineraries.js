@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Place, ArrowForward, AccessTime, Schedule, Castle, TempleHindu, LocalFlorist, Photoramone, LocationOn } from '@mui/icons-material';
-import Navbar from '../components/Navbar';
+
 
 const Itineraries = () => {
     // Backend එකෙන් itineraries data ගබඩා කිරීමට state එක
@@ -65,9 +65,8 @@ const Itineraries = () => {
     const displayData = itineraries.length > 0 ? itineraries : placeholderData;
 
     return (
-        <div className="bg-slate-50 font-sans text-slate-900">
-            {/* Navbar from App.js */}
-            <Navbar />
+        <div className="w-full min-h-screen bg-[#fcfdfe] font-sans text-[#1a1c1e] antialiased">
+            
 
             <main className="pt-0 pb-20">
                 {/* Hero Section - Image එකේ තියෙන Sigiriya Background එක */}

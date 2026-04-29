@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 const Home = ({ heroImages, currentImage }) => {
   const navigate = useNavigate();
   
-  // Itinerary Data - ID එක සමඟ
   const initialItineraries = [
     { id: 'cultural-odyssey', title: 'THE CULTURAL ODYSSEY', category: 'CULTURAL TOURS', duration: '08 Nights & 09 Days', img: 'https://images.unsplash.com/photo-1544085311-11a028465b03?q=80&w=600' },
     { id: 'wander-awaken', title: 'WANDER & AWAKEN', category: 'AYURVEDIC TOURS', duration: '10 Nights & 11 Days', img: 'https://images.unsplash.com/photo-1558694440-03ade9215d7b?q=80&w=600' },
@@ -12,7 +11,6 @@ const Home = ({ heroImages, currentImage }) => {
     { id: 'wildlife-expedition', title: 'WILDLIFE EXPEDITION', category: 'SAFARI TOURS', duration: '05 Nights & 06 Days', img: 'https://images.unsplash.com/photo-1549366021-9f761d450615?q=80&w=600' }
   ];
 
-  // Journal Data - ID එක සමඟ
   const initialJournalStories = [
     { id: 'photography-tips', title: 'Best Places for Photography', category: 'Photography', img: 'https://images.unsplash.com/photo-1582650625119-3a31f8fa2699?q=80&w=600' },
     { id: 'majestic-elephants', title: 'The Majestic Elephants', category: 'Wildlife', img: 'https://images.unsplash.com/photo-1549366021-9f761d450615?q=80&w=600' },
@@ -23,7 +21,6 @@ const Home = ({ heroImages, currentImage }) => {
   const [itineraries, setItineraries] = useState(initialItineraries);
   const [journalStories, setJournalStories] = useState(initialJournalStories);
 
-  // Auto-rotating logic
   useEffect(() => {
     const interval = setInterval(() => {
       setItineraries((prev) => {
@@ -38,7 +35,7 @@ const Home = ({ heroImages, currentImage }) => {
         next.push(first);
         return next;
       });
-    }, 3000);
+    }, 4000);
     return () => clearInterval(interval);
   }, []);
 
@@ -50,181 +47,90 @@ const Home = ({ heroImages, currentImage }) => {
   };
 
   return (
-    <>
-      {/* 1. Hero Section */}
+    <div className="font-sans antialiased text-slate-900">
+      {/* 1. HERO SECTION */}
       <section className="relative h-screen w-full flex items-center justify-center overflow-hidden" id="home">
         <div className="absolute inset-0 z-0">
           {heroImages.map((img, index) => (
             <div key={index} className={`absolute inset-0 transition-opacity duration-1000 ${index === currentImage ? "opacity-100" : "opacity-0"}`}>
-              <img src={img} alt="Hero" className={`w-full h-full object-cover transition-transform duration-[8000ms] ease-out ${index === currentImage ? "scale-110" : "scale-100"}`} />
-              <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/20 to-black/60"></div>
+              <img src={img} alt="Hero" className={`w-full h-full object-cover transition-transform duration-[10000ms] ease-out ${index === currentImage ? "scale-110" : "scale-100"}`} />
+              <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-black/70"></div>
             </div>
           ))}
         </div>
         
-        <div className="relative z-10 max-w-screen-xl mx-auto px-6 w-full text-white text-center pt-32">
-          <div className="mb-6 inline-block py-0 px-4 rounded-full border border-white/30 bg-white/10 backdrop-blur-md">
-             <p className="text-[10px] uppercase tracking-[0.5em] font-bold">Discover the Pearl of the Indian Ocean</p>
-          </div>
-          <h1 className="text-4xl md:text-7xl font-headline mb-6 tracking-tight leading-[1.1] drop-shadow-2xl">
-            Beyond <span className="italic font-light">Expectations</span>
-          </h1>
-          <p className="text-lg md:text-2xl font-light italic opacity-90 max-w-2xl mx-auto mb-12 drop-shadow-md">
-            Curating unforgettable journeys through the hidden gems of Sri Lanka.
+        {/* Header එකට පහළින් content එක පෙන්වීමට pt-40 භාවිතා කළා */}
+        <div className="relative z-8 max-w-screen-xl mx-auto px-6 w-full text-white text-center pt-60">
+          <p className="text-lg md:text-2xl font-serif opacity-90 max-w-3xl mx-auto mb-12 leading-relaxed tracking-wide">
+            Curating bespoke journeys through the emerald landscapes and hidden gems of <span className="font-medium text-white">Ceylon</span>.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
             <button 
               onClick={() => navigate('/plan-journey')}
-              className="group relative bg-[#00a2ff] text-black px-10 py-4 rounded-full text-xs font-bold uppercase tracking-[0.2em] overflow-hidden transition-all hover:scale-105 shadow-xl shadow-blue-500/20"
+              className="w-64 py-5 bg-[#00a2ff] text-white text-[12px] font-bold uppercase tracking-[0.25em] hover:bg-white hover:text-blue-600 transition-all duration-300 shadow-2xl hover:-translate-y-1"
             >
-              <span className="relative z-10">Start Your Journey</span>
-              <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+              Start Your Journey
             </button>
             <button 
               onClick={() => scrollToSection('itineraries')}
-              className="bg-white/10 backdrop-blur-md border border-white/40 text-white px-10 py-4 rounded-full text-xs font-bold uppercase tracking-[0.2em] hover:bg-white hover:text-black transition-all"
+              className="w-64 py-5 bg-transparent backdrop-blur-sm border-2 border-white/60 text-white text-[12px] font-bold uppercase tracking-[0.25em] hover:bg-white hover:text-black transition-all duration-300"
             >
-              View Itineraries
+              Explore Itineraries
             </button>
           </div>
         </div>
       </section>
 
-      {/* 2. Intro Section */}
-      <section className="py-24 md:py-32 bg-white overflow-hidden">
-        <div className="max-w-screen-xl mx-auto px-6 md:px-12">
-          <div className="flex flex-col md:flex-row items-center gap-16 md:gap-24 relative">
-            
-            {/* --- LEFT SIDE: IMAGE SECTION (Modern Asymmetric) --- */}
-            <div className="w-full md:w-1/2 relative z-10">
-              {/* Decorative Offset Box (යටින් තියෙන ලා පැහැති කොටුව) */}
-              <div className="absolute -bottom-8 -left-8 w-full h-full bg-[#f8fafc] rounded-tr-[100px] rounded-bl-[100px] z-0"></div>
-              
-              {/* Image Container */}
-              <div className="relative overflow-hidden rounded-tr-[100px] rounded-bl-[100px] shadow-2xl border-4 border-white z-10 group aspect-[4/5]">
-                <img 
-                  src="/images/sigiriya.jpg" 
-                  alt="Sigiriya Rock Fortress" 
-                  className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 grayscale-[20%] group-hover:grayscale-0"
-                />
-                {/* Image Overlay (පින්තූරය උඩින් යන ලා පැහැති තීරය) */}
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
-              </div>
-              
-              {/* Small Decorative Badge (පින්තූරය උඩ තියෙන කුඩා බැජ් එක) */}
-              <div className="absolute top-10 -right-10 bg-[#00a2ff] text-white p-6 rounded-full shadow-2xl z-20 animate-pulse hidden md:block">
-                  <p className="text-[10px] font-black tracking-widest uppercase">UNESCO</p>
-                  <p className="text-xs font-serif italic">Site</p>
-              </div>
-            </div>
-
-            {/* --- RIGHT SIDE: TEXT CONTENT (Elegant Typography) --- */}
-            <div className="w-full md:w-1/2 text-center md:text-left relative z-20">
-              {/* Section Tagline */}
-              <div className="inline-flex items-center gap-3 mb-6">
-                  <span className="h-[1px] w-10 bg-[#e6004c]/30"></span>
-                  <span className="text-[10px] font-bold tracking-[0.5em] uppercase text-[#e6004c]">The Soul of Ceylon</span>
-              </div>
-              
-              {/* Main Headline */}
-              <h2 className="text-5xl md:text-7xl font-serif mb-10 tracking-tighter leading-[1.05] text-slate-950">
-                Magical Moments, <br />
-                Unforgettable <span className="italic font-light text-[#00a2ff]">experiences</span>
-              </h2>
-              
-              {/* Paragraphs (Light & Clean) */}
-              <div className="space-y-6 text-slate-600 text-sm md:text-base leading-relaxed font-light max-w-xl mx-auto md:mx-0">
-                  <p>
-                      Ceylon is a truly beautiful island. From its cascading waterfalls to its emerald-green tea plantations and ancient ruins, our guides take you beyond the guidebook to uncover the soul of Sri Lanka.
-                  </p>
-                  <p className="opacity-80">
-                      Whether you desire a thrilling wildlife safari, a serene wellness retreat, or a deep dive into our rich cultural heritage, we curate journeys that are as unique as you are.
-                  </p>
-              </div>
-              
-              {/* Modern luxury style button */}
-              <div className="mt-16 relative inline-block group">
-                  {/* Button background animation */}
-                  <div className="absolute inset-0 bg-slate-900 rounded-full translate-y-1 translate-x-1 group-hover:translate-y-0 group-hover:translate-x-0 transition-transform duration-300"></div>
-
-                 
-                  <button 
-                  onClick={() => navigate('/our-story')}
-                  className="relative bg-[#e6004c] text-white px-10 py-4 rounded-full text-[11px] font-bold uppercase tracking-[0.3em] transition-all duration-300 active:scale-95 shadow-lg shadow-red-500/30">
-                      Discover Our Story
-                  </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 3. Curated Itineraries Section */}
-      <section className="relative py-24 overflow-hidden" id="itineraries">
-        <div className="absolute inset-0 z-0">
-          <img src="https://images.unsplash.com/photo-1506477331477-33d5d8b3dc85?q=80&w=2000" alt="Background" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-black/60"></div>
-        </div>
-
-        <div className="relative z-10 max-w-screen-xl mx-auto px-6">
-          <h2 className="text-5xl font-headline text-white mb-16 text-center">Curated Itineraries</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {itineraries.slice(0, 3).map((item) => (
-              <div 
-                key={item.id} 
-                onClick={() => navigate(`/itinerary/${item.id}`)}
-                className="group relative h-[500px] w-full rounded-2xl overflow-hidden cursor-pointer shadow-2xl border border-white/10 transition-all duration-500"
-              >
-                <img src={item.img} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt={item.title} />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent transition-opacity duration-300" />
-                <div className="absolute bottom-0 left-0 p-8 w-full text-white">
-                  <p className="text-[10px] tracking-[0.2em] uppercase font-bold text-white/70 mb-2">{item.category}</p>
-                  <h3 className="text-2xl font-headline font-bold mb-2">{item.title}</h3>
-                  <p className="text-sm font-light text-white/90 mb-4">{item.duration}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 4. Custom Tour Banner */}
-      <section className="py-24 bg-white text-center">
-        <div className="max-w-3xl mx-auto px-10">
-           <h2 className="text-3xl md:text-5xl font-headline text-slate-900 mb-4">
-             Looking for an <br />
-             <span className="italic font-bold">Exclusive Customized Tour?</span>
-           </h2>
-           <p className="text-xl font-headline italic text-slate-500 mb-8">No Problem</p>
-           <button className="bg-[#e6004c] text-white px-10 py-3.5 rounded-full text-[11px] font-bold uppercase tracking-[0.2em] hover:bg-slate-900 transition-all shadow-lg shadow-red-500/30">
-             Tailor Make It
-           </button>
-        </div>
-      </section>
-
-      {/* 5. Travel Journal Section */}
-      <section className="py-24 bg-slate-50" id="journal">
+      {/* 2. INTRO SECTION */}
+      <section className="py-24 md:py-40 bg-white">
         <div className="max-w-screen-xl mx-auto px-6">
-          <div className="text-center mb-16">
-             <p className="text-[10px] uppercase tracking-[0.3em] text-[#00a2ff] font-bold mb-4">Latest Stories</p>
-             <h2 className="text-5xl font-headline text-slate-900">Our Travel Journal</h2>
+          <div className="grid grid-cols-1 lg:grid-cols-2 items-center gap-20">
+            <div className="relative order-2 lg:order-1">
+              <div className="absolute -top-10 -left-10 w-40 h-40 bg-blue-50 rounded-full mix-blend-multiply filter blur-2xl opacity-70"></div>
+              <div className="relative z-10 overflow-hidden rounded-2xl shadow-[0_50px_100px_-20px_rgba(0,0,0,0.15)] group">
+                <img src="https://images.unsplash.com/photo-1546708973-b339540b5162?q=80&w=800" alt="Sri Lanka Heritage" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
+              </div>
+            </div>
+
+            <div className="order-1 lg:order-2">
+              <div className="inline-block w-12 h-[2px] bg-blue-500 mb-6"></div>
+              <p className="text-[11px] font-bold tracking-[0.4em] uppercase text-blue-500 mb-4">The Soul of Ceylon</p>
+              <h2 className="text-4xl md:text-6xl font-serif mb-8 text-slate-950 leading-tight">
+                Magical Moments, <br />
+                <span className="italic font-light">Unforgettable experiences</span>
+              </h2>
+              <p className="text-lg text-slate-600 leading-relaxed font-light mb-8">
+                Ceylon is a truly beautiful island. From its cascading waterfalls to its emerald-green tea plantations and ancient ruins, our guides take you beyond the guidebook to uncover the soul of Sri Lanka.
+              </p>
+              <button onClick={() => navigate('/our-story')} className="group flex items-center gap-4 text-[12px] font-bold uppercase tracking-[0.3em] text-slate-900">
+                Discover Our Story 
+                <span className="w-8 h-[1px] bg-slate-900 group-hover:w-12 transition-all"></span>
+              </button>
+            </div>
           </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {journalStories.slice(0, 3).map((story) => (
-              <div 
-                key={story.id} 
-                onClick={() => navigate(`/tour/${story.id}`)}
-                className="group cursor-pointer relative h-[500px] w-full rounded-[40px] overflow-hidden shadow-lg transition-transform hover:-translate-y-2"
-              >
-                <img src={story.img} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt={story.title} />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
-                <div className="absolute bottom-8 left-8 text-white">
-                  <p className="text-[10px] uppercase tracking-widest font-bold text-[#00a2ff] mb-2">{story.category}</p>
-                  <h3 className="text-2xl font-headline font-bold mb-4">{story.title}</h3>
-                  <div className="text-[10px] font-bold uppercase tracking-widest border-b border-white w-fit pb-1 group-hover:border-[#00a2ff] group-hover:text-[#00a2ff] transition-all">
-                    Read More →
+        </div>
+      </section>
+
+      {/* 3. ITINERARIES SECTION */}
+      <section className="py-24 bg-slate-50" id="itineraries">
+        <div className="max-w-screen-xl mx-auto px-6">
+          <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+            <div className="max-w-xl">
+              <h2 className="text-4xl md:text-5xl font-serif text-slate-900 mb-4">Curated Itineraries</h2>
+              <p className="text-slate-500 font-light">Handcrafted journeys designed to immerse you in the best of Sri Lanka's culture, nature, and luxury.</p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {itineraries.map((item) => (
+              <div key={item.id} onClick={() => navigate(`/itinerary/${item.id}`)} className="group cursor-pointer">
+                <div className="relative h-[450px] overflow-hidden rounded-2xl mb-6 shadow-lg">
+                  <img src={item.img} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt={item.title} />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60"></div>
+                  <div className="absolute bottom-6 left-6 right-6">
+                    <p className="text-[9px] font-bold tracking-[0.3em] text-blue-400 uppercase mb-2">{item.category}</p>
+                    <h3 className="text-xl font-serif text-white">{item.title}</h3>
                   </div>
                 </div>
               </div>
@@ -232,7 +138,39 @@ const Home = ({ heroImages, currentImage }) => {
           </div>
         </div>
       </section>
-    </>
+
+      {/* 4. BANNER SECTION */}
+      <section className="py-24 relative overflow-hidden bg-slate-950 text-white text-center">
+        <div className="absolute top-0 left-0 w-full h-full opacity-20">
+           <img src="https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?q=80&w=2000" className="w-full h-full object-cover" alt="Background" />
+        </div>
+        <div className="relative z-10 max-w-4xl mx-auto px-6">
+           <h2 className="text-4xl md:text-6xl font-serif mb-6 leading-tight">
+             Looking for an <span className="italic">Exclusive</span> <br /> Customized Tour?
+           </h2>
+           <button className="bg-white text-slate-950 px-12 py-5 text-[12px] font-bold uppercase tracking-[0.3em] hover:bg-blue-500 hover:text-white transition-all shadow-2xl">
+             Start Planning Now
+           </button>
+        </div>
+      </section>
+
+      {/* 5. JOURNAL SECTION */}
+      <section className="py-24 bg-white" id="journal">
+        <div className="max-w-screen-xl mx-auto px-6 text-center">
+          <h2 className="text-5xl font-serif text-slate-900 mb-16">The Travel Journal</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+            {journalStories.slice(0, 3).map((story) => (
+              <div key={story.id} onClick={() => navigate(`/tour/${story.id}`)} className="group cursor-pointer text-left">
+                <div className="relative h-[400px] rounded-3xl overflow-hidden mb-8 shadow-2xl transition-all group-hover:-translate-y-2">
+                  <img src={story.img} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" alt={story.title} />
+                </div>
+                <h3 className="text-2xl font-serif text-slate-900 mb-4">{story.title}</h3>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    </div>
   );
 }
 

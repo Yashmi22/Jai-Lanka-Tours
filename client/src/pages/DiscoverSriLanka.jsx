@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Navbar from '../components/Navbar';
+
 
 const DiscoverSriLanka = () => {
   // --- DATA ARRAYS ---
@@ -26,7 +26,7 @@ const DiscoverSriLanka = () => {
 
   return (
     <>
-      <Navbar />
+     
       <div className="w-full min-h-screen bg-[#fcfdfe] font-sans text-[#1a1c1e] antialiased">
       
       {/* --- Header Section --- */}
@@ -60,7 +60,7 @@ const DiscoverSriLanka = () => {
 
       {/* --- NEW MODERN SUB-FILTER (Minimalist Line Style) --- */}
       <div className="flex justify-center items-center gap-8 md:gap-16 mb-24 border-b border-slate-100 max-w-fit mx-auto px-10">
-        {['All', 'Cultural', 'Adventure', 'Beach'].map((cat) => (
+        {['All', 'Cultural', 'Adventure','Wellness', 'Romantic', 'Beach'].map((cat) => (
           <button
             key={cat}
             onClick={() => setFilter(cat)}

@@ -1,10 +1,10 @@
 import React from 'react';
-import Navbar from '../components/Navbar';
+
 
 const OurStory = () => {
   return (
     <>
-      <Navbar />
+     
       <div className="w-full min-h-screen bg-[#fcfdfe] font-sans text-[#1a1c1e] antialiased">
       
       {/* --- 1. HERO SECTION --- */}
