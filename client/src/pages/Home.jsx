@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Home = ({ heroImages, currentImage }) => {
   const navigate = useNavigate();
@@ -148,9 +149,11 @@ const Home = ({ heroImages, currentImage }) => {
            <h2 className="text-4xl md:text-6xl font-serif mb-6 leading-tight">
              Looking for an <span className="italic">Exclusive</span> <br /> Customized Tour?
            </h2>
-           <button className="bg-white text-slate-950 px-12 py-5 text-[12px] font-bold uppercase tracking-[0.3em] hover:bg-blue-500 hover:text-white transition-all shadow-2xl">
-             Start Planning Now
-           </button>
+           <Link to="/plan-journey">
+    <button className="bg-blue-600 text-white px-8 py-3 rounded-full hover:bg-blue-700 transition">
+        Start Planning Now
+    </button>
+</Link>
         </div>
       </section>
 

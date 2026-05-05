@@ -41,9 +41,11 @@ const HeroHeader = () => {
             <FaWhatsapp size={20} />
           </a>
           
-          <button className="bg-[#00a2ff] px-6 py-2 rounded-sm text-xs font-bold uppercase hover:bg-white hover:text-[#00a2ff] transition-all border border-[#00a2ff] shadow-lg">
-            Enquire
-          </button>
+          <Link to="/enquiry">
+    <button className="bg-[#00a2ff] px-4 py-2 rounded-sm text-xs text-white font-bold uppercase">
+        Enquire
+      </button>
+</Link>
         </div>
       </div>
 
