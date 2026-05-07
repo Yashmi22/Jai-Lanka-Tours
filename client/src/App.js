@@ -12,8 +12,13 @@ import OurStory from './pages/OurStory';
 import Itineraries from './pages/itineraries';
 import SigiriyaIntro from './pages/SigiriyaIntro';
 import PlanYourJourney from './pages/PlanYourJourney';
+<<<<<<< Updated upstream
 import ItineraryDetails from './pages/ItineraryDetails'; 
 import Enquiry from './pages/Enquiry';
+=======
+import ItineraryDetails from './pages/ItineraryDetails';
+import AdminDashboard from './pages/admin/AdminDashboard'; 
+>>>>>>> Stashed changes
 
 // Components
 import HeroHeader from './components/HeroHeader';
@@ -46,7 +51,11 @@ const MainLayout = ({ heroImages, currentImage }) => {
           <Route path="/our-story" element={<OurStory />} />  
           <Route path="/plan-journey" element={<PlanYourJourney />} />
           <Route path="/itinerary/:id" element={<ItineraryDetails />} />
+<<<<<<< Updated upstream
           <Route path="/enquiry" element={<Enquiry />} />
+=======
+          <Route path="/admin" element={<AdminDashboard />} />
+>>>>>>> Stashed changes
         </Routes>
       </div>
       

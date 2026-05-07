@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const JaiLankaTourLayout = () => {
+const TourDetails = () => {
   const navigate = useNavigate();
   
   return (
@@ -191,4 +191,4 @@ const JaiLankaTourLayout = () => {
   );
 };
 
-export default JaiLankaTourLayout;
+export default TourDetails;
