@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { FaMapMarkerAlt, FaCalendarAlt, FaHotel, FaRoute, FaTimes, FaStar, FaCheck } from 'react-icons/fa';
 
@@ -8,6 +8,30 @@ const ItineraryDetails = () => {
   
   // Modal සඳහා State එක
   const [selectedHotel, setSelectedHotel] = useState(null);
+  const [details, setDetails] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchItinerary = async () => {
+      try {
+        const response = await fetch(`http://localhost:5000/api/itineraries/${id}`);
+        if (response.ok) {
+          const data = await response.json();
+          setDetails(data);
+        } else {
+          setError('Itinerary not found');
+          setDetails(null);
+        }
+      } catch (err) {
+        console.error('Error fetching itinerary:', err);
+        setError('Error loading itinerary');
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchItinerary();
+  }, [id]);
 
   const itineraryData = {
     'cultural-odyssey': {
@@ -65,7 +89,15 @@ const ItineraryDetails = () => {
     },
   };
 
-  const details = itineraryData[id] || itineraryData['cultural-odyssey'];
+  const displayDetails = details || itineraryData[id] || itineraryData['cultural-odyssey'];
+
+  if (loading) {
+    return <div className="min-h-screen bg-[#f8fafc] flex items-center justify-center"><p>Loading...</p></div>;
+  }
+
+  if (error) {
+    return <div className="min-h-screen bg-[#f8fafc] flex items-center justify-center"><p>{error}</p></div>;
+  }
 
   return (
     <div className="min-h-screen bg-[#f8fafc] font-sans text-slate-900">
@@ -75,16 +107,16 @@ const ItineraryDetails = () => {
         <div className="max-w-screen-xl mx-auto px-6 py-12 md:py-20 flex flex-col md:flex-row items-center gap-12">
           <div className="w-full md:w-1/2">
             <button onClick={() => navigate(-1)} className="text-slate-400 hover:text-[#00a2ff] mb-8 flex items-center gap-2">← Back</button>
-            <span className="inline-block px-3 py-1 bg-blue-50 text-[#00a2ff] text-xs font-bold tracking-widest uppercase rounded-md mb-4">{details.category}</span>
-            <h1 className="text-4xl md:text-6xl font-bold mb-6">{details.title}</h1>
+            <span className="inline-block px-3 py-1 bg-blue-50 text-[#00a2ff] text-xs font-bold tracking-widest uppercase rounded-md mb-4">{displayDetails.category}</span>
+            <h1 className="text-4xl md:text-6xl font-bold mb-6">{displayDetails.title}</h1>
             <div className="flex items-center gap-6 text-slate-500 mb-8">
-              <span className="flex items-center gap-2"><FaCalendarAlt className="text-[#00a2ff]"/> {details.duration}</span>
+              <span className="flex items-center gap-2"><FaCalendarAlt className="text-[#00a2ff]"/> {displayDetails.duration}</span>
               <span className="flex items-center gap-2"><FaMapMarkerAlt className="text-[#00a2ff]"/> Sri Lanka</span>
             </div>
-            <p className="text-slate-500 text-lg leading-relaxed">{details.description}</p>
+            <p className="text-slate-500 text-lg leading-relaxed">{displayDetails.description}</p>
           </div>
           <div className="w-full md:w-1/2 h-[350px] md:h-[550px]">
-            <img src={details.img} alt={details.title} className="w-full h-full object-cover rounded-[40px] shadow-xl" />
+            <img src={displayDetails.imageUrl || displayDetails.img} alt={displayDetails.title} className="w-full h-full object-cover rounded-[40px] shadow-xl" />
           </div>
         </div>
       </div>
@@ -98,7 +130,7 @@ const ItineraryDetails = () => {
             <div className="h-px w-full bg-slate-200"></div>
           </div>
           <div className="w-full h-[450px] rounded-[40px] overflow-hidden border-8 border-white shadow-lg">
-            <iframe src={details.mapUrl} width="100%" height="100%" style={{ border: 0 }} allowFullScreen="" loading="lazy"></iframe>
+            <iframe src={displayDetails.mapUrl} width="100%" height="100%" style={{ border: 0 }} allowFullScreen="" loading="lazy"></iframe>
           </div>
         </section>
 
@@ -109,7 +141,7 @@ const ItineraryDetails = () => {
             <div className="h-px w-full bg-slate-200"></div>
           </div>
           <div className="space-y-12">
-            {details.tourPlan.map((item, idx) => (
+            {displayDetails.tourPlan.map((item, idx) => (
               <div key={idx} className="relative bg-white p-6 md:p-10 rounded-[35px] border border-slate-100 shadow-sm">
                 <div className="absolute -left-5 top-8 w-14 h-14 bg-[#00a2ff] text-white rounded-full flex flex-col items-center justify-center font-bold border-4 border-white shadow-lg">
                   <span className="text-[10px] uppercase">Day</span>
@@ -142,7 +174,7 @@ const ItineraryDetails = () => {
             <div className="h-px w-full bg-slate-200"></div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {details.hotels.map((hotel, idx) => (
+            {displayDetails.hotels.map((hotel, idx) => (
               <div key={idx} className="bg-white rounded-[35px] overflow-hidden border border-slate-100 shadow-sm hover:shadow-xl transition-all group">
                 <div className="h-56 overflow-hidden">
                   <img src={hotel.img} className="w-full h-full object-cover group-hover:scale-110 transition-all duration-700" alt={hotel.name} />

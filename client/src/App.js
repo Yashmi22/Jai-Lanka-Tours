@@ -12,13 +12,9 @@ import OurStory from './pages/OurStory';
 import Itineraries from './pages/itineraries';
 import SigiriyaIntro from './pages/SigiriyaIntro';
 import PlanYourJourney from './pages/PlanYourJourney';
-<<<<<<< Updated upstream
-import ItineraryDetails from './pages/ItineraryDetails'; 
-import Enquiry from './pages/Enquiry';
-=======
 import ItineraryDetails from './pages/ItineraryDetails';
-import AdminDashboard from './pages/admin/AdminDashboard'; 
->>>>>>> Stashed changes
+import Enquiry from './pages/Enquiry';
+import AdminDashboard from './pages/admin/AdminDashboard';
 
 // Components
 import HeroHeader from './components/HeroHeader';
@@ -51,11 +47,8 @@ const MainLayout = ({ heroImages, currentImage }) => {
           <Route path="/our-story" element={<OurStory />} />  
           <Route path="/plan-journey" element={<PlanYourJourney />} />
           <Route path="/itinerary/:id" element={<ItineraryDetails />} />
-<<<<<<< Updated upstream
           <Route path="/enquiry" element={<Enquiry />} />
-=======
           <Route path="/admin" element={<AdminDashboard />} />
->>>>>>> Stashed changes
         </Routes>
       </div>
       
@@ -78,9 +71,6 @@ function App() {
   return (
     <Router>
       <Routes>
-        {/* Admin Dashboard එක Navbar එකෙන් තොරව වෙනම පෙන්වීමට */}
-        <Route path="/admin" element={<Dashboard />} />
-        
         {/* ඉතිරි සියලුම පිටු සඳහා MainLayout එක භාවිතා වේ */}
         <Route path="/*" element={<MainLayout heroImages={heroImages} currentImage={currentImage} />} />
       </Routes>

@@ -5,7 +5,7 @@ const ItinerarySchema = new mongoose.Schema({
     category: { type: String, default: 'CULTURAL TOURS' },
     duration: String,
     description: String,
-    img: String, // Main Image URL
+    imageUrl: String, // Main Image URL
     mapUrl: String, // Google Map Embed URL
     tourPlan: [{
         day: String,
@@ -13,7 +13,14 @@ const ItinerarySchema = new mongoose.Schema({
         activities: [String],
         images: [String]
     }],
-    hotels: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Accommodation' }]
+    hotels: [{
+        name: String,
+        desc: String,
+        longDesc: String,
+        img: String,
+        amenities: [String],
+        hotelMap: String
+    }]
 }, { timestamps: true });
 
 module.exports = mongoose.model('Itinerary', ItinerarySchema);

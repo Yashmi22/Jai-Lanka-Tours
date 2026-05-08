@@ -25,11 +25,7 @@ app.get('/', (req, res) => {
 // Database Connection
 const PORT = process.env.PORT || 5000;
 
-<<<<<<< Updated upstream
-=======
-
 // .env එකේ තියෙන MONGO_URI එක පාවිච්චි කරනවා
->>>>>>> Stashed changes
 mongoose.connect(process.env.MONGO_URI)
     .then(() => {
         console.log("MongoDB Database Connected Successfully");
@@ -43,6 +39,38 @@ app.post('/api/accommodation', async (req, res) => {
         const newHotel = new Accommodation(req.body);
         const savedHotel = await newHotel.save();
         res.status(201).json(savedHotel);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
+// Itinerary APIs
+app.post('/api/itineraries', async (req, res) => {
+    try {
+        const newItinerary = new Itinerary(req.body);
+        const savedItinerary = await newItinerary.save();
+        res.status(201).json(savedItinerary);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
+app.get('/api/itineraries', async (req, res) => {
+    try {
+        const itineraries = await Itinerary.find();
+        res.status(200).json(itineraries);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
+app.get('/api/itineraries/:id', async (req, res) => {
+    try {
+        const itinerary = await Itinerary.findById(req.params.id);
+        if (!itinerary) {
+            return res.status(404).json({ message: 'Itinerary not found' });
+        }
+        res.status(200).json(itinerary);
     } catch (err) {
         res.status(500).json(err);
     }

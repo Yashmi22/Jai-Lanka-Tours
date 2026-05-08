@@ -5,6 +5,7 @@ import {
   FaCloudUploadAlt, FaSearch, FaBell, FaUserCircle,
   FaWallet, FaUsers, FaUserTie, FaCheckSquare, FaPlane, FaPhoneAlt
 } from 'react-icons/fa';
+import AdminItineraryManager from './AdminItineraryManager'; // Importing the Itinerary Manager component
 
 const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -31,6 +32,9 @@ const AdminDashboard = () => {
         <nav className="flex-1 space-y-2 text-sm font-medium">
           <button onClick={() => setActiveTab('dashboard')} className={`w-full flex items-center gap-4 p-4 rounded-xl transition-all ${activeTab === 'dashboard' ? 'bg-[#ff5e57] text-white' : 'text-slate-500 hover:text-white'}`}>
              <FaRoute /> Dashboard
+          </button>
+          <button onClick={() => setActiveTab('itinerary-manager')} className={`w-full flex items-center gap-4 p-4 rounded-xl transition-all ${activeTab === 'itinerary-manager' ? 'bg-[#ff5e57] text-white' : 'text-slate-500 hover:text-white'}`}>
+             <FaRoute /> Manage Itineraries
           </button>
           <button onClick={() => setActiveTab('itinerary')} className={`w-full flex items-center gap-4 p-4 rounded-xl transition-all ${activeTab === 'itinerary' ? 'bg-[#ff5e57] text-white' : 'text-slate-500 hover:text-white'}`}>
              <FaRoute /> Bookings
@@ -78,6 +82,11 @@ const AdminDashboard = () => {
         {/* Scrollable Content */}
         <main className="p-10 overflow-y-auto space-y-8 pb-20">
             
+            {/* Conditional rendering based on active tab */}
+            {activeTab === 'itinerary-manager' ? (
+                <AdminItineraryManager />
+            ) : (
+                <>
             {/* 1. Stats Row (23_Dashboard.jpg එකේ තියෙන පිරිසැලසුම) */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {stats.map((s, i) => (
@@ -176,6 +185,8 @@ const AdminDashboard = () => {
                 </div>
 
             </div>
+                </>
+            )}
         </main>
       </div>
     </div>

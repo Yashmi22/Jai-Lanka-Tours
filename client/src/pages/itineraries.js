@@ -80,11 +80,11 @@ const Itineraries = () => {
                 </section>
 
                 {/* Itinerary Grid - Updated to 3 columns and more space for 4 rows */}
-                <section className="max-w-screen-xl mx-auto px-6 mb-20">
+                <section className="max-w-5xl mx-auto px-12 mb-20">
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
                         {displayData.map((item) => (
-                            <div key={item._id} className="bg-white rounded-2xl overflow-hidden group shadow-md hover:shadow-2xl transition-all duration-500 border border-slate-100 flex flex-col min-h-[550px]">
-                                <div className="relative h-72 overflow-hidden">
+                            <div key={item._id} className="bg-white rounded-2xl overflow-hidden group shadow-md hover:shadow-2xl transition-all duration-500 border border-slate-100 flex flex-col min-h-[450px]">
+                                <div className="relative h-60 overflow-hidden">
                                     <img 
                                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
                                         src={item.imageUrl} 
@@ -113,9 +113,9 @@ const Itineraries = () => {
                 </section>
 
                 {/* Destination Spotlight */}
-                <section className="max-w-screen-xl mx-auto px-6 bg-white py-20 rounded-3xl border border-slate-100 shadow-sm">
+                <section className="max-w-5xl mx-auto px-6 bg-white py-20 rounded-3xl border border-slate-100 shadow-sm">
                     <h2 className="text-4xl font-serif font-bold text-sky-950 text-center mb-16">Iconic Destination Spotlight</h2>
-                    <div className="grid grid-cols-1 lg:grid-cols-1 gap-10">
+                    <div className="grid grid-cols-1 lg:grid-cols-1 gap-5">
                         {/* Sigiriya Card */}
                         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch bg-slate-50 p-8 rounded-2xl shadow-inner mb-6">
                             <div className="md:col-span-7 group relative overflow-hidden rounded-xl h-[350px]">
@@ -137,7 +137,7 @@ const Itineraries = () => {
                         </div>
 
                         {/* Kandy Card */}
-                        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch bg-slate-50 p-8 rounded-2xl shadow-inner">
+                        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-stretch bg-slate-50 p-8 rounded-2xl shadow-inner">
                             <div className="md:col-span-7 group relative overflow-hidden rounded-xl h-[350px]">
                                 <img className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" src="https://images.unsplash.com/photo-1588598116712-2323e449c25f?q=80&w=1000" alt="Kandy" />
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
