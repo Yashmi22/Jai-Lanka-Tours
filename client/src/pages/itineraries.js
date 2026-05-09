@@ -1,17 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { Place, ArrowForward, AccessTime, Schedule, Castle, TempleHindu, LocalFlorist, Photoramone, LocationOn } from '@mui/icons-material';
-
+import { Place, ArrowForward, AccessTime, Schedule, Castle, TempleHindu, LocalFlorist, LocationOn } from '@mui/icons-material';
 
 const Itineraries = () => {
-    // Backend එකෙන් itineraries data ගබඩා කිරීමට state එක
     const [itineraries, setItineraries] = useState([]);
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate(); 
 
-    // API එකෙන් data ලබා ගැනීම (MERN Backend සම්බන්ධ කිරීම)
-   useEffect(() => {
+    useEffect(() => {
         const fetchItineraries = async () => {
             try {
                 const res = await axios.get('http://localhost:5000/api/itineraries'); 
@@ -25,13 +22,12 @@ const Itineraries = () => {
         fetchItineraries();
     }, []);
 
-    // Placeholder Data (Backend එක වැඩ කරනකම් පාවිච්චි කරන්න - Image එකේ තියෙන data මයි)
     const placeholderData = [
         {
             _id: '1',
             title: 'Scenic Highland Railway',
             description: 'A captivating blue train ride winding through misty mountains, lush tea estates, and historical tunnels of Ella.',
-            imageUrl: 'https://images.unsplash.com/photo-1552423116-2fd1b22e1176?q=80&w=1000', // Unsplash fixed link
+            imageUrl: 'https://images.unsplash.com/photo-1552423116-2fd1b22e1176?q=80&w=1000',
             days: 7,
             category: 'Highlands'
         },
@@ -39,7 +35,7 @@ const Itineraries = () => {
             _id: '2',
             title: 'Southern Coast Adventure',
             description: 'Surf the waves, dive into turquoise waters, and explore the golden beaches of Weligama and Mirissa.',
-            imageUrl: 'https://images.unsplash.com/photo-1565019053022-133077e0136d?q=80&w=1000', // Unsplash fixed link
+            imageUrl: 'https://images.unsplash.com/photo-1565019053022-133077e0136d?q=80&w=1000',
             days: 5,
             category: 'Beach'
         },
@@ -47,7 +43,7 @@ const Itineraries = () => {
             _id: '3',
             title: 'Wild Sri Lanka Safari',
             description: 'Embark on an epic wildlife safari to spot elusive leopards, elephants, and rare birds in Yala National Park.',
-            imageUrl: 'https://images.unsplash.com/photo-1540206395-68808572332f?q=80&w=1000', // Unsplash fixed link
+            imageUrl: 'https://images.unsplash.com/photo-1540206395-68808572332f?q=80&w=1000',
             days: 8,
             category: 'Wildlife'
         },
@@ -55,26 +51,23 @@ const Itineraries = () => {
             _id: '4',
             title: 'Ancient Capitals and Culture',
             description: 'Step back in time to explore the ruins of Sigiriya Rock Fortress, sacred temples of Kandy, and historical cities.',
-            imageUrl: 'https://images.unsplash.com/photo-1588598116712-2323e449c25f?q=80&w=1000', // Unsplash fixed link
+            imageUrl: 'https://images.unsplash.com/photo-1588598116712-2323e449c25f?q=80&w=1000',
             days: 10,
             category: 'Culture'
         }
     ];
 
-    // Backend එකේ data නැත්නම් placeholder data පාවිච්චි කරයි
     const displayData = itineraries.length > 0 ? itineraries : placeholderData;
 
     return (
         <div className="w-full min-h-screen bg-[#fcfdfe] font-sans text-[#1a1c1e] antialiased">
-            
-
             <main className="pt-0 pb-20">
-                {/* Hero Section - Image එකේ තියෙන Sigiriya Background එක */}
+                {/* Hero Section */}
                 <section className="relative h-[550px] flex items-center justify-center overflow-hidden mb-20 shadow-lg">
                     <div className="absolute inset-0 z-0">
                         <img 
                             className="w-full h-full object-cover" 
-                            src="https://images.unsplash.com/photo-1610419262174-8f0a0c9c4883?q=80&w=2070" // Unsplash Sigiriya fixed link
+                            src="https://images.unsplash.com/photo-1610419262174-8f0a0c9c4883?q=80&w=2070" 
                             alt="Explore Jai Lanka" 
                         />
                         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/10 to-slate-50"></div>
@@ -86,12 +79,12 @@ const Itineraries = () => {
                     </div>
                 </section>
 
-                {/* Itinerary Grid - Image එකේ තියෙන ආකාරයට Card layout එක */}
-                <section className="max-w-screen-2xl mx-auto px-12 mb-20">
-                    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-10">
+                {/* Itinerary Grid - Updated to 3 columns and more space for 4 rows */}
+                <section className="max-w-5xl mx-auto px-12 mb-20">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
                         {displayData.map((item) => (
-                            <div key={item._id} className="bg-white rounded-2xl overflow-hidden group shadow-md hover:shadow-2xl transition-all duration-500 border border-slate-100 flex flex-col">
-                                <div className="relative h-64 overflow-hidden">
+                            <div key={item._id} className="bg-white rounded-2xl overflow-hidden group shadow-md hover:shadow-2xl transition-all duration-500 border border-slate-100 flex flex-col min-h-[450px]">
+                                <div className="relative h-60 overflow-hidden">
                                     <img 
                                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
                                         src={item.imageUrl} 
@@ -100,7 +93,7 @@ const Itineraries = () => {
                                     <div className="absolute top-4 right-4 bg-white/95 px-3 py-1 rounded-full text-xs font-bold text-sky-900 shadow">{item.days} Days</div>
                                 </div>
                                 <div className="p-8 flex-grow flex flex-col">
-                                    <h3 className="text-2xl font-serif font-bold text-slate-900 mb-4 group-hover:text-sky-800 transition-colors">{item.title}</h3>
+                                    <h3 className="text-2xl font-serif font-bold text-slate-900 mb-4 group-hover:text-sky-800 transition-colors leading-snug">{item.title}</h3>
                                     <p className="text-slate-600 text-sm leading-relaxed mb-8 flex-grow line-clamp-4">{item.description}</p>
                                     <div className="mt-auto pt-6 flex items-center justify-between border-t border-slate-100">
                                        <button 
@@ -119,13 +112,13 @@ const Itineraries = () => {
                     </div>
                 </section>
 
-                {/* Destination Spotlight - Image එකේ පහළ තියෙන Section එක */}
-                <section className="max-w-screen-2xl mx-auto px-12 bg-white py-20 rounded-3xl border border-slate-100 shadow-sm">
+                {/* Destination Spotlight */}
+                <section className="max-w-5xl mx-auto px-6 bg-white py-20 rounded-3xl border border-slate-100 shadow-sm">
                     <h2 className="text-4xl font-serif font-bold text-sky-950 text-center mb-16">Iconic Destination Spotlight</h2>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                    <div className="grid grid-cols-1 lg:grid-cols-1 gap-5">
                         {/* Sigiriya Card */}
-                        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch bg-slate-50 p-8 rounded-2xl shadow-inner">
-                            <div className="md:col-span-7 group relative overflow-hidden rounded-xl h-[300px]">
+                        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch bg-slate-50 p-8 rounded-2xl shadow-inner mb-6">
+                            <div className="md:col-span-7 group relative overflow-hidden rounded-xl h-[350px]">
                                 <img className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" src="https://images.unsplash.com/photo-1577717903315-1691ae25ab3f?w=600" alt="Sigiriya" />
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
                                 <div className="absolute bottom-0 left-0 p-8 text-white">
@@ -144,9 +137,9 @@ const Itineraries = () => {
                         </div>
 
                         {/* Kandy Card */}
-                        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch bg-slate-50 p-8 rounded-2xl shadow-inner">
-                            <div className="md:col-span-7 group relative overflow-hidden rounded-xl h-[300px]">
-                                <img className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" src="https://images.unsplash.com/photo-1577717903315-1691ae25ab3f?w=600" alt="Kandy" />
+                        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-stretch bg-slate-50 p-8 rounded-2xl shadow-inner">
+                            <div className="md:col-span-7 group relative overflow-hidden rounded-xl h-[350px]">
+                                <img className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" src="https://images.unsplash.com/photo-1588598116712-2323e449c25f?q=80&w=1000" alt="Kandy" />
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
                                 <div className="absolute bottom-0 left-0 p-8 text-white">
                                     <h2 className="text-3xl font-serif font-bold mb-3">Kandy, The Cultural Capital</h2>
@@ -165,8 +158,6 @@ const Itineraries = () => {
                     </div>
                 </section>
             </main>
-
-           
         </div>
     );
 };

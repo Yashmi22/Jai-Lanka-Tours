@@ -1,142 +1,164 @@
 import React, { useState } from 'react';
-import { FaWhatsapp, FaInstagram, FaFacebookF, FaEnvelope } from 'react-icons/fa'; // react-icons install කර තිබිය යුතුය
+import { 
+  User, Mail, Users, Calendar, 
+  MapPin, Send, Compass, Sparkles 
+} from 'lucide-react';
 
 const PlanYourJourney = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    travelers: '2',
-    date: '',
-    interest: 'Cultural Triangle',
-    message: ''
-  });
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        passengers: 1,
+        duration: '',
+        interests: [],
+        message: ''
+    });
 
-  // ඔබේ Social Media Links මෙතනට දාන්න
-  const socialLinks = {
-    whatsapp: 'https://wa.me/94771234567', // ඔබේ අංකය ජාත්‍යන්තර ක්‍රමයට (94...)
-    instagram: 'https://www.instagram.com/jailankatours/',
-    facebook: 'https://www.facebook.com/jailankatours/',
-    email: 'mailto:hello@jailanka.com'
-  };
+    const categories = [
+        { name: 'Nature', icon: '🌿' },
+        { name: 'Wildlife', icon: '🐘' },
+        { name: 'Adventure', icon: '🧗' },
+        { name: 'Beach', icon: '🌊' },
+        { name: 'Culture', icon: '🛕' },
+        { name: 'History', icon: '📜' }
+    ];
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Form Data:', formData);
-    alert('Thank you! Your inquiry has been sent. We will get back to you within 24 hours.');
-  };
+    const handleInterestChange = (interest) => {
+        setFormData(prev => ({
+            ...prev,
+            interests: prev.interests.includes(interest) 
+                ? prev.interests.filter(i => i !== interest)
+                : [...prev.interests, interest]
+        }));
+    };
 
-  // Modern Input Styling Wrapper
-  const InputWrapper = ({ children }) => (
-    <div className="relative group">
-      {children}
-      <div className="absolute bottom-0 left-0 h-0.5 w-0 bg-[#00a2ff] group-focus-within:w-full transition-all duration-500 ease-out"></div>
-    </div>
-  );
+    return (
+        <div className="min-h-screen bg-[#e7e9ec] pt-24 pb-12 px-4 relative overflow-hidden">
+            {/* Background Decorative Elements */}
+            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[120px] -z-10" />
+            <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-emerald-600/10 rounded-full blur-[120px] -z-10" />
 
-  const inputClass = "w-full p-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/50 outline-none focus:bg-white/10 transition-all duration-300";
+            <div className="max-w-4xl mx-auto">
+                <div className="text-center mb-12">
+                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-sm font-medium mb-4">
+                        <Sparkles size={16} />
+                        Your Dream Trip Starts Here
+                    </div>
+                    <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">
+                        Tailor-Made <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">Journey</span>
+                    </h1>
+                    <p className="text-slate-400 text-lg max-w-xl mx-auto">
+                        Share your travel dreams with us, and our experts will craft a unique Sri Lankan experience just for you.
+                    </p>
+                </div>
 
-  return (
-    <div className="relative min-h-screen font-body overflow-hidden flex items-center justify-center">
-      
-      {/* 1. Background Image with Blur Effect */}
-      <div className="absolute inset-0 z-0">
-        <img 
-          src="https://images.unsplash.com/photo-1546708973-b339540b5162?q=80&w=2000" // ලස්සන සිගිරිය/තේ වත්තක රූපයක්
-          alt="Sri Lanka Background" 
-          className="w-full h-full object-cover scale-105"
-        />
-        {/* Dark Overlay for contrast */}
-        <div className="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
-      </div>
+                <div className="bg-white/5 backdrop-blur-xl rounded-[2.5rem] border border-white/10 shadow-2xl overflow-hidden">
+                    <form className="p-8 md:p-12 space-y-10">
+                        
+                        {/* Section 1: Travelers Info */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div className="space-y-2">
+                                <label className="flex items-center gap-2 text-sm font-medium text-slate-300 ml-1">
+                                    <User size={16} className="text-blue-400" /> Full Name
+                                </label>
+                                <input 
+                                    type="text" 
+                                    placeholder="e.g. John Doe" 
+                                    className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all shadow-inner"
+                                />
+                            </div>
+                            <div className="space-y-2">
+                                <label className="flex items-center gap-2 text-sm font-medium text-slate-300 ml-1">
+                                    <Mail size={16} className="text-blue-400" /> Email Address
+                                </label>
+                                <input 
+                                    type="email" 
+                                    placeholder="john@example.com" 
+                                    className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all shadow-inner"
+                                />
+                            </div>
+                        </div>
 
-      {/* 2. Main Content Container */}
-      <div className="relative z-10 max-w-screen-xl mx-auto px-6 py-24 w-full grid grid-cols-1 md:grid-cols-[1fr,1.5fr] gap-16 items-center">
-        
-        {/* Left Side: Text and Social Links */}
-        <div className="text-white">
-          <div className="mb-6 inline-block py-1 px-4 rounded-full border border-white/20 bg-white/5 backdrop-blur-sm">
-             <p className="text-[10px] uppercase tracking-[0.4em] font-bold">bespoke luxury travel</p>
-          </div>
-          <h1 className="text-5xl md:text-6xl font-headline leading-tight mb-6 drop-shadow-xl">
-            Let's Craft Your <br /> Perfect <span className="italic font-light">Journey</span>
-          </h1>
-          <p className="text-lg text-white/80 max-w-md leading-relaxed mb-12 drop-shadow-md">
-            Tell us your dreams, and our experts will curate a personalized Sri Lankan itinerary just for you.
-          </p>
-          
-          {/* Interactive Social Icons */}
-          <div className="pt-8 border-t border-white/10 max-w-sm">
-            <p className="text-sm font-bold uppercase tracking-widest text-white/60 mb-6">Or Connect Instantly</p>
-            <div className="flex gap-6">
-              {[
-                { icon: FaWhatsapp, link: socialLinks.whatsapp, color: 'hover:bg-[#25D366]' },
-                { icon: FaInstagram, link: socialLinks.instagram, color: 'hover:bg-[#E4405F]' },
-                { icon: FaFacebookF, link: socialLinks.facebook, color: 'hover:bg-[#1877F2]' },
-                { icon: FaEnvelope, link: socialLinks.email, color: 'hover:bg-[#00a2ff]' }
-              ].map((item, i) => (
-                <a 
-                  key={i} 
-                  href={item.link} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className={`w-14 h-14 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 hover:border-transparent hover:shadow-lg ${item.color} group`}
-                >
-                  <item.icon className="text-2xl text-white/80 group-hover:text-white transition-colors" />
-                </a>
-              ))}
+                        {/* Section 2: Trip Dynamics */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div className="space-y-2">
+                                <label className="flex items-center gap-2 text-sm font-medium text-slate-300 ml-1">
+                                    <Users size={16} className="text-emerald-400" /> No. of Passengers
+                                </label>
+                                <div className="relative">
+                                    <input 
+                                        type="number" 
+                                        min="1" 
+                                        defaultValue="1"
+                                        className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white focus:outline-none focus:ring-2 focus:ring-emerald-500/50 transition-all shadow-inner"
+                                    />
+                                </div>
+                            </div>
+                            <div className="space-y-2">
+                                <label className="flex items-center gap-2 text-sm font-medium text-slate-300 ml-1">
+                                    <Calendar size={16} className="text-emerald-400" /> Duration (Days)
+                                </label>
+                                <input 
+                                    type="text" 
+                                    placeholder="e.g. 10 Days" 
+                                    className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 transition-all shadow-inner"
+                                />
+                            </div>
+                        </div>
+
+                        {/* Section 3: Interests (The Fun Part) */}
+                        <div className="space-y-4">
+                            <label className="flex items-center gap-2 text-sm font-medium text-slate-300 ml-1">
+                                <Compass size={16} className="text-orange-400" /> What sparks your interest?
+                            </label>
+                            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+                                {categories.map((item) => (
+                                    <button
+                                        key={item.name}
+                                        type="button"
+                                        onClick={() => handleInterestChange(item.name)}
+                                        className={`group relative flex flex-col items-center justify-center p-4 rounded-2xl border transition-all duration-300 ${
+                                            formData.interests.includes(item.name)
+                                                ? 'bg-gradient-to-b from-blue-500 to-blue-600 border-blue-400 text-white scale-95 shadow-lg shadow-blue-500/20'
+                                                : 'bg-white/5 border-white/10 text-slate-400 hover:border-white/30 hover:bg-white/10'
+                                        }`}
+                                    >
+                                        <span className="text-2xl mb-2 group-hover:scale-110 transition-transform">{item.icon}</span>
+                                        <span className="text-xs font-bold uppercase tracking-wider">{item.name}</span>
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Section 4: Message */}
+                        <div className="space-y-2">
+                            <label className="flex items-center gap-2 text-sm font-medium text-slate-300 ml-1">
+                                <MapPin size={16} className="text-red-400" /> Any specific places or needs?
+                            </label>
+                            <textarea 
+                                rows="4" 
+                                placeholder="I want to see Sigiriya, go surfing in Arugam Bay, and I need a vegetarian meal plan..." 
+                                className="w-full bg-white/5 border border-white/10 rounded-[2rem] px-6 py-5 text-white placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all shadow-inner resize-none"
+                            />
+                        </div>
+
+                        {/* Submit Button */}
+                        <button 
+                            type="submit" 
+                            className="w-full group relative flex items-center justify-center gap-3 bg-gradient-to-r from-blue-500 to-emerald-500 hover:from-blue-600 hover:to-emerald-600 text-white font-bold py-5 rounded-2xl shadow-xl shadow-blue-500/20 transition-all transform hover:scale-[1.02] active:scale-[0.98]"
+                        >
+                            <span className="text-lg uppercase tracking-widest">Craft My Experience</span>
+                            <Send size={20} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                        </button>
+                    </form>
+                </div>
+
+                <div className="mt-8 text-center text-slate-500 text-sm">
+                    Our travel experts usually respond within <span className="text-blue-400 font-medium">24 hours</span>.
+                </div>
             </div>
-          </div>
         </div>
-
-        {/* Right Side: Glassmorphism Form */}
-        <div className="bg-white/5 backdrop-blur-lg p-10 md:p-14 rounded-[40px] shadow-2xl border border-white/10">
-          <h3 className="text-2xl font-bold text-white mb-10 font-headline tracking-wide">Enter Your Details</h3>
-          
-          <form onSubmit={handleSubmit} className="space-y-8">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              <InputWrapper>
-                <input type="text" placeholder="Full Name" className={inputClass} required onChange={(e) => setFormData({...formData, name: e.target.value})} />
-              </InputWrapper>
-              <InputWrapper>
-                <input type="email" placeholder="Email Address" className={inputClass} required onChange={(e) => setFormData({...formData, email: e.target.value})} />
-              </InputWrapper>
-            </div>
-            
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              <InputWrapper>
-                <input type="number" placeholder="No. of Travelers" className={inputClass} min="1" onChange={(e) => setFormData({...formData, travelers: e.target.value})} />
-              </InputWrapper>
-              <InputWrapper>
-                <input type="date" className={`${inputClass} text-white/50 focus:text-white`} onChange={(e) => setFormData({...formData, date: e.target.value})} />
-              </InputWrapper>
-            </div>
-
-            <InputWrapper>
-              <select className={`${inputClass} text-white/70 focus:text-white`} onChange={(e) => setFormData({...formData, interest: e.target.value})}>
-                <option>Cultural Triangle</option>
-                <option>Wellness & Ayurveda</option>
-                <option>Honeymoon Special</option>
-                <option>Wildlife Safari</option>
-                <option>Adventure Tours</option>
-              </select>
-            </InputWrapper>
-
-            <InputWrapper>
-              <textarea placeholder="Your preferences (e.g., preferred destinations, budget...)" className={`${inputClass} h-32 resize-none`} onChange={(e) => setFormData({...formData, message: e.target.value})}></textarea>
-            </InputWrapper>
-
-            {/* Highlighting Submit Button */}
-            <button type="submit" className="group relative w-full bg-[#00a2ff] text-white py-4 rounded-xl font-bold uppercase tracking-[0.2em] text-sm overflow-hidden transition-all hover:scale-[1.02] shadow-xl shadow-blue-500/20">
-              <span className="relative z-10">Submit Inquiry</span>
-              <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
-              <span className="relative z-10 group-hover:text-black transition-colors duration-300"> →</span>
-            </button>
-          </form>
-        </div>
-
-      </div>
-    </div>
-  );
-}
+    );
+};
 
 export default PlanYourJourney;

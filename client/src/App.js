@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import './index.css';
+import Dashboard from './pages/Dashboard';
 
 // Pages
 import Home from './pages/Home';
@@ -10,8 +11,7 @@ import DiscoverSriLanka from './pages/DiscoverSriLanka';
 import OurStory from './pages/OurStory';
 import Itineraries from './pages/itineraries';
 import PlanYourJourney from './pages/PlanYourJourney';
-import ItineraryDetails from './pages/ItineraryDetails';
-import Blog from './pages/Blog';
+import ItineraryDetails from './pages/ItineraryDetails'; 
 
 // Components
 import HeroHeader from './components/HeroHeader';
@@ -24,6 +24,7 @@ import hero2 from './assets/hero 2.jpg';
 import hero3 from './assets/hero 3.jpg';
 import hero4 from './assets/hero 4.jpg';
 
+// මෙම sub-component එක මගින් දැනට පවතින URL එක අනුව Header එක තෝරාගනී
 const MainLayout = ({ heroImages, currentImage }) => {
   const location = useLocation();
   const isHome = location.pathname === '/';
@@ -45,7 +46,6 @@ const MainLayout = ({ heroImages, currentImage }) => {
           <Route path="/our-story" element={<OurStory />} />  
           <Route path="/plan-journey" element={<PlanYourJourney />} />
           <Route path="/itinerary/:id" element={<ItineraryDetails />} />
-          <Route path="/blog" element={<Blog />} />
         </Routes>
       </main>
       
@@ -67,7 +67,10 @@ function App() {
 
   return (
     <Router>
-      <MainLayout heroImages={heroImages} currentImage={currentImage} />
+      <Routes>
+        {/* ඉතිරි සියලුම පිටු සඳහා MainLayout එක භාවිතා වේ */}
+        <Route path="/*" element={<MainLayout heroImages={heroImages} currentImage={currentImage} />} />
+      </Routes>
     </Router>
   );
 }
