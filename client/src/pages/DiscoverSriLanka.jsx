@@ -1,29 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 
 const DiscoverSriLanka = () => {
-  // --- DATA ARRAYS ---
-  const destinationsData = [
-    { id: 1, name: "Sigiriya", tag: "Ancient Citadel", category: "Cultural", img: "/images/sigiriya.jpg", desc: "Climb the majestic Lion Rock and explore the intricate royal gardens." },
-    { id: 2, name: "Ella", tag: "Misty Highlands", category: "Adventure", img: "/images/nine_arch.jpg", desc: "A charming village nestled in the tea mountains, home to iconic waterfalls." },
-    { id: 3, name: "Galle Fort", tag: "Colonial Charm", category: "Cultural", img: "/images/galle_fort.jpg", desc: "A UNESCO World Heritage site with cobblestone streets and stunning ocean views." },
-    { id: 4, name: "Kandy", tag: "Sacred City", category: "Cultural", img: "/images/Aluvihare.jpg", desc: "The home of the sacred Tooth Relic and rich traditional Kandyan art." },
-    { id: 5, name: "Mirissa", tag: "Sun & Surf", category: "Beach", img: "/images/Ambuluwawa.jpg", desc: "Whale watching and golden sand beaches for relaxing and sunsets." },
-    { id: 6, name: "Yala National Park", tag: "Into the Wild", category: "Adventure", img: "/images/temple_truth.jpg", desc: "Embark on a safari to spot leopards, elephants, and exotic wildlife." },
-  ];
-
-  const experiencesData = [
-    { id: 101, name: "Traditional Cooking", tag: "Culinary Arts", category: "Cultural", img: "/images/cooking.jpg", desc: "Learn the secrets of authentic Sri Lankan spices and traditional recipes." },
-    { id: 102, name: "Surfing in Weligama", tag: "Water Sports", category: "Adventure", img: "/images/surfing.jpg", desc: "Experience the thrill of riding the waves in the crystal clear Indian Ocean." },
-    { id: 103, name: "Tea Plucking", tag: "Highland Life", category: "Adventure", img: "/images/tea_plucking.jpg", desc: "Join local pluckers in the lush green estates and learn the art of tea making." },
-  ];
-
+  // --- State for API data ---
+  const [destinationsData, setDestinationsData] = useState([]);
+  const [experiencesData, setExperiencesData] = useState([]);
   const [activeTab, setActiveTab] = useState('destination');
   const [filter, setFilter] = useState('All');
 
-  const currentData = activeTab === 'destination' ? destinationsData : experiencesData;
-  const filteredItems = filter === 'All' ? currentData : currentData.filter(item => item.category === filter);
+useEffect(() => {
+  const loadData = async () => {
+    try {
+      
+const res = await axios.get('http://localhost:5000/api/packages/discover/all');
+      // දත්ත වල 'type' එක අනුව වෙන් කරලා state එකට දානවා
+      setDestinationsData(res.data.filter(item => item.type === 'destination'));
+      setExperiencesData(res.data.filter(item => item.type === 'experience'));
+    } catch (err) {
+      console.log("Error fetching data");
+    }
+  };
+  loadData();
+}, []);
 
+// --- Compute filtered items based on active tab and filter ---
+const currentData = activeTab === 'destination' ? destinationsData : experiencesData;
+const filteredItems = filter === 'All' 
+  ? currentData 
+  : currentData.filter(item => item.category === filter);
   return (
     <>
      

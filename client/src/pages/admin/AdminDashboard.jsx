@@ -3,9 +3,10 @@ import axios from 'axios';
 import { 
   FaPlus, FaTrash, FaBed, FaRoute, FaPenNib, 
   FaCloudUploadAlt, FaSearch, FaBell, FaUserCircle,
-  FaWallet, FaUsers, FaUserTie, FaCheckSquare, FaPlane, FaPhoneAlt
+  FaWallet, FaUsers, FaUserTie, FaCheckSquare, FaPlane, FaPhoneAlt, FaGlobe
 } from 'react-icons/fa';
 import AdminItineraryManager from './AdminItineraryManager'; // Importing the Itinerary Manager component
+import DiscoverAdmin from './adminDiscover'; // Importing the Admin Discover component
 
 const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -44,6 +45,9 @@ const AdminDashboard = () => {
           </button>
           <button onClick={() => setActiveTab('blog')} className={`w-full flex items-center gap-4 p-4 rounded-xl transition-all ${activeTab === 'blog' ? 'bg-[#ff5e57] text-white' : 'text-slate-500 hover:text-white'}`}>
              <FaPenNib /> Blogs
+          </button>
+          <button onClick={() => setActiveTab('discover')} className={`w-full flex items-center gap-4 p-4 rounded-xl transition-all ${activeTab === 'discover' ? 'bg-[#ff5e57] text-white' : 'text-slate-500 hover:text-white'}`}>
+             <FaGlobe /> Discover
           </button>
         </nav>
 
@@ -85,6 +89,8 @@ const AdminDashboard = () => {
             {/* Conditional rendering based on active tab */}
             {activeTab === 'itinerary-manager' ? (
                 <AdminItineraryManager />
+            ) : activeTab === 'discover' ? (
+                <DiscoverAdmin />
             ) : (
                 <>
             {/* 1. Stats Row (23_Dashboard.jpg එකේ තියෙන පිරිසැලසුම) */}

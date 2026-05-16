@@ -4,6 +4,7 @@ const cors = require('cors');
 require('dotenv').config();
 const Itinerary = require('./models/Itinerary');
 const Accommodation = require('./models/Accommodation');
+const Discover = require('./models/Discover');
 
 // 1. Route එක මුලින්ම require කරගන්න
 const packageRoute = require('./routes/packageRoutes');
@@ -51,7 +52,10 @@ app.post('/api/itineraries', async (req, res) => {
         const savedItinerary = await newItinerary.save();
         res.status(201).json(savedItinerary);
     } catch (err) {
-        res.status(500).json(err);
+        // වැරැද්ද මොකක්ද කියලා console එකේ පෙන්වනවා
+        console.error("Database Save Error:", err);
+        // Frontend එකට වැරැද්ද හරියටම යවනවා
+        res.status(400).json({ message: err.message, details: err.errors });
     }
 });
 
@@ -73,5 +77,70 @@ app.get('/api/itineraries/:id', async (req, res) => {
         res.status(200).json(itinerary);
     } catch (err) {
         res.status(500).json(err);
+    }
+});
+
+app.delete('/api/itineraries/:id', async (req, res) => {
+    try {
+        console.log('Delete request received for ID:', req.params.id);
+        const deletedItinerary = await Itinerary.findByIdAndDelete(req.params.id);
+        if (!deletedItinerary) {
+            console.log('Itinerary not found for ID:', req.params.id);
+            return res.status(404).json({ message: 'Itinerary not found' });
+        }
+        console.log('Itinerary deleted successfully:', deletedItinerary._id);
+        res.status(200).json({ message: 'Itinerary deleted successfully', data: deletedItinerary });
+    } catch (err) {
+        console.error('Error deleting itinerary:', err);
+        res.status(500).json({ message: 'Error deleting itinerary', error: err.message });
+    }
+});
+
+// Discover APIs
+app.post('/api/discover', async (req, res) => {
+    try {
+        const newDiscover = new Discover(req.body);
+        const savedDiscover = await newDiscover.save();
+        res.status(201).json(savedDiscover);
+    } catch (err) {
+        console.error("Database Save Error:", err);
+        res.status(400).json({ message: err.message, details: err.errors });
+    }
+});
+
+app.get('/api/discover', async (req, res) => {
+    try {
+        const discovers = await Discover.find();
+        res.status(200).json(discovers);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
+app.get('/api/discover/:id', async (req, res) => {
+    try {
+        const discover = await Discover.findById(req.params.id);
+        if (!discover) {
+            return res.status(404).json({ message: 'Discover not found' });
+        }
+        res.status(200).json(discover);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
+app.delete('/api/discover/:id', async (req, res) => {
+    try {
+        console.log('Delete request received for ID:', req.params.id);
+        const deletedDiscover = await Discover.findByIdAndDelete(req.params.id);
+        if (!deletedDiscover) {
+            console.log('Discover not found for ID:', req.params.id);
+            return res.status(404).json({ message: 'Discover not found' });
+        }
+        console.log('Discover deleted successfully:', deletedDiscover._id);
+        res.status(200).json({ message: 'Discover deleted successfully', data: deletedDiscover });
+    } catch (err) {
+        console.error('Error deleting discover:', err);
+        res.status(500).json({ message: 'Error deleting discover', error: err.message });
     }
 });
