@@ -15,12 +15,17 @@ const HeroHeader = () => {
     { name: "Differently Abled Tours", path: "/itineraries/differently-abled" },
     { name: "Wildlife Tours", path: "/itineraries/wildlife" },
   ];
-
+  
   return (
     <header className="absolute top-0 left-0 w-full z-50 p-6 text-white">
+      
+      {/* Grid Layout: [Left Empty] [Center Logo, Name & Text] [Right Buttons] */}
       <div className="grid grid-cols-[1fr_auto_1fr] items-center w-full max-w-7xl mx-auto">
+        
+        {/* Left Column (Empty) */}
         <div></div>
 
+        {/* Center Column: Stacked content */}
         <div className="flex flex-col items-center justify-center text-center">
           <Link to="/" className="flex flex-col items-center group">
             <img src={myLogo} alt="Jai Lanka" className="w-20 h-20 object-contain" />
@@ -29,6 +34,7 @@ const HeroHeader = () => {
             </h1>
           </Link>
 
+          {/* Glassmorphism Subtext */}
           <div className="backdrop-blur-md bg-white/10 border border-white/20 rounded-full py-1.5 px-6 shadow-lg mt-3">
             <p className="text-[10px] uppercase tracking-[0.3em] font-semibold text-white/90">
               Experience the Art of Luxury Travel
@@ -47,10 +53,10 @@ const HeroHeader = () => {
           </a>
           
           <Link to="/enquiry">
-            <button className="bg-[#00a2ff] px-4 py-2 rounded-sm text-xs text-white font-bold uppercase hover:bg-[#0088cc] transition-colors">
-              Enquire
-            </button>
-          </Link>
+    <button className="bg-[#00a2ff] px-4 py-2 rounded-sm text-xs text-white font-bold uppercase">
+        Enquire
+      </button>
+</Link>
         </div>
       </div>
 
@@ -96,6 +102,12 @@ const HeroHeader = () => {
           <Link to="/our-story" className="hover:text-[#00a2ff] transition-all">Our Story</Link>
           <Link to="/plan-journey" className="hover:text-[#00a2ff] transition-all">Plan Journey</Link>
         </nav>
+
+        {/* Right: Buttons */}
+        <div className="flex items-center gap-4">
+          <a href="https://wa.me/94770000000" className="w-10 h-10 flex items-center justify-center rounded-full bg-green-500 text-white shadow-lg"><FaWhatsapp size={20} /></a>
+          <button className="bg-cyan-500 px-6 py-2.5 rounded-full text-[10px] text-white font-black uppercase tracking-widest">Enquire Now</button>
+        </div>
       </div>
     </header>
   );
