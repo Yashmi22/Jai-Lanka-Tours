@@ -21,8 +21,8 @@ const DiscoverAdmin = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            // මෙතනදී අපි කලින් හදාගත්තු /api/discover වගේ endpoint එකකට data යවනවා
-            const response = await axios.post('http://localhost:5000/api/packages/discover/add', formData);
+            // මෙතනදී අපි කලින් හදාගත්තු /api/discover වගේ endpoint එkerman data යවනවා
+            const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/packages/discover/add`, formData);
             alert(`${formData.type.toUpperCase()} Added Successfully!`);
             
             // Form එක reset කිරීම

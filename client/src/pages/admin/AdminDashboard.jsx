@@ -7,6 +7,7 @@ import {
 } from 'react-icons/fa';
 import AdminItineraryManager from './AdminItineraryManager'; // Importing the Itinerary Manager component
 import DiscoverAdmin from './adminDiscover'; // Importing the Admin Discover component
+import AdminBlog from './AdminBlog'; // Importing the Admin Blog component
 
 const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -91,6 +92,8 @@ const AdminDashboard = () => {
                 <AdminItineraryManager />
             ) : activeTab === 'discover' ? (
                 <DiscoverAdmin />
+            ) : activeTab === 'blog' ? (
+                <AdminBlog />
             ) : (
                 <>
             {/* 1. Stats Row (23_Dashboard.jpg එකේ තියෙන පිරිසැලසුම) */}

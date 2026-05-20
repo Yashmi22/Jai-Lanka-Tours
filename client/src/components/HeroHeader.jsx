@@ -99,6 +99,7 @@ const HeroHeader = () => {
           </div>
 
           <Link to="/discoversrilanka" className="hover:text-[#00a2ff] transition-all">Discover Sri Lanka</Link>
+          <Link to="/blog" className="hover:text-[#00a2ff] transition-all">Blog</Link>
           <Link to="/our-story" className="hover:text-[#00a2ff] transition-all">Our Story</Link>
           <Link to="/plan-journey" className="hover:text-[#00a2ff] transition-all">Plan Journey</Link>
         </nav>

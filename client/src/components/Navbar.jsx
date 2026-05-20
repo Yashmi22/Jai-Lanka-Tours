@@ -74,6 +74,7 @@ const Navbar = () => {
 
         <Link to="/day-tours" className="hover:text-[#00a2ff] transition-colors">Day Tours</Link>
         <Link to="/discoversrilanka" className="hover:text-[#00a2ff] transition-colors">Discover Sri Lanka</Link>
+        <Link to="/blog" className="hover:text-[#00a2ff] transition-colors">Blog</Link>
         <Link to="/our-story" className="hover:text-[#00a2ff] transition-colors">Our Story</Link>
         <Link to="/plan-journey" className="hover:text-[#00a2ff] transition-colors">Plan Journey</Link>
       </div>
