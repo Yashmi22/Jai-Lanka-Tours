@@ -1,45 +1,89 @@
-import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import React, { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import myLogo from '../assets/logo.png'; 
 
 const Navbar = () => {
-  const location = useLocation();
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef(null);
 
-  const navLinks = [
-    { name: 'Home', path: '/' },
-    { name: 'Itineraries', path: '/itineraries' },
-    { name: 'Day Tours', path: '/day-tours' },
-    { name: 'Discover Sri Lanka', path: '/discoversrilanka' },
-    { name: 'Our Story', path: '/our-story' },
-    { name: 'Plan Journey', path: '/plan-journey' },
-    { name: 'Blog', path: '/blog' },
+  const toggleDropdown = () => setIsOpen(!isOpen);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const itineraryLinks = [
+    { name: "Adventure & Nature Based", path: "/itineraries/adventure" },
+    { name: "Culture & Heritage", path: "/itineraries/culture" },
+    { name: "North & East Coast", path: "/itineraries/north-east" },
+    { name: "Romantic Tours", path: "/itineraries/romantic" },
+    { name: "Ayurvedic & Wellness", path: "/itineraries/ayurvedic" },
+    { name: "Differently Abled Tours", path: "/itineraries/differently-abled" },
+    { name: "Wildlife Tours", path: "/itineraries/wildlife" },
   ];
 
   return (
-    <nav className="w-full px-10 py-5 flex justify-between items-center bg-white shadow-sm sticky top-0 z-[100]">
-      <Link to="/" className="flex items-center gap-4 group">
-        <img src={myLogo} alt="Logo" className="w-14 h-14 object-contain transition-transform duration-300 group-hover:scale-110" />
-        <div className="flex flex-col">
-          <span className="font-serif text-lg font-bold tracking-tighter text-slate-800 leading-none">JAI LANKA</span>
-          <span className="text-[10px] tracking-[0.3em] text-cyan-600 font-bold uppercase">Travel & Tours</span>
-        </div>
+    <nav className="w-full p-6 flex justify-between items-center bg-white border-b border-gray-200 relative z-50">
+      <Link to="/" className="flex items-center gap-2">
+        <img src={myLogo} alt="Logo" className="w-10 h-10" />
+        <span className="font-bold tracking-widest uppercase text-sm md:text-base">
+          JAI LANKA TRAVEL & TOURS
+        </span>
       </Link>
       
-      <div className="hidden lg:flex gap-8 text-[11px] font-bold uppercase tracking-[0.15em] text-slate-600">
-        {navLinks.map((link) => (
-          <Link 
-            key={link.name} 
-            to={link.path} 
-            className={`hover:text-cyan-500 transition-colors relative after:content-[''] after:absolute after:w-0 after:h-[2px] after:bg-cyan-500 after:left-0 after:-bottom-1 hover:after:w-full after:transition-all ${location.pathname === link.path ? 'text-cyan-500 after:w-full' : ''}`}
+      <div className="hidden md:flex gap-6 text-xs font-bold uppercase tracking-widest items-center">
+        <Link to="/" className="hover:text-[#00a2ff] transition-colors">Home</Link>
+        
+        <div className="relative" ref={dropdownRef}>
+          <button 
+            onClick={toggleDropdown}
+            className={`hover:text-[#00a2ff] transition-colors py-2 flex items-center gap-1 ${isOpen ? 'text-[#00a2ff]' : ''}`}
           >
-            {link.name}
-          </Link>
-        ))}
+            ITINERARIES
+            <svg className={`w-3 h-3 transition-transform ${isOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" /></svg>
+          </button>
+
+          {isOpen && (
+            <div className="absolute top-full left-0 mt-2 bg-white border border-gray-100 rounded-lg shadow-2xl min-w-[280px] py-2 z-[100] animate-in fade-in zoom-in duration-200">
+              <Link 
+                to="/itineraries" 
+                onClick={() => setIsOpen(false)}
+                className="block px-6 py-3 hover:bg-blue-50 hover:text-[#00a2ff] transition-colors text-[10px] font-bold uppercase tracking-wider border-b border-gray-50 bg-blue-50 text-[#00a2ff]"
+              >
+                All Itineraries
+              </Link>
+              {itineraryLinks.map((item, index) => (
+                <Link 
+                  key={index}
+                  to={item.path} 
+                  onClick={() => setIsOpen(false)}
+                  className="block px-6 py-3 hover:bg-blue-50 hover:text-[#00a2ff] transition-colors text-[10px] font-bold uppercase tracking-wider border-b border-gray-50 last:border-0"
+                >
+                  {item.name}
+                </Link>
+              ))}
+            </div>
+          )}
+        </div>
+
+        <Link to="/day-tours" className="hover:text-[#00a2ff] transition-colors">Day Tours</Link>
+        <Link to="/discoversrilanka" className="hover:text-[#00a2ff] transition-colors">Discover Sri Lanka</Link>
+        <Link to="/blog" className="hover:text-[#00a2ff] transition-colors">Blog</Link>
+        <Link to="/our-story" className="hover:text-[#00a2ff] transition-colors">Our Story</Link>
+        <Link to="/plan-journey" className="hover:text-[#00a2ff] transition-colors">Plan Journey</Link>
       </div>
 
-      <button className="bg-cyan-500 px-7 py-2.5 rounded-full text-[10px] text-white font-black uppercase tracking-widest hover:bg-slate-800 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-        Enquire Now
-      </button>
+      <Link to="/enquiry">
+        <button className="bg-[#00a2ff] px-6 py-2.5 rounded-sm text-xs text-white font-bold uppercase hover:bg-[#0088cc] transition-all shadow-md active:scale-95">
+          Enquire
+        </button>
+      </Link>
     </nav>
   );
 };
