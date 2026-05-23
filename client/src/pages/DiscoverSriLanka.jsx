@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'; // 👈 useNavigate එකතු කළා
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const DiscoverSriLanka = () => {
-  const navigate = useNavigate(); // 👈 Initialize useNavigate
+  const navigate = useNavigate();
   
   // Normalize image paths from absolute file:// URLs to relative URLs
   const normalizeImagePath = (path) => {
     if (!path) return '';
     if (path.startsWith('file://')) {
-      // Extract path after /public/
       const match = path.match(/\/public(\/.*)/i);
       return match ? match[1] : path;
     }
     return path;
   };
+
   const [destinationsData, setDestinationsData] = useState([]);
   const [experiencesData, setExperiencesData] = useState([]);
   const [activeTab, setActiveTab] = useState('destination');
@@ -39,105 +39,149 @@ const DiscoverSriLanka = () => {
     : currentData.filter(item => item.category === filter);
 
   return (
-    <div className="w-full min-h-screen bg-[#fcfdfe] font-sans text-[#1a1c1e] antialiased">
-      {/* --- Header Section --- */}
-      <section className="pt-32 pb-16 px-6 text-center">
-        <span className="text-[10px] font-bold tracking-[0.6em] uppercase text-[#005483] mb-6 block">EXPLORE SRI LANKA</span>
-        <h1 className="text-6xl md:text-8xl font-serif mb-8 italic tracking-tighter">A Tapestry of Terrains</h1>
-        <p className="max-w-2xl mx-auto text-slate-500 font-medium leading-relaxed">
-          From the mist-shrouded highlands to the sun-kissed coasts, we have curated the most unforgettable journeys.
-        </p>
-      </section>
-
-      {/* --- Primary Toggle (Big Buttons) --- */}
-      <div className="flex justify-center gap-6 mb-12">
-        <button 
-          onClick={() => { setActiveTab('destination'); setFilter('All'); }}
-          className={`px-10 py-4 rounded-xl text-[11px] font-bold tracking-[0.2em] uppercase transition-all duration-500 ${
-            activeTab === 'destination' ? 'bg-[#005483] text-white shadow-2xl' : 'bg-slate-100 text-slate-400 hover:bg-slate-200'
-          }`}
-        >
-          Destinations
-        </button>
-        <button 
-          onClick={() => { setActiveTab('experience'); setFilter('All'); }}
-          className={`px-10 py-4 rounded-xl text-[11px] font-bold tracking-[0.2em] uppercase transition-all duration-500 ${
-            activeTab === 'experience' ? 'bg-[#005483] text-white shadow-2xl' : 'bg-slate-100 text-slate-400 hover:bg-slate-200'
-          }`}
-        >
-          Experience
-        </button>
+    <div className="bg-[#0b0f19] min-h-screen pb-24 text-slate-100 font-body antialiased">
+      
+      {/* --- 1. HIGH-END HERO BANNER (Day Tours Theme) --- */}
+      <div className="relative pt-32 pb-20 px-6 text-center overflow-hidden border-b border-yellow-600/20 bg-gradient-to-b from-[#060a13] via-[#0b1220] to-[#0b0f19]">
+        <div className="max-w-4xl mx-auto relative z-10">
+          <span className="text-[10px] font-bold tracking-[0.3em] uppercase text-amber-400 bg-amber-950/40 border border-amber-600/30 px-5 py-2 rounded-full mb-6 inline-block">
+            Bespoke Sri Lankan Wonders
+          </span>
+          <h1 className="text-4xl md:text-6xl font-headline font-light text-white tracking-wide mt-2 mb-6 uppercase">
+            A Tapestry of <span className="font-serif italic text-amber-400">Terrains</span>
+          </h1>
+          <p className="text-slate-400 text-sm md:text-base font-light max-w-2xl mx-auto leading-relaxed tracking-wide">
+            From the mist-shrouded highlands to the sun-kissed coasts, we have curated the most unforgettable journeys and iconic ceylon experiences.
+          </p>
+        </div>
       </div>
 
-      {/* --- MODERN SUB-FILTER --- */}
-      <div className="flex justify-center items-center gap-8 md:gap-16 mb-24 border-b border-slate-100 max-w-fit mx-auto px-10">
-        {['All', 'Cultural', 'Adventure','Wellness', 'Romantic', 'Beach'].map((cat) => (
-          <button
-            key={cat}
-            onClick={() => setFilter(cat)}
-            className={`relative py-4 text-[10px] font-bold tracking-[0.3em] uppercase transition-all duration-300 ${
-              filter === cat ? 'text-[#005483]' : 'text-slate-400 hover:text-slate-600'
+      <div className="max-w-screen-2xl mx-auto px-6 md:px-12 mt-12">
+        
+        {/* --- 2. PRIMARY TOGGLE (Big Dark Luxury Buttons) --- */}
+        <div className="flex justify-center gap-6 mb-12">
+          <button 
+            onClick={() => { setActiveTab('destination'); setFilter('All'); }}
+            className={`px-10 py-4 rounded-xl text-[11px] font-bold tracking-[0.2em] uppercase transition-all duration-500 ${
+              activeTab === 'destination' ? 'bg-amber-500 text-black shadow-2xl font-bold' : 'bg-slate-900 text-slate-400 hover:bg-slate-800'
             }`}
           >
-            {cat}
-            {filter === cat && (
-              <div className="absolute bottom-0 left-0 w-full h-[2px] bg-[#005483] animate-in fade-in slide-in-from-left-2 duration-500"></div>
-            )}
+            Destinations
           </button>
-        ))}
-      </div>
+          <button 
+            onClick={() => { setActiveTab('experience'); setFilter('All'); }}
+            className={`px-10 py-4 rounded-xl text-[11px] font-bold tracking-[0.2em] uppercase transition-all duration-500 ${
+              activeTab === 'experience' ? 'bg-amber-500 text-black shadow-2xl font-bold' : 'bg-slate-900 text-slate-400 hover:bg-slate-800'
+            }`}
+          >
+            Experience
+          </button>
+        </div>
 
-      {/* --- Cards Grid --- */}
-      <section className="max-w-7xl mx-auto px-6 pb-40">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-          {filteredItems.map((item) => (
-            // 👈 මෙතන item._id පාවිච්චි කරලා තියෙනවා (MongoDB ID එක)
-            <div key={item._id} className="group relative overflow-hidden bg-white rounded-[2rem] shadow-sm transition-all duration-700 hover:shadow-2xl">
-              <div className="aspect-[4/5] overflow-hidden">
-                <img 
-                  src={normalizeImagePath(item.img)} 
-                  alt={item.name} 
-                  className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 group-hover:scale-110 transition-all duration-1000"
-                />
-              </div>
-
-              <div className="absolute inset-x-0 bottom-0 bg-white/95 backdrop-blur-sm p-8 translate-y-[62%] group-hover:translate-y-0 transition-transform duration-700 ease-in-out">
-                <div className="mb-4">
-                  <div className="flex justify-between items-center mb-2">
-                    <h3 className="text-2xl font-serif">{item.name}</h3>
-                    <span className="text-[8px] font-black tracking-widest uppercase border border-slate-200 px-2 py-1 rounded">
-                      {item.category}
-                    </span>
-                  </div>
-                  <p className="text-slate-400 text-[9px] tracking-widest uppercase font-bold">{item.tag}</p>
-                </div>
-                
-                <p className="text-xs text-slate-500 leading-relaxed font-light mb-8 opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-100">
-                  {item.desc}
-                </p>
-                
-                {/* 👈 බටන් එක එබුවාම Dynamic Route එකකට Navigate වෙනවා */}
-                <button 
-                  onClick={() => navigate(`/discover/${item._id}`)}
-                  className="w-full py-4 bg-[#005483] text-white rounded-xl text-[10px] font-bold tracking-widest uppercase hover:invert transition-all"
-                >
-                  Explore Details
-                </button>
-              </div>
-            </div>
+        {/* --- 3. MODERN SUB-FILTER (Luxury Line Style) --- */}
+        <div className="flex justify-center items-center gap-6 md:gap-12 mb-24 border-b border-slate-800 max-w-fit mx-auto px-10">
+          {['All', 'Cultural', 'Adventure', 'Wellness', 'Romantic', 'Beach'].map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setFilter(cat)}
+              className={`relative py-4 text-[10px] font-bold tracking-[0.3em] uppercase transition-all duration-300 ${
+                filter === cat ? 'text-amber-400' : 'text-slate-500 hover:text-slate-300'
+              }`}
+            >
+              {cat}
+              {filter === cat && (
+                <div className="absolute bottom-0 left-0 w-full h-[2px] bg-amber-400 animate-in fade-in slide-in-from-left-2 duration-500"></div>
+              )}
+            </button>
           ))}
-          
+        </div>
+
+        {/* --- SECTION TITLE --- */}
+        <div className="border-b border-slate-800 pb-6 mb-12 flex justify-between items-end">
+          <div>
+            <p className="text-xs uppercase tracking-widest text-amber-400 font-bold mb-1">Our Elite Discoveries</p>
+            <h2 className="text-2xl md:text-3xl font-headline tracking-wide uppercase text-white">
+              {activeTab === 'destination' ? 'Curated Destinations' : 'Curated Experiences'}
+            </h2>
+          </div>
+          <p className="text-xs text-slate-500 tracking-wider hidden sm:block">Handpicked luxury essences of Ceylon</p>
+        </div>
+
+        {/* --- 4. CARDS GRID (Luxury Dark Theme) --- */}
+        <section className="pb-40">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+            {filteredItems.map((item) => (
+              <div 
+                key={item._id} 
+                className="bg-[#111726] rounded-2xl overflow-hidden border border-slate-800/60 hover:border-amber-500/40 transition-all duration-500 group flex flex-col justify-between shadow-2xl relative"
+              >
+                {/* Image Container */}
+                <div className="relative h-72 overflow-hidden">
+                  <img 
+                    src={normalizeImagePath(item.img)} 
+                    alt={item.name} 
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out brightness-[80%] group-hover:brightness-100" 
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#111726] via-transparent to-transparent"></div>
+                  
+                  {/* Gold Styled Category Badge */}
+                  <div className="absolute top-4 left-4 bg-[#0b0f19]/90 backdrop-blur-md px-3.5 py-1.5 rounded-md border border-amber-500/20 shadow-lg">
+                    <span className="text-[8px] font-bold text-amber-400 uppercase tracking-widest">{item.category}</span>
+                  </div>
+                </div>
+
+                {/* Card Body */}
+                <div className="p-6 flex-grow flex flex-col justify-between -mt-4 relative z-10">
+                  <div>
+                    {/* Tagline text */}
+                    <p className="text-amber-400/80 text-[9px] tracking-widest uppercase font-bold mb-2">
+                      {item.tag || "Exclusive Voyage"}
+                    </p>
+                    
+                    {/* Title */}
+                    <h3 className="text-base font-headline font-bold text-white tracking-wide mb-4 group-hover:text-amber-400 transition-colors line-clamp-2 min-h-[2.5rem] leading-snug">
+                      {item.name}
+                    </h3>
+
+                    {/* Description */}
+                    <p className="text-slate-400 text-xs font-light leading-relaxed mb-6 line-clamp-3">
+                      {item.desc}
+                    </p>
+                  </div>
+
+                  {/* Bottom Premium Action Button */}
+                  <div className="pt-4 border-t border-slate-800/80 flex items-center justify-between mt-auto">
+                    <div>
+                      <p className="text-[8px] uppercase tracking-widest text-slate-500 font-bold">Service Level</p>
+                      <p className="text-xs font-semibold text-amber-400 tracking-wider uppercase">Ultra-Luxury</p>
+                    </div>
+                    <button 
+                      onClick={() => navigate(`/discover/${item._id}`)}
+                      className="bg-transparent text-white border border-slate-700 px-4 py-2 rounded-xl text-[9px] font-bold uppercase tracking-widest hover:bg-amber-500 hover:text-black hover:border-amber-500 transition-all duration-300 shadow-sm"
+                    >
+                      Explore Details
+                    </button>
+                  </div>
+                </div>
+
+              </div>
+            ))}
+          </div>
+
+          {/* Empty State */}
           {filteredItems.length === 0 && (
-            <div className="col-span-full py-20 text-center text-slate-400 italic font-serif">
-              No items found in this category.
+            <div className="col-span-full py-24 text-center text-slate-500 italic font-serif">
+              No items found in this premium category.
             </div>
           )}
-        </div>
-      </section>
+        </section>
 
-      <footer className="py-20 bg-slate-50 text-center text-slate-400 text-[9px] tracking-[0.5em] uppercase">
-        &copy; 2026 JAB TOUR - Curated Experiences
-      </footer>
+        {/* Footer Section */}
+        <footer className="py-12 border-t border-slate-900 text-center text-slate-600 text-[9px] tracking-[0.5em] uppercase">
+          &copy; 2026 JAB TOUR - Curated Experiences
+        </footer>
+        
+      </div>
     </div>
   );
 };

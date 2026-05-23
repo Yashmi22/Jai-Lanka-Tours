@@ -37,7 +37,7 @@ const DiscoverDetail = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#fcfdfe] font-serif italic text-xl text-slate-400">
+      <div className="min-h-screen flex items-center justify-center bg-[#0b0f19] font-serif italic text-xl text-amber-400/70">
         Unveiling the essence of Ceylon...
       </div>
     );
@@ -45,21 +45,21 @@ const DiscoverDetail = () => {
 
   if (!item) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-[#fcfdfe]">
-        <p className="text-slate-500 font-serif italic mb-4">Destination not found.</p>
-        <button onClick={() => navigate('/discover')} className="text-sm font-bold text-[#005483] uppercase tracking-widest">Go Back</button>
+      <div className="min-h-screen flex flex-col items-center justify-center bg-[#0b0f19]">
+        <p className="text-slate-400 font-serif italic mb-4">Destination not found.</p>
+        <button onClick={() => navigate('/discover')} className="text-sm font-bold text-amber-400 uppercase tracking-widest hover:text-white transition-colors">Go Back</button>
       </div>
     );
   }
 
   return (
-    <div className="w-full min-h-screen bg-[#fcfdfe] font-sans text-[#1a1c1e] antialiased pb-30">
+    <div className="w-full min-h-screen bg-[#0b0f19] font-body text-slate-100 antialiased pb-30">
       
       {/* Floating Back Button */}
       <div className="max-w-7xl mx-auto px-6 pt-10">
         <button 
           onClick={() => navigate('/discover')}
-          className="flex items-center gap-2 group text-[11px] font-bold uppercase tracking-[0.2em] text-slate-400 hover:text-[#005483] transition-colors"
+          className="flex items-center gap-2 group text-[11px] font-bold uppercase tracking-[0.2em] text-slate-400 hover:text-amber-400 transition-colors"
         >
           <ArrowBack fontSize="small" className="group-hover:-translate-x-1 transition-transform" /> Back to Explorations
         </button>
@@ -71,50 +71,49 @@ const DiscoverDetail = () => {
         {/* Left Side: Editorial Details (6 Columns) */}
         <div className="lg:col-span-6 flex flex-col justify-center">
           <div className="flex items-center gap-3 mb-6">
-            <span className="text-[10px] font-black tracking-widest uppercase bg-slate-100 text-[#005483] px-3 py-1.5 rounded-md">
+            <span className="text-[10px] font-bold tracking-widest uppercase bg-amber-950/40 border border-amber-600/30 text-amber-400 px-3 py-1.5 rounded-md">
               {item.category}
             </span>
             <span className="text-[10px] font-bold tracking-widest uppercase text-slate-400 flex items-center gap-1">
-              <LocationOn style={{ fontSize: '12px' }} /> {item.type}
+              <LocationOn style={{ fontSize: '12px', color: '#fbbf24' }} /> {item.type}
             </span>
           </div>
 
-          <h1 className="text-5xl md:text-7xl font-serif tracking-tight leading-tight mb-4">
+          <h1 className="text-4xl md:text-6xl font-headline font-light text-white tracking-tight leading-tight mb-4 uppercase">
             {item.name}
           </h1>
           
-          <p className="text-[#005483] font-serif italic text-xl md:text-2xl mb-8 tracking-wide">
+          <p className="text-amber-400 font-serif italic text-xl md:text-2xl mb-8 tracking-wide">
             "{item.tag}"
           </p>
 
-          <div className="w-20 h-[1px] bg-slate-200 mb-8"></div>
+          <div className="w-20 h-[1px] bg-amber-500/20 mb-8"></div>
 
           {/* Full Rich Text Content */}
-          <p className="text-slate-600 text-base font-light leading-relaxed mb-10 whitespace-pre-line">
+          <p className="text-slate-400 text-sm md:text-base font-light leading-relaxed mb-10 tracking-wide whitespace-pre-line">
             {item.content || item.desc} 
-            {/* සටහන: Backend එකේ 'content' නැත්නම් පවතින 'desc' එකම පෙන්වයි */}
           </p>
 
           {/* Quick Package Highlights Card */}
-          <div className="bg-slate-50 rounded-2xl p-6 grid grid-cols-3 gap-4 border border-slate-100">
-            <div className="text-center border-r border-slate-200 last:border-0">
-              <p className="text-[9px] text-slate-400 font-bold uppercase tracking-widest mb-1">Duration</p>
-              <p className="text-sm font-semibold text-slate-800">{item.duration || "Flexible"}</p>
+          <div className="bg-[#111726] rounded-2xl p-6 grid grid-cols-3 gap-4 border border-slate-800/60 shadow-2xl">
+            <div className="text-center border-r border-slate-800 last:border-0">
+              <p className="text-[9px] text-slate-500 font-bold uppercase tracking-widest mb-1">Duration</p>
+              <p className="text-xs md:text-sm font-semibold text-slate-200">{item.duration || "Flexible"}</p>
             </div>
-            <div className="text-center border-r border-slate-200 last:border-0">
-              <p className="text-[9px] text-slate-400 font-bold uppercase tracking-widest mb-1">Rating</p>
-              <p className="text-sm font-semibold text-slate-800 flex items-center justify-center gap-1">
+            <div className="text-center border-r border-slate-800 last:border-0">
+              <p className="text-[9px] text-slate-500 font-bold uppercase tracking-widest mb-1">Rating</p>
+              <p className="text-xs md:text-sm font-semibold text-amber-400 flex items-center justify-center gap-1">
                 4.9 <Star className="text-amber-400" style={{ fontSize: '14px' }} />
               </p>
             </div>
             <div className="text-center">
-              <p className="text-[9px] text-slate-400 font-bold uppercase tracking-widest mb-1">Best Season</p>
-              <p className="text-sm font-semibold text-slate-800">{item.bestTime || "All Year"}</p>
+              <p className="text-[9px] text-slate-500 font-bold uppercase tracking-widest mb-1">Best Season</p>
+              <p className="text-xs md:text-sm font-semibold text-slate-200">{item.bestTime || "All Year"}</p>
             </div>
           </div>
 
           {/* CTA Book Button */}
-          <button className="mt-8 w-full py-5 bg-[#005483] text-white rounded-xl text-xs font-bold tracking-[0.2em] uppercase hover:bg-slate-900 shadow-xl transition-all duration-300">
+          <button className="mt-8 w-full py-4 bg-amber-500 text-black rounded-xl text-xs font-bold tracking-[0.2em] uppercase hover:bg-white shadow-xl hover:shadow-amber-500/10 transition-all duration-300">
             Inquire About This Experience
           </button>
         </div>
@@ -122,24 +121,24 @@ const DiscoverDetail = () => {
         {/* Right Side: Immersive Visuals (6 Columns) */}
         <div className="lg:col-span-6 relative">
           {/* Subtle Background Shape for Luxury Styling */}
-          <div className="absolute -inset-4 bg-slate-100 rounded-[3rem] -z-10 transform rotate-1"></div>
+          <div className="absolute -inset-4 bg-slate-900/40 rounded-[3rem] -z-10 transform rotate-1 border border-slate-800/50"></div>
           
-          <div className="w-full aspect-[4/5] rounded-[2.5rem] overflow-hidden shadow-2xl">
+          <div className="w-full aspect-[4/5] rounded-[2.5rem] overflow-hidden shadow-2xl border border-slate-800/60">
             <img 
               src={normalizeImagePath(item.img)} 
               alt={item.name} 
-              className="w-full h-full object-cover transition-transform duration-1000 hover:scale-105"
+              className="w-full h-full object-cover transition-transform duration-1000 hover:scale-105 brightness-[90%] hover:brightness-100"
             />
           </div>
 
           {/* Small Aesthetic Tag Floating below image */}
-          <div className="absolute bottom-6 -left-6 bg-white shadow-xl px-6 py-4 rounded-2xl border border-slate-50 flex items-center gap-3">
-            <div className="w-8 h-8 rounded-full bg-[#cfe4f2] flex items-center justify-center text-[#005483]">
+          <div className="absolute bottom-6 -left-6 bg-[#111726] shadow-2xl px-6 py-4 rounded-2xl border border-slate-800/80 flex items-center gap-3">
+            <div className="w-8 h-8 rounded-full bg-amber-950/60 border border-amber-500/20 flex items-center justify-center text-amber-400">
               <CalendarMonth style={{ fontSize: '16px' }} />
             </div>
             <div>
-              <p className="text-[9px] text-slate-400 font-bold uppercase tracking-wider">Curated By</p>
-              <p className="text-xs font-bold text-slate-800">Jai Lanka Travels</p>
+              <p className="text-[9px] text-slate-500 font-bold uppercase tracking-wider">Curated By</p>
+              <p className="text-xs font-bold text-slate-200">Jai Lanka Travels</p>
             </div>
           </div>
         </div>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import './index.css';
-import Dashboard from './pages/Dashboard';
+import AdminDashboard from './pages/admin/AdminDashboard';
 
 // Pages
 import Home from './pages/Home';
@@ -11,7 +11,8 @@ import DiscoverSriLanka from './pages/DiscoverSriLanka';
 import OurStory from './pages/OurStory';
 import Itineraries from './pages/itineraries';
 import PlanYourJourney from './pages/PlanYourJourney';
-import ItineraryDetails from './pages/ItineraryDetails'; 
+import ItineraryDetails from './pages/ItineraryDetails';
+import Blog from './pages/Blog'; 
 
 // Components
 import HeroHeader from './components/HeroHeader';
@@ -54,6 +55,9 @@ const MainLayout = ({ heroImages, currentImage }) => {
           <Route path="/our-story" element={<OurStory />} />
           <Route path="/plan-journey" element={<PlanYourJourney />} />
           <Route path="/itinerary/:id" element={<ItineraryDetails />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/admin/dashboard" element={<AdminDashboard />} />
         </Routes>
       </main>
       
