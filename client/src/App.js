@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import './index.css';
-import Dashboard from './pages/Dashboard';
 
-// Pages
+// Pages Import කිරීම
 import Home from './pages/Home';
 import DayTours from './pages/DayTours';
 import TourDetails from './pages/TourDetails';
@@ -11,35 +10,35 @@ import DiscoverSriLanka from './pages/DiscoverSriLanka';
 import OurStory from './pages/OurStory';
 import Itineraries from './pages/itineraries';
 import PlanYourJourney from './pages/PlanYourJourney';
-import ItineraryDetails from './pages/ItineraryDetails'; 
+import ItineraryDetails from './pages/ItineraryDetails';
+import Blog from './pages/Blog';
 
-// Components
-import HeroHeader from './components/HeroHeader';
+// Components Import කිරීම
 import Footer from './components/Footer';
 import Navbar from './components/Navbar';
 
-// Images
-import hero1 from './assets/hero 1.jpg';
-import hero2 from './assets/hero 2.jpg';
-import hero3 from './assets/hero 3.jpg';
-import hero4 from './assets/hero 4.jpg';
-
-// මෙම sub-component එක මගින් දැනට පවතින URL එක අනුව Header එක තෝරාගනී
-const MainLayout = ({ heroImages, currentImage }) => {
+// --- MAIN LAYOUT MANAGEMENT ---
+// මෙමගින් Home Page එකේදී Footer එක සහ සාමාන්‍ය Navbar එක පෙන්වීම පාලනය කරයි.
+const MainLayout = () => {
   const location = useLocation();
   const isHome = location.pathname === '/';
 
   return (
-    // "font-sans" දාලා තියෙන්නේ අකුරු පිරිසිදු වෙන්න
     <div className="relative min-h-screen w-full flex flex-col font-sans text-slate-900 overflow-x-hidden">
       
-      {/* Home page එකේදී විනිවිද පෙනෙන HeroHeader, අනිත් ඒවායේදී සුදු පාට Navbar */}
-      {isHome ? <HeroHeader /> : <Navbar />}
+      {/* Home Page එක ඇතුළෙන්ම දැන් Luxury Navigation එකක් වැඩ කරන නිසා, 
+        Home Page එකේදී සාමාන්‍ය සුදු Navbar එක පෙන්වන්නේ නැත. 
+        අනෙක් සියලුම පිටු සඳහා (<Navbar />) එක උඩින් ලස්සනට දිස්වේ.
+      */}
+      {!isHome && <Navbar />}
 
+      {/* සයිට් එකේ සියලුම පිටු වල Routes (Paths) මෙතනින් ක්‍රියාත්මක වේ */}
       <main className="flex-grow w-full">
         <Routes>
-          <Route path="/" element={<Home heroImages={heroImages} currentImage={currentImage} />} />
+          {/* අලුත්ම Luxury Minimalist Home Page එක */}
+          <Route path="/" element={<Home />} />
           
+          {/* Itineraries Routes (Categories Filter එකත් සමඟ) */}
           <Route path="/itineraries" element={<Itineraries categoryFilter="All" />} />
           <Route path="/itineraries/adventure" element={<Itineraries categoryFilter="Adventure" />} />
           <Route path="/itineraries/culture" element={<Itineraries categoryFilter="Culture" />} />
@@ -48,40 +47,34 @@ const MainLayout = ({ heroImages, currentImage }) => {
           <Route path="/itineraries/ayurvedic" element={<Itineraries categoryFilter="Ayurvedic" />} />
           <Route path="/itineraries/differently-abled" element={<Itineraries categoryFilter="Differently-abled" />} />
           <Route path="/itineraries/wildlife" element={<Itineraries categoryFilter="Wildlife" />} />
+          
+          {/* අනෙකුත් අභ්‍යන්තර පිටු (Other Internal Pages) */}
           <Route path="/day-tours" element={<DayTours />} />
           <Route path="/tour/:id" element={<TourDetails />} />
           <Route path="/discoversrilanka" element={<DiscoverSriLanka />} />
+          <Route path="/blog" element={<Blog />} />
           <Route path="/our-story" element={<OurStory />} />
           <Route path="/plan-journey" element={<PlanYourJourney />} />
           <Route path="/itinerary/:id" element={<ItineraryDetails />} />
         </Routes>
       </main>
       
-      <Footer />
+      {/* Home Page එකේදී Luxury Minimalist Look එක තියාගන්න Footer එක පෙන්වන්නේ නැත, අනෙක් පිටුවල පෙන්වයි */}
+      {!isHome && <Footer />}
     </div>
   );
 };
 
+// ප්‍රධාන App Component එක
 function App() {
-  const [currentImage, setCurrentImage] = useState(0);
-  const heroImages = [hero1, hero2, hero3, hero4];
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentImage((prev) => (prev + 1) % heroImages.length);
-    }, 5000);
-    return () => clearInterval(timer);
-  }, [heroImages.length]);
-
   return (
     <Router>
       <Routes>
-        {/* ඉතිරි සියලුම පිටු සඳහා MainLayout එක භාවිතා වේ */}
-        <Route path="/*" element={<MainLayout heroImages={heroImages} currentImage={currentImage} />} />
-        </Routes>
+        {/* සියලුම URL පරීක්ෂා කර සුදුසු Layout එක තෝරාගැනීමට /* යොදා ඇත */}
+        <Route path="/*" element={<MainLayout />} />
+      </Routes>
     </Router>
   );
 }
 
-// මෙන්න මේ පේළිය අනිවාර්යයෙන්ම තිබිය යුතුයි
 export default App;
