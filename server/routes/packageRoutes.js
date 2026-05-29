@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Package = require('../models/Package');
 const Discover = require('../models/Discover'); // අපි කලින් හදාගත්තු Discover Model එක මෙතනට Require කරන්න
+const Blog = require('../models/Blog'); // Blog Model එක Require කරන්න
 
 // ==========================================
 // 1. TOUR PACKAGES ROUTES (කලින් තිබුණු කොටස)
@@ -39,6 +40,44 @@ router.get('/discover/all', async (req, res) => {
     try {
         const items = await Discover.find();
         res.status(200).json(items);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
+// ==========================================
+// 3. BLOG ROUTES (Blog Management)
+// ==========================================
+
+// Admin Blog පේජ් එකෙන් එන Blog දත්ත Save කරන පාර
+router.post('/blog/add', async (req, res) => {
+    try {
+        const newBlog = new Blog(req.body);
+        const savedBlog = await newBlog.save();
+        res.status(200).json(savedBlog);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
+// Blog පේජ් එකට Database එකේ තියෙන ඔක්කොම Blog ටික ලබා දෙන පාර
+router.get('/blog/all', async (req, res) => {
+    try {
+        const blogs = await Blog.find();
+        res.status(200).json(blogs);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
+// නිශ්චිත Blog එක ID එක ඇතිනෙ ලබා දෙන පාර
+router.get('/blog/:id', async (req, res) => {
+    try {
+        const blog = await Blog.findById(req.params.id);
+        if (!blog) {
+            return res.status(404).json({ message: 'Blog not found' });
+        }
+        res.status(200).json(blog);
     } catch (err) {
         res.status(500).json(err);
     }

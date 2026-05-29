@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import './index.css';
+import Dashboard from './pages/Dashboard';
 
 // Pages Import කිරීම
 import Home from './pages/Home';
@@ -10,8 +11,7 @@ import DiscoverSriLanka from './pages/DiscoverSriLanka';
 import OurStory from './pages/OurStory';
 import Itineraries from './pages/itineraries';
 import PlanYourJourney from './pages/PlanYourJourney';
-import ItineraryDetails from './pages/ItineraryDetails';
-import Blog from './pages/Blog';
+import ItineraryDetails from './pages/ItineraryDetails'; 
 
 // Components Import කිරීම
 import Footer from './components/Footer';
@@ -56,6 +56,9 @@ const MainLayout = () => {
           <Route path="/our-story" element={<OurStory />} />
           <Route path="/plan-journey" element={<PlanYourJourney />} />
           <Route path="/itinerary/:id" element={<ItineraryDetails />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/admin/dashboard" element={<AdminDashboard />} />
         </Routes>
       </main>
       
