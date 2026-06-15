@@ -5,14 +5,14 @@ import axios from 'axios';
 const DiscoverSriLanka = () => {
   const navigate = useNavigate();
   
-  // Normalize image paths from absolute file:// URLs to relative URLs
+  // 💡 Backend එකෙන් එන Relative image path එක සම්පූර්ණ URL එකක් බවට පත් කිරීම
   const normalizeImagePath = (path) => {
     if (!path) return '';
-    if (path.startsWith('file://')) {
-      const match = path.match(/\/public(\/.*)/i);
-      return match ? match[1] : path;
+    if (path.startsWith('http://') || path.startsWith('https://')) {
+      return path; 
     }
-    return path;
+    const baseUrl = process.env.REACT_APP_API_BASE_URL ? process.env.REACT_APP_API_BASE_URL.replace('/api', '') : 'http://localhost:5000';
+    return `${baseUrl}/${path.replace(/^\//, '')}`;
   };
 
   const [destinationsData, setDestinationsData] = useState([]);
@@ -20,18 +20,21 @@ const DiscoverSriLanka = () => {
   const [activeTab, setActiveTab] = useState('destination');
   const [filter, setFilter] = useState('All');
 
-  useEffect(() => {
-    const loadData = async () => {
-      try {
-        const res = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/packages/discover/all`);
-        setDestinationsData(res.data.filter(item => item.type === 'destination'));
-        setExperiencesData(res.data.filter(item => item.type === 'experience'));
-      } catch (err) {
-        console.log("Error fetching data");
-      }
-    };
-    loadData();
-  }, []);
+useEffect(() => {
+  const loadData = async () => {
+    try {
+      
+      const res = await axios.get('http://localhost:5000/api/discover');
+      
+      const allData = Array.isArray(res.data) ? res.data : [];
+      setDestinationsData(allData.filter(item => item.type === 'destination'));
+      setExperiencesData(allData.filter(item => item.type === 'experience'));
+    } catch (err) {
+      console.log("Error fetching data from Jai Lanka Database:", err);
+    }
+  };
+  loadData();
+}, []);
 
   const currentData = activeTab === 'destination' ? destinationsData : experiencesData;
   const filteredItems = filter === 'All' 
@@ -41,7 +44,7 @@ const DiscoverSriLanka = () => {
   return (
     <div className="bg-[#0b0f19] min-h-screen pb-24 text-slate-100 font-body antialiased">
       
-      {/* --- 1. HIGH-END HERO BANNER (Day Tours Theme) --- */}
+      {/* --- 1. HERO BANNER --- */}
       <div className="relative pt-32 pb-20 px-6 text-center overflow-hidden border-b border-yellow-600/20 bg-gradient-to-b from-[#060a13] via-[#0b1220] to-[#0b0f19]">
         <div className="max-w-4xl mx-auto relative z-10">
           <span className="text-[10px] font-bold tracking-[0.3em] uppercase text-amber-400 bg-amber-950/40 border border-amber-600/30 px-5 py-2 rounded-full mb-6 inline-block">
@@ -58,7 +61,7 @@ const DiscoverSriLanka = () => {
 
       <div className="max-w-screen-2xl mx-auto px-6 md:px-12 mt-12">
         
-        {/* --- 2. PRIMARY TOGGLE (Big Dark Luxury Buttons) --- */}
+        {/* --- 2. PRIMARY TOGGLE --- */}
         <div className="flex justify-center gap-6 mb-12">
           <button 
             onClick={() => { setActiveTab('destination'); setFilter('All'); }}
@@ -78,7 +81,7 @@ const DiscoverSriLanka = () => {
           </button>
         </div>
 
-        {/* --- 3. MODERN SUB-FILTER (Luxury Line Style) --- */}
+        {/* --- 3. MODERN SUB-FILTER --- */}
         <div className="flex justify-center items-center gap-6 md:gap-12 mb-24 border-b border-slate-800 max-w-fit mx-auto px-10">
           {['All', 'Cultural', 'Adventure', 'Wellness', 'Romantic', 'Beach'].map((cat) => (
             <button
@@ -107,7 +110,7 @@ const DiscoverSriLanka = () => {
           <p className="text-xs text-slate-500 tracking-wider hidden sm:block">Handpicked luxury essences of Ceylon</p>
         </div>
 
-        {/* --- 4. CARDS GRID (Luxury Dark Theme) --- */}
+        {/* --- 4. CARDS GRID --- */}
         <section className="pb-40">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
             {filteredItems.map((item) => (
@@ -123,8 +126,6 @@ const DiscoverSriLanka = () => {
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out brightness-[80%] group-hover:brightness-100" 
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#111726] via-transparent to-transparent"></div>
-                  
-                  {/* Gold Styled Category Badge */}
                   <div className="absolute top-4 left-4 bg-[#0b0f19]/90 backdrop-blur-md px-3.5 py-1.5 rounded-md border border-amber-500/20 shadow-lg">
                     <span className="text-[8px] font-bold text-amber-400 uppercase tracking-widest">{item.category}</span>
                   </div>
@@ -133,23 +134,17 @@ const DiscoverSriLanka = () => {
                 {/* Card Body */}
                 <div className="p-6 flex-grow flex flex-col justify-between -mt-4 relative z-10">
                   <div>
-                    {/* Tagline text */}
                     <p className="text-amber-400/80 text-[9px] tracking-widest uppercase font-bold mb-2">
                       {item.tag || "Exclusive Voyage"}
                     </p>
-                    
-                    {/* Title */}
                     <h3 className="text-base font-headline font-bold text-white tracking-wide mb-4 group-hover:text-amber-400 transition-colors line-clamp-2 min-h-[2.5rem] leading-snug">
                       {item.name}
                     </h3>
-
-                    {/* Description */}
                     <p className="text-slate-400 text-xs font-light leading-relaxed mb-6 line-clamp-3">
                       {item.desc}
                     </p>
                   </div>
 
-                  {/* Bottom Premium Action Button */}
                   <div className="pt-4 border-t border-slate-800/80 flex items-center justify-between mt-auto">
                     <div>
                       <p className="text-[8px] uppercase tracking-widest text-slate-500 font-bold">Service Level</p>
@@ -163,12 +158,10 @@ const DiscoverSriLanka = () => {
                     </button>
                   </div>
                 </div>
-
               </div>
             ))}
           </div>
 
-          {/* Empty State */}
           {filteredItems.length === 0 && (
             <div className="col-span-full py-24 text-center text-slate-500 italic font-serif">
               No items found in this premium category.
@@ -176,11 +169,9 @@ const DiscoverSriLanka = () => {
           )}
         </section>
 
-        {/* Footer Section */}
         <footer className="py-12 border-t border-slate-900 text-center text-slate-600 text-[9px] tracking-[0.5em] uppercase">
           &copy; 2026 JAB TOUR - Curated Experiences
         </footer>
-        
       </div>
     </div>
   );

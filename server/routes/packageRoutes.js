@@ -27,7 +27,8 @@ router.post('/add', async (req, res) => {
 // Admin පේජ් එකෙන් එන Discover දත්ත (Destinations / Experiences) Save කරන පාර
 router.post('/discover/add', async (req, res) => {
     try {
-        const newDiscover = new Discover(req.body);
+        // req.body එකේ කෙලින්ම img ලින්ක් එක තියෙන නිසා අමුතුවෙන් මුකුත් කරන්න ඕන නෑ
+        const newDiscover = new Discover(req.body); 
         const savedDiscover = await newDiscover.save();
         res.status(200).json(savedDiscover);
     } catch (err) {

@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowForward } from '@mui/icons-material';
 
-// මෙහි 'categoryFilter' ලෙස ගන්නේ Navbar එකෙන් එවන category නමයි
+// මෙහි 'categoryFilter' ලෙස ගන්නේ App.js එකෙන් unique key එකත් එක්ක එවන category නමයි
 const Itineraries = ({ categoryFilter = "All" }) => {
     const [itineraries, setItineraries] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -13,22 +13,35 @@ const Itineraries = ({ categoryFilter = "All" }) => {
     useEffect(() => {
         const fetchItineraries = async () => {
             try {
+                setLoading(true); // පේජ් එක මාරු වන විට නැවත loading state එක true කරයි
                 const res = await axios.get('http://localhost:5000/api/itineraries');
-                // මෙතනදී category එක අනුව filter කරනවා
+                
+                console.log("Database එකෙන් ආපු Data:", res.data); // Troubleshooting සඳහා
+
                 if (categoryFilter === "All") {
                     setItineraries(res.data);
                 } else {
-                    const filtered = res.data.filter(item => item.category === categoryFilter);
+                    const filtered = res.data.filter(item => {
+                        if (!item.category) return false;
+
+                        // 💡 සුපිරි FIX: අකුරු වල spaces, symbols (like &) සහ capital/simple ඔක්කොම නොසලකා හැර කෙලින්ම match කරයි!
+                        const dbCategory = item.category.replace(/[^a-zA-Z0-9]/g, "").toLowerCase();
+                        const filterCategory = categoryFilter.replace(/[^a-zA-Z0-9]/g, "").toLowerCase();
+
+                        // එකක් ඇතුළේ අනෙක අන්තර්ගතද කියා වඩාත් නම්‍යශීලීව පරීක්ෂා කරයි
+                        return dbCategory.includes(filterCategory) || filterCategory.includes(dbCategory);
+                    });
                     setItineraries(filtered);
                 }
-                setLoading(false);
             } catch (err) {
                 console.error("Error fetching itineraries", err);
-                setLoading(false);
+            } finally {
+                setLoading(false); // 🎯 FIX: සාර්ථක වුණත්, fail වුණත් loading එක මෙතනින් නතර වේ.
             }
         };
+        
         fetchItineraries();
-    }, [categoryFilter]); // Category එක වෙනස් වෙද්දී පේජ් එක update වෙනවා
+    }, [categoryFilter]);
 
     if (loading) {
         return (
@@ -82,7 +95,7 @@ const Itineraries = ({ categoryFilter = "All" }) => {
                                 {/* Days Badge */}
                                 <div className="absolute top-4 right-4 bg-[#0b0f19]/90 backdrop-blur-md px-3 py-1.5 rounded-md border border-amber-500/20 shadow-lg">
                                     <span className="text-[10px] font-bold text-amber-400 uppercase tracking-widest">
-                                        {item.days} Days
+                                        {item.tag || "Premium Tour"}
                                     </span>
                                 </div>
                             </div>
@@ -100,8 +113,8 @@ const Itineraries = ({ categoryFilter = "All" }) => {
                                         {item.title}
                                     </h3>
                                     
-                                    {/* Description */}
-                                    <p className="text-slate-400 text-sm leading-relaxed mb-6 line-clamp-3 italic font-light px-2">
+                                    {/* Description (Fixed with break-words) */}
+                                    <p className="text-slate-400 text-sm leading-relaxed mb-6 line-clamp-4 italic font-light px-2 break-words w-full">
                                         "{item.description}"
                                     </p>
                                 </div>

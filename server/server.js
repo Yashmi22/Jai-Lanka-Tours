@@ -11,9 +11,20 @@ const packageRoute = require('./routes/packageRoutes');
 
 const app = express();
 
+// --- CORS CONFIGURATION ---
+app.use(cors({
+    origin: 'http://localhost:5173', 
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
 // Middleware
-app.use(cors());
-app.use(express.json()); // මේක දැනටමත් තියෙනවා, ඒ නිසා එහෙමම තියන්න
+// JSON data සඳහා size limit එක 50MB දක්වා වැඩි කිරීම
+app.use(express.json({ limit: '50mb' }));
+
+// URL-encoded data (Form data) සඳහා size limit එක 50MB දක්වා වැඩි කිරීම
+app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
 // 2. API Routes මෙතනට ඇතුළත් කරන්න
 app.use('/api/packages', packageRoute);
@@ -26,7 +37,7 @@ app.get('/', (req, res) => {
 // Database Connection
 const PORT = process.env.PORT || 5000;
 
-// .env එකේ තියෙන MONGO_URI එක පාවිච්චි කරනවා
+// .env එකේ තියෙන MONGO_URI එක පාවිච්ចි කරනවා
 mongoose.connect(process.env.MONGO_URI)
     .then(() => {
         console.log("MongoDB Database Connected Successfully");
@@ -34,7 +45,7 @@ mongoose.connect(process.env.MONGO_URI)
     })
     .catch((err) => console.log("Database connection error:", err));
 
-    // උදාහරණයක් ලෙස අලුත් හෝටලයක් ඇතුළත් කිරීම:
+// උදාහරණයක් ලෙස අලුත් හෝටලයක් ඇතුළත් කිරීම:
 app.post('/api/accommodation', async (req, res) => {
     try {
         const newHotel = new Accommodation(req.body);
@@ -52,9 +63,7 @@ app.post('/api/itineraries', async (req, res) => {
         const savedItinerary = await newItinerary.save();
         res.status(201).json(savedItinerary);
     } catch (err) {
-        // වැරැද්ද මොකක්ද කියලා console එකේ පෙන්වනවා
         console.error("Database Save Error:", err);
-        // Frontend එකට වැරැද්ද හරියටම යවනවා
         res.status(400).json({ message: err.message, details: err.errors });
     }
 });
@@ -77,6 +86,20 @@ app.get('/api/itineraries/:id', async (req, res) => {
         res.status(200).json(itinerary);
     } catch (err) {
         res.status(500).json(err);
+    }
+});
+
+// Itinerary Update API
+app.put('/api/itineraries/:id', async (req, res) => {
+    try {
+        const itinerary = await Itinerary.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
+        if (!itinerary) {
+            return res.status(404).json({ message: 'Itinerary not found' });
+        }
+        res.status(200).json(itinerary);
+    } catch (err) {
+        console.error("Database Update Error:", err);
+        res.status(400).json({ message: err.message, details: err.errors });
     }
 });
 
@@ -117,6 +140,7 @@ app.get('/api/discover', async (req, res) => {
     }
 });
 
+// 💡 මෙතන තිබ්බ ** සලකුණු ඉවත් කළා (දැන් හරියටම වැඩ)
 app.get('/api/discover/:id', async (req, res) => {
     try {
         const discover = await Discover.findById(req.params.id);

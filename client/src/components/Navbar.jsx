@@ -95,6 +95,8 @@ const Navbar = () => {
         <Link to="/blog" className="text-white hover:text-amber-400 transition-colors">Blog</Link>
         <Link to="/our-story" className="text-white hover:text-amber-400 transition-colors">Our Story</Link>
         <Link to="/plan-journey" className="text-white hover:text-amber-400 transition-colors">Plan Journey</Link>
+       
+        
       </div>
 
       {/* LUXURY ENQUIRE BUTTON */}

@@ -1,61 +1,190 @@
-import React from 'react';
-import { FaWhatsapp, FaEnvelope, FaClock } from 'react-icons/fa'; 
+import React, { useState } from 'react';
+import { 
+  MessageSquare, Mail, Clock, Send, Sparkles, User, ShieldCheck 
+} from 'lucide-react';
 
 const Enquiry = () => {
+    const [formData, setFormData] = useState({
+        name: '',
+        message: ''
+    });
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({ ...prev, [name]: value }));
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log("Submitting Luxury Enquiry:", formData);
+        // ඔයාගේ API call එක හෝ redirection එක මෙතනට දාන්න පුළුවන්
+    };
+
     return (
-        <div className="min-h-screen bg-white py-12 px-4 sm:px-6 lg:px-8 font-body">
-            <div className="max-w-3xl mx-auto">
-                <h1 className="text-4xl font-bold text-center text-slate-900 mb-8 font-heading">Enquire Now</h1>
-                <p className="text-center text-slate-600 mb-12">Have questions? We are here to help you plan your perfect Sri Lankan getaway.</p>
+        /* 🌌 Premium Deep Navy Slate Background */
+        <div className="min-h-screen bg-[#0b111e] pt-32 pb-16 px-4 relative overflow-hidden font-sans">
+            
+            {/* ✨ Luxury Radial Glow Ambient Lights */}
+            <div className="absolute top-[-10%] left-[-10%] w-[600px] h-[600px] bg-blue-600/10 rounded-full blur-[150px] pointer-events-none" />
+            <div className="absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] bg-emerald-500/10 rounded-full blur-[150px] pointer-events-none" />
+            
+            {/* Background Subtle Grid Pattern for Technical Elegance */}
+            <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none" />
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    {/* Contact Details */}
-                    <div className="space-y-6">
-                        <div className="flex items-start space-x-4">
-                            <div className="bg-green-100 p-3 rounded-full text-green-600 text-2xl">
-                                <FaWhatsapp />
+            <div className="max-w-5xl mx-auto relative z-10">
+                
+                {/* 👑 Header Section */}
+                <div className="text-center mb-16">
+                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-blue-500/10 to-emerald-500/10 border border-blue-500/20 text-blue-400 text-xs font-semibold tracking-widest uppercase mb-5 backdrop-blur-md animate-pulse">
+                        <Sparkles size={14} className="text-emerald-400" />
+                        Jai Lanka Concierge Desk
+                    </div>
+                    <h1 className="text-4xl md:text-6xl font-black text-white mb-5 tracking-tight leading-none">
+                        Connect With Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-300 to-emerald-400">Travel Architects</span>
+                    </h1>
+                    <p className="text-slate-400 text-base md:text-lg max-w-2xl mx-auto font-light leading-relaxed">
+                        Have questions regarding your bespoke Sri Lankan getaway? Reach out to us through your preferred channel or leave a quick message below.
+                    </p>
+                </div>
+
+                {/* 💎 2-Column Luxury Layout */}
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                    
+                    {/* 🗂️ Left Side: Premium Contact Details Cards (5 Columns) */}
+                    <div className="lg:col-span-5 space-y-5">
+                        
+                        {/* WhatsApp Card */}
+                        <a 
+                            href="https://wa.me/947XXXXXXXXX" 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="block group bg-[#131c2e]/40 backdrop-blur-xl rounded-3xl border border-white/[0.05] p-6 hover:border-emerald-500/30 hover:bg-[#131c2e]/70 transition-all duration-500 shadow-lg shadow-black/20"
+                        >
+                            <div className="flex items-start gap-4">
+                                <div className="bg-emerald-500/10 p-4 rounded-2xl text-emerald-400 transition-colors duration-300 group-hover:bg-emerald-500/20">
+                                    <MessageSquare size={24} />
+                                </div>
+                                <div className="space-y-1">
+                                    <span className="text-[10px] font-bold text-emerald-400 uppercase tracking-widest block">Instant Chat</span>
+                                    <h3 className="text-lg font-bold text-white tracking-wide">WhatsApp Concierge</h3>
+                                    <p className="text-slate-400 text-sm font-mono">+94 7X XXX XXXX</p>
+                                    <span className="inline-flex items-center gap-1 text-xs font-medium text-emerald-400/80 mt-2 group-hover:translate-x-1 transition-transform duration-300">
+                                        Message us now &rarr;
+                                    </span>
+                                </div>
                             </div>
-                            <div>
-                                <h3 className="text-xl font-semibold">WhatsApp</h3>
-                                <p className="text-slate-600">+94 7X XXX XXXX</p>
-                                <a href="https://wa.me/947XXXXXXXXX" target="_blank" className="text-blue-600 hover:underline">Message us</a>
+                        </a>
+
+                        {/* Email Card */}
+                        <a 
+                            href="mailto:info@jailankatravels.com"
+                            className="block group bg-[#131c2e]/40 backdrop-blur-xl rounded-3xl border border-white/[0.05] p-6 hover:border-blue-500/30 hover:bg-[#131c2e]/70 transition-all duration-500 shadow-lg shadow-black/20"
+                        >
+                            <div className="flex items-start gap-4">
+                                <div className="bg-blue-500/10 p-4 rounded-2xl text-blue-400 transition-colors duration-300 group-hover:bg-blue-500/20">
+                                    <Mail size={24} />
+                                </div>
+                                <div className="space-y-1">
+                                    <span className="text-[10px] font-bold text-blue-400 uppercase tracking-widest block">Official Channel</span>
+                                    <h3 className="text-lg font-bold text-white tracking-wide">Email Relations</h3>
+                                    <p className="text-slate-400 text-sm font-light">info@jailankatravels.com</p>
+                                    <span className="inline-flex items-center gap-1 text-xs font-medium text-blue-400/80 mt-2 group-hover:translate-x-1 transition-transform duration-300">
+                                        Send an email &rarr;
+                                    </span>
+                                </div>
+                            </div>
+                        </a>
+
+                        {/* Opening Hours Card */}
+                        <div className="bg-[#131c2e]/40 backdrop-blur-xl rounded-3xl border border-white/[0.05] p-6 shadow-lg shadow-black/20">
+                            <div className="flex items-start gap-4">
+                                <div className="bg-indigo-500/10 p-4 rounded-2xl text-indigo-400">
+                                    <Clock size={24} />
+                                </div>
+                                <div className="space-y-3 w-full">
+                                    <div>
+                                        <span className="text-[10px] font-bold text-indigo-400 uppercase tracking-widest block">Availability</span>
+                                        <h3 className="text-lg font-bold text-white tracking-wide">Opening Hours</h3>
+                                    </div>
+                                    <div className="space-y-2 border-t border-white/[0.05] pt-3 text-xs tracking-wide">
+                                        <div className="flex justify-between items-center">
+                                            <span className="text-slate-400">Monday - Friday</span>
+                                            <span className="text-slate-200 font-medium font-mono">8:00 AM - 6:00 PM</span>
+                                        </div>
+                                        <div className="flex justify-between items-center">
+                                            <span className="text-slate-400">Saturday</span>
+                                            <span className="text-slate-200 font-medium font-mono">9:00 AM - 4:00 PM</span>
+                                        </div>
+                                        <div className="flex justify-between items-center">
+                                            <span className="text-rose-400/80 font-medium">Sunday</span>
+                                            <span className="px-2 py-0.5 rounded bg-rose-500/10 border border-rose-500/20 text-rose-400 text-[10px] uppercase font-bold tracking-wider">Closed</span>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
-                        <div className="flex items-start space-x-4">
-                            <div className="bg-blue-100 p-3 rounded-full text-blue-600 text-2xl">
-                                <FaEnvelope />
-                            </div>
-                            <div>
-                                <h3 className="text-xl font-semibold">Email</h3>
-                                <p className="text-slate-600">info@jailankatravels.com</p>
-                                <a href="mailto:info@jailankatravels.com" className="text-blue-600 hover:underline">Send an email</a>
-                            </div>
-                        </div>
-
-                        <div className="flex items-start space-x-4">
-                            <div className="bg-slate-100 p-3 rounded-full text-slate-600 text-2xl">
-                                <FaClock />
-                            </div>
-                            <div>
-                                <h3 className="text-xl font-semibold">Opening Hours</h3>
-                                <p className="text-slate-600 italic font-medium">Monday - Friday: 8:00 AM - 6:00 PM</p>
-                                <p className="text-slate-600 italic font-medium">Saturday: 9:00 AM - 4:00 PM</p>
-                                <p className="text-slate-600 italic font-medium text-red-500">Sunday: Closed</p>
-                            </div>
-                        </div>
                     </div>
 
-                    {/* Quick Enquiry Form (Optional) */}
-                    <div className="bg-slate-50 p-6 rounded-2xl shadow-sm border border-slate-100">
-                        <h3 className="text-lg font-bold mb-4">Quick Message</h3>
-                        <form className="space-y-4">
-                            <input type="text" placeholder="Your Name" className="w-full p-2 rounded-lg border border-slate-300 outline-none focus:ring-2 focus:ring-blue-500" />
-                            <textarea placeholder="Your Message" className="w-full p-2 h-24 rounded-lg border border-slate-300 outline-none focus:ring-2 focus:ring-blue-500"></textarea>
-                            <button className="w-full bg-slate-900 text-white py-2 rounded-lg hover:bg-slate-800 transition">Send</button>
+                    {/* 📨 Right Side: Glassmorphism Quick Message Form (7 Columns) */}
+                    <div className="lg:col-span-7 bg-[#131c2e]/60 backdrop-blur-2xl rounded-[2.5rem] border border-white/[0.07] shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5)] overflow-hidden">
+                        <form onSubmit={handleSubmit} className="p-8 md:p-10 space-y-6">
+                            <div>
+                                <h2 className="text-xs font-bold tracking-widest uppercase text-blue-400/80 mb-2 flex items-center gap-2">
+                                    <span className="w-1.5 h-1.5 rounded-full bg-blue-400" /> Drop Us A Line
+                                </h2>
+                                <p className="text-slate-400 text-xs font-light">Leave a quick note, and we will get back to you promptly.</p>
+                            </div>
+
+                            <div className="space-y-2">
+                                <label className="flex items-center gap-2 text-xs font-semibold tracking-wider text-slate-300 uppercase ml-1">
+                                    <User size={14} className="text-blue-400" /> Full Name
+                                </label>
+                                <input 
+                                    type="text" 
+                                    name="name"
+                                    value={formData.name}
+                                    onChange={handleChange}
+                                    required
+                                    placeholder="Your good name" 
+                                    className="w-full bg-[#1c2638]/50 border border-white/[0.05] rounded-xl px-5 py-4 text-white placeholder:text-slate-600 focus:outline-none focus:border-blue-500/50 focus:ring-4 focus:ring-blue-500/10 transition-all duration-300"
+                                />
+                            </div>
+
+                            <div className="space-y-2">
+                                <label className="flex items-center gap-2 text-xs font-semibold tracking-wider text-slate-300 uppercase ml-1">
+                                    <MessageSquare size={14} className="text-blue-400" /> Your Message
+                                </label>
+                                <textarea 
+                                    name="message"
+                                    value={formData.message}
+                                    onChange={handleChange}
+                                    required
+                                    rows="4" 
+                                    placeholder="How can our travel experts assist you today?" 
+                                    className="w-full bg-[#1c2638]/50 border border-white/[0.05] rounded-xl px-5 py-4 text-white placeholder:text-slate-600 focus:outline-none focus:border-blue-500/50 focus:ring-4 focus:ring-blue-500/10 transition-all duration-300 resize-none leading-relaxed"
+                                />
+                            </div>
+
+                            {/* 🌟 Submit Button */}
+                            <button 
+                                type="submit" 
+                                className="w-full group relative flex items-center justify-center gap-3 bg-gradient-to-r from-blue-600 via-indigo-600 to-emerald-600 hover:from-blue-500 hover:via-indigo-500 hover:to-emerald-500 text-white font-bold py-4 rounded-xl shadow-xl shadow-indigo-950/50 transition-all duration-300 transform hover:scale-[1.01] active:scale-[0.99] cursor-pointer"
+                            >
+                                <span className="text-xs uppercase tracking-[0.2em] font-black">Transmit Message</span>
+                                <Send size={15} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300 text-emerald-300" />
+                            </button>
                         </form>
                     </div>
+
                 </div>
+
+                {/* Footer Note */}
+                <div className="mt-12 text-center flex items-center justify-center gap-2 text-slate-500 text-xs tracking-wide">
+                    <ShieldCheck size={14} className="text-emerald-500/70" />
+                    Your data is handled securely. Response guaranteed within <span className="text-blue-400/80 font-medium">24 business hours</span>.
+                </div>
+
             </div>
         </div>
     );
