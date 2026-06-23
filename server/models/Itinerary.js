@@ -10,12 +10,11 @@ const ItinerarySchema = new mongoose.Schema({
     imageUrl: String, // Main Image URL
     mapUrl: String, // Google Map Embed URL
     tourPlan: [{
-        dayNumber: { type: Number },
-        day: String,
-        title: String,
-        activities: [String],
-        images: [String]
-    }],
+    dayNumber: Number,
+    title: String,
+    activities: [String], 
+    dayImage: { type: String, default: '' } 
+  }],
     hotels: [{
         name: String,
         location: String,

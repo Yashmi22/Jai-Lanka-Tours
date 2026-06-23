@@ -1,51 +1,72 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-require('dotenv').config();
+require('dotenv').config({ path: './.env' });
 const Itinerary = require('./models/Itinerary');
 const Accommodation = require('./models/Accommodation');
 const Discover = require('./models/Discover');
 
-// 1. Route එක මුලින්ම require කරගන්න
+// Require the route first
 const packageRoute = require('./routes/packageRoutes');
 
 const app = express();
 
-// --- CORS CONFIGURATION ---
+// --- CORS CONFIGURATION (Production Ready) ---
+// Add your future live frontend URL to this array when you host it
+const allowedOrigins = [
+    'http://localhost:5173', // Local Vite development port
+    'http://localhost:3000'  // Local React development port
+];
+
 app.use(cors({
-    origin: 'http://localhost:5173', 
+    origin: function (origin, callback) {
+        // Allow requests with no origin (like mobile apps, postman, or curl)
+        if (!origin) return callback(null, true);
+        
+        if (allowedOrigins.indexOf(origin) === -1) {
+            const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
+            return callback(new Error(msg), false);
+        }
+        return callback(null, true);
+    },
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
 // Middleware
-// JSON data සඳහා size limit එක 50MB දක්වා වැඩි කිරීම
+// Increase size limit for JSON data up to 50MB
 app.use(express.json({ limit: '50mb' }));
 
-// URL-encoded data (Form data) සඳහා size limit එක 50MB දක්වා වැඩි කිරීම
+// Increase size limit for URL-encoded data (Form data) up to 50MB
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
-// 2. API Routes මෙතනට ඇතුළත් කරන්න
+// Include API Routes here
 app.use('/api/packages', packageRoute);
 
-// Server එක වැඩ කරනවද කියලා බලන්න පොඩි පණිවිඩයක්
+// Simple route to check if the server is running
 app.get('/', (req, res) => {
     res.send("Jai Lanka Travel Server is running!");
 });
 
-// Database Connection
+// --- SERVER STARTUP & DATABASE CONNECTION (Bypassed Freeze) ---
 const PORT = process.env.PORT || 5000;
 
-// .env එකේ තියෙන MONGO_URI එක පාවිච්ចි කරනවා
+// 1. සර්වර් එක ඩේටාබේස් එක එනකම් බලන් ඉන්නේ නැතිව කෙලින්ම පණ ගැන්වෙනවා
+app.listen(PORT, () => {
+    console.log(`🚀 Jai Lanka Server is smoothly running on port ${PORT}`);
+});
+
+// 2. ඩේටාබේස් එක Background එකේ හෙමින් කනෙක්ට් වෙනවා (සර්වර් එක හිර කරන්නේ නැහැ)
 mongoose.connect(process.env.MONGO_URI)
     .then(() => {
-        console.log("MongoDB Database Connected Successfully");
-        app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+        console.log("🎯 MongoDB Database Connected Successfully");
     })
-    .catch((err) => console.log("Database connection error:", err));
+    .catch((err) => {
+        console.error("❌ Database connection error:", err.message);
+    });
 
-// උදාහරණයක් ලෙස අලුත් හෝටලයක් ඇතුළත් කිරීම:
+// Example: Inserting a new accommodation/hotel
 app.post('/api/accommodation', async (req, res) => {
     try {
         const newHotel = new Accommodation(req.body);
@@ -108,10 +129,8 @@ app.delete('/api/itineraries/:id', async (req, res) => {
         console.log('Delete request received for ID:', req.params.id);
         const deletedItinerary = await Itinerary.findByIdAndDelete(req.params.id);
         if (!deletedItinerary) {
-            console.log('Itinerary not found for ID:', req.params.id);
             return res.status(404).json({ message: 'Itinerary not found' });
         }
-        console.log('Itinerary deleted successfully:', deletedItinerary._id);
         res.status(200).json({ message: 'Itinerary deleted successfully', data: deletedItinerary });
     } catch (err) {
         console.error('Error deleting itinerary:', err);
@@ -140,7 +159,7 @@ app.get('/api/discover', async (req, res) => {
     }
 });
 
-// 💡 මෙතන තිබ්බ ** සලකුණු ඉවත් කළා (දැන් හරියටම වැඩ)
+// Get discover item by ID
 app.get('/api/discover/:id', async (req, res) => {
     try {
         const discover = await Discover.findById(req.params.id);
@@ -158,10 +177,8 @@ app.delete('/api/discover/:id', async (req, res) => {
         console.log('Delete request received for ID:', req.params.id);
         const deletedDiscover = await Discover.findByIdAndDelete(req.params.id);
         if (!deletedDiscover) {
-            console.log('Discover not found for ID:', req.params.id);
             return res.status(404).json({ message: 'Discover not found' });
         }
-        console.log('Discover deleted successfully:', deletedDiscover._id);
         res.status(200).json({ message: 'Discover deleted successfully', data: deletedDiscover });
     } catch (err) {
         console.error('Error deleting discover:', err);

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { MailOutline } from '@mui/icons-material';
+//  MUI Icons වල ඇතිවූ Import Error එක සම්පූර්ණයෙන්ම නිවැරදි කරන ලදී.
+import { MailOutlined, Facebook, Instagram, WhatsApp } from '@mui/icons-material';
 
 const Footer = () => {
   return (
@@ -59,7 +60,7 @@ const Footer = () => {
               </a>
 
               <a 
-                href="https://wa.me/94740966449" // ඔයාගේ WhatsApp නම්බර් එක මෙතනට දාන්න (+ ලකුණ නැතුව)
+                href="https://wa.me/94740966449" // Whatsapp Number in international format without '+' or dashes
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-xl bg-slate-900/60 border border-slate-800/80 text-slate-400 hover:text-amber-400 hover:border-amber-500/30 hover:shadow-lg hover:shadow-amber-500/5 flex items-center justify-center transition-all duration-300"
@@ -69,11 +70,11 @@ const Footer = () => {
               </a>
 
               <a 
-                href="mailto:hello@jailanka.com" 
+                href="mailto:jailanka@gmail.com" // Email එකක් නිවැරදිව වැඩ කිරීමට mailto: එකතු කරන ලදී
                 className="w-10 h-10 rounded-xl bg-slate-900/60 border border-slate-800/80 text-slate-400 hover:text-amber-400 hover:border-amber-500/30 hover:shadow-lg hover:shadow-amber-500/5 flex items-center justify-center transition-all duration-300"
                 aria-label="Email"
               >
-                <MailOutline style={{ fontSize: '20px' }} />
+                <MailOutlined style={{ fontSize: '20px' }} />
               </a>
             </div>
           </div>
@@ -106,15 +107,11 @@ const Footer = () => {
             <ul className="space-y-5 text-sm font-light text-slate-400">
               <li className="flex flex-col gap-0.5">
                 <span className="text-[10px] text-slate-600 font-bold uppercase tracking-wider">Hotline</span>
-                <span className="text-slate-300 hover:text-amber-400 transition-colors cursor-pointer">+94 11 234 5678</span>
+                <span className="text-slate-300 hover:text-amber-400 transition-colors cursor-pointer">+9474 096 6449</span>
               </li>
               <li className="flex flex-col gap-0.5">
                 <span className="text-[10px] text-slate-600 font-bold uppercase tracking-wider">Inquiries</span>
-                <span className="text-slate-300 hover:text-amber-400 transition-colors cursor-pointer">hello@jailanka.com</span>
-              </li>
-              <li className="flex flex-col gap-0.5">
-                <span className="text-[10px] text-slate-600 font-bold uppercase tracking-wider">Head Office</span>
-                <span className="text-slate-300">Colombo, Sri Lanka</span>
+                <span className="text-slate-300 hover:text-amber-400 transition-colors cursor-pointer">jailanka@gmail.com</span>
               </li>
             </ul>
           </div>

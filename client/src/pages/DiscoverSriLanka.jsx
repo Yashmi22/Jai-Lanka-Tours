@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { FaRegClock, FaRegCalendarAlt, FaStar } from 'react-icons/fa'; // අලුත් Icons ටික
 
 const DiscoverSriLanka = () => {
   const navigate = useNavigate();
@@ -20,21 +21,19 @@ const DiscoverSriLanka = () => {
   const [activeTab, setActiveTab] = useState('destination');
   const [filter, setFilter] = useState('All');
 
-useEffect(() => {
-  const loadData = async () => {
-    try {
-      
-      const res = await axios.get('http://localhost:5000/api/discover');
-      
-      const allData = Array.isArray(res.data) ? res.data : [];
-      setDestinationsData(allData.filter(item => item.type === 'destination'));
-      setExperiencesData(allData.filter(item => item.type === 'experience'));
-    } catch (err) {
-      console.log("Error fetching data from Jai Lanka Database:", err);
-    }
-  };
-  loadData();
-}, []);
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        const res = await axios.get('http://localhost:5000/api/discover');
+        const allData = Array.isArray(res.data) ? res.data : [];
+        setDestinationsData(allData.filter(item => item.type === 'destination'));
+        setExperiencesData(allData.filter(item => item.type === 'experience'));
+      } catch (err) {
+        console.log("Error fetching data from Jai Lanka Database:", err);
+      }
+    };
+    loadData();
+  }, []);
 
   const currentData = activeTab === 'destination' ? destinationsData : experiencesData;
   const filteredItems = filter === 'All' 
@@ -126,8 +125,16 @@ useEffect(() => {
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out brightness-[80%] group-hover:brightness-100" 
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#111726] via-transparent to-transparent"></div>
+                  
+                  {/* Category Tag */}
                   <div className="absolute top-4 left-4 bg-[#0b0f19]/90 backdrop-blur-md px-3.5 py-1.5 rounded-md border border-amber-500/20 shadow-lg">
                     <span className="text-[8px] font-bold text-amber-400 uppercase tracking-widest">{item.category}</span>
+                  </div>
+
+                  {/* ⭐ Rating Badge එක රූපය උඩින් දැම්මා */}
+                  <div className="absolute top-4 right-4 bg-amber-500 text-black px-2.5 py-1 rounded-md text-[10px] font-bold flex items-center gap-1 shadow-lg">
+                    <FaStar className="text-[9px]" />
+                    <span>{item.rating || '4.9'}</span>
                   </div>
                 </div>
 
@@ -137,14 +144,28 @@ useEffect(() => {
                     <p className="text-amber-400/80 text-[9px] tracking-widest uppercase font-bold mb-2">
                       {item.tag || "Exclusive Voyage"}
                     </p>
-                    <h3 className="text-base font-headline font-bold text-white tracking-wide mb-4 group-hover:text-amber-400 transition-colors line-clamp-2 min-h-[2.5rem] leading-snug">
+                    <h3 className="text-base font-headline font-bold text-white tracking-wide mb-3 group-hover:text-amber-400 transition-colors line-clamp-2 min-h-[2.5rem] leading-snug">
                       {item.name}
                     </h3>
+                    
+                    {/* ⏱️ Duration සහ 📅 Best Time එකතු කිරීම */}
+                    <div className="flex items-center gap-4 mb-4 text-slate-400 text-[11px] font-medium">
+                      <div className="flex items-center gap-1.5">
+                        <FaRegClock className="text-amber-400/70" />
+                        <span>{item.duration || 'Flexible'}</span>
+                      </div>
+                      <div className="flex items-center gap-1.5">
+                        <FaRegCalendarAlt className="text-amber-400/70" />
+                        <span>{item.bestTime || 'All Year'}</span>
+                      </div>
+                    </div>
+
                     <p className="text-slate-400 text-xs font-light leading-relaxed mb-6 line-clamp-3">
                       {item.desc}
                     </p>
                   </div>
 
+                  {/* Card Bottom Section */}
                   <div className="pt-4 border-t border-slate-800/80 flex items-center justify-between mt-auto">
                     <div>
                       <p className="text-[8px] uppercase tracking-widest text-slate-500 font-bold">Service Level</p>

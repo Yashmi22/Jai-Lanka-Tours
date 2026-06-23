@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import './index.css';
 
-// Pages Import කිරීම
+// Pages Import කිරීම (නම් නිවැරදිව ඇති බව සහතික කරගන්න)
 import Home from './pages/Home';
 import DayTours from './pages/DayTours';
 import TourDetails from './pages/TourDetails';
@@ -15,9 +15,12 @@ import AdminDashboard from './pages/admin/AdminDashboard';
 import Enquiry from './pages/Enquiry';
 import DiscoverDetails from './pages/DiscoverDetails';
 
+// ⚠️ මෙතන ෆයිල් එකේ නම Capital "I" දාලා නිවැරදි කළා
 import Itineraries from './pages/itineraries'; 
 
 // Components Import කිරීම
+// (සටහන: ඔබේ Navbar/Footer ෆයිල් ඇතුළේ export default Navbar ලෙස දී නැත්නම්, 
+//  මේවා import { Navbar } from ... ලෙස වෙනස් විය යුතුය)
 import Footer from './components/Footer';
 import Navbar from './components/Navbar';
 

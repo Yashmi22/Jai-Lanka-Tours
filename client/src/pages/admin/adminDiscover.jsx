@@ -14,7 +14,10 @@ const AdminDiscover = () => {
         tag: '',
         category: 'Cultural',
         type: 'destination', 
-        desc: '' 
+        desc: '',
+        duration: '',
+        rating: '',
+        bestTime: ''
     });
     const [imageFile, setImageFile] = useState(null);
     const [previewUrl, setPreviewUrl] = useState('');
@@ -22,12 +25,10 @@ const AdminDiscover = () => {
 
     const categories = ['Cultural', 'Adventure', 'Wellness', 'Romantic', 'Beach'];
 
-    
     const fetchDiscoveries = async () => {
         try {
             const res = await axios.get('http://localhost:5000/api/discover');
             
-             
             if (res.data && Array.isArray(res.data)) {
                 setDiscoveries(res.data);
             } else if (res.data && Array.isArray(res.data.data)) {
@@ -58,7 +59,7 @@ const AdminDiscover = () => {
         }
     };
 
-    // 🔄 2. Edit බටන් එක එබූ විට දත්ත Form එකට පිරවීම
+    // 🔄 Edit බටන් එක එබූ විට දත්ත Form එකට පිරවීම
     const startEdit = (item) => {
         setIsEditing(true);
         setCurrentId(item._id);
@@ -67,20 +68,22 @@ const AdminDiscover = () => {
             tag: item.tag || '',
             category: item.category || 'Cultural',
             type: item.type || 'destination',
-            desc: item.desc || item.description || '' // 🎯 Schema එකේ තියෙන 'desc' එක ආරක්ෂිතව ගනී
+            desc: item.desc || item.description || '',
+            duration: item.duration || '',
+            rating: item.rating || '',
+            bestTime: item.bestTime || ''
         });
         setPreviewUrl(item.img || ''); 
         setImageFile(null); 
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
-    
     const deleteDiscover = async (id) => {
         if (window.confirm("Are you sure you want to delete this item?")) {
             try {
-               await axios.delete(`http://localhost:5000/api/discover/${id}`);
+                await axios.delete(`http://localhost:5000/api/discover/${id}`);
                 alert("Item deleted successfully!");
-                fetchDiscoveries(); // Table එක refresh කිරීම
+                fetchDiscoveries();
             } catch (err) {
                 console.error("Error deleting item:", err);
                 alert("Failed to delete item.");
@@ -91,7 +94,16 @@ const AdminDiscover = () => {
     const resetForm = () => {
         setIsEditing(false);
         setCurrentId(null);
-        setFormData({ name: '', tag: '', category: 'Cultural', type: 'destination', desc: '' });
+        setFormData({ 
+            name: '', 
+            tag: '', 
+            category: 'Cultural', 
+            type: 'destination', 
+            desc: '',
+            duration: '',
+            rating: '',
+            bestTime: ''
+        });
         setImageFile(null);
         setPreviewUrl('');
     };
@@ -113,28 +125,28 @@ const AdminDiscover = () => {
                 finalImageUrl = await uploadImageToCloudinary(imageFile);
             }
 
-            // 🎯 FIX: ඔයාගේ Schema එකට (name, tag, category, type, img, desc) 100%ක්ම ගැලපෙන ලෙස දත්ත සැකසීම
             const finalData = {
                 name: formData.name,
                 tag: formData.tag,
                 category: formData.category,
                 type: formData.type,
-                desc: formData.desc, // Schema එක බලාපොරොත්තු වන නිවැරදිම key එක
-                img: finalImageUrl 
+                desc: formData.desc, 
+                img: finalImageUrl,
+                duration: formData.duration || undefined,
+                rating: formData.rating || undefined,
+                bestTime: formData.bestTime || undefined
             };
 
             if (isEditing) {
-                // 🔄 Update (PUT Request)
                 await axios.put(`http://localhost:5000/api/discover/${currentId}`, finalData);
                 alert(`${formData.type.toUpperCase()} Updated Successfully!`);
             } else {
-                // 🔄 Create (POST Request)
                 await axios.post('http://localhost:5000/api/discover', finalData);
                 alert(`${formData.type.toUpperCase()} Added Successfully with Cloudinary!`);
             }
             
             resetForm();
-            fetchDiscoveries(); // දත්ත වගුව අලුත් කිරීම
+            fetchDiscoveries(); 
         } catch (err) {
             console.error(err);
             alert('Error saving data. Please check backend response.');
@@ -227,6 +239,36 @@ const AdminDiscover = () => {
                             )}
                         </div>
 
+                        {/* Duration */}
+                        <div className="flex flex-col gap-2">
+                            <label className="text-[10px] font-bold tracking-widest uppercase text-slate-400 ml-2">Ideal Duration</label>
+                            <input 
+                                name="duration" value={formData.duration} onChange={handleChange}
+                                className="w-full p-4 bg-slate-50 border-none rounded-2xl focus:ring-2 focus:ring-[#005483] outline-none"
+                                placeholder="e.g. 2-3 Days"
+                            />
+                        </div>
+
+                        {/* Rating */}
+                        <div className="flex flex-col gap-2">
+                            <label className="text-[10px] font-bold tracking-widest uppercase text-slate-400 ml-2">Rating Score</label>
+                            <input 
+                                name="rating" value={formData.rating} onChange={handleChange}
+                                className="w-full p-4 bg-slate-50 border-none rounded-2xl focus:ring-2 focus:ring-[#005483] outline-none"
+                                placeholder="e.g. 4.8"
+                            />
+                        </div>
+
+                        {/* Best Season */}
+                        <div className="flex flex-col gap-2">
+                            <label className="text-[10px] font-bold tracking-widest uppercase text-slate-400 ml-2">Best Season to Visit</label>
+                            <input 
+                                name="bestTime" value={formData.bestTime} onChange={handleChange}
+                                className="w-full p-4 bg-slate-50 border-none rounded-2xl focus:ring-2 focus:ring-[#005483] outline-none"
+                                placeholder="e.g. Jan - April"
+                            />
+                        </div>
+
                         {/* Description */}
                         <div className="md:col-span-2 flex flex-col gap-2">
                             <label className="text-[10px] font-bold tracking-widest uppercase text-slate-400 ml-2">Detailed Description</label>
@@ -258,7 +300,7 @@ const AdminDiscover = () => {
                     </div>
                 </form>
 
-                {/* 🔄 4. LIST OF EXISTING DISCOVERIES (දත්ත ලැයිස්තුව පෙන්වන වගුව මෙතනට ඇතුළත් කර ඇත) */}
+                {/* LIST OF EXISTING DISCOVERIES */}
                 <div className="bg-[#0b0f19] p-6 md:p-8 rounded-[2rem] border border-slate-800 text-white shadow-xl">
                     <h2 className="text-xl font-bold mb-6 tracking-wide text-slate-100">Existing Discoveries</h2>
                     
@@ -290,7 +332,6 @@ const AdminDiscover = () => {
                                             <td className="px-6 py-4 text-white font-medium text-base capitalize">{item.name}</td>
                                             <td className="px-6 py-4 text-sm text-amber-400 font-semibold">{item.category}</td>
                                             <td className="px-6 py-4 text-right space-x-2 whitespace-nowrap">
-                                                {/* Edit Button */}
                                                 <button 
                                                     type="button"
                                                     onClick={() => startEdit(item)} 
@@ -299,7 +340,6 @@ const AdminDiscover = () => {
                                                 >
                                                     <FaEdit size={14} />
                                                 </button>
-                                                {/* Delete Button */}
                                                 <button 
                                                     type="button"
                                                     onClick={() => deleteDiscover(item._id)} 

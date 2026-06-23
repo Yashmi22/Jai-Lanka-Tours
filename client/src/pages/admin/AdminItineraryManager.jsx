@@ -35,7 +35,7 @@ const AdminItinerary = () => {
         accommodation: '3-Star Hotels', 
         desc: '',
         imageUrl: '',
-        tourPlan: [{ dayNumber: 1, title: '', description: '', dayImage: '' }],
+        tourPlan: [{ dayNumber: 1, title: '', description: '', dayImage: '', images: [] }],
         hotels: [{ hotelName: '', location: '', hotelDesc: '', hotelImage: '' }]
     });
 
@@ -81,14 +81,18 @@ const AdminItinerary = () => {
 
         try {
             setUploading(true);
-            const uploadedUrl = await uploadImageToCloudinary(file);
+            const uploadedUrl = await uploadImageToCloudinary(file); 
+            
             if (uploadedUrl) {
-                const updatedDays = [...formData.tourPlan];
-                updatedDays[index]['dayImage'] = uploadedUrl;
-                setFormData(prev => ({ ...prev, tourPlan: updatedDays }));
-                alert(`Day ${index + 1} Image uploaded successfully!`);
+                const updatedTourPlan = [...formData.tourPlan];
+                updatedTourPlan[index].dayImage = uploadedUrl;
+                updatedTourPlan[index].images = [uploadedUrl]; 
+                
+                setFormData(prev => ({ ...prev, tourPlan: updatedTourPlan }));
+                alert("Day Image uploaded successfully!");
             }
-        } catch (err) {
+        } catch (error) {
+            console.error("Image upload error:", error);
             alert("Failed to upload Day Image.");
         } finally {
             setUploading(false);
@@ -131,7 +135,7 @@ const AdminItinerary = () => {
     const addDayField = () => {
         setFormData({
             ...formData,
-            tourPlan: [...formData.tourPlan, { dayNumber: formData.tourPlan.length + 1, title: '', description: '', dayImage: '' }]
+            tourPlan: [...formData.tourPlan, { dayNumber: formData.tourPlan.length + 1, title: '', description: '', dayImage: '', images: [] }]
         });
     };
 
@@ -190,9 +194,10 @@ const AdminItinerary = () => {
                     dayNumber: plan.dayNumber || idx + 1,
                     title: plan.title || '',
                     description: Array.isArray(plan.activities) ? plan.activities.join('\n') : plan.activities || plan.description || '',
-                    dayImage: plan.dayImage || ''
+                    dayImage: plan.dayImage || (plan.images && plan.images[0]) || '',
+                    images: plan.images || []
                 }))
-                : [{ dayNumber: 1, title: '', description: '', dayImage: '' }],
+                : [{ dayNumber: 1, title: '', description: '', dayImage: '', images: [] }],
             hotels: itinerary.hotels && itinerary.hotels.length > 0 
                 ? itinerary.hotels.map(h => ({
                     hotelName: h.name || h.hotelName || '', 
@@ -228,7 +233,7 @@ const AdminItinerary = () => {
             accommodation: '3-Star Hotels',
             desc: '',
             imageUrl: '',
-            tourPlan: [{ dayNumber: 1, title: '', description: '', dayImage: '' }],
+            tourPlan: [{ dayNumber: 1, title: '', description: '', dayImage: '', images: [] }],
             hotels: [{ hotelName: '', location: '', hotelDesc: '', hotelImage: '' }]
         });
     };
@@ -236,7 +241,6 @@ const AdminItinerary = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // 🛡️ කෝඩ් එක තවත් සුරක්ෂිත කරන්න Image එකක් අප්ලෝඩ් වෙන ගමන් නම් සබ්මිට් කරන්න දෙන්නෙ නෑ
         if (uploading) {
             alert("Please wait until images are uploaded completely!");
             return;
@@ -255,7 +259,9 @@ const AdminItinerary = () => {
             dayNumber: day.dayNumber || idx + 1,
             title: day.title,
             activities: day.description ? [day.description] : [],
-            dayImage: day.dayImage || ''
+            dayImage: day.dayImage || '',  
+            imageUrl: day.dayImage || '',
+            images: day.images || (day.dayImage ? [day.dayImage] : [])
         }));
 
         const dataToSend = {
@@ -346,35 +352,56 @@ const AdminItinerary = () => {
                             </button>
                         </h3>
 
-                        <div className="space-y-4">
+                        <div className="space-y-6">
                             {formData.tourPlan.map((day, idx) => (
-                                <div key={idx} className="bg-[#0b0f19] p-4 rounded-xl border border-slate-800 relative space-y-3">
+                                <div key={idx} className="bg-[#0b0f19] p-6 rounded-xl border border-slate-800 relative flex flex-col space-y-4">
                                     <button type="button" onClick={() => removeDayField(idx)} className="absolute top-4 right-4 text-slate-500 hover:text-red-400 transition">
                                         <Remove />
                                     </button>
-                                    <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
-                                        <div className="md:col-span-2">
+
+                                    {/* Row 1: Day Number & Destination / Title Side by Side */}
+                                    <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
+                                        <div className="w-24">
                                             <label className="text-xs text-slate-400 block mb-1">Day No</label>
-                                            <input type="number" name="dayNumber" value={day.dayNumber} disabled className="w-full bg-[#111726] border border-slate-800 rounded-lg px-3 py-2 text-center text-amber-400" />
+                                            <input type="number" name="dayNumber" value={day.dayNumber} disabled className="w-full bg-[#111726] border border-slate-800 rounded-lg px-3 py-2 text-center text-amber-400 font-bold" />
                                         </div>
-                                        <div className="md:col-span-5">
-                                            <label className="text-xs text-slate-400 block mb-1">Destination/Title</label>
-                                            <input type="text" name="title" value={day.title} onChange={(e) => handleDayInputChange(idx, e)} required className="w-full bg-[#111726] border border-slate-800 rounded-lg px-3 py-2 outline-none text-sm" />
-                                        </div>
-                                        <div className="md:col-span-5">
-                                            <label className="text-xs text-slate-400 block mb-1">Day Schedule Image</label>
-                                            <div className="flex items-center gap-2 bg-[#111726] p-1 rounded-lg border border-slate-800">
-                                                <label className="cursor-pointer bg-slate-800 hover:bg-slate-700 text-xs px-3 py-1.5 rounded-md flex items-center gap-1 transition">
-                                                    <Image style={{ fontSize: '14px' }} /> Select
-                                                    <input type="file" accept="image/*" onChange={(e) => handleDayImageUpload(idx, e)} className="hidden" />
-                                                </label>
-                                                {day.dayImage && <img src={day.dayImage} className="w-10 h-7 object-cover rounded" alt="Preview" />}
-                                            </div>
+                                        <div className="flex-1 w-full">
+                                            <label className="text-xs text-slate-400 block mb-1">Destination / Title</label>
+                                            <input type="text" name="title" value={day.title} onChange={(e) => handleDayInputChange(idx, e)} required className="w-full bg-[#111726] border border-slate-800 rounded-lg px-3 py-2 outline-none text-sm focus:border-amber-500 transition" />
                                         </div>
                                     </div>
-                                    <div>
-                                        <label className="text-xs text-slate-400 block mb-1">Day Activity Description</label>
-                                        <textarea name="description" value={day.description} onChange={(e) => handleDayInputChange(idx, e)} required rows="2" className="w-full bg-[#111726] border border-slate-800 rounded-lg px-3 py-2 outline-none text-sm resize-none"></textarea>
+
+                                    {/* Row 2: Description (Left Side) & Day Schedule Image Upload (Right Side) */}
+                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-start">
+                                        {/* Description Field - Takes 2 columns on medium screens */}
+                                        <div className="md:col-span-2">
+                                            <label className="text-xs text-slate-400 block mb-1">Day Activity Description</label>
+                                            <textarea name="description" value={day.description} onChange={(e) => handleDayInputChange(idx, e)} required rows="4" className="w-full bg-[#111726] border border-slate-800 rounded-lg px-3 py-2.5 outline-none text-sm resize-none focus:border-amber-500 transition" placeholder="Describe the activities for this day..."></textarea>
+                                        </div>
+
+                                        {/* Image Upload Area - Takes 1 column on medium screens (Right Side) */}
+                                        <div className="w-full">
+                                            <label className="text-xs text-slate-400 block mb-1">Day Schedule Image</label>
+                                            <div className="flex flex-col items-center justify-center bg-[#111726] p-4 rounded-lg border border-slate-800 h-[108px] relative group overflow-hidden">
+                                                {day.dayImage ? (
+                                                    <div className="absolute inset-0 w-full h-full">
+                                                        <img src={day.dayImage} className="w-full h-full object-cover" alt="Preview" />
+                                                        <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex items-center justify-center transition duration-200">
+                                                            <label className="cursor-pointer bg-amber-500 text-black text-xs font-bold px-3 py-1.5 rounded shadow-md flex items-center gap-1">
+                                                                <Image style={{ fontSize: '14px' }} /> Change
+                                                                <input type="file" accept="image/*" onChange={(e) => handleDayImageUpload(idx, e)} className="hidden" />
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                ) : (
+                                                    <label className="cursor-pointer bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs px-4 py-2.5 rounded-md flex flex-col items-center gap-1.5 transition border border-dashed border-slate-700 w-full text-center">
+                                                        <Image style={{ fontSize: '18px', color: '#fbbf24' }} />
+                                                        <span>Select Day Image</span>
+                                                        <input type="file" accept="image/*" onChange={(e) => handleDayImageUpload(idx, e)} className="hidden" />
+                                                    </label>
+                                                )}
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             ))}
