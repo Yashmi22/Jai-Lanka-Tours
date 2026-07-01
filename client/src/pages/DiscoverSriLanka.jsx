@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { FaRegClock, FaRegCalendarAlt, FaStar } from 'react-icons/fa'; // අලුත් Icons ටික
+import { FaRegClock, FaRegCalendarAlt, FaStar } from 'react-icons/fa'; 
 
 const DiscoverSriLanka = () => {
   const navigate = useNavigate();
   
-  // 💡 Backend එකෙන් එන Relative image path එක සම්පූර්ණ URL එකක් බවට පත් කිරීම
+  
   const normalizeImagePath = (path) => {
     if (!path) return '';
     if (path.startsWith('http://') || path.startsWith('https://')) {
@@ -122,16 +122,16 @@ const DiscoverSriLanka = () => {
                   <img 
                     src={normalizeImagePath(item.img)} 
                     alt={item.name} 
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out brightness-[80%] group-hover:brightness-100" 
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out brightness-[100%] group-hover:brightness-[110%]" 
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#111726] via-transparent to-transparent"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#111726]/20 via-transparent to-transparent"></div>
                   
                   {/* Category Tag */}
                   <div className="absolute top-4 left-4 bg-[#0b0f19]/90 backdrop-blur-md px-3.5 py-1.5 rounded-md border border-amber-500/20 shadow-lg">
                     <span className="text-[8px] font-bold text-amber-400 uppercase tracking-widest">{item.category}</span>
                   </div>
 
-                  {/* ⭐ Rating Badge එක රූපය උඩින් දැම්මා */}
+                 
                   <div className="absolute top-4 right-4 bg-amber-500 text-black px-2.5 py-1 rounded-md text-[10px] font-bold flex items-center gap-1 shadow-lg">
                     <FaStar className="text-[9px]" />
                     <span>{item.rating || '4.9'}</span>
@@ -148,7 +148,7 @@ const DiscoverSriLanka = () => {
                       {item.name}
                     </h3>
                     
-                    {/* ⏱️ Duration සහ 📅 Best Time එකතු කිරීම */}
+                    
                     <div className="flex items-center gap-4 mb-4 text-slate-400 text-[11px] font-medium">
                       <div className="flex items-center gap-1.5">
                         <FaRegClock className="text-amber-400/70" />

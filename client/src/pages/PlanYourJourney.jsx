@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { 
   User, Mail, Users, Calendar, 
-  MapPin, Send, Compass, Sparkles, AlertCircle, Phone
+    MapPin, Send, Sparkles, AlertCircle, Phone
 } from 'lucide-react';
 
 const PlanYourJourney = () => {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
-        contactMethod: 'email', // Default contact method එක email ලෙස සකසා ඇත
+        contactMethod: 'email', // Default contact method 
         passengers: 1,
         duration: '',
         interests: [],
@@ -45,13 +45,12 @@ const PlanYourJourney = () => {
         e.preventDefault();
         console.log("Submitting Luxury Plan:", formData);
         
-        // WhatsApp හෝ Email අනුව බිස්නස් logic එක මෙතනින් හැසිරවිය හැක:
+        
         if (formData.contactMethod === 'whatsapp') {
-            // WhatsApp එකට විස්තර යැවීමට අවශ්‍ය නම් (Direct WhatsApp redirection)
+           
             const whatsappText = `Hi! I'm planning a journey.%0A%0A*Name:* ${formData.name}%0A*Email:* ${formData.email}%0A*Companions:* ${formData.passengers}%0A*Duration:* ${formData.duration}%0A*Interests:* ${formData.interests.join(', ')}%0A*Preferences:* ${formData.message}`;
-            window.open(`https://wa.me/94771234567?text=${whatsappText}`, '_blank'); // 94771234567 වෙනුවට ඔයාගේ WhatsApp අංකය දාන්න
-        } else {
-            // Backend API (Email) එකකට විස්තර යැවීමට (axios.post) මෙතනින් පුළුවන්
+            window.open(`https://wa.me/9474 096 6449?text=${whatsappText}`, '_blank'); 
+            // Backend API (Email)
             alert("Thank you! Your itinerary request has been submitted via Email.");
         }
     };

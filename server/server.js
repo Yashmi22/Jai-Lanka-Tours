@@ -1,10 +1,35 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const bcrypt = require('bcryptjs'); 
+const jwt = require('jsonwebtoken'); 
 require('dotenv').config({ path: './.env' });
+
+// Models
 const Itinerary = require('./models/Itinerary');
 const Accommodation = require('./models/Accommodation');
 const Discover = require('./models/Discover');
+
+// Dynamic fallback schema to hide DayTour errors if model file is missing
+let DayTour;
+try {
+    DayTour = mongoose.model('DayTour');
+} catch (error) {
+    const dayTourSchema = new mongoose.Schema({}, { strict: false, collection: 'daytours' });
+    DayTour = mongoose.model('DayTour', dayTourSchema);
+}
+
+// Admin Schema registration 
+let Admin;
+try {
+    Admin = mongoose.model('Admin');
+} catch (error) {
+    const adminSchema = new mongoose.Schema({
+        username: { type: String, required: true, unique: true },
+        password: { type: String, required: true }
+    });
+    Admin = mongoose.model('Admin', adminSchema);
+}
 
 // Require the route first
 const packageRoute = require('./routes/packageRoutes');
@@ -12,7 +37,6 @@ const packageRoute = require('./routes/packageRoutes');
 const app = express();
 
 // --- CORS CONFIGURATION (Production Ready) ---
-// Add your future live frontend URL to this array when you host it
 const allowedOrigins = [
     'http://localhost:5173', // Local Vite development port
     'http://localhost:3000'  // Local React development port
@@ -20,7 +44,6 @@ const allowedOrigins = [
 
 app.use(cors({
     origin: function (origin, callback) {
-        // Allow requests with no origin (like mobile apps, postman, or curl)
         if (!origin) return callback(null, true);
         
         if (allowedOrigins.indexOf(origin) === -1) {
@@ -35,10 +58,7 @@ app.use(cors({
 }));
 
 // Middleware
-// Increase size limit for JSON data up to 50MB
 app.use(express.json({ limit: '50mb' }));
-
-// Increase size limit for URL-encoded data (Form data) up to 50MB
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
 // Include API Routes here
@@ -49,24 +69,64 @@ app.get('/', (req, res) => {
     res.send("Jai Lanka Travel Server is running!");
 });
 
-// --- SERVER STARTUP & DATABASE CONNECTION (Bypassed Freeze) ---
+// --- ADMIN AUTHENTICATION API ---
+const JWT_SECRET = process.env.JWT_SECRET || "JaiLankaSuperSecretKey123";
+
+// Admin Login Endpoint
+app.post('/api/admin/login', async (req, res) => {
+    const { username, password } = req.body;
+    try {
+        const admin = await Admin.findOne({ username });
+        if (!admin) {
+            return res.status(400).json({ message: "Invalid Username or Password" });
+        }
+
+        const isMatch = await bcrypt.compare(password, admin.password);
+        if (!isMatch) {
+            return res.status(400).json({ message: "Invalid Username or Password" });
+        }
+
+        const token = jwt.sign({ id: admin._id }, JWT_SECRET, { expiresIn: '1d' });
+
+        res.json({
+            success: true,
+            token,
+            admin: { id: admin._id, username: admin.username }
+        });
+    } catch (error) {
+        res.status(500).json({ message: "Server error during login" });
+    }
+});
+
+// --- SERVER STARTUP & DATABASE CONNECTION ---
 const PORT = process.env.PORT || 5000;
 
-// 1. සර්වර් එක ඩේටාබේස් එක එනකම් බලන් ඉන්නේ නැතිව කෙලින්ම පණ ගැන්වෙනවා
 app.listen(PORT, () => {
     console.log(`🚀 Jai Lanka Server is smoothly running on port ${PORT}`);
 });
 
-// 2. ඩේටාබේස් එක Background එකේ හෙමින් කනෙක්ට් වෙනවා (සර්වර් එක හිර කරන්නේ නැහැ)
 mongoose.connect(process.env.MONGO_URI)
-    .then(() => {
+    .then(async () => {
         console.log("🎯 MongoDB Database Connected Successfully");
+        
+        const adminUsername = process.env.ADMIN_USERNAME;
+        const adminPassword = process.env.ADMIN_PASSWORD;
+
+        if (adminUsername && adminPassword) {
+            const adminExists = await Admin.findOne({ username: adminUsername });
+            if (!adminExists) {
+                const hashedPassword = await bcrypt.hash(adminPassword, 10);
+                const defaultAdmin = new Admin({ username: adminUsername, password: hashedPassword });
+                await defaultAdmin.save();
+                console.log("👤 Secure Admin account initialized via Environment Variables!");
+            }
+        }
     })
     .catch((err) => {
         console.error("❌ Database connection error:", err.message);
     });
 
-// Example: Inserting a new accommodation/hotel
+// Accommodations APIs
 app.post('/api/accommodation', async (req, res) => {
     try {
         const newHotel = new Accommodation(req.body);
@@ -110,7 +170,6 @@ app.get('/api/itineraries/:id', async (req, res) => {
     }
 });
 
-// Itinerary Update API
 app.put('/api/itineraries/:id', async (req, res) => {
     try {
         const itinerary = await Itinerary.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
@@ -159,7 +218,6 @@ app.get('/api/discover', async (req, res) => {
     }
 });
 
-// Get discover item by ID
 app.get('/api/discover/:id', async (req, res) => {
     try {
         const discover = await Discover.findById(req.params.id);
@@ -183,5 +241,29 @@ app.delete('/api/discover/:id', async (req, res) => {
     } catch (err) {
         console.error('Error deleting discover:', err);
         res.status(500).json({ message: 'Error deleting discover', error: err.message });
+    }
+});
+
+// Dashboard Stats API Endpoint
+app.get('/api/admin/stats', async (req, res) => {
+    try {
+        const activeItinerariesCount = await Itinerary.countDocuments({});
+        const dayToursCount = await DayTour.countDocuments({});
+        const accommodationsCount = await Accommodation.countDocuments({});
+        const discoverCount = await Discover.countDocuments({}); 
+
+        const totalRevenue = "Rs. 0.00"; 
+
+        res.json({
+            totalRevenue: totalRevenue,
+            activeItineraries: activeItinerariesCount,
+            dayToursCount: dayToursCount,
+            accommodationsCount: accommodationsCount,
+            discoverCount: discoverCount, // Fixed missing comma here
+            monthlyViews: [0, 0, 0, 0, 0, 0, 0]
+        });
+    } catch (error) {
+        console.error("Dashboard stats error:", error);
+        res.status(500).json({ message: "Server error fetching live dashboard stats" });
     }
 });

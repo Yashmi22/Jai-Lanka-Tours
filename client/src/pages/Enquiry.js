@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { 
-  MessageSquare, Mail, Clock, Send, Sparkles, User, ShieldCheck 
+  MessageSquare, Mail, Send, Sparkles, User, ShieldCheck 
 } from 'lucide-react';
 
 const Enquiry = () => {
@@ -17,7 +17,7 @@ const Enquiry = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log("Submitting Luxury Enquiry:", formData);
-        // ඔයාගේ API call එක හෝ redirection එක මෙතනට දාන්න පුළුවන්
+        
     };
 
     return (
@@ -55,7 +55,7 @@ const Enquiry = () => {
                         
                         {/* WhatsApp Card */}
                         <a 
-                            href="https://wa.me/947XXXXXXXXX" 
+                            href="https://wa.me/+9474 096 6449" 
                             target="_blank" 
                             rel="noopener noreferrer"
                             className="block group bg-[#131c2e]/40 backdrop-blur-xl rounded-3xl border border-white/[0.05] p-6 hover:border-emerald-500/30 hover:bg-[#131c2e]/70 transition-all duration-500 shadow-lg shadow-black/20"
@@ -77,7 +77,7 @@ const Enquiry = () => {
 
                         {/* Email Card */}
                         <a 
-                            href="mailto:info@jailankatravels.com"
+                            href="mailto:jailankatravels@gmail.com"
                             className="block group bg-[#131c2e]/40 backdrop-blur-xl rounded-3xl border border-white/[0.05] p-6 hover:border-blue-500/30 hover:bg-[#131c2e]/70 transition-all duration-500 shadow-lg shadow-black/20"
                         >
                             <div className="flex items-start gap-4">
@@ -87,7 +87,7 @@ const Enquiry = () => {
                                 <div className="space-y-1">
                                     <span className="text-[10px] font-bold text-blue-400 uppercase tracking-widest block">Official Channel</span>
                                     <h3 className="text-lg font-bold text-white tracking-wide">Email Relations</h3>
-                                    <p className="text-slate-400 text-sm font-light">info@jailankatravels.com</p>
+                                    <p className="text-slate-400 text-sm font-light">jailankatravels@gmail.com</p>
                                     <span className="inline-flex items-center gap-1 text-xs font-medium text-blue-400/80 mt-2 group-hover:translate-x-1 transition-transform duration-300">
                                         Send an email &rarr;
                                     </span>
@@ -95,37 +95,7 @@ const Enquiry = () => {
                             </div>
                         </a>
 
-                        {/* Opening Hours Card */}
-                        <div className="bg-[#131c2e]/40 backdrop-blur-xl rounded-3xl border border-white/[0.05] p-6 shadow-lg shadow-black/20">
-                            <div className="flex items-start gap-4">
-                                <div className="bg-indigo-500/10 p-4 rounded-2xl text-indigo-400">
-                                    <Clock size={24} />
-                                </div>
-                                <div className="space-y-3 w-full">
-                                    <div>
-                                        <span className="text-[10px] font-bold text-indigo-400 uppercase tracking-widest block">Availability</span>
-                                        <h3 className="text-lg font-bold text-white tracking-wide">Opening Hours</h3>
-                                    </div>
-                                    <div className="space-y-2 border-t border-white/[0.05] pt-3 text-xs tracking-wide">
-                                        <div className="flex justify-between items-center">
-                                            <span className="text-slate-400">Monday - Friday</span>
-                                            <span className="text-slate-200 font-medium font-mono">8:00 AM - 6:00 PM</span>
-                                        </div>
-                                        <div className="flex justify-between items-center">
-                                            <span className="text-slate-400">Saturday</span>
-                                            <span className="text-slate-200 font-medium font-mono">9:00 AM - 4:00 PM</span>
-                                        </div>
-                                        <div className="flex justify-between items-center">
-                                            <span className="text-rose-400/80 font-medium">Sunday</span>
-                                            <span className="px-2 py-0.5 rounded bg-rose-500/10 border border-rose-500/20 text-rose-400 text-[10px] uppercase font-bold tracking-wider">Closed</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
-
                     {/* 📨 Right Side: Glassmorphism Quick Message Form (7 Columns) */}
                     <div className="lg:col-span-7 bg-[#131c2e]/60 backdrop-blur-2xl rounded-[2.5rem] border border-white/[0.07] shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5)] overflow-hidden">
                         <form onSubmit={handleSubmit} className="p-8 md:p-10 space-y-6">

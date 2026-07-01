@@ -16,13 +16,14 @@ const AdminItinerary = () => {
     const [uploading, setUploading] = useState(false); 
 
     const categories = [
-        'Adventure and Nature Based Tour', 
-        'Culture & Heritage Tour', 
+        'Off Road Adventure Tour', 
+        'Culture & Wildlife Tours', 
         'North & East Coast Tour', 
         'Romantic Tours', 
         'Ayurvedic & Wellness Tour', 
         'Differently able Tour',
-        'Wildlife Tour'
+        
+        
     ];
     
     const accOptions = ['Standard (Guesthouses)', '3-Star Hotels', '4-Star Hotels', '5-Star Luxury', 'Boutique Villas'];
@@ -30,7 +31,7 @@ const AdminItinerary = () => {
     // Initial Form State
     const [formData, setFormData] = useState({
         title: '',
-        category: 'Adventure and Nature Based Tour', 
+        category: 'Off Road Adventure Tour', 
         tag: '',
         accommodation: '3-Star Hotels', 
         desc: '',

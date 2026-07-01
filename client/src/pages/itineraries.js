@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowForward } from '@mui/icons-material';
 
-// මෙහි 'categoryFilter' ලෙස ගන්නේ App.js එකෙන් unique key එකත් එක්ක එවන category නමයි
+
 const Itineraries = ({ categoryFilter = "All" }) => {
     const [itineraries, setItineraries] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -13,10 +13,10 @@ const Itineraries = ({ categoryFilter = "All" }) => {
     useEffect(() => {
         const fetchItineraries = async () => {
             try {
-                setLoading(true); // පේජ් එක මාරු වන විට නැවත loading state එක true කරයි
+                setLoading(true); 
                 const res = await axios.get('http://localhost:5000/api/itineraries');
                 
-                console.log("Database එකෙන් ආපු Data:", res.data); // Troubleshooting සඳහා
+                console.log("Database  Data:", res.data); // Troubleshooting 
 
                 if (categoryFilter === "All") {
                     setItineraries(res.data);
@@ -24,11 +24,11 @@ const Itineraries = ({ categoryFilter = "All" }) => {
                     const filtered = res.data.filter(item => {
                         if (!item.category) return false;
 
-                        // 💡 සුපිරි FIX: අකුරු වල spaces, symbols (like &) සහ capital/simple ඔක්කොම නොසලකා හැර කෙලින්ම match කරයි!
+                       
                         const dbCategory = item.category.replace(/[^a-zA-Z0-9]/g, "").toLowerCase();
                         const filterCategory = categoryFilter.replace(/[^a-zA-Z0-9]/g, "").toLowerCase();
 
-                        // එකක් ඇතුළේ අනෙක අන්තර්ගතද කියා වඩාත් නම්‍යශීලීව පරීක්ෂා කරයි
+                        
                         return dbCategory.includes(filterCategory) || filterCategory.includes(dbCategory);
                     });
                     setItineraries(filtered);
@@ -36,7 +36,7 @@ const Itineraries = ({ categoryFilter = "All" }) => {
             } catch (err) {
                 console.error("Error fetching itineraries", err);
             } finally {
-                setLoading(false); // 🎯 FIX: සාර්ථක වුණත්, fail වුණත් loading එක මෙතනින් නතර වේ.
+                setLoading(false); 
             }
         };
         
@@ -46,7 +46,7 @@ const Itineraries = ({ categoryFilter = "All" }) => {
     if (loading) {
         return (
             <div className="min-h-screen flex items-center justify-center bg-[#0b0f19] font-serif italic text-xl text-amber-400/70">
-                Crafting luxury itineraries...
+                Loading...
             </div>
         );
     }
@@ -63,7 +63,7 @@ const Itineraries = ({ categoryFilter = "All" }) => {
                     <h1 className="text-4xl md:text-5xl font-headline font-light text-white tracking-wide uppercase mt-2">
                         {categoryFilter === "All" ? "All Itineraries" : `${categoryFilter} `}
                         <span className="font-serif italic text-amber-400">
-                            {categoryFilter === "All" ? "" : "Tours"}
+                            {categoryFilter === "All" ? "" : " "}
                         </span>
                     </h1>
                 </div>
@@ -85,12 +85,12 @@ const Itineraries = ({ categoryFilter = "All" }) => {
                             {/* Image Container */}
                             <div className="relative aspect-[4/3] overflow-hidden">
                                 <img 
-                                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 brightness-[85%] group-hover:brightness-100" 
+                                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 brightness-[100%] group-hover:brightness-[110%]" 
                                     src={item.imageUrl} 
                                     alt={item.title} 
                                     loading="lazy"
                                 />
-                                <div className="absolute inset-0 bg-gradient-to-t from-[#111726] via-transparent to-transparent"></div>
+                                <div className="absolute inset-0 bg-gradient-to-t from-[#111726]/30 via-transparent to-transparent"></div>
                                 
                                 {/* Days Badge */}
                                 <div className="absolute top-4 right-4 bg-[#0b0f19]/90 backdrop-blur-md px-3 py-1.5 rounded-md border border-amber-500/20 shadow-lg">

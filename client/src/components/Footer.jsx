@@ -1,24 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-//  MUI Icons වල ඇතිවූ Import Error එක සම්පූර්ණයෙන්ම නිවැරදි කරන ලදී.
 import { MailOutlined, Facebook, Instagram, WhatsApp } from '@mui/icons-material';
 
 const Footer = () => {
   return (
-    <footer className="relative w-full overflow-hidden text-slate-200 pt-24 pb-12 mt-auto border-t border-slate-900">
+    <footer className="relative w-full overflow-hidden text-slate-200 pt-24 pb-12 mt-auto border-t border-slate-900 bg-[#070a13]">
       
-      {/* 1. Background Image with Blur & Deep Dark Overlay */}
-      <div className="absolute inset-0 z-0">
-        <img 
-          src="https://images.unsplash.com/photo-1546708973-b339540b5162?q=80&w=2000" 
-          alt="Sri Lanka Background" 
-          className="w-full h-full object-cover scale-110 brightness-[35%]" 
-        />
-        {/* Dark Slate Overlay with glass blur for premium separation */}
-        <div className="absolute inset-0 bg-[#070a13]/85 backdrop-blur-[8px]"></div>
-      </div>
-
-      {/* 2. Glassmorphic Footer Content Container */}
+      {/* Main Footer Content Container */}
       <div className="relative z-10 max-w-7xl mx-auto px-6">
         
         {/* Main Footer Content Grid */}
@@ -37,13 +25,13 @@ const Footer = () => {
               Hallmark of Sri Lankan Travel. Specializing in bespoke luxury tours and curated exotic experiences for the modern traveler.
             </p>
 
-            {/* 🌐 Modern Social Media Icons Wrapper */}
+            {/* 🌐 Modern Social Media Icons Wrapper with Official Brand Hover Colors */}
             <div className="flex items-center gap-3 pt-2">
               <a 
                 href="https://facebook.com/your-page" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-xl bg-slate-900/60 border border-slate-800/80 text-slate-400 hover:text-amber-400 hover:border-amber-500/30 hover:shadow-lg hover:shadow-amber-500/5 flex items-center justify-center transition-all duration-300"
+                className="w-10 h-10 rounded-xl bg-slate-900/40 border border-slate-800/80 text-slate-400 hover:text-white hover:bg-[#1877F2] hover:border-[#1877F2] hover:shadow-lg hover:shadow-[#1877F2]/20 flex items-center justify-center transition-all duration-300"
                 aria-label="Facebook"
               >
                 <Facebook style={{ fontSize: '20px' }} />
@@ -53,25 +41,25 @@ const Footer = () => {
                 href="https://instagram.com/your-profile" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-xl bg-slate-900/60 border border-slate-800/80 text-slate-400 hover:text-amber-400 hover:border-amber-500/30 hover:shadow-lg hover:shadow-amber-500/5 flex items-center justify-center transition-all duration-300"
+                className="w-10 h-10 rounded-xl bg-slate-900/40 border border-slate-800/80 text-slate-400 hover:text-white hover:bg-gradient-to-tr hover:from-[#f9ce34] hover:via-[#ee2a7b] hover:to-[#6228d7] hover:border-transparent hover:shadow-lg hover:shadow-[#ee2a7b]/20 flex items-center justify-center transition-all duration-300"
                 aria-label="Instagram"
               >
                 <Instagram style={{ fontSize: '20px' }} />
               </a>
 
               <a 
-                href="https://wa.me/94740966449" // Whatsapp Number in international format without '+' or dashes
+                href="https://wa.me/94740966449" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-xl bg-slate-900/60 border border-slate-800/80 text-slate-400 hover:text-amber-400 hover:border-amber-500/30 hover:shadow-lg hover:shadow-amber-500/5 flex items-center justify-center transition-all duration-300"
+                className="w-10 h-10 rounded-xl bg-slate-900/40 border border-slate-800/80 text-slate-400 hover:text-white hover:bg-[#25D366] hover:border-[#25D366] hover:shadow-lg hover:shadow-[#25D366]/20 flex items-center justify-center transition-all duration-300"
                 aria-label="WhatsApp"
               >
                 <WhatsApp style={{ fontSize: '20px' }} />
               </a>
 
               <a 
-                href="mailto:jailanka@gmail.com" // Email එකක් නිවැරදිව වැඩ කිරීමට mailto: එකතු කරන ලදී
-                className="w-10 h-10 rounded-xl bg-slate-900/60 border border-slate-800/80 text-slate-400 hover:text-amber-400 hover:border-amber-500/30 hover:shadow-lg hover:shadow-amber-500/5 flex items-center justify-center transition-all duration-300"
+                href="mailto:jailanka@gmail.com" 
+                className="w-10 h-10 rounded-xl bg-slate-900/40 border border-slate-800/80 text-slate-400 hover:text-white hover:bg-[#EA4335] hover:border-[#EA4335] hover:shadow-lg hover:shadow-[#EA4335]/20 flex items-center justify-center transition-all duration-300"
                 aria-label="Email"
               >
                 <MailOutlined style={{ fontSize: '20px' }} />
@@ -85,7 +73,10 @@ const Footer = () => {
             <ul className="space-y-4 text-sm font-light text-slate-400">
               <li><Link to="/" className="hover:text-amber-400 hover:pl-1 transition-all duration-300 block">Home</Link></li>
               <li><Link to="/day-tours" className="hover:text-amber-400 hover:pl-1 transition-all duration-300 block">Day Tours</Link></li>
-              <li><Link to="/our-story" className="hover:text-amber-400 hover:pl-1 transition-all duration-300 block">Our Story</Link></li>
+              <li><Link to="/itineraries" className="hover:text-amber-400 hover:pl-1 transition-all duration-300 block">Itineraries</Link></li>
+              <li><Link to="/discover" className="hover:text-amber-400 hover:pl-1 transition-all duration-300 block">Discover Sri Lanka</Link></li>
+              <li><Link to="/accommodation" className="hover:text-amber-400 hover:pl-1 transition-all duration-300 block">Accommodation</Link></li>
+              <li><Link to="/about-us" className="hover:text-amber-400 hover:pl-1 transition-all duration-300 block">About Us</Link></li>
               <li><Link to="/plan-journey" className="hover:text-amber-400 hover:pl-1 transition-all duration-300 block">Plan Journey</Link></li>
             </ul>
           </div>
@@ -94,10 +85,12 @@ const Footer = () => {
           <div>
             <h5 className="font-bold text-[11px] tracking-[0.25em] uppercase mb-8 text-slate-500">Experiences</h5>
             <ul className="space-y-4 text-sm font-light text-slate-400">
-              <li className="hover:text-amber-400 hover:pl-1 cursor-pointer transition-all duration-300 block">Wildlife Safari</li>
-              <li className="hover:text-amber-400 hover:pl-1 cursor-pointer transition-all duration-300 block">Cultural Triangle</li>
-              <li className="hover:text-amber-400 hover:pl-1 cursor-pointer transition-all duration-300 block">Honeymoon Tours</li>
-              <li className="hover:text-amber-400 hover:pl-1 cursor-pointer transition-all duration-300 block">Wellness & Ayurveda</li>
+              <li><Link to="/itineraries/ayurvedic" className="hover:text-amber-400 hover:pl-1 transition-all duration-300 block">Ayurvedic & Wellness</Link></li>
+              <li><Link to="/itineraries/adventure" className="hover:text-amber-400 hover:pl-1 transition-all duration-300 block">Off Road Adventure Tour</Link></li>
+              <li><Link to="/itineraries/culture" className="hover:text-amber-400 hover:pl-1 transition-all duration-300 block">Culture & Wildlife Tours</Link></li>
+              <li><Link to="/itineraries/differently-abled" className="hover:text-amber-400 hover:pl-1 transition-all duration-300 block">Differently Abled Tours</Link></li>
+              <li><Link to="/itineraries/romantic" className="hover:text-amber-400 hover:pl-1 transition-all duration-300 block">Romantic Tours</Link></li>
+              <li><Link to="/itineraries/north-east" className="hover:text-amber-400 hover:pl-1 transition-all duration-300 block">North & East Coast</Link></li>
             </ul>
           </div>
 
@@ -110,7 +103,7 @@ const Footer = () => {
                 <span className="text-slate-300 hover:text-amber-400 transition-colors cursor-pointer">+9474 096 6449</span>
               </li>
               <li className="flex flex-col gap-0.5">
-                <span className="text-[10px] text-slate-600 font-bold uppercase tracking-wider">Inquiries</span>
+                <span><Link to="/enquiry" className="text-[10px] text-slate-600 font-bold uppercase tracking-wider">Inquiries</Link></span>
                 <span className="text-slate-300 hover:text-amber-400 transition-colors cursor-pointer">jailanka@gmail.com</span>
               </li>
             </ul>
@@ -132,4 +125,4 @@ const Footer = () => {
   );
 }
 
-export default Footer;
+export default Footer;  
