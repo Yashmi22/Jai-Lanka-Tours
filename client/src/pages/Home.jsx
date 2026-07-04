@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FaWhatsapp } from 'react-icons/fa';
 
-// logo1.png එක Import කිරීම
+// logo1.png
 import myLogo from '../assets/logo1.png'; 
 
 const Home = () => {
@@ -11,21 +11,21 @@ const Home = () => {
 
   // Luxury Background Images 4
   const slideshowImages = [
-    "https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=80&w=1600&auto=format&fit=crop", 
-    "https://images.unsplash.com/photo-1546708973-b339540b5162?q=80&w=1600&auto=format&fit=crop", 
-    "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1600&auto=format&fit=crop", 
-    "https://images.unsplash.com/photo-1581888227599-779811939961?q=80&w=1600&auto=format&fit=crop"
+    "/images/home1.jpg",
+    "/images/home2.jpg",
+    "/images/home3.png",
+    "/images/home4.png"
   ];
 
   // Itinerary Links
   const itineraryLinks = [
-    { name: "Adventure & Nature Based", path: "/itineraries/adventure" },
-    { name: "Culture & Heritage", path: "/itineraries/culture" },
+    { name: "Off Road Adventure", path: "/itineraries/adventure" },
+    { name: "Culture & Wildlife", path: "/itineraries/culture" },
     { name: "North & East Coast", path: "/itineraries/north-east" },
     { name: "Romantic Tours", path: "/itineraries/romantic" },
     { name: "Ayurvedic & Wellness", path: "/itineraries/ayurvedic" },
-    { name: "Differently Abled Tours", path: "/itineraries/differently-abled" },
-    { name: "Wildlife Tours", path: "/itineraries/wildlife" },
+    { name: "Differently Abled", path: "/itineraries/differently-abled" },
+   
   ];
 
   useEffect(() => {
@@ -50,19 +50,19 @@ const Home = () => {
           <img 
             src={img} 
             alt={`Luxury Vibe ${index + 1}`} 
-            className="w-full h-full object-cover brightness-[35%]" 
+            className="w-full h-full object-cover brightness-[70%]" 
           />
         </div>
       ))}
 
-      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/85 z-20" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/60 z-20" />
 
       {/* MAIN CENTERED INTERFACE */}
       <div className="relative inset-0 w-full h-full flex flex-col items-center justify-center z-30 px-4">
         
         {/* --- BRAND BRANDING CONTAINER (Compact Brand Badge) --- */}
         <div className="flex flex-col items-center justify-center text-center select-none max-w-2xl mx-auto">
-          {/* 1. logo1.png ලාංඡනය */}
+          {/* 1. logo1.png  */}
           <img 
             src={myLogo} 
             alt="Jai Lanka Logo" 
@@ -80,7 +80,7 @@ const Home = () => {
           </p>
         </div>
 
-        {/* PREMIUM NAVIGATION BAR (දැන් 100% තනි පේළියක පමණි) */}
+        {/* PREMIUM NAVIGATION BAR  */}
         <div className="w-full max-w-6xl mt-12 border-t border-b border-white/10 py-5 flex justify-center relative overflow-x-auto md:overflow-x-visible">
           <nav className="flex flex-nowrap justify-start md:justify-center items-center gap-x-8 text-[10px] md:text-[11px] font-medium uppercase tracking-[0.25em] whitespace-nowrap px-4 md:px-0">
             

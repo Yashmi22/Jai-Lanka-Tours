@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 
-// හෝම් පේජ් එකේ පාවිච්චි කරපු අලුත් logo1.png එකම මෙතනටත් ගත්තා
+// home page logo logo1.png 
 import myLogo from '../assets/logo1.png'; 
 
 const Navbar = () => {
@@ -21,17 +21,17 @@ const Navbar = () => {
   }, []);
 
   const itineraryLinks = [
-    { name: "Adventure & Nature Based", path: "/itineraries/adventure" },
-    { name: "Culture & Heritage", path: "/itineraries/culture" },
-    { name: "North & East Coast", path: "/itineraries/north-east" },
+    { name: "Off Road Adventure Tours ", path: "/itineraries/adventure" },
+    { name: "Culture & Wildlife Tours", path: "/itineraries/culture" },
+    { name: "North & East Coast Tours", path: "/itineraries/north-east" },
     { name: "Romantic Tours", path: "/itineraries/romantic" },
-    { name: "Ayurvedic & Wellness", path: "/itineraries/ayurvedic" },
+    { name: "Ayurvedic & Wellness Tours", path: "/itineraries/ayurvedic" },
     { name: "Differently Abled Tours", path: "/itineraries/differently-abled" },
-    { name: "Wildlife Tours", path: "/itineraries/wildlife" },
+    
   ];
 
   return (
-    // මුළු Navbar එකම අභ්‍යන්තර පිටුවල පින්තූර උඩින් පාවෙන (Absolute) සහ Glassmorphism ලුක් එකකට හැදුවා
+    
     <nav className="absolute top-0 left-0 w-full px-8 py-5 flex justify-between items-center bg-black/30 backdrop-blur-md border-b border-white/10 relative z-50 font-sans antialiased">
       
       {/* BRAND LOGO AREA */}
@@ -87,17 +87,16 @@ const Navbar = () => {
         </div>
 
         <Link to="/day-tours" className="text-white hover:text-amber-400 transition-colors">Day Tours</Link>
-        
-        {/* අලුතෙන් එකතු කළ Accommodation පිටුව */}
         <Link to="/accommodation" className="text-white hover:text-amber-400 transition-colors">Accommodation</Link>
-        
         <Link to="/discoversrilanka" className="text-white hover:text-amber-400 transition-colors">Discover Sri Lanka</Link>
         <Link to="/blog" className="text-white hover:text-amber-400 transition-colors">Blog</Link>
-        <Link to="/our-story" className="text-white hover:text-amber-400 transition-colors">Our Story</Link>
+        <Link to="/about-us" className="text-white hover:text-amber-400 transition-colors">About Us</Link>
         <Link to="/plan-journey" className="text-white hover:text-amber-400 transition-colors">Plan Journey</Link>
+       
+        
       </div>
 
-      {/* LUXURY ENQUIRE BUTTON */}
+      {/* ENQUIRE BUTTON */}
       <Link to="/enquiry" className="hidden sm:block">
         <button className="bg-transparent border border-white/20 text-white hover:bg-amber-500 hover:text-black hover:border-amber-500 text-[10px] font-bold uppercase tracking-[0.2em] py-2.5 px-6 rounded-full transition-all duration-500 shadow-xl">
           Enquire

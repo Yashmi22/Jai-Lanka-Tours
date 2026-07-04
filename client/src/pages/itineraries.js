@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowForward } from '@mui/icons-material';
 
-// මෙහි 'categoryFilter' ලෙස ගන්නේ Navbar එකෙන් එවන category නමයි
+
 const Itineraries = ({ categoryFilter = "All" }) => {
     const [itineraries, setItineraries] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -13,27 +13,40 @@ const Itineraries = ({ categoryFilter = "All" }) => {
     useEffect(() => {
         const fetchItineraries = async () => {
             try {
+                setLoading(true); 
                 const res = await axios.get('http://localhost:5000/api/itineraries');
-                // මෙතනදී category එක අනුව filter කරනවා
+                
+                console.log("Database  Data:", res.data); // Troubleshooting 
+
                 if (categoryFilter === "All") {
                     setItineraries(res.data);
                 } else {
-                    const filtered = res.data.filter(item => item.category === categoryFilter);
+                    const filtered = res.data.filter(item => {
+                        if (!item.category) return false;
+
+                       
+                        const dbCategory = item.category.replace(/[^a-zA-Z0-9]/g, "").toLowerCase();
+                        const filterCategory = categoryFilter.replace(/[^a-zA-Z0-9]/g, "").toLowerCase();
+
+                        
+                        return dbCategory.includes(filterCategory) || filterCategory.includes(dbCategory);
+                    });
                     setItineraries(filtered);
                 }
-                setLoading(false);
             } catch (err) {
                 console.error("Error fetching itineraries", err);
-                setLoading(false);
+            } finally {
+                setLoading(false); 
             }
         };
+        
         fetchItineraries();
-    }, [categoryFilter]); // Category එක වෙනස් වෙද්දී පේජ් එක update වෙනවා
+    }, [categoryFilter]);
 
     if (loading) {
         return (
             <div className="min-h-screen flex items-center justify-center bg-[#0b0f19] font-serif italic text-xl text-amber-400/70">
-                Crafting luxury itineraries...
+                Loading...
             </div>
         );
     }
@@ -50,7 +63,7 @@ const Itineraries = ({ categoryFilter = "All" }) => {
                     <h1 className="text-4xl md:text-5xl font-headline font-light text-white tracking-wide uppercase mt-2">
                         {categoryFilter === "All" ? "All Itineraries" : `${categoryFilter} `}
                         <span className="font-serif italic text-amber-400">
-                            {categoryFilter === "All" ? "" : "Tours"}
+                            {categoryFilter === "All" ? "" : " "}
                         </span>
                     </h1>
                 </div>
@@ -72,17 +85,17 @@ const Itineraries = ({ categoryFilter = "All" }) => {
                             {/* Image Container */}
                             <div className="relative aspect-[4/3] overflow-hidden">
                                 <img 
-                                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 brightness-[85%] group-hover:brightness-100" 
+                                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 brightness-[100%] group-hover:brightness-[110%]" 
                                     src={item.imageUrl} 
                                     alt={item.title} 
                                     loading="lazy"
                                 />
-                                <div className="absolute inset-0 bg-gradient-to-t from-[#111726] via-transparent to-transparent"></div>
+                                <div className="absolute inset-0 bg-gradient-to-t from-[#111726]/30 via-transparent to-transparent"></div>
                                 
                                 {/* Days Badge */}
                                 <div className="absolute top-4 right-4 bg-[#0b0f19]/90 backdrop-blur-md px-3 py-1.5 rounded-md border border-amber-500/20 shadow-lg">
                                     <span className="text-[10px] font-bold text-amber-400 uppercase tracking-widest">
-                                        {item.days} Days
+                                        {item.tag || "Premium Tour"}
                                     </span>
                                 </div>
                             </div>
@@ -100,8 +113,8 @@ const Itineraries = ({ categoryFilter = "All" }) => {
                                         {item.title}
                                     </h3>
                                     
-                                    {/* Description */}
-                                    <p className="text-slate-400 text-sm leading-relaxed mb-6 line-clamp-3 italic font-light px-2">
+                                    {/* Description (Fixed with break-words) */}
+                                    <p className="text-slate-400 text-sm leading-relaxed mb-6 line-clamp-4 italic font-light px-2 break-words w-full">
                                         "{item.description}"
                                     </p>
                                 </div>
