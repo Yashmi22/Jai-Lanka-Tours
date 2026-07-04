@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom'; // 💡 පේජ් මාරු වෙන්න Link එක උඩින්ම ගත්තා
 
-// පින්තූර නිවැරදිව Import කරගැනීම (src/assets/)
+// පින්තූර නිවැරදිව Import (src/assets/)
 import anuradhapuraImg from '../assets/anuradhapura.jpg';
 import polonnaruwaImg from '../assets/polonnaruwa.jpg';
 import colomboImg from '../assets/colombo.jpg';
@@ -10,7 +11,7 @@ import sinharajaImg from '../assets/sinharaja.jpg';
 import galleImg from '../assets/galle.jpg';
 import kanneliyaImg from '../assets/kanneliya.jpg';
 import udawalaweImg from '../assets/udawalawe.jpg';
-import yalaImg from '../assets/yala.jpg';
+import yalaImg from '../assets/yala11.jpg';
 import wilpattuImg from '../assets/wilpattu.jpg';
 import sigiriyaImg from '../assets/sigiriya.jpg';
 import kitulgalaImg from '../assets/kitulgala.jpg';
@@ -46,7 +47,7 @@ const DayTours = () => {
   const handleCustomizeSubmit = (e) => {
     e.preventDefault();
     const message = `Hello Jai Lanka Travels! I want to customize a Luxury Day Tour.%0A%0A📍 Destinations: ${customTour.destinations}%0A👥 Guests: ${customTour.guests}%0A📅 Date: ${customTour.date}%0A📝 Special Notes: ${customTour.notes}`;
-    window.open(`https://wa.me/94771234567?text=${message}`, '_blank'); // ඔයාගේ WhatsApp අංකය මෙතනට දාන්න
+    window.open(`https://wa.me/94771234567?text=${message}`, '_blank');
   };
 
   return (
@@ -59,7 +60,7 @@ const DayTours = () => {
             Bespoke Sri Lankan Journeys
           </span>
           <h1 className="text-4xl md:text-6xl font-headline font-light text-white tracking-wide mt-2 mb-6 uppercase">
-            Privé <span className="font-serif italic text-amber-400">Day Excursions</span>
+            Prive <span className="font-serif italic text-amber-400">Day Excursions</span>
           </h1>
           <p className="text-slate-400 text-sm md:text-base font-light max-w-2xl mx-auto leading-relaxed tracking-wide">
             Immerse yourself in unrivaled luxury. Seamless full-day private journeys crafted meticulously for the discerning traveler. No templates, no crowds—just pure, tailored discovery.
@@ -67,7 +68,7 @@ const DayTours = () => {
         </div>
       </div>
 
-      {/* 2. PREMIUM HERO PHOTO COLLAGE GRID (Navigation Bar එක සහ Cards අතර හිස්බව පිරවීමට) */}
+      {/* 2. PREMIUM HERO PHOTO COLLAGE GRID */}
       <div className="max-w-screen-2xl mx-auto px-6 md:px-12 mb-20 -mt-6">
         <div className="grid grid-cols-12 gap-4 h-[350px] md:h-[450px]">
           <div className="col-span-6 md:col-span-4 h-full overflow-hidden rounded-2xl border border-white/5 relative group">
@@ -138,20 +139,17 @@ const DayTours = () => {
                   </h3>
                 </div>
 
-                {/* Bottom Premium Call-To-Action (No $ Value) */}
+                {/* Bottom Premium Call-To-Action (Cleaned up as requested) */}
                 <div className="pt-4 border-t border-slate-800/80 flex items-center justify-between mt-auto">
-                  <div>
-                    <p className="text-[8px] uppercase tracking-widest text-slate-500 font-bold">Service Level</p>
-                    <p className="text-xs font-semibold text-amber-400 tracking-wider uppercase">Ultra-Luxury</p>
-                  </div>
-                  <a 
-                    href={`https://wa.me/94771234567?text=Hi, I am interested in the ${tour.title} private luxury experience.`}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="bg-transparent text-white border border-slate-700 px-4 py-2 rounded-xl text-[9px] font-bold uppercase tracking-widest hover:bg-amber-500 hover:text-black hover:border-amber-500 transition-all duration-300 shadow-sm"
+                  <span className="text-[9px] uppercase tracking-[0.15em] text-amber-500 font-semibold">PRIVATE TOUR</span>
+                  
+                  {/* 🎯 VIEW TOUR BUTTON - පේජ් එක මූව් වෙන්න ලස්සනට ලින්ක් එක සෙට් කරා මචං */}
+                  <Link 
+                    to={`/tour/${tour.id}`}
+                    className="bg-transparent text-white border border-slate-700 px-5 py-2.5 rounded-xl text-[9px] font-bold uppercase tracking-widest hover:bg-amber-500 hover:text-black hover:border-amber-500 transition-all duration-300 shadow-sm inline-block text-center"
                   >
-                    Request Details
-                  </a>
+                    View Tour
+                  </Link>
                 </div>
               </div>
 
@@ -201,7 +199,7 @@ const DayTours = () => {
               <label className="text-[10px] uppercase tracking-widest text-slate-400 font-bold">Preferred Voyage Date</label>
               <input 
                 type="date" 
-                className="bg-[#0b0f19] border border-slate-800 rounded-xl px-4 py-3.5 text-xs text-white outline-none focus:border-amber-500/50 transition-colors cursor-pointer text-slate-400"
+                className="bg-[#0b0f19] border border-slate-800 rounded-xl px-4 py-3.5 text-xs text-white outline-none focus:border-slate-800 transition-colors cursor-pointer text-slate-400"
                 value={customTour.date}
                 onChange={(e) => setCustomTour({ ...customTour, date: e.target.value })}
                 required
