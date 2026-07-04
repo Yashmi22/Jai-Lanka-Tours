@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import { sendEmailNotification } from '../utils/emailService'; // 💡 අපේ email service එක import කරා
 import { 
-  MessageSquare, Mail, Send, Sparkles, User, ShieldCheck 
+    MessageSquare, Mail, Send, Sparkles, User, ShieldCheck 
 } from 'lucide-react';
 
 const Enquiry = () => {
@@ -14,17 +15,28 @@ const Enquiry = () => {
         setFormData(prev => ({ ...prev, [name]: value }));
     };
 
-    const handleSubmit = (e) => {
+    //  EmailJS 
+    const handleSubmit = async (e) => {
         e.preventDefault();
         console.log("Submitting Luxury Enquiry:", formData);
         
+        //  e.target (HTML Form )  Template ID 
+        const result = await sendEmailNotification(e.target, 'template_5o6c8ui');
+
+        if (result.success) {
+            alert("✨ Thank you! Your enquiry has been transmitted successfully.");
+            // Form  clear 
+            setFormData({ name: '', message: '' });
+        } else {
+            alert("❌ Transmission failed. Please try again or reach out directly via WhatsApp.");
+        }
     };
 
     return (
-        /* 🌌 Premium Deep Navy Slate Background */
+        /*  Premium Deep Navy Slate Background */
         <div className="min-h-screen bg-[#0b111e] pt-32 pb-16 px-4 relative overflow-hidden font-sans">
             
-            {/* ✨ Luxury Radial Glow Ambient Lights */}
+            {/*  Luxury Radial Glow Ambient Lights */}
             <div className="absolute top-[-10%] left-[-10%] w-[600px] h-[600px] bg-blue-600/10 rounded-full blur-[150px] pointer-events-none" />
             <div className="absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] bg-emerald-500/10 rounded-full blur-[150px] pointer-events-none" />
             
@@ -33,7 +45,7 @@ const Enquiry = () => {
 
             <div className="max-w-5xl mx-auto relative z-10">
                 
-                {/* 👑 Header Section */}
+                {/*  Header Section */}
                 <div className="text-center mb-16">
                     <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-blue-500/10 to-emerald-500/10 border border-blue-500/20 text-blue-400 text-xs font-semibold tracking-widest uppercase mb-5 backdrop-blur-md animate-pulse">
                         <Sparkles size={14} className="text-emerald-400" />
@@ -47,15 +59,15 @@ const Enquiry = () => {
                     </p>
                 </div>
 
-                {/* 💎 2-Column Luxury Layout */}
+                {/*  2-Column Luxury Layout */}
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
                     
-                    {/* 🗂️ Left Side: Premium Contact Details Cards (5 Columns) */}
+                    {/*  Left Side: Premium Contact Details Cards (5 Columns) */}
                     <div className="lg:col-span-5 space-y-5">
                         
                         {/* WhatsApp Card */}
                         <a 
-                            href="https://wa.me/+9474 096 6449" 
+                            href="https://wa.me/94740966449" 
                             target="_blank" 
                             rel="noopener noreferrer"
                             className="block group bg-[#131c2e]/40 backdrop-blur-xl rounded-3xl border border-white/[0.05] p-6 hover:border-emerald-500/30 hover:bg-[#131c2e]/70 transition-all duration-500 shadow-lg shadow-black/20"
@@ -67,7 +79,7 @@ const Enquiry = () => {
                                 <div className="space-y-1">
                                     <span className="text-[10px] font-bold text-emerald-400 uppercase tracking-widest block">Instant Chat</span>
                                     <h3 className="text-lg font-bold text-white tracking-wide">WhatsApp Concierge</h3>
-                                    <p className="text-slate-400 text-sm font-mono">+94 7X XXX XXXX</p>
+                                    <p className="text-slate-400 text-sm font-mono">+94 74 096 6449</p>
                                     <span className="inline-flex items-center gap-1 text-xs font-medium text-emerald-400/80 mt-2 group-hover:translate-x-1 transition-transform duration-300">
                                         Message us now &rarr;
                                     </span>
@@ -96,7 +108,8 @@ const Enquiry = () => {
                         </a>
 
                     </div>
-                    {/* 📨 Right Side: Glassmorphism Quick Message Form (7 Columns) */}
+
+                    {/*  Right Side: Glassmorphism Quick Message Form (7 Columns) */}
                     <div className="lg:col-span-7 bg-[#131c2e]/60 backdrop-blur-2xl rounded-[2.5rem] border border-white/[0.07] shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5)] overflow-hidden">
                         <form onSubmit={handleSubmit} className="p-8 md:p-10 space-y-6">
                             <div>
@@ -106,27 +119,34 @@ const Enquiry = () => {
                                 <p className="text-slate-400 text-xs font-light">Leave a quick note, and we will get back to you promptly.</p>
                             </div>
 
+                            {/* Full Name Input */}
                             <div className="space-y-2">
                                 <label className="flex items-center gap-2 text-xs font-semibold tracking-wider text-slate-300 uppercase ml-1">
                                     <User size={14} className="text-blue-400" /> Full Name
                                 </label>
                                 <input 
                                     type="text" 
-                                    name="name"
+                                    name="from_name" // 💡 EmailJS  template variable
                                     value={formData.name}
-                                    onChange={handleChange}
+                                    onChange={(e) => {
+                                        handleChange(e);
+                                        setFormData(prev => ({ ...prev, name: e.target.value }));
+                                    }}
                                     required
                                     placeholder="Your good name" 
                                     className="w-full bg-[#1c2638]/50 border border-white/[0.05] rounded-xl px-5 py-4 text-white placeholder:text-slate-600 focus:outline-none focus:border-blue-500/50 focus:ring-4 focus:ring-blue-500/10 transition-all duration-300"
                                 />
+                                {/*  EmailJS {{name}}  hidden input  */}
+                                <input type="hidden" name="name" value={formData.name} />
                             </div>
 
+                            {/* Message Input */}
                             <div className="space-y-2">
                                 <label className="flex items-center gap-2 text-xs font-semibold tracking-wider text-slate-300 uppercase ml-1">
                                     <MessageSquare size={14} className="text-blue-400" /> Your Message
                                 </label>
                                 <textarea 
-                                    name="message"
+                                    name="message" 
                                     value={formData.message}
                                     onChange={handleChange}
                                     required
