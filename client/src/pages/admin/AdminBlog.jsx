@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { CloudUploadOutlined } from '@mui/icons-material';
 
 const AdminBlog = () => {
     const [blogData, setBlogData] = useState({

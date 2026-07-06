@@ -5,7 +5,7 @@ import {
   FaWallet,FaGlobe, FaChevronRight, FaSuitcase, FaCompass
 } from 'react-icons/fa';
 import AdminItineraryManager from './AdminItineraryManager'; 
-import AdminDiscover from './AdminDiscover';
+import AdminDiscover from './adminDiscover';
 import AdminBlog from './AdminBlog'; 
 
 const AdminDashboard = () => {

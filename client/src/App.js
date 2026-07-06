@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Outlet, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route,  useLocation } from 'react-router-dom';
 import './index.css';
 
 // Pages Import 
@@ -10,12 +10,25 @@ import DiscoverSriLanka from './pages/DiscoverSriLanka';
 import AboutUs from './pages/AboutUs';
 import PlanYourJourney from './pages/PlanYourJourney';
 import ItineraryDetails from './pages/ItineraryDetails'; 
+import Blog from './pages/Blog'; 
+import AdminDashboard from './pages/admin/AdminDashboard';
+import Enquiry from './pages/Enquiry';
+import DiscoverDetails from './pages/DiscoverDetails';
+import Itineraries from './pages/itineraries'; 
+import AdminLogin from './pages/admin/AdminLogin';
+import BlogDetails from './pages/BlogDetails';
+import Accommodation from './pages/Accommodation';
+
+import AdminBlog from './pages/admin/AdminBlog';
+import BlogPostDetail from './pages/BlogPostDetail';
 
 // Components Import 
 
 import Footer from './components/Footer';
 import Navbar from './components/Navbar';
 import ProtectedRoute from './components/ProtectedRoute';
+
+const OurStory = AboutUs;
 
 // --- MAIN LAYOUT MANAGEMENT ---
 const MainLayout = () => {
@@ -26,46 +39,47 @@ const MainLayout = () => {
   const isAdmin = location.pathname.startsWith('/admin');
 
   return (
-    <div className="relative min-h-screen w-full flex flex-col font-sans text-slate-900 overflow-x-hidden">
+    <div className="relative min-h-screen w-full flex flex-col font-sans text-slate-900 overflow-x-hidden bg-[#0b0f19]">
       
-      {/* Home Page එක ඇතුළෙන්ම දැන් Luxury Navigation එකක් වැඩ කරන නිසා, 
-        Home Page එකේදී සාමාන්‍ය සුදු Navbar එක පෙන්වන්නේ නැත. 
-        අනෙක් සියලුම පිටු සඳහා (<Navbar />) එක උඩින් ලස්සනට දිස්වේ.
-      */}
-      {!isHome && <Navbar />}
+      
+      {!isHome && !isAdmin && <Navbar />}
 
-      {/* සයිට් එකේ සියලුම පිටු වල Routes (Paths) මෙතනින් ක්‍රියාත්මක වේ */}
+      
       <main className="flex-grow w-full">
         <Routes>
-          {/* අලුත්ම Luxury Minimalist Home Page එක */}
           <Route path="/" element={<Home />} />
           
-          {/* Itineraries Routes (Categories Filter එකත් සමඟ) */}
-          <Route path="/itineraries" element={<Itineraries categoryFilter="All" />} />
-          <Route path="/itineraries/adventure" element={<Itineraries categoryFilter="Adventure" />} />
-          <Route path="/itineraries/culture" element={<Itineraries categoryFilter="Culture" />} />
-          <Route path="/itineraries/north-east" element={<Itineraries categoryFilter="North-East" />} />
-          <Route path="/itineraries/romantic" element={<Itineraries categoryFilter="Romantic" />} />
-          <Route path="/itineraries/ayurvedic" element={<Itineraries categoryFilter="Ayurvedic" />} />
-          <Route path="/itineraries/differently-abled" element={<Itineraries categoryFilter="Differently-abled" />} />
-          <Route path="/itineraries/wildlife" element={<Itineraries categoryFilter="Wildlife" />} />
+         <Route path="/itineraries" element={<Itineraries key="all" categoryFilter="All" />} />
+          <Route path="/itineraries/adventure" element={<Itineraries key="adventure" categoryFilter="Off Road Adventure Tour" />} />
+          <Route path="/itineraries/culture" element={<Itineraries key="culture" categoryFilter="Culture & Wildlife Tour" />} />
+          <Route path="/itineraries/north-east" element={<Itineraries key="north-east" categoryFilter="North & East Coast Tour" />} />
+          <Route path="/itineraries/romantic" element={<Itineraries key="romantic" categoryFilter="Romantic Tour" />} />
+          <Route path="/itineraries/ayurvedic" element={<Itineraries key="ayurvedic" categoryFilter="Ayurvedic & Wellness Tour" />} />
+          <Route path="/itineraries/differently-abled" element={<Itineraries key="differently-abled" categoryFilter="Differently able Tour" />} />
+         
           
-          {/* අනෙකුත් අභ්‍යන්තර පිටු (Other Internal Pages) */}
+         
           <Route path="/day-tours" element={<DayTours />} />
           <Route path="/tour/:id" element={<TourDetails />} />
           <Route path="/discoversrilanka" element={<DiscoverSriLanka />} />
+          <Route path="/discover/:id" element={<DiscoverDetails />} />
           <Route path="/blog" element={<Blog />} />
-          <Route path="/our-story" element={<OurStory />} />
+          <Route path="/blog/:id" element={<BlogDetails />} />
+          <Route path="/blogpost/:id" element={<BlogPostDetail />} />
+          <Route path="/accommodation" element={<Accommodation />} />
+          <Route path="/about-us" element={<AboutUs />} />
           <Route path="/plan-journey" element={<PlanYourJourney />} />
           <Route path="/itinerary/:id" element={<ItineraryDetails />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
+          <Route path="/enquiry" element={<Enquiry />} />
+
+          
         </Routes>
       </main>
-      
-      {/* Home Page එකේදී Luxury Minimalist Look එක තියාගන්න Footer එක පෙන්වන්නේ නැත, අනෙක් පිටුවල පෙන්වයි */}
-      {!isHome && <Footer />}
+          
+     {!isHome && !isAdmin && <Footer />}
     </div>
   );
 };
@@ -75,8 +89,14 @@ function App() {
   return (
     <Router>
       <Routes>
-        {/* සියලුම URL පරීක්ෂා කර සුදුසු Layout එක තෝරාගැනීමට /* යොදා ඇත */}
         <Route path="/*" element={<MainLayout />} />
+        <Route path="/admin/login" element={<AdminLogin />} />
+
+        <Route path="/admin/dashboard" element={
+          <ProtectedRoute>
+            <AdminDashboard />
+          </ProtectedRoute>
+        } />
       </Routes>
     </Router>
   );

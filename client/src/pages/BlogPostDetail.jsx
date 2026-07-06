@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import axios from 'react-arrow-back';
+import axios from 'axios';
 import { ArrowBack, AccessTime, CalendarMonth } from '@mui/icons-material';
 
 const BlogPostDetail = () => {
