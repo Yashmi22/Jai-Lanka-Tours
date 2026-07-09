@@ -15,15 +15,16 @@ const AdminItinerary = () => {
     
     const [uploading, setUploading] = useState(false); 
 
+    // Admin preview images rotate   state 
+    const [currentPreviewIndex, setCurrentPreviewIndex] = useState(0);
+
     const categories = [
         'Off Road Adventure Tour', 
-        'Culture & Wildlife Tours', 
+        'Culture & Wildlife Tour', 
         'North & East Coast Tour', 
-        'Romantic Tours', 
+        'Romantic Tour', 
         'Ayurvedic & Wellness Tour', 
         'Differently able Tour',
-        
-        
     ];
     
     const accOptions = ['Standard (Guesthouses)', '3-Star Hotels', '4-Star Hotels', '5-Star Luxury', 'Boutique Villas'];
@@ -35,10 +36,21 @@ const AdminItinerary = () => {
         tag: '',
         accommodation: '3-Star Hotels', 
         desc: '',
-        imageUrl: '',
+        imageUrl: '', 
         tourPlan: [{ dayNumber: 1, title: '', description: '', dayImage: '', images: [] }],
         hotels: [{ hotelName: '', location: '', hotelDesc: '', hotelImage: '' }]
     });
+
+ 
+    useEffect(() => {
+        const imgArray = formData.imageUrl ? formData.imageUrl.split(',') : [];
+        if (imgArray.length > 1) {
+            const interval = setInterval(() => {
+                setCurrentPreviewIndex((prev) => (prev + 1) % imgArray.length);
+            }, 3000); // 3minitus
+            return () => clearInterval(interval);
+        }
+    }, [formData.imageUrl]);
 
     // Fetch Itineraries
     useEffect(() => {
@@ -56,20 +68,32 @@ const AdminItinerary = () => {
         fetchItineraries();
     }, [API_BASE_URL]);
 
-    // 🔄 Cover Image Upload (Cloudinary)
-    const handleImageUpload = async (e) => {
-        const file = e.target.files[0];
-        if (!file) return;
+    // 🔄 Images 4
+    const handleMultipleImagesUpload = async (e) => {
+        const files = Array.from(e.target.files);
+        if (files.length === 0) return;
+
+        if (files.length > 4) {
+            alert("You can only upload up to 4 images!");
+            return;
+        }
 
         try {
             setUploading(true);
-            const uploadedUrl = await uploadImageToCloudinary(file);
-            if (uploadedUrl) {
-                setFormData(prev => ({ ...prev, imageUrl: uploadedUrl }));
-                alert("Cover Image uploaded successfully!");
+            const uploadPromises = files.map(file => uploadImageToCloudinary(file));
+            const uploadedUrls = await Promise.all(uploadPromises);
+            
+            // සාර්ථකව upload වුණු ඒවා විතරක් අරන් comma වලින් join කරනවා
+            const validUrls = uploadedUrls.filter(url => url);
+            
+            if (validUrls.length > 0) {
+                setFormData(prev => ({ ...prev, imageUrl: validUrls.join(',') }));
+                setCurrentPreviewIndex(0); // index එක reset කරනවා
+                alert(`${validUrls.length} Slider Images uploaded successfully!`);
             }
         } catch (err) {
-            alert("Failed to upload Cover Image.");
+            console.error("Slider images upload error:", err);
+            alert("Failed to upload Slider Images.");
         } finally {
             setUploading(false);
         }
@@ -180,16 +204,18 @@ const AdminItinerary = () => {
         }
     };
 
+   
     const startEdit = (itinerary) => {
         setIsEditing(true);
         setCurrentItineraryId(itinerary._id);
+
         setFormData({
             title: itinerary.title || '',
-            category: itinerary.category || 'Adventure and Nature Based Tour',
+            category: itinerary.category || 'Off Road Adventure Tour', 
             tag: itinerary.tag || '',
             accommodation: itinerary.accommodation || '3-Star Hotels',
             desc: itinerary.description || itinerary.desc || '', 
-            imageUrl: itinerary.imageUrl || '',
+            imageUrl: itinerary.imageUrl || '', 
             tourPlan: itinerary.tourPlan && itinerary.tourPlan.length > 0 
                 ? itinerary.tourPlan.map((plan, idx) => ({
                     dayNumber: plan.dayNumber || idx + 1,
@@ -208,6 +234,7 @@ const AdminItinerary = () => {
                 }))
                 : [{ hotelName: '', location: '', hotelDesc: '', hotelImage: '' }]
         });
+        setCurrentPreviewIndex(0);
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
@@ -229,7 +256,7 @@ const AdminItinerary = () => {
         setCurrentItineraryId(null);
         setFormData({
             title: '',
-            category: 'Adventure and Nature Based Tour',
+            category: 'Off Road Adventure Tour', 
             tag: '',
             accommodation: '3-Star Hotels',
             desc: '',
@@ -237,6 +264,7 @@ const AdminItinerary = () => {
             tourPlan: [{ dayNumber: 1, title: '', description: '', dayImage: '', images: [] }],
             hotels: [{ hotelName: '', location: '', hotelDesc: '', hotelImage: '' }]
         });
+        setCurrentPreviewIndex(0);
     };
 
     const handleSubmit = async (e) => {
@@ -265,16 +293,23 @@ const AdminItinerary = () => {
             images: day.images || (day.dayImage ? [day.dayImage] : [])
         }));
 
+        
+        const cleanImageUrl = formData.imageUrl 
+            ? formData.imageUrl.split(',').map(url => url.trim()).join(',') 
+            : '';
+
         const dataToSend = {
             title: formData.title,
             category: formData.category, 
             tag: formData.tag,
             accommodation: formData.accommodation,
             description: formData.desc, 
-            imageUrl: formData.imageUrl,
+            imageUrl: cleanImageUrl, 
             tourPlan: formattedTourPlan,
             hotels: filteredHotels 
         };
+
+        console.log(" data send Frontend to Backend :", dataToSend);
 
         try {
             if (isEditing) {
@@ -291,6 +326,9 @@ const AdminItinerary = () => {
             alert("Error saving itinerary.");
         }
     };
+
+    // UI  image list 
+    const previewImages = formData.imageUrl ? formData.imageUrl.split(',') : [];
 
     return (
         <div className="min-h-screen bg-[#0b0f19] text-white p-6 md:p-12">
@@ -332,15 +370,30 @@ const AdminItinerary = () => {
                         <textarea name="desc" value={formData.desc} onChange={handleInputChange} required rows="4" className="w-full bg-[#0b0f19] border border-slate-800 rounded-xl px-4 py-3 text-white focus:border-amber-500 outline-none transition resize-none"></textarea>
                     </div>
 
-                    {/* Main Image Upload */}
+                    {/* Modifed: Cover Image Upload to  card Images */}
                     <div>
-                        <label className="block text-sm font-medium text-slate-300 mb-2">Cover Image</label>
-                        <div className="flex items-center gap-4 bg-[#0b0f19] p-4 rounded-xl border border-slate-800">
+                        <label className="block text-sm font-medium text-slate-300 mb-2">Cover Slider Images (Select up to 4 images)</label>
+                        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 bg-[#0b0f19] p-4 rounded-xl border border-slate-800">
                             <label className="cursor-pointer bg-amber-500 hover:bg-amber-400 text-black font-bold text-xs uppercase px-4 py-2.5 rounded-lg flex items-center gap-2 transition">
-                                <CloudUpload style={{ fontSize: '16px' }} /> Upload Image
-                                <input type="file" accept="image/*" onChange={handleImageUpload} className="hidden" />
+                                <CloudUpload style={{ fontSize: '16px' }} /> Upload  Image
+                                <input type="file" accept="image/*" multiple onChange={handleMultipleImagesUpload} className="hidden" />
                             </label>
-                            {formData.imageUrl && <img src={formData.imageUrl} className="w-16 h-12 object-cover rounded border border-slate-700" alt="Preview" />}
+                            
+                            {/* Rotating Preview Section */}
+                            {previewImages.length > 0 && (
+                                <div className="flex items-center gap-3">
+                                    <div className="relative w-20 h-14 rounded overflow-hidden border border-slate-700 bg-slate-900">
+                                        <img 
+                                            src={previewImages[currentPreviewIndex]} 
+                                            className="w-full h-full object-cover transition-opacity duration-500" 
+                                            alt="Preview Sliding" 
+                                        />
+                                    </div>
+                                    <span className="text-xs text-slate-400 font-medium">
+                                        {previewImages.length} images selected 
+                                    </span>
+                                </div>
+                            )}
                         </div>
                     </div>
 
@@ -360,7 +413,6 @@ const AdminItinerary = () => {
                                         <Remove />
                                     </button>
 
-                                    {/* Row 1: Day Number & Destination / Title Side by Side */}
                                     <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
                                         <div className="w-24">
                                             <label className="text-xs text-slate-400 block mb-1">Day No</label>
@@ -372,15 +424,12 @@ const AdminItinerary = () => {
                                         </div>
                                     </div>
 
-                                    {/* Row 2: Description (Left Side) & Day Schedule Image Upload (Right Side) */}
                                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-start">
-                                        {/* Description Field - Takes 2 columns on medium screens */}
                                         <div className="md:col-span-2">
                                             <label className="text-xs text-slate-400 block mb-1">Day Activity Description</label>
                                             <textarea name="description" value={day.description} onChange={(e) => handleDayInputChange(idx, e)} required rows="4" className="w-full bg-[#111726] border border-slate-800 rounded-lg px-3 py-2.5 outline-none text-sm resize-none focus:border-amber-500 transition" placeholder="Describe the activities for this day..."></textarea>
                                         </div>
 
-                                        {/* Image Upload Area - Takes 1 column on medium screens (Right Side) */}
                                         <div className="w-full">
                                             <label className="text-xs text-slate-400 block mb-1">Day Schedule Image</label>
                                             <div className="flex flex-col items-center justify-center bg-[#111726] p-4 rounded-lg border border-slate-800 h-[108px] relative group overflow-hidden">
@@ -479,19 +528,22 @@ const AdminItinerary = () => {
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-slate-800/60">
-                                    {itineraries.map((itinerary) => (
-                                        <tr key={itinerary._id} className="hover:bg-[#151c2e] transition">
-                                            <td className="px-4 py-3">
-                                                <img src={itinerary.imageUrl} className="w-12 h-9 object-cover rounded bg-slate-900" alt="" />
-                                            </td>
-                                            <td className="px-4 py-3 text-white font-medium">{itinerary.title}</td>
-                                            <td className="px-4 py-3 text-xs text-amber-400 font-semibold">{itinerary.category}</td>
-                                            <td className="px-4 py-3 text-right space-x-2">
-                                                <button onClick={() => startEdit(itinerary)} className="p-1.5 bg-blue-500/10 text-blue-400 border border-blue-500/20 rounded hover:bg-blue-500 hover:text-white transition"><Edit style={{ fontSize: '16px' }} /></button>
-                                                <button onClick={() => deleteItinerary(itinerary._id)} className="p-1.5 bg-red-500/10 text-red-400 border border-red-500/20 rounded hover:bg-red-500 hover:text-white transition"><Delete style={{ fontSize: '16px' }} /></button>
-                                            </td>
-                                        </tr>
-                                    ))}
+                                    {itineraries.map((itinerary) => {
+                                        const firstImg = itinerary.imageUrl ? itinerary.imageUrl.split(',')[0] : '';
+                                        return (
+                                            <tr key={itinerary._id} className="hover:bg-[#151c2e] transition">
+                                                <td className="px-4 py-3">
+                                                    <img src={firstImg} className="w-12 h-9 object-cover rounded bg-slate-900" alt="" />
+                                                </td>
+                                                <td className="px-4 py-3 text-white font-medium">{itinerary.title}</td>
+                                                <td className="px-4 py-3 text-xs text-amber-400 font-semibold">{itinerary.category}</td>
+                                                <td className="px-4 py-3 text-right space-x-2">
+                                                    <button onClick={() => startEdit(itinerary)} className="p-1.5 bg-blue-500/10 text-blue-400 border border-blue-500/20 rounded hover:bg-blue-500 hover:text-white transition"><Edit style={{ fontSize: '16px' }} /></button>
+                                                    <button onClick={() => deleteItinerary(itinerary._id)} className="p-1.5 bg-red-500/10 text-red-400 border border-red-500/20 rounded hover:bg-red-500 hover:text-white transition"><Delete style={{ fontSize: '16px' }} /></button>
+                                                </td>
+                                            </tr>
+                                        );
+                                    })}
                                 </tbody>
                             </table>
                         </div>

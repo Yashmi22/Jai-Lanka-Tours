@@ -4,6 +4,45 @@ import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowForward } from '@mui/icons-material';
 
+const normalizeImageList = (value) => {
+    if (!value) return [];
+
+    if (Array.isArray(value)) {
+        return value
+            .map((item) => (typeof item === 'string' ? item.trim() : ''))
+            .filter(Boolean);
+    }
+
+    if (typeof value === 'string') {
+        return value
+            .split(',')
+            .map((item) => item.trim())
+            .filter(Boolean);
+    }
+
+    return [];
+};
+
+const getPrimaryImage = (itinerary) => {
+    const collected = [];
+
+    const addImage = (image) => {
+        const normalized = typeof image === 'string' ? image.trim() : '';
+        if (normalized && !collected.includes(normalized)) {
+            collected.push(normalized);
+        }
+    };
+
+    normalizeImageList(itinerary?.imageUrl || itinerary?.images || itinerary?.image).forEach(addImage);
+
+    if (Array.isArray(itinerary?.tourPlan)) {
+        itinerary.tourPlan.forEach((day) => {
+            normalizeImageList(day?.images || day?.imageUrl || day?.image || day?.img || day?.dayImage).forEach(addImage);
+        });
+    }
+
+    return collected[0] || 'https://via.placeholder.com/400x300?text=No+Image';
+};
 
 const Itineraries = ({ categoryFilter = "All" }) => {
     const [itineraries, setItineraries] = useState([]);
@@ -16,7 +55,9 @@ const Itineraries = ({ categoryFilter = "All" }) => {
                 setLoading(true); 
                 const res = await axios.get('http://localhost:5000/api/itineraries');
                 
-                console.log("Database  Data:", res.data); // Troubleshooting 
+                console.log("Database Data:", res.data); // Troubleshooting
+                console.log("Current categoryFilter value:", categoryFilter); 
+                console.log("Type of categoryFilter:", typeof categoryFilter); 
 
                 if (categoryFilter === "All") {
                     setItineraries(res.data);
@@ -24,12 +65,16 @@ const Itineraries = ({ categoryFilter = "All" }) => {
                     const filtered = res.data.filter(item => {
                         if (!item.category) return false;
 
-                       
-                        const dbCategory = item.category.replace(/[^a-zA-Z0-9]/g, "").toLowerCase();
-                        const filterCategory = categoryFilter.replace(/[^a-zA-Z0-9]/g, "").toLowerCase();
+                        const dbCategory = item.category.trim().toLowerCase();
+                        const filterCategory = categoryFilter.trim().toLowerCase();
 
-                        
-                        return dbCategory.includes(filterCategory) || filterCategory.includes(dbCategory);
+                        if (filterCategory.includes("off road") && dbCategory.includes("adventure and nature")) {
+                            return true; 
+                        }
+
+                        return dbCategory === filterCategory || 
+                               dbCategory.includes(filterCategory) || 
+                               filterCategory.includes(dbCategory);
                     });
                     setItineraries(filtered);
                 }
@@ -83,10 +128,14 @@ const Itineraries = ({ categoryFilter = "All" }) => {
                             onClick={() => navigate(`/itinerary/${item._id}`)}
                         >
                             {/* Image Container */}
-                            <div className="relative aspect-[4/3] overflow-hidden">
+                            <div className="relative aspect-[4/3] overflow-hidden bg-slate-950">
                                 <img 
                                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 brightness-[100%] group-hover:brightness-[110%]" 
-                                    src={item.imageUrl} 
+                                    /* 🔄 මෙන්න වෙනස් කරපු ප්‍රධානම තැන: 
+                                      imageUrl එක Comma වලින් split කරලා [0] මඟින් පළවෙනි පින්තූරය විතරක් ගන්නවා.
+                                      හිස්තැන් තිබුණොත් අයින් වෙන්න .trim() කරලා තියෙනවා.
+                                    */
+                                    src={getPrimaryImage(item)} 
                                     alt={item.title} 
                                     loading="lazy"
                                 />

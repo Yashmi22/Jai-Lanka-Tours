@@ -1,10 +1,10 @@
 const Tour = require('../models/Tour');
+const Itinerary = require('../models/Itinerary');
 
 const seedAnuradhapuraTour = async () => {
   try {
-    // දැනටමත් මේ ටුවර් එක database එකේ තියෙනවාද බලනවා (Duplicate නොවෙන්න)
     const existingTour = await Tour.findOne({ tourId: 'anuradhapura' });
-    
+
     if (!existingTour) {
       const anuradhapuraData = {
         tourId: "anuradhapura",
@@ -12,7 +12,7 @@ const seedAnuradhapuraTour = async () => {
         category: "UNESCO World Heritage",
         duration: "Full Day Private Tour",
         type: "Chauffeur Driven Luxury",
-        
+
         kingdomTitle: "The Sacred Ancient Capital",
         kingdomDesc: "Anuradhapura, founded in the 4th century BC, stands as one of the oldest continuously inhabited cities in the world and the first grand capital of ancient Sri Lanka. Serving as the epicenter of Theravada Buddhism for centuries, this UNESCO World Heritage site is a sprawling marvel of ancient urban planning, massive monolithic stupas, advanced hydraulic engineering, and deep spiritual ruins.",
 
@@ -67,4 +67,70 @@ const seedAnuradhapuraTour = async () => {
   }
 };
 
-module.exports = seedAnuradhapuraTour;
+const seedOffRoadAdventureItinerary = async () => {
+  try {
+    const existingItinerary = await Itinerary.findOne({ title: 'Off Road Adventure Tour' });
+
+    if (!existingItinerary) {
+      const itineraryData = {
+        title: 'Off Road Adventure Tour',
+        category: 'Off Road Adventure Tour',
+        tag: '4 Days / 3 Nights',
+        accommodation: 'Adventure Camp & Eco Stays',
+        duration: '4 Days / 3 Nights',
+        description: 'Experience the wild side of Sri Lanka with a thrilling off-road journey through rugged terrain, jungle tracks, mountain passes, and scenic villages.',
+        imageUrl: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80',
+        mapUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.123456789!2d80.638!3d7.873!2m3!1f0!2f0!3f0!3m2!1m1!2s0x0%3A0x0!5e0!3m2!1sen!2slk!4v1710000000000',
+        tourPlan: [
+          {
+            dayNumber: 1,
+            title: 'Mountain Escape Begins',
+            activities: ['Pickup from the city', 'Drive through tea country', 'Camp setup at a scenic ridge'],
+            dayImage: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=800&q=80'
+          },
+          {
+            dayNumber: 2,
+            title: 'Off Road Adventure Trails',
+            activities: ['4x4 expedition through forest tracks', 'River crossing and jungle viewpoints', 'Local village lunch'],
+            dayImage: 'https://images.unsplash.com/photo-1517840901100-8179e982acb7?auto=format&fit=crop&w=800&q=80'
+          },
+          {
+            dayNumber: 3,
+            title: 'Waterfall and Wildlife Day',
+            activities: ['Hike to a waterfall', 'Wildlife spotting', 'Campfire evening'],
+            dayImage: 'https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=800&q=80'
+          },
+          {
+            dayNumber: 4,
+            title: 'Scenic Return',
+            activities: ['Breakfast by the river', 'Visit a local market', 'Return to the city'],
+            dayImage: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80'
+          }
+        ],
+        hotels: [
+          {
+            name: 'Adventure Eco Lodge',
+            location: 'Kandy Highlands',
+            desc: 'A comfortable eco retreat with panoramic forest views.',
+            longDesc: 'Relax in a sustainable lodge surrounded by nature after your adventurous day.',
+            img: 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=800&q=80',
+            amenities: ['Breakfast', 'Private Balcony', 'Campfire Area'],
+            hotelMap: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.123456789!2d80.638!3d7.873!2m3!1f0!2f0!3f0!3m2!1m1!2s0x0%3A0x0!5e0!3m2!1sen!2slk!4v1710000000000'
+          }
+        ]
+      };
+
+      await Itinerary.create(itineraryData);
+      console.log('✅ Off Road Adventure Tour itinerary data successfully seeded to Database!');
+    } else {
+      console.log('ℹ️ Off Road Adventure Tour itinerary already exists in database.');
+    }
+  } catch (error) {
+    console.error('❌ Error seeding Off Road Adventure Tour itinerary:', error);
+  }
+};
+
+module.exports = {
+  seedAnuradhapuraTour,
+  seedOffRoadAdventureItinerary
+};

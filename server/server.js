@@ -6,10 +6,13 @@ const Itinerary = require('./models/Itinerary');
 const Accommodation = require('./models/Accommodation');
 const Discover = require('./models/Discover');
 
-// 1. Route එක මුලින්ම require කරගන්න
+
+
+
+// 1. Route  require 
 const packageRoute = require('./routes/packageRoutes');
 const tourRoutes = require('./routes/tourRoutes');
-const seedAnuradhapuraTour = require('./config/dbSeeder');
+const { seedAnuradhapuraTour, seedOffRoadAdventureItinerary } = require('./config/dbSeeder');
 
 const app = express();
 
@@ -36,14 +39,15 @@ app.use(cors({
 
 // Middleware
 app.use(cors());
-app.use(express.json()); // මේක දැනටමත් තියෙනවා, ඒ නිසා එහෙමම තියන්න
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
-// 2. API Routes මෙතනට ඇතුළත් කරන්න
+// 2. API Routes 
 app.use('/api/packages', packageRoute);
 app.use('/api/tours', tourRoutes); 
 
 
-// Server එක වැඩ කරනවද කියලා බලන්න පොඩි පණිවිඩයක්
+
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../client/build', 'index.html'), (err) => {
         if (err) {
@@ -84,15 +88,17 @@ app.post('/api/admin/login', async (req, res) => {
 // --- SERVER STARTUP & DATABASE CONNECTION ---
 const PORT = process.env.PORT || 5000;
 
-// .env එකේ තියෙන MONGO_URI එක පාවිච්චි කරනවා
+
 mongoose.connect(process.env.MONGO_URI)
-    .then(() => {
+    .then(async () => {
         console.log("MongoDB Database Connected Successfully");
+        // await seedAnuradhapuraTour();
+        // await seedOffRoadAdventureItinerary();
         app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
     })
     .catch((err) => console.log("Database connection error:", err));
 
-    // උදාහරණයක් ලෙස අලුත් හෝටලයක් ඇතුළත් කිරීම:
+    
 app.post('/api/accommodation', async (req, res) => {
     try {
         const newHotel = new Accommodation(req.body);
@@ -109,9 +115,9 @@ app.post('/api/itineraries', async (req, res) => {
         const savedItinerary = await newItinerary.save();
         res.status(201).json(savedItinerary);
     } catch (err) {
-        // වැරැද්ද මොකක්ද කියලා console එකේ පෙන්වනවා
+        
         console.error("Database Save Error:", err);
-        // Frontend එකට වැරැද්ද හරියටම යවනවා
+        
         res.status(400).json({ message: err.message, details: err.errors });
     }
 });
@@ -137,14 +143,38 @@ app.get('/api/itineraries/:id', async (req, res) => {
 
 app.put('/api/itineraries/:id', async (req, res) => {
     try {
-        const itinerary = await Itinerary.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
-        if (!itinerary) {
+        
+        const existingItinerary = await Itinerary.findById(req.params.id);
+        if (!existingItinerary) {
             return res.status(404).json({ message: 'Itinerary not found' });
         }
+
+        
+        const { title, category, tag, accommodation, description, imageUrl, tourPlan, hotels } = req.body;
+
+        
+        const updateData = {
+            title,
+            category,
+            tag,
+            accommodation,
+            description,
+            imageUrl: imageUrl || existingItinerary.imageUrl, 
+            tourPlan,
+            hotels
+        };
+
+        // 4. Database  Update 
+        const itinerary = await Itinerary.findByIdAndUpdate(
+            req.params.id, 
+            { $set: updateData }, 
+            { new: true }
+        );
+        
         res.status(200).json(itinerary);
     } catch (err) {
         console.error("Database Update Error:", err);
-        res.status(400).json({ message: err.message, details: err.errors });
+        res.status(400).json({ message: err.message });
     }
 });
 
@@ -208,23 +238,17 @@ app.delete('/api/discover/:id', async (req, res) => {
 // Dashboard Stats API Endpoint
 app.get('/api/admin/stats', async (req, res) => {
     try {
-        const activeItinerariesCount = await Itinerary.countDocuments({});
-        const dayToursCount = await DayTour.countDocuments({});
-        const accommodationsCount = await Accommodation.countDocuments({});
-        const discoverCount = await Discover.countDocuments({}); 
-
-        const totalRevenue = "Rs. 0.00"; 
-
-        res.json({
-            totalRevenue: totalRevenue,
-            activeItineraries: activeItinerariesCount,
-            dayToursCount: dayToursCount,
-            accommodationsCount: accommodationsCount,
-            discoverCount: discoverCount, // Fixed missing comma here
-            monthlyViews: [0, 0, 0, 0, 0, 0, 0]
+        
+        const itineraryCount = await Itinerary.countDocuments();
+        
+        
+        res.status(200).json({
+            itineraries: itineraryCount,
+            dayTours: 0 
         });
-    } catch (error) {
-        console.error("Dashboard stats error:", error);
-        res.status(500).json({ message: "Server error fetching live dashboard stats" });
+    } catch (err) {
+        console.error("Dashboard stats error:", err);
+        res.status(500).json({ message: "Server Error", error: err.message });
     }
 });
+    

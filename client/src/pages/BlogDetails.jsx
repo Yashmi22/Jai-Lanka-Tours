@@ -453,7 +453,7 @@ const BlogDetails = () => {
                     readTime: currentPost.readTime
                 });
             } catch (err) {
-                // Silently fails in background without breaking code or logging to console
+                // Silently fails in background
             }
         };
         syncToDashboard();
@@ -516,26 +516,32 @@ const BlogDetails = () => {
 
                         if (element.type === "zigzag") {
                             return (
-                                <section key={idx} className={`flex flex-col md:flex-row gap-12 items-center py-8 ${element.imageLeft ? '' : 'md:flex-row-reverse'}`}>
-                                    {/* Image Frame */}
-                                    <div className="w-full md:w-1/2">
-                                        <div className="relative group overflow-hidden rounded-xl bg-[#090d16] border border-white/[0.06] p-3 shadow-2xl">
-                                            <div className="overflow-hidden rounded-lg">
-                                                <img 
-                                                    src={element.image} 
-                                                    alt={element.title} 
-                                                    className="w-full h-[380px] object-cover opacity-85 group-hover:opacity-100 group-hover:scale-[1.04] transition-all duration-[1.2s] ease-out"
-                                                />
-                                            </div>
-                                            <div className="absolute inset-0 pointer-events-none border border-white/10 rounded-xl m-3"></div>
+                                <section 
+                                    key={idx} 
+                                    className={`grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16 items-center ${
+                                        element.imageLeft ? "" : "md:direction-rtl"
+                                    }`}
+                                    style={{ direction: element.imageLeft ? 'ltr' : 'rtl' }}
+                                >
+                                    {/* Image Container with high quality configurations */}
+                                    <div className="md:col-span-6 w-full" style={{ direction: 'ltr' }}>
+                                        <div className="relative overflow-hidden rounded-xl border border-white/5 bg-white/[0.02] aspect-[16/10] group shadow-2xl tracking-normal">
+                                            <img 
+                                                src={element.image} 
+                                                alt={element.title}
+                                                className="w-full h-full object-cover object-center transform group-hover:scale-105 transition-transform duration-700 ease-out image-render-auto antialiased"
+                                                loading="lazy"
+                                            />
+                                            <div className="absolute inset-0 bg-gradient-to-t bottom-0 from-black/40 via-transparent to-transparent opacity-60 pointer-events-none"></div>
                                         </div>
                                     </div>
-                                    
-                                    {/* Text Frame */}
-                                    <div className="w-full md:w-1/2 space-y-4">
-                                        <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-amber-500/60">— Visual Context</div>
-                                        <h3 className="text-xl font-serif text-white">{element.title}</h3>
-                                        <p className="text-slate-400 text-sm font-light leading-relaxed text-justify">
+
+                                    {/* Text Content Container */}
+                                    <div className="md:col-span-6 space-y-4" style={{ direction: 'ltr' }}>
+                                        <h3 className="text-xl font-serif text-white tracking-wide">
+                                            {element.title}
+                                        </h3>
+                                        <p className="text-slate-400 text-sm md:text-base font-light leading-relaxed text-justify opacity-90">
                                             {element.text}
                                         </p>
                                     </div>
@@ -545,16 +551,6 @@ const BlogDetails = () => {
                         return null;
                     })}
                 </div>
-
-                {/* Clean, Fully Secured Journal Footer (No System Logs or Admin Routes) */}
-                <footer className="mt-36 pt-16 border-t border-white/5 flex flex-col sm:flex-row justify-between items-center gap-4 text-center sm:text-left">
-                    <p className="text-slate-600 text-xs font-light tracking-wide">
-                        &copy; {new Date().getFullYear()} Ceylon Chronicles Journal. All rights reserved.
-                    </p>
-                    <p className="text-slate-600 text-[11px] font-serif italic tracking-wider">
-                        Curating the untold heritage of the island.
-                    </p>
-                </footer>
 
             </div>
         </div>
