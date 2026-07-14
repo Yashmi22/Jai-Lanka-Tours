@@ -28,31 +28,31 @@ import dalada from '../assets/daladamaligaya1.jpg';
 import kandyView from '../assets/kandyviewpoint.jpg';
 import kandyDance from '../assets/kandyculturedancingshow.jpg';
 import pinnawala from '../assets/pinnawalaelephantorphanage.jpg';
-import jewelryKandy from '../assets/jewelryworkshops1.jpg';
+import jewelryKandy from '../assets/jewelryworkshops11.jpg';
 
 // 📷 4. Ella Images
 import ellaRock from '../assets/ellarock.jpg';
-import nineArch from '../assets/ninearchbridge1.jpg';
-import littleAdam from '../assets/littleadampeak1.jpg';
+import nineArch from '../assets/ninearchbridge11.jpg';
+import littleAdam from '../assets/littleadampeak11.jpg';
 import ravanaFalls from '../assets/rawanafalls1.jpg';
 import zipline from '../assets/flyingrawanazipline.jpg';
 import teaFactory from '../assets/uvahalpewatteteafactory.jpg';
 
 // 📷 5. Galle Images
-import galleFort from '../assets/galle_fort.jpg';
+import galleFort from '../assets/gallefort.jpg';
 import yatagala from '../assets/yatagalatemple1.jpg';
 import rumassala from '../assets/rumassalamountain.jpg';
 import turtleGalle from '../assets/seaturtlehatcherie.jpg';
 import stiltFisherman from '../assets/stiltfisherman.jpg';
-import jewelryGalle from '../assets/jwelryworkshops1.jpg';
+import jewelryGalle from '../assets/jwelryworkshops11.jpg';
 
 // 📷 6. Sigiriya & Dambulla Images
 import dambullaCave from '../assets/Dambullacavetemple1.jpg';
 import sigiriyaRock from '../assets/Sigiriyarock1.jpg';
 import pidurangala from '../assets/Pidurangalarock1.jpg';
-import villageTour from '../assets/Villagetour.jpg';
-import villageTour1 from '../assets/Villagetour1.jpg';
-import elephantSafari from '../assets/Elephantsafari1.jpg';
+import villageTour from '../assets/Villagetour1.jpg';
+import villageTour1 from '../assets/Villagetour.jpg';
+import elephantSafari from '../assets/Elephantsafari11.jpg';
 import ayurvedicSpa from '../assets/Ayurvedicspa.jpg';
 
 // 📷 7. Madu River & Bentota Images
@@ -63,7 +63,7 @@ import bawaGarden from '../assets/Jefribawagarden.jpg';
 import kandeViharaya from '../assets/Kandeviharayatemple1.jpg';
 
 // 📷 8. Yala Safari Images
-import yala1 from '../assets/yala1.jpg';
+import yala1 from '../assets/yala12.jpg';
 import yala2 from '../assets/yala2.jpg';
 
 // 📷 9. Sinharaja Rainforest Images
@@ -76,7 +76,7 @@ import kanneliya1 from '../assets/kanneliya1.jpg';
 import kanneliya2 from '../assets/kanneliya2.jpg';
 
 // 📷 11. Udawalawe Elephant Tour Images
-import udawalawe1 from '../assets/udawalawe1.jpg';
+import udawalawe1 from '../assets/udawalawe11.jpg';
 import udawalawe22 from '../assets/udawalawe2.jpg';
 
 // 📷 12. Wilpattu National Park Images
@@ -453,8 +453,12 @@ const TourDetails = () => {
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
                     {place.images.map((img, imgIdx) => (
-                      <div key={imgIdx} className="w-full aspect-[4/3] rounded-2xl overflow-hidden">
-                        <img src={img} alt={`${place.name} view ${imgIdx + 1}`} className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
+                      <div key={imgIdx} className="w-full flex items-center justify-center">
+                        <img 
+                          src={img} 
+                          alt={`${place.name} view ${imgIdx + 1}`} 
+                          className="w-full h-auto aspect-auto object-contain rounded-2xl hover:scale-[1.03] transition-transform duration-500 max-h-[300px] shadow-xl shadow-black/30" 
+                        />
                       </div>
                     ))}
                   </div>
@@ -465,10 +469,13 @@ const TourDetails = () => {
             return (
               <div key={index} className={`flex flex-col ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'} gap-12 md:gap-16 items-center justify-between`}>
                 
-                <div className="w-full md:w-[48%]">
-                  <div className="w-full aspect-[4/3] rounded-2xl overflow-hidden">
-                    <img src={place.image} alt={place.name} className="w-full h-full object-cover transition-transform duration-1000 hover:scale-103" />
-                  </div>
+                {/* 100% Borderless Premium Full-Aspect Image Layout */}
+                <div className="w-full md:w-[48%] flex items-center justify-center">
+                  <img 
+                    src={place.image} 
+                    alt={place.name} 
+                    className="w-full h-auto aspect-auto object-contain rounded-2xl transition-transform duration-700 hover:scale-[1.03] max-h-[380px] shadow-2xl shadow-black/40" 
+                  />
                 </div>
 
                 <div className="w-full md:w-[48%] space-y-4">

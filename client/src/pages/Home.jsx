@@ -13,8 +13,9 @@ const Home = () => {
   const slideshowImages = [
     "/images/home1.jpg",
     "/images/home2.jpg",
-    "/images/home3.png",
-    "/images/home4.png"
+    "/images/home3.jpg",
+    "/images/home5.jpg"
+   
   ];
 
   // Itinerary Links
@@ -71,7 +72,7 @@ const Home = () => {
           
           {/* 2. JAI LANKA TRAVEL AND TOURS */}
           <h1 className="text-lg md:text-xl font-serif font-medium tracking-[0.35em] uppercase mt-5 text-white/95">
-            JAI LANKA TRAVEL AND TOURS
+            JAI LANKA TOURS
           </h1>
           
           {/* 3. Experience the Art Of Luxury Travel */}
@@ -145,7 +146,7 @@ const Home = () => {
       {/* WHATSAPP FLOATER */}
       <div className="absolute bottom-8 right-8 z-40">
         <a 
-          href="https://wa.me/94770000000" 
+          href="https://wa.me/94740966449" 
           target="_blank" 
           rel="noopener noreferrer"
           className="w-12 h-12 flex items-center justify-center rounded-full bg-green-500 hover:bg-green-600 transition-all text-white shadow-xl hover:scale-110 duration-300"

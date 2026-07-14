@@ -18,7 +18,7 @@ const Footer = () => {
               <h2 className="text-3xl font-headline font-light text-white tracking-widest uppercase">
                 JAI <span className="text-amber-400 font-normal">LANKA</span>
               </h2>
-              <p className="text-[10px] text-amber-500/60 uppercase tracking-[0.2em] mt-1">Travel & Tours</p>
+              <p className="text-[10px] text-amber-500/60 uppercase tracking-[0.2em] mt-1">Tours</p>
             </div>
             
             <p className="text-slate-400 text-sm font-light leading-relaxed max-w-sm text-justify">
@@ -58,7 +58,7 @@ const Footer = () => {
               </a>
 
               <a 
-                href="mailto:jailanka@gmail.com" 
+                href="mailto:jailankatours@gmail.com" 
                 className="w-10 h-10 rounded-xl bg-slate-900/40 border border-slate-800/80 text-slate-400 hover:text-white hover:bg-[#EA4335] hover:border-[#EA4335] hover:shadow-lg hover:shadow-[#EA4335]/20 flex items-center justify-center transition-all duration-300"
                 aria-label="Email"
               >
@@ -74,7 +74,7 @@ const Footer = () => {
               <li><Link to="/" className="hover:text-amber-400 hover:pl-1 transition-all duration-300 block">Home</Link></li>
               <li><Link to="/day-tours" className="hover:text-amber-400 hover:pl-1 transition-all duration-300 block">Day Tours</Link></li>
               <li><Link to="/itineraries" className="hover:text-amber-400 hover:pl-1 transition-all duration-300 block">Itineraries</Link></li>
-              <li><Link to="/discover" className="hover:text-amber-400 hover:pl-1 transition-all duration-300 block">Discover Sri Lanka</Link></li>
+              <li><Link to="/discoversrilanka" className="hover:text-amber-400 hover:pl-1 transition-all duration-300 block">Discover Sri Lanka</Link></li>
               <li><Link to="/accommodation" className="hover:text-amber-400 hover:pl-1 transition-all duration-300 block">Accommodation</Link></li>
               <li><Link to="/about-us" className="hover:text-amber-400 hover:pl-1 transition-all duration-300 block">About Us</Link></li>
               <li><Link to="/plan-journey" className="hover:text-amber-400 hover:pl-1 transition-all duration-300 block">Plan Journey</Link></li>
@@ -100,11 +100,11 @@ const Footer = () => {
             <ul className="space-y-5 text-sm font-light text-slate-400">
               <li className="flex flex-col gap-0.5">
                 <span className="text-[10px] text-slate-600 font-bold uppercase tracking-wider">Hotline</span>
-                <span className="text-slate-300 hover:text-amber-400 transition-colors cursor-pointer">+9474 096 6449</span>
+                <a href="tel:+94740966449" className="text-slate-300 hover:text-amber-400 transition-colors">+9474 096 6449</a>
               </li>
               <li className="flex flex-col gap-0.5">
                 <span><Link to="/enquiry" className="text-[10px] text-slate-600 font-bold uppercase tracking-wider">Inquiries</Link></span>
-                <span className="text-slate-300 hover:text-amber-400 transition-colors cursor-pointer">jailanka@gmail.com</span>
+                <a href="mailto:jailankatours@gmail.com" className="text-slate-300 hover:text-amber-400 transition-colors">jailankatours@gmail.com</a>
               </li>
             </ul>
           </div>
@@ -116,8 +116,8 @@ const Footer = () => {
             © 2026 Jai Lanka Tours. All Rights Reserved.
           </p>
           <div className="flex gap-8 text-[10px] text-slate-500 uppercase tracking-[0.2em] font-medium">
-            <span className="hover:text-amber-400 cursor-pointer transition-all duration-300">Privacy Policy</span>
-            <span className="hover:text-amber-400 cursor-pointer transition-all duration-300">Terms of Service</span>
+            <Link to="/privacy-policy" className="hover:text-amber-400 cursor-pointer transition-all duration-300">Privacy Policy</Link>
+            <Link to="/terms-of-service" className="hover:text-amber-400 cursor-pointer transition-all duration-300">Terms of Service</Link>
           </div>
         </div>
       </div>

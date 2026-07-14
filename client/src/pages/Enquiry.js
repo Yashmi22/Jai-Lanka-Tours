@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { sendEmailNotification } from '../utils/emailService'; // 💡 අපේ email service එක import කරා
+import { sendEmailNotification } from '../utils/emailService'; // import email service 
 import { 
     MessageSquare, Mail, Send, Sparkles, User, ShieldCheck 
 } from 'lucide-react';
@@ -89,7 +89,7 @@ const Enquiry = () => {
 
                         {/* Email Card */}
                         <a 
-                            href="mailto:jailankatravels@gmail.com"
+                            href="mailto:jailankatours@gmail.com"
                             className="block group bg-[#131c2e]/40 backdrop-blur-xl rounded-3xl border border-white/[0.05] p-6 hover:border-blue-500/30 hover:bg-[#131c2e]/70 transition-all duration-500 shadow-lg shadow-black/20"
                         >
                             <div className="flex items-start gap-4">
@@ -99,7 +99,7 @@ const Enquiry = () => {
                                 <div className="space-y-1">
                                     <span className="text-[10px] font-bold text-blue-400 uppercase tracking-widest block">Official Channel</span>
                                     <h3 className="text-lg font-bold text-white tracking-wide">Email Relations</h3>
-                                    <p className="text-slate-400 text-sm font-light">jailankatravels@gmail.com</p>
+                                    <p className="text-slate-400 text-sm font-light">jailankatours@gmail.com</p>
                                     <span className="inline-flex items-center gap-1 text-xs font-medium text-blue-400/80 mt-2 group-hover:translate-x-1 transition-transform duration-300">
                                         Send an email &rarr;
                                     </span>

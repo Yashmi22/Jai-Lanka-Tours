@@ -235,6 +235,25 @@ app.delete('/api/discover/:id', async (req, res) => {
     }
 });
 
+app.put('/api/discover/:id', async (req, res) => {
+    try {
+        const updatedDiscover = await Discover.findByIdAndUpdate(
+            req.params.id,
+            req.body,
+            { new: true, runValidators: true }
+        );
+
+        if (!updatedDiscover) {
+            console.log('Discover not found for update ID:', req.params.id);
+            return res.status(404).json({ message: 'Discover not found' });
+        }
+
+        res.status(200).json(updatedDiscover);
+    } catch (err) {
+        res.status(400).json({ message: err.message, details: err.errors });
+    }
+});
+
 // Dashboard Stats API Endpoint
 app.get('/api/admin/stats', async (req, res) => {
     try {

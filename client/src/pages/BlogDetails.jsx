@@ -37,7 +37,7 @@ import sabaragamu from '../assets/sabaragmu.jpg'
 // 📷 6. Ethical Elephants Images
 import cheeta from '../assets/cheeta.jpg';
 import bear from '../assets/bear.jpg';
-import birds from '../assets/birds1.jpg';
+import birds from '../assets/bird2.jpg';
 import deer from '../assets/deer.jpg';
 
 // 📷 7. Bawa Architecture Images

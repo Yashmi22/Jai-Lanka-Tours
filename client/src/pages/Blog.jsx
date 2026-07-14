@@ -11,13 +11,13 @@ import {
 // Assets Import
 import foodImg from '../assets/food.jpg';
 import cultureImg from '../assets/culture.jpg';
-import trainImg from '../assets/train-ella.jpg';
+import trainImg from '../assets/ninearchbridge11.jpg';
 import elephantImg from '../assets/elephant.jpg';
 import bawaImg from '../assets/bawa.jpg';
 import gemsImg from '../assets/gems.jpg';      
 import dancingImg from '../assets/dancing.jpg';   
 import masksImg from '../assets/masks.jpg'; 
-import logo from '../assets/logo.png';
+//import logo from '../assets/logo.png';
 
 // Gallery Images
 import leopardImg from '../assets/leopard.jpg';
