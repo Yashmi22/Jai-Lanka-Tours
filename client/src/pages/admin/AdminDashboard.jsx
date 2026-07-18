@@ -28,6 +28,7 @@ const AdminDashboard = () => {
       try {
         setLoading(true);
        const token = localStorage.getItem('adminToken');
+const response = await axios.get('https://jai-lanka-tours-production.up.railway.app/api/admin/stats', {
   headers: {
     Authorization: `Bearer ${token}`
   }
