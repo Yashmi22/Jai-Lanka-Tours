@@ -53,7 +53,7 @@ const Itineraries = ({ categoryFilter = "All" }) => {
         const fetchItineraries = async () => {
             try {
                 setLoading(true); 
-                const res = await axios.get('http://localhost:5000/api/itineraries');
+                const res = await axios.get('https://jai-lanka-tours-production.up.railway.app/api/itineraries');
                 
                 console.log("Database Data:", res.data); // Troubleshooting
                 console.log("Current categoryFilter value:", categoryFilter); 

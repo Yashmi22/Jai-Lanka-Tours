@@ -63,7 +63,7 @@ const ItineraryDetails = () => {
   useEffect(() => {
     const fetchItinerary = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/itineraries/${id}`);
+        const response = await fetch(`https://jai-lanka-tours-production.up.railway.app/api/itineraries/${id}`);
         if (response.ok) {
           const data = await response.json();
           setDetails(data);

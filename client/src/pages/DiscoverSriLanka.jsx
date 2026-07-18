@@ -12,7 +12,7 @@ const DiscoverSriLanka = () => {
     if (path.startsWith('http://') || path.startsWith('https://')) {
       return path; 
     }
-    const baseUrl = process.env.REACT_APP_API_BASE_URL ? process.env.REACT_APP_API_BASE_URL.replace('/api', '') : 'http://localhost:5000';
+    const baseUrl = process.env.REACT_APP_API_BASE_URL ? process.env.REACT_APP_API_BASE_URL.replace('/api', '') : 'https://jai-lanka-tours-production.up.railway.app';
     return `${baseUrl}/${path.replace(/^\//, '')}`;
   };
 
@@ -24,7 +24,7 @@ const DiscoverSriLanka = () => {
   useEffect(() => {
     const loadData = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/discover');
+        const res = await axios.get('https://jai-lanka-tours-production.up.railway.app/api/discover');
         const allData = Array.isArray(res.data) ? res.data : [];
         setDestinationsData(allData.filter(item => item.type === 'destination'));
         setExperiencesData(allData.filter(item => item.type === 'experience'));

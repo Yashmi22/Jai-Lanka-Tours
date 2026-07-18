@@ -20,14 +20,14 @@ const DiscoverDetail = () => {
     if (path.startsWith('http://') || path.startsWith('https://')) {
       return path;
     }
-    const baseUrl = process.env.REACT_APP_API_BASE_URL ? process.env.REACT_APP_API_BASE_URL.replace('/api', '') : 'http://localhost:5000';
+    const baseUrl = process.env.REACT_APP_API_BASE_URL ? process.env.REACT_APP_API_BASE_URL.replace('/api', '') : 'https://jai-lanka-tours-production.up.railway.app';
     return `${baseUrl}/${path.replace(/^\//, '')}`;
   };
 
   useEffect(() => {
     const fetchDetail = async () => {
       try {
-        const apiBaseUrl = process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api';
+        const apiBaseUrl = process.env.REACT_APP_API_BASE_URL || 'https://jai-lanka-tours-production.up.railway.app/api';
         const res = await axios.get(`${apiBaseUrl}/discover/${id}`);
         setItem(res.data);
         setLoading(false);

@@ -378,7 +378,7 @@ const TourDetails = () => {
 
     const syncTourWithDashboard = async () => {
       try {
-        await axios.post('http://localhost:5000/api/tours/add-auto', {
+        await axios.post('https://jai-lanka-tours-production.up.railway.app/api/tours/add-auto', {
           id: normalizedId,
           title: tour.title,
           category: tour.category,

@@ -11,11 +11,11 @@ const Dashboard = () => {
         e.preventDefault();
         setLoading(true);
         try {
-            await axios.post('http://localhost:5000/api/packages/add', {
+            await axios.post('https://jai-lanka-tours-production.up.railway.app/api/packages/add', {
                 name, price, description
             });
             alert("සාර්ථකව ඇතුළත් කළා!");
-            setName(""); setPrice(""); setDescription(""); // Form එක clear කරනවා
+            setName(""); setPrice(""); setDescription(""); // Form  clear 
         } catch (err) {
             console.error("Error:", err);
             alert("දත්ත ඇතුළත් කිරීම අසාර්ථකයි!");
