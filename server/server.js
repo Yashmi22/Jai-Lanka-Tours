@@ -95,15 +95,18 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
 
-mongoose.connect(process.env.MONGO_URI)
-    .then(async () => {
-        console.log("MongoDB Database Connected Successfully");
-        // await seedAnuradhapuraTour();
-        // await seedOffRoadAdventureItinerary();
-        app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-    })
-    .catch((err) => console.log("Database connection error:", err));
+const mongoURI = process.env.MONGO_URI;
 
+if (!mongoURI) {
+  console.error("Error: MONGO_URI is not defined in environment variables!");
+}
+
+mongoose.connect(mongoURI)
+  .then(() => console.log('MongoDB Connected Successfully...'))
+  .catch(err => {
+    console.error('Database connection error occurred:');
+    console.error(err.message);
+  });
     
 app.post('/api/accommodation', async (req, res) => {
     try {
