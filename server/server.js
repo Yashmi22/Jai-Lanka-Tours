@@ -93,6 +93,10 @@ if (!mongoURI) {
   console.error('Error: MONGO_URI is not defined in environment variables!');
 }
 
+app.get('/', (req, res) => {
+    res.status(200).send('Backend is running successfully!');
+});
+
 mongoose.connect(mongoURI)
   .then(() => {
     console.log('MongoDB Connected Successfully...');
