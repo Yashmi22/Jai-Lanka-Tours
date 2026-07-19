@@ -94,6 +94,10 @@ if (!mongoURI) {
 }
 
 mongoose.connect(mongoURI)
+
+app.get('/', (req, res) => {
+    res.status(200).send('Jai Lanka Travels Backend is Running Successfully!');
+});
   .then(() => {
     console.log('MongoDB Connected Successfully...');
     app.listen(PORT,'0.0.0.0', () => {
