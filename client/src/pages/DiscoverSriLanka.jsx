@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { FaRegClock, FaRegCalendarAlt, FaStar } from 'react-icons/fa'; 
+import api from '../api';
 
 const DiscoverSriLanka = () => {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ const DiscoverSriLanka = () => {
   useEffect(() => {
     const loadData = async () => {
       try {
-        const res = await axios.get('https://jai-lanka-tours-production.up.railway.app/api/discover');
+        const res = await axios.get('/discover');
         const allData = Array.isArray(res.data) ? res.data : [];
         setDestinationsData(allData.filter(item => item.type === 'destination'));
         setExperiencesData(allData.filter(item => item.type === 'experience'));

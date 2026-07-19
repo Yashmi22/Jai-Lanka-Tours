@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
+import api from '../api';
 
 // 📷 1. Galle Market Images
 import kiribath from '../assets/kiribath.jpg';

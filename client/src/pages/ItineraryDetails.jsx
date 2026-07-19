@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { FaArrowLeft, FaMapMarkerAlt, FaCalendarAlt, FaHotel, FaStar, FaTimes, FaSuitcaseRolling, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import api from '../api';
 
 const normalizeImageList = (value) => {
   if (!value) return [];
@@ -57,13 +58,14 @@ const ItineraryDetails = () => {
   const [loading, setLoading] = useState(true);
   const [selectedHotel, setSelectedHotel] = useState(null);
 
+
   // Hero Section 
   const [currentHeroImageIdx, setCurrentHeroImageIdx] = useState(0);
 
   useEffect(() => {
     const fetchItinerary = async () => {
       try {
-        const response = await fetch(`https://jai-lanka-tours-production.up.railway.app/api/itineraries/${id}`);
+        const response = await fetch(`/itineraries/${id}`);
         if (response.ok) {
           const data = await response.json();
           setDetails(data);

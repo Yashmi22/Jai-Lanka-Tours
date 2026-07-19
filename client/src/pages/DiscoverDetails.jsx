@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
-
 import ArrowBack from '@mui/icons-material/ArrowBack';
 import LocationOn from '@mui/icons-material/LocationOn';
 import Star from '@mui/icons-material/Star';
 import AccessTime from '@mui/icons-material/AccessTime';
 import WbSunny from '@mui/icons-material/WbSunny';
 import LocalMall from '@mui/icons-material/LocalMall';
+import api from '../api';
 
 const DiscoverDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [item, setItem] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [itineraries, setItineraries] = useState([]);
   
   const normalizeImagePath = (path) => {
     if (!path) return '';
@@ -27,18 +27,32 @@ const DiscoverDetail = () => {
   useEffect(() => {
     const fetchDetail = async () => {
       try {
-        const apiBaseUrl = process.env.REACT_APP_API_BASE_URL || 'https://jai-lanka-tours-production.up.railway.app/api';
-        const res = await axios.get(`${apiBaseUrl}/discover/${id}`);
+        const res = await api.get(`/discover/${id}`);
         setItem(res.data);
-        setLoading(false);
       } catch (err) {
-        console.error("Error loading details from Jai Lanka Database:", err);
+        console.error('Error loading details from Jai Lanka Database:', err);
         setItem(null);
+      } finally {
         setLoading(false);
       }
     };
+
     fetchDetail();
   }, [id]);
+
+  useEffect(() => {
+    const fetchItineraries = async () => {
+      try {
+        const response = await api.get('/itineraries');
+        setItineraries(response.data || []);
+      } catch (error) {
+        console.error('Error fetching itineraries:', error);
+        setItineraries([]);
+      }
+    };
+
+    fetchItineraries();
+  }, []);
 
   if (loading) {
     return (
