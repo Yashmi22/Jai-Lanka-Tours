@@ -23,7 +23,10 @@ const allowedOrigins = [
 ];
 
 app.use(cors({
-    origin: '*',
+    origin: function (origin, callback) {
+        
+        callback(null, true);
+    },
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization']
@@ -84,7 +87,9 @@ app.post('/api/admin/login', async (req, res) => {
 
 // --- SERVER STARTUP & DATABASE CONNECTION ---
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
 
 
 const mongoURI = process.env.MONGO_URI;
