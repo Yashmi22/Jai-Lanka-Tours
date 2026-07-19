@@ -94,22 +94,19 @@ if (!mongoURI) {
 }
 
 mongoose.connect(mongoURI)
-
-app.get('/', (req, res) => {
-    res.status(200).send('Jai Lanka Travels Backend is Running Successfully!');
-});
-  then(() => {
+  .then(() => {
     console.log('MongoDB Connected Successfully...');
-    app.listen(PORT,'0.0.0.0', () => {
+    app.listen(PORT, '0.0.0.0', () => {
       console.log(`Server running on port ${PORT}`);
     });
   })
   .catch(err => {
     console.error('Database connection error occurred:', err.message);
-    app.listen(PORT,'0.0.0.0', () => {
+    app.listen(PORT, '0.0.0.0', () => {
       console.log(`Server running on port ${PORT} (without DB)`);
     });
   });
+  
     
 app.post('/api/accommodation', async (req, res) => {
     try {
