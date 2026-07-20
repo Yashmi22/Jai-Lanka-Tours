@@ -3,10 +3,14 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const path = require('path');
 require('dotenv').config();
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs'); 
+const Admin = require('./models/Admin'); 
 
 const Itinerary = require('./models/Itinerary');
 const Accommodation = require('./models/Accommodation');
 const Discover = require('./models/Discover');
+
 
 // 1. Route require 
 const packageRoute = require('./routes/packageRoutes');
