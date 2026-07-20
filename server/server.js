@@ -1,15 +1,14 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const path = require('path');
 require('dotenv').config();
+
 const Itinerary = require('./models/Itinerary');
 const Accommodation = require('./models/Accommodation');
 const Discover = require('./models/Discover');
 
-
-
-
-// 1. Route  require 
+// 1. Route require 
 const packageRoute = require('./routes/packageRoutes');
 const tourRoutes = require('./routes/tourRoutes');
 const { seedAnuradhapuraTour, seedOffRoadAdventureItinerary } = require('./config/dbSeeder');
@@ -18,14 +17,18 @@ const app = express();
 
 // --- CORS CONFIGURATION (Production Ready) ---
 const allowedOrigins = [
-    'http://localhost:5173', // Local Vite development port
-    'http://localhost:3000'  // Local React development port
+    'http://localhost:5173',
+    'http://localhost:3000',
+    'https://jai-lanka-tours.vercel.app'
 ];
 
 app.use(cors({
     origin: function (origin, callback) {
-        
-        callback(null, true);
+        if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+            callback(null, true);
+        } else {
+            callback(null, true); // production support
+        }
     },
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
@@ -33,28 +36,17 @@ app.use(cors({
 }));
 
 // Middleware
-app.use(cors());
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
-app.use(cors({
-  origin: 'https://jai-lanka-tours.vercel.app',
-  credentials: true
-}));
+// 2. Healthcheck & Root Route
+app.get('/', (req, res) => {
+    res.status(200).send('Jai Lanka Travel Backend is running successfully!');
+});
 
-// 2. API Routes 
+// 3. API Routes 
 app.use('/api/packages', packageRoute);
 app.use('/api/tours', tourRoutes); 
-
-
-
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../client/build', 'index.html'), (err) => {
-        if (err) {
-            res.send("Jai Lanka Travel Server is running!");
-        }
-    });
-});
 
 // --- ADMIN AUTHENTICATION API ---
 const JWT_SECRET = process.env.JWT_SECRET || "JaiLankaSuperSecretKey123";
@@ -85,33 +77,7 @@ app.post('/api/admin/login', async (req, res) => {
     }
 });
 
-// --- SERVER STARTUP & DATABASE CONNECTION ---
-const PORT = process.env.PORT || 5000;
-const mongoURI = process.env.MONGO_URI;
-
-if (!mongoURI) {
-  console.error('Error: MONGO_URI is not defined in environment variables!');
-}
-
-app.get('/', (req, res) => {
-    res.status(200).send('Backend is running successfully!');
-});
-
-mongoose.connect(mongoURI)
-  .then(() => {
-    console.log('MongoDB Connected Successfully...');
-    app.listen(PORT, '0.0.0.0', () => {
-      console.log(`Server running on port ${PORT}`);
-    });
-  })
-  .catch(err => {
-    console.error('Database connection error occurred:', err.message);
-    app.listen(PORT, '0.0.0.0', () => {
-      console.log(`Server running on port ${PORT} (without DB)`);
-    });
-  });
-  
-    
+// --- ACCOMMODATION & ITINERARY ROUTES ---
 app.post('/api/accommodation', async (req, res) => {
     try {
         const newHotel = new Accommodation(req.body);
@@ -128,9 +94,7 @@ app.post('/api/itineraries', async (req, res) => {
         const savedItinerary = await newItinerary.save();
         res.status(201).json(savedItinerary);
     } catch (err) {
-        
         console.error("Database Save Error:", err);
-        
         res.status(400).json({ message: err.message, details: err.errors });
     }
 });
@@ -156,16 +120,13 @@ app.get('/api/itineraries/:id', async (req, res) => {
 
 app.put('/api/itineraries/:id', async (req, res) => {
     try {
-        
         const existingItinerary = await Itinerary.findById(req.params.id);
         if (!existingItinerary) {
             return res.status(404).json({ message: 'Itinerary not found' });
         }
 
-        
         const { title, category, tag, accommodation, description, imageUrl, tourPlan, hotels } = req.body;
 
-        
         const updateData = {
             title,
             category,
@@ -177,7 +138,6 @@ app.put('/api/itineraries/:id', async (req, res) => {
             hotels
         };
 
-        // 4. Database  Update 
         const itinerary = await Itinerary.findByIdAndUpdate(
             req.params.id, 
             { $set: updateData }, 
@@ -205,6 +165,7 @@ app.delete('/api/itineraries/:id', async (req, res) => {
     }
 });
 
+// --- DISCOVER ROUTES ---
 app.post('/api/discover', async (req, res) => {
     try {
         const newDiscover = new Discover(req.body);
@@ -270,10 +231,7 @@ app.put('/api/discover/:id', async (req, res) => {
 // Dashboard Stats API Endpoint
 app.get('/api/admin/stats', async (req, res) => {
     try {
-        
         const itineraryCount = await Itinerary.countDocuments();
-        
-        
         res.status(200).json({
             itineraries: itineraryCount,
             dayTours: 0 
@@ -283,4 +241,25 @@ app.get('/api/admin/stats', async (req, res) => {
         res.status(500).json({ message: "Server Error", error: err.message });
     }
 });
-    
+
+// --- SERVER STARTUP & DATABASE CONNECTION ---
+const PORT = process.env.PORT || 5000;
+const mongoURI = process.env.MONGO_URI;
+
+if (!mongoURI) {
+  console.error('Error: MONGO_URI is not defined in environment variables!');
+}
+
+mongoose.connect(mongoURI)
+  .then(() => {
+    console.log('MongoDB Connected Successfully...');
+    app.listen(PORT, '0.0.0.0', () => {
+      console.log(`Server running on port ${PORT}`);
+    });
+  })
+  .catch(err => {
+    console.error('Database connection error occurred:', err.message);
+    app.listen(PORT, '0.0.0.0', () => {
+      console.log(`Server running on port ${PORT} (without DB)`);
+    });
+  });
