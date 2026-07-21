@@ -1,11 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import axios from 'axios';
+import api from '../../api';
 import { FaCloudUploadAlt, FaEdit, FaTrashAlt } from 'react-icons/fa';
 import { uploadImageToCloudinary } from '../../utils/imageUpload';
 
 const AdminDiscover = () => {
-    
-    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://jai-lanka-tours-production.up.railway.app/api';
 
     const [discoveries, setDiscoveries] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -32,7 +30,7 @@ const AdminDiscover = () => {
    // 🔄 Fetch Existing Data (useCallback)
 const fetchDiscoveries = useCallback(async () => {
     try {
-        const res = await axios.get(`${API_BASE_URL}/discover`);
+        const res = await api.get('/discover');
         
         if (res.data && Array.isArray(res.data)) {
             setDiscoveries(res.data);
@@ -43,10 +41,10 @@ const fetchDiscoveries = useCallback(async () => {
         }
         setLoading(false);
     } catch (err) {
-        console.error("Error fetching discoveries from:", `${API_BASE_URL}/discover`, err);
+        console.error("Error fetching discoveries:", err);
         setLoading(false);
     }
-}, [API_BASE_URL]); 
+}, []); 
 
     useEffect(() => {
         fetchDiscoveries();
@@ -86,14 +84,13 @@ const fetchDiscoveries = useCallback(async () => {
     // 🗑️ Delete Handler
     const deleteDiscover = async (id) => {
         if (window.confirm("Are you sure you want to delete this item?")) {
-            const deleteURL = `${API_BASE_URL}/discover/${id}`;
             try {
-                await axios.delete(deleteURL);
+                await api.delete(`/discover/${id}`);
                 alert("Item deleted successfully!");
                 fetchDiscoveries();
             } catch (err) {
-                console.error("Error deleting item at:", deleteURL, err);
-                alert(`Failed to delete item. ${err.response?.status === 404 ? 'Route not found (404)' : ''}`);
+                console.error("Error deleting item:", err);
+                alert(`Failed to delete item.`);
             }
         }
     };
@@ -147,17 +144,11 @@ const fetchDiscoveries = useCallback(async () => {
             };
 
             // 🎯 404 නිදොස්කරණය සඳහා URL එක වෙන් කර ගැනීම
-            const targetURL = isEditing 
-                ? `${API_BASE_URL}/discover/${currentId}` 
-                : `${API_BASE_URL}/discover`;
-
-            console.log(`Sending ${isEditing ? 'PUT' : 'POST'} request to:`, targetURL);
-
             if (isEditing) {
-                await axios.put(targetURL, finalData);
+                await api.put(`/discover/${currentId}`, finalData);
                 alert(`${formData.type.toUpperCase()} Updated Successfully!`);
             } else {
-                await axios.post(targetURL, finalData);
+                await api.post(`/discover`, finalData);
                 alert(`${formData.type.toUpperCase()} Added Successfully with Cloudinary!`);
             }
             

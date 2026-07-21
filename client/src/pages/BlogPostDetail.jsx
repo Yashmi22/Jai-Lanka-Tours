@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import api from '../api';
 import { ArrowBack, AccessTime, CalendarMonth } from '@mui/icons-material';
 
 const BlogPostDetail = () => {
@@ -11,7 +11,7 @@ const BlogPostDetail = () => {
     useEffect(() => {
         const fetchPostDetails = async () => {
             try {
-                const res = await axios.get(`http://localhost:5000/api/packages/blog/${id}`);
+                const res = await api.get(`/packages/blog/${id}`);
                 setPost(res.data);
             } catch (err) {
                 console.error("Error loading blog post details", err);

@@ -255,8 +255,33 @@ if (!mongoURI) {
 }
 
 mongoose.connect(mongoURI)
-  .then(() => {
+  .then(async () => {
     console.log('MongoDB Connected Successfully...');
+    
+    // Seed admin if it doesn't exist
+    try {
+      const Admin = require('./models/Admin');
+      const adminExists = await Admin.findOne({ username: process.env.ADMIN_USERNAME || 'jai_super_admin' });
+      if (!adminExists) {
+        const hashedPassword = await bcrypt.hash(process.env.ADMIN_PASSWORD || 'jl@123!', 10);
+        await Admin.create({
+          username: process.env.ADMIN_USERNAME || 'jai_super_admin',
+          password: hashedPassword
+        });
+        console.log('✅ Admin user seeded successfully!');
+      }
+    } catch (err) {
+      console.error('❌ Error seeding admin user:', err.message);
+    }
+
+    // Seed tours if they don't exist
+    try {
+      await seedAnuradhapuraTour();
+      await seedOffRoadAdventureItinerary();
+    } catch (err) {
+      console.error('❌ Error seeding tour data:', err.message);
+    }
+
     app.listen(PORT, '0.0.0.0', () => {
       console.log(`Server running on port ${PORT}`);
     });

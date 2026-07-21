@@ -447,7 +447,7 @@ const BlogDetails = () => {
         window.scrollTo(0, 0);
         const syncToDashboard = async () => {
             try {
-                await axios.post('https://jai-lanka-tours-production.up.railway.app/api/dashboard/sync-blog', {
+                await api.post('/dashboard/sync-blog', {
                     id: id,
                     title: currentPost.title,
                     category: currentPost.category,

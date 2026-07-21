@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowForward } from '@mui/icons-material';
@@ -54,7 +53,7 @@ const Itineraries = ({ categoryFilter = "All" }) => {
         const fetchItineraries = async () => {
             try {
                 setLoading(true); 
-                const res = await axios.get('/itineraries');
+                const res = await api.get('/itineraries');
                 
                 console.log("Database Data:", res.data); // Troubleshooting
                 console.log("Current categoryFilter value:", categoryFilter); 

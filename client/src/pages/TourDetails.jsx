@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import axios from 'axios';
+import api from '../api';
 
 // 📷 1. Polonnaruwa Images
 import polonnaruwa1 from '../assets/polonnaruwa1.jpg';
@@ -378,7 +378,7 @@ const TourDetails = () => {
 
     const syncTourWithDashboard = async () => {
       try {
-        await axios.post('https://jai-lanka-tours-production.up.railway.app/api/tours/add-auto', {
+        await api.post('/tours/add-auto', {
           id: normalizedId,
           title: tour.title,
           category: tour.category,

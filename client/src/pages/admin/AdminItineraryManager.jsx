@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../../api';
 import { Edit, Delete, CloudUpload, Add, Remove, Image } from '@mui/icons-material';
 import { uploadImageToCloudinary } from '../../utils/imageUpload';
-
-const axiosInstance = axios;
+const API_BASE_URL = 'http://localhost:5000/api';
 
 const AdminItinerary = () => {
-    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://jai-lanka-tours-production.up.railway.app/api';
 
     const [itineraries, setItineraries] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -56,7 +54,7 @@ const AdminItinerary = () => {
     useEffect(() => {
         const fetchItineraries = async () => {
             try {
-                const res = await axiosInstance.get(`${API_BASE_URL}/itineraries`);
+                const res = await api.get('/itineraries');
                 setItineraries(res.data);
                 setLoading(false);
             } catch (err) {
@@ -197,7 +195,7 @@ const AdminItinerary = () => {
 
     const refreshData = async () => {
         try {
-            const res = await axiosInstance.get(`${API_BASE_URL}/itineraries`);
+            const res = await api.get('/itineraries');
             setItineraries(res.data);
         } catch (err) {
             console.error("Error refreshing data:", err);
@@ -241,8 +239,8 @@ const AdminItinerary = () => {
     const deleteItinerary = async (id) => {
         if (window.confirm("Are you sure you want to delete this itinerary?")) {
             try {
-                await axios.delete(`${API_BASE_URL}/itineraries/${id}`);
-                alert("Itinerary deleted successfully!");
+                await api.delete(`/itineraries/${id}`);
+                setItineraries(itineraries.filter(item => item._id !== id));
                 refreshData();
             } catch (err) {
                 console.error("Error deleting itinerary:", err);
@@ -313,11 +311,11 @@ const AdminItinerary = () => {
 
         try {
             if (isEditing) {
-                await axios.put(`${API_BASE_URL}/itineraries/${currentItineraryId}`, dataToSend);
-                alert("Itinerary updated successfully!");
+                await api.put(`/itineraries/${currentItineraryId}`, dataToSend);
+                alert('Itinerary Updated Successfully!');
             } else {
-                await axios.post(`${API_BASE_URL}/itineraries`, dataToSend);
-                alert("Itinerary created successfully!");
+                await api.post(`/itineraries`, dataToSend);
+                alert('Itinerary Created Successfully!');
             }
             resetForm();
             refreshData();

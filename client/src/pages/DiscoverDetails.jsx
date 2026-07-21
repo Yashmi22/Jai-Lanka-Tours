@@ -6,7 +6,7 @@ import Star from '@mui/icons-material/Star';
 import AccessTime from '@mui/icons-material/AccessTime';
 import WbSunny from '@mui/icons-material/WbSunny';
 import LocalMall from '@mui/icons-material/LocalMall';
-import api from '../api';
+import api, { API_BASE_URL } from '../api';
 
 const DiscoverDetail = () => {
   const { id } = useParams();
@@ -20,7 +20,7 @@ const DiscoverDetail = () => {
     if (path.startsWith('http://') || path.startsWith('https://')) {
       return path;
     }
-    const baseUrl = process.env.REACT_APP_API_BASE_URL ? process.env.REACT_APP_API_BASE_URL.replace('/api', '') : 'https://jai-lanka-tours-production.up.railway.app';
+    const baseUrl = API_BASE_URL.replace('/api', '');
     return `${baseUrl}/${path.replace(/^\//, '')}`;
   };
 

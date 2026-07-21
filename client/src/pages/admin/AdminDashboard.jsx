@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../../api';
 import { 
   FaBed, FaRoute, FaPenNib, FaUserCircle,
   FaWallet,FaGlobe, FaChevronRight, FaSuitcase, FaCompass
@@ -27,12 +27,7 @@ const AdminDashboard = () => {
     const fetchLiveStats = async () => {
       try {
         setLoading(true);
-       const token = localStorage.getItem('adminToken');
-const response = await axios.get('https://jai-lanka-tours-production.up.railway.app/api/admin/stats', {
-  headers: {
-    Authorization: `Bearer ${token}`
-  }
-});
+        const response = await api.get('/admin/stats');
         // Backend state update
         setDashboardStats(response.data);
         setLoading(false);

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import api from '../../api';
 
 const AdminBlog = () => {
     const [blogData, setBlogData] = useState({
@@ -20,8 +20,7 @@ const AdminBlog = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            
-await axios.post(`${process.env.REACT_APP_API_BASE_URL}/packages/blog/add`, blogData);
+            await api.post('/packages/blog/add', blogData);
             alert('Blog Post Added Successfully');
             setBlogData({ title: '', category: 'LOCAL FOOD', image: '', desc: '', content: '', readTime: '5 min read' });
         } catch (err) {

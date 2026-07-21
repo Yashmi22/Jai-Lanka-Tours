@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import api from '../api';
 
 const Dashboard = () => {
     const [name, setName] = useState("");
@@ -11,7 +11,7 @@ const Dashboard = () => {
         e.preventDefault();
         setLoading(true);
         try {
-            await axios.post('https://jai-lanka-tours-production.up.railway.app/api/packages/add', {
+            await api.post('/packages/add', {
                 name, price, description
             });
             alert("සාර්ථකව ඇතුළත් කළා!");

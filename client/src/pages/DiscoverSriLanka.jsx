@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { FaRegClock, FaRegCalendarAlt, FaStar } from 'react-icons/fa'; 
-import api from '../api';
+import api, { API_BASE_URL } from '../api';
 
 const DiscoverSriLanka = () => {
   const navigate = useNavigate();
@@ -13,7 +12,7 @@ const DiscoverSriLanka = () => {
     if (path.startsWith('http://') || path.startsWith('https://')) {
       return path; 
     }
-    const baseUrl = process.env.REACT_APP_API_BASE_URL ? process.env.REACT_APP_API_BASE_URL.replace('/api', '') : 'https://jai-lanka-tours-production.up.railway.app';
+    const baseUrl = API_BASE_URL.replace('/api', '');
     return `${baseUrl}/${path.replace(/^\//, '')}`;
   };
 
@@ -25,7 +24,7 @@ const DiscoverSriLanka = () => {
   useEffect(() => {
     const loadData = async () => {
       try {
-        const res = await axios.get('/discover');
+        const res = await api.get('/discover');
         const allData = Array.isArray(res.data) ? res.data : [];
         setDestinationsData(allData.filter(item => item.type === 'destination'));
         setExperiencesData(allData.filter(item => item.type === 'experience'));

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import api from '../../api';
 import { useNavigate } from 'react-router-dom';
 import { FaLock, FaUserCircle } from 'react-icons/fa';
 
@@ -16,8 +16,8 @@ const AdminLogin = () => {
     setLoading(true);
 
     try {
-      //  host live link 
-      const response = await axios.post('https://jai-lanka-tours-production.up.railway.app/api/admin/login', {
+      // login call to local/production backend
+      const response = await api.post('/admin/login', {
         username,
         password
       });
