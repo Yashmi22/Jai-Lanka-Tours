@@ -19,7 +19,7 @@ const AboutUs = () => {
       bio: "Driving global strategy and sustainable growth while upholding luxury standards."
     },
     {
-      name: "Chalina Deon",
+      name: "Chalana Deon",
       role: "Sales Manager",
       image: weligamaImg,
       bio: "Crafting bespoke travel packages and ensuring seamless client satisfaction."
