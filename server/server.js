@@ -1,3 +1,6 @@
+const dns = require('dns');
+dns.setDefaultResultOrder('ipv4first'); // Forces Node to prefer IPv4
+
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -247,6 +250,7 @@ app.get('/api/admin/stats', async (req, res) => {
 });
 
 // --- SERVER STARTUP & DATABASE CONNECTION ---
+
 const PORT = process.env.PORT || 5000;
 const mongoURI = process.env.MONGO_URI;
 
@@ -254,41 +258,33 @@ if (!mongoURI) {
   console.error('Error: MONGO_URI is not defined in environment variables!');
 }
 
-mongoose.connect(mongoURI)
-  .then(async () => {
+async function startServer() {
+  try {
+    await mongoose.connect(mongoURI, { family: 4 });
     console.log('MongoDB Connected Successfully...');
-    
-    // Seed admin if it doesn't exist
-    try {
-      const Admin = require('./models/Admin');
-      const adminExists = await Admin.findOne({ username: process.env.ADMIN_USERNAME || 'jai_super_admin' });
-      if (!adminExists) {
-        const hashedPassword = await bcrypt.hash(process.env.ADMIN_PASSWORD || 'jl@123!', 10);
-        await Admin.create({
-          username: process.env.ADMIN_USERNAME || 'jai_super_admin',
-          password: hashedPassword
-        });
-        console.log('✅ Admin user seeded successfully!');
-      }
-    } catch (err) {
-      console.error('❌ Error seeding admin user:', err.message);
+
+    const adminExists = await Admin.findOne({ username: process.env.ADMIN_USERNAME || 'jai_super_admin' });
+    if (!adminExists) {
+      const hashedPassword = await bcrypt.hash(process.env.ADMIN_PASSWORD || 'jl@123!', 10);
+      await Admin.create({
+        username: process.env.ADMIN_USERNAME || 'jai_super_admin',
+        password: hashedPassword
+      });
+      console.log('✅ Admin user seeded successfully!');
     }
 
-    // Seed tours if they don't exist
-    try {
-      await seedAnuradhapuraTour();
-      await seedOffRoadAdventureItinerary();
-    } catch (err) {
-      console.error('❌ Error seeding tour data:', err.message);
-    }
+    await seedAnuradhapuraTour();
+    await seedOffRoadAdventureItinerary();
 
     app.listen(PORT, '0.0.0.0', () => {
       console.log(`Server running on port ${PORT}`);
     });
-  })
-  .catch(err => {
-    console.error('Database connection error occurred:', err.message);
+  } catch (err) {
+    console.error('Database startup error:', err.message);
     app.listen(PORT, '0.0.0.0', () => {
       console.log(`Server running on port ${PORT} (without DB)`);
     });
-  });
+  }
+}
+
+startServer();
