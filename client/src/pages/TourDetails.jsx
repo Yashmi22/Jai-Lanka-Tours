@@ -396,7 +396,7 @@ const TourDetails = () => {
 
   const handleWhatsAppBooking = () => {
     const textMsg = `Hi Jai Lanka Travels! I want to book the *${tour.title}* Luxury Private Journey. Please provide package details.`;
-    window.open(`https://wa.me/94771234567?text=${encodeURIComponent(textMsg)}`, '_blank');
+    window.open(`https://wa.me/94740966449?text=${encodeURIComponent(textMsg)}`, '_blank');
   };
 
   return (

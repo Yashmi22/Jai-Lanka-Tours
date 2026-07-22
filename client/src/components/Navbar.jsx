@@ -42,7 +42,7 @@ const Navbar = () => {
             JAI LANKA
           </span>
           <span className="text-[8px] tracking-[0.3em] text-amber-400 uppercase font-light -mt-0.5">
-            Travel & Tours
+            Tours
           </span>
         </div>
       </Link>

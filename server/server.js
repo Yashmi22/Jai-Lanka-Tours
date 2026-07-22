@@ -1,3 +1,6 @@
+require('dns').setDefaultResultOrder('ipv4first');
+require('dns').setServers(['8.8.8.8', '8.8.4.4']);
+
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -10,7 +13,6 @@ const Admin = require('./models/Admin');
 const Itinerary = require('./models/Itinerary');
 const Accommodation = require('./models/Accommodation');
 const Discover = require('./models/Discover');
-
 
 // 1. Route require 
 const packageRoute = require('./routes/packageRoutes');
@@ -248,47 +250,68 @@ app.get('/api/admin/stats', async (req, res) => {
 
 // --- SERVER STARTUP & DATABASE CONNECTION ---
 const PORT = process.env.PORT || 5000;
-const mongoURI = process.env.MONGO_URI;
+const primaryMongoURI = process.env.MONGO_URI;
+const fallbackMongoURI = process.env.LOCAL_MONGO_URI || 'mongodb://127.0.0.1:27017/jai-lanka-travels';
 
-if (!mongoURI) {
-  console.error('Error: MONGO_URI is not defined in environment variables!');
-}
+const connectToDatabase = async (uri) => {
+  if (!uri) return false;
+  try {
+    // Timeout එක තත්පර 10 (10000ms) දක්වා වැඩි කරන ලදී
+    await mongoose.connect(uri, { serverSelectionTimeoutMS: 10000 });
+    console.log(`✅ MongoDB Connected Successfully!`);
+    return true;
+  } catch (err) {
+    const message = err?.message || String(err);
+    console.warn(`⚠️ Could not connect to database at ${uri}: ${message}`);
+    return false;
+  }
+};
 
-mongoose.connect(mongoURI)
-  .then(async () => {
-    console.log('MongoDB Connected Successfully...');
-    
-    // Seed admin if it doesn't exist
-    try {
-      const Admin = require('./models/Admin');
-      const adminExists = await Admin.findOne({ username: process.env.ADMIN_USERNAME || 'jai_super_admin' });
-      if (!adminExists) {
-        const hashedPassword = await bcrypt.hash(process.env.ADMIN_PASSWORD || 'jl@123!', 10);
-        await Admin.create({
-          username: process.env.ADMIN_USERNAME || 'jai_super_admin',
-          password: hashedPassword
-        });
-        console.log('✅ Admin user seeded successfully!');
-      }
-    } catch (err) {
-      console.error('❌ Error seeding admin user:', err.message);
+const seedDefaultData = async () => {
+  try {
+    const Admin = require('./models/Admin');
+    const adminExists = await Admin.findOne({ username: process.env.ADMIN_USERNAME || 'jai_super_admin' });
+    if (!adminExists) {
+      const hashedPassword = await bcrypt.hash(process.env.ADMIN_PASSWORD || 'jl@123!', 10);
+      await Admin.create({
+        username: process.env.ADMIN_USERNAME || 'jai_super_admin',
+        password: hashedPassword
+      });
+      console.log('✅ Admin user seeded successfully!');
     }
+  } catch (err) {
+    console.error('❌ Error seeding admin user:', err.message);
+  }
 
-    // Seed tours if they don't exist
-    try {
-      await seedAnuradhapuraTour();
-      await seedOffRoadAdventureItinerary();
-    } catch (err) {
-      console.error('❌ Error seeding tour data:', err.message);
-    }
+  try {
+    await seedAnuradhapuraTour();
+    await seedOffRoadAdventureItinerary();
+  } catch (err) {
+    console.error('❌ Error seeding tour data:', err.message);
+  }
+};
 
-    app.listen(PORT, '0.0.0.0', () => {
-      console.log(`Server running on port ${PORT}`);
-    });
-  })
-  .catch(err => {
-    console.error('Database connection error occurred:', err.message);
-    app.listen(PORT, '0.0.0.0', () => {
-      console.log(`Server running on port ${PORT} (without DB)`);
-    });
+const startServer = async () => {
+  let connected = false;
+
+  if (primaryMongoURI) {
+    connected = await connectToDatabase(primaryMongoURI);
+  }
+
+  if (!connected) {
+    console.log("Attempting fallback database connection...");
+    connected = await connectToDatabase(fallbackMongoURI);
+  }
+
+  if (mongoose.connection.readyState === 1) {
+    await seedDefaultData();
+  } else {
+    console.warn('⚠️ Starting server without a database connection.');
+  }
+
+  app.listen(PORT, '0.0.0.0', () => {
+    console.log(`🚀 Server running on port ${PORT}`);
   });
+};
+
+startServer();

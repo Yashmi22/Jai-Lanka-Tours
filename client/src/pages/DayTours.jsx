@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom'; // 💡 පේජ් මාරු වෙන්න Link එක උඩින්ම ගත්තා
+import { Link } from 'react-router-dom'; 
 
-// පින්තූර නිවැරදිව Import (src/assets/)
+// Import (src/assets/)
 import anuradhapuraImg from '../assets/anuradhapura.jpg';
 import polonnaruwaImg from '../assets/polonnaruwa.jpg';
 import colomboImg from '../assets/colombo.jpg';
@@ -47,7 +47,7 @@ const DayTours = () => {
   const handleCustomizeSubmit = (e) => {
     e.preventDefault();
     const message = `Hello Jai Lanka Travels! I want to customize a Luxury Day Tour.%0A%0A📍 Destinations: ${customTour.destinations}%0A👥 Guests: ${customTour.guests}%0A📅 Date: ${customTour.date}%0A📝 Special Notes: ${customTour.notes}`;
-    window.open(`https://wa.me/94771234567?text=${message}`, '_blank');
+    window.open(`https://wa.me/94740966449?text=${message}`, '_blank');
   };
 
   return (
@@ -143,7 +143,7 @@ const DayTours = () => {
                 <div className="pt-4 border-t border-slate-800/80 flex items-center justify-between mt-auto">
                   <span className="text-[9px] uppercase tracking-[0.15em] text-amber-500 font-semibold">PRIVATE TOUR</span>
                   
-                  {/* 🎯 VIEW TOUR BUTTON - පේජ් එක මූව් වෙන්න ලස්සනට ලින්ක් එක සෙට් කරා මචං */}
+                  {/* 🎯 VIEW TOUR BUTTON */}
                   <Link 
                     to={`/tour/${tour.id}`}
                     className="bg-transparent text-white border border-slate-700 px-5 py-2.5 rounded-xl text-[9px] font-bold uppercase tracking-widest hover:bg-amber-500 hover:text-black hover:border-amber-500 transition-all duration-300 shadow-sm inline-block text-center"

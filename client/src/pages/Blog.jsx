@@ -210,7 +210,7 @@ const Blog = () => {
                     </div>
                 ))}
 
-                {/* 4. ELITE NEWSLETTER BANNER (ROW එක දිගේම FULL WIDTH යන විදිහට UPDATE කළා 🚀) */}
+                {/* 4. ELITE NEWSLETTER BANNER  */}
                 <div className="sm:col-span-2 md:col-span-3 lg:col-span-4 mt-6 bg-gradient-to-r from-[#12192c] via-[#0f1526] to-[#0d1424] rounded-2xl p-8 md:p-10 border border-amber-500/10 flex flex-col lg:flex-row justify-between items-center gap-6 shadow-2xl relative overflow-hidden w-full">
                     
                     {/* Glowing Accent Blur effect */}
@@ -235,7 +235,7 @@ const Blog = () => {
                     <div className="w-full lg:w-auto flex flex-col sm:flex-row items-center gap-3 min-w-[320px] md:min-w-[400px]">
                         <input 
                             type="email" 
-                            placeholder="Luxury email address" 
+                            placeholder= "email address" 
                             className="w-full sm:flex-1 bg-[#0b0f19] border border-slate-800 rounded-xl px-4 py-3 text-xs text-white outline-none focus:border-amber-500/40 transition-all placeholder:text-slate-600" 
                         />
                         <button className="w-full sm:w-auto bg-amber-500 text-black px-6 py-3 rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-white hover:text-black transition-all duration-300 whitespace-nowrap shadow-lg shadow-amber-500/10">
