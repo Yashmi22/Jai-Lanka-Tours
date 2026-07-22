@@ -28,7 +28,7 @@ const Footer = () => {
             {/* 🌐 Modern Social Media Icons Wrapper with Official Brand Hover Colors */}
             <div className="flex items-center gap-3 pt-2">
               <a 
-                href="https://facebook.com/your-page" 
+                href="https://www.facebook.com/share/1HQrFaoSYK/" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-xl bg-slate-900/40 border border-slate-800/80 text-slate-400 hover:text-white hover:bg-[#1877F2] hover:border-[#1877F2] hover:shadow-lg hover:shadow-[#1877F2]/20 flex items-center justify-center transition-all duration-300"
@@ -38,7 +38,7 @@ const Footer = () => {
               </a>
 
               <a 
-                href="https://instagram.com/your-profile" 
+                href="https://www.instagram.com/jailankatours?igsh=bzJycHRzb2RnYnBw&utm_source=ig_contact_invite" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-xl bg-slate-900/40 border border-slate-800/80 text-slate-400 hover:text-white hover:bg-gradient-to-tr hover:from-[#f9ce34] hover:via-[#ee2a7b] hover:to-[#6228d7] hover:border-transparent hover:shadow-lg hover:shadow-[#ee2a7b]/20 flex items-center justify-center transition-all duration-300"
