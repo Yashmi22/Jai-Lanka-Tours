@@ -13,7 +13,7 @@ const Home = () => {
   // Luxury Background Images
   const slideshowImages = [
     "/images/home6.jpg",
-    "/images/home8.jpg",
+    "/images/home77.jpg",
     "/images/home7.jpg",
     "/images/home9.jpg"
   ];

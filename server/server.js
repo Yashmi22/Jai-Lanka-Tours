@@ -112,6 +112,7 @@ app.get('/api/itineraries', async (req, res) => {
 });
 
 app.get('/api/itineraries/:id', async (req, res) => {
+    
     try {
         const itinerary = await Itinerary.findById(req.params.id);
         if (!itinerary) return res.status(404).json({ message: 'Itinerary not found' });

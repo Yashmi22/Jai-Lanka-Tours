@@ -108,7 +108,7 @@ const AboutUs = () => {
           </div>
           <h3 className="text-2xl md:text-3xl font-serif text-white mb-4">Our Vision</h3>
           <p className="text-amber-100/90 font-serif italic text-lg md:text-2xl leading-relaxed max-w-4xl">
-            "To be Sri Lanka’s most trusted eco-conscious travel partner inspiring travelers worldwide through authentic cultural experiences, incredible sightseeing, and sustainable travel practices that preserve our island for generations to come."
+            "To be the Sri Lanka’s most trusted eco-conscious travel partner inspiring travelers worldwide through authentic cultural experiences, incredible sightseeing, and sustainable travel practices that preserve our island for generations to come."
           </p>
         </div>
 

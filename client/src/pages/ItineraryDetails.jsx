@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { FaArrowLeft, FaMapMarkerAlt, FaCalendarAlt, FaHotel, FaStar, FaTimes, FaSuitcaseRolling, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
-import api from '../api';
+
 
 const normalizeImageList = (value) => {
   if (!value) return [];
@@ -64,15 +64,19 @@ const ItineraryDetails = () => {
 
   useEffect(() => {
     const fetchItinerary = async () => {
-      try {
-        const response = await fetch(`/itineraries/${id}`);
-        if (response.ok) {
-          const data = await response.json();
-          setDetails(data);
-        }
-      } catch (err) {
-        console.error('Error fetching itinerary:', err);
-      } finally {
+     try {
+  const response = await fetch(`http://localhost:5000/api/itineraries/${id}`);
+  
+  if (!response.ok) {
+    throw new Error(`Server returned status: ${response.status}`);
+  }
+
+  const data = await response.json();
+  // setItinerary(data) .
+  setDetails(data);
+} catch (error) {
+  console.error("Error fetching itinerary:", error);
+} finally {
         setLoading(false);
       }
     };
