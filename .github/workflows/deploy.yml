@@ -1,0 +1,43 @@
+name: Deploy to Hostinger VPS (With Docker)
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Get the latest code from GitHub
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # Step 2: Transfer all files to Hostinger VPS
+      - name: Copy files to VPS via SCP
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.HOST_IP }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: "." # Copies everything in the project
+          target: "/var/www/jai-lanka-tours"
+
+      # Step 3: Run Docker Compose on the Hostinger VPS
+      - name: Start Docker Containers via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.HOST_IP }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            # Navigate to the project folder on the VPS
+            cd /var/www/jai-lanka-tours
+            
+            # Stop old containers and start the new ones with the latest code
+            docker compose down
+            docker compose up -d --build
+            
+            # Clean up old unused Docker images to save VPS storage space
+            docker image prune -f
