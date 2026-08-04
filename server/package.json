@@ -1,9 +1,7 @@
 {
   "scripts": {
     "start": "node server.js",
-    "dev": "nodemon server.js",
-    "mongo:up": "docker compose up -d",
-    "mongo:down": "docker compose down"
+    "dev": "nodemon server.js"
   },
   "dependencies": {
     "bcryptjs": "^3.0.3",
