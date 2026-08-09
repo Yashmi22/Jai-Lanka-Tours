@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import api from '../../api';
 import { Edit, Delete, CloudUpload, Add, Remove, Image } from '@mui/icons-material';
 import { uploadImageToCloudinary } from '../../utils/imageUpload';
-const API_BASE_URL = 'http://localhost:5000/api';
+const API_BASE_URL = 'https://api.jailankatours.com/api';
 
 const AdminItinerary = () => {
 

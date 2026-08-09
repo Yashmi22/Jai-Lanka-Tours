@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { FaArrowLeft, FaMapMarkerAlt, FaCalendarAlt, FaHotel, FaStar, FaTimes, FaSuitcaseRolling, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { API_BASE_URL } from '../api';
 
 
 const normalizeImageList = (value) => {
@@ -65,7 +66,7 @@ const ItineraryDetails = () => {
   useEffect(() => {
     const fetchItinerary = async () => {
      try {
-  const response = await fetch(`http://localhost:5000/api/itineraries/${id}`);
+  const response = await fetch(`${API_BASE_URL}/itineraries/${id}`);
   
   if (!response.ok) {
     throw new Error(`Server returned status: ${response.status}`);

@@ -22,7 +22,8 @@ const app = express();
 const allowedOrigins = [
     'http://localhost:5173',
     'http://localhost:3000',
-    'https://jai-lanka-tours.vercel.app'
+    'https://jailankatours.com',
+    'https://www.jailankatours.com'
 ];
 
 app.use(cors({

@@ -4,7 +4,7 @@ import axios from 'axios';
 export const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 
     (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
         ? 'http://localhost:5000/api' 
-        : '/api');
+        : 'https://api.jailankatours.com/api');
 
 const api = axios.create({
     baseURL: API_BASE_URL,

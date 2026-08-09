@@ -16,7 +16,7 @@ services:
     container_name: jai-frontend
     restart: always
     ports:
-      - "3000:3000"
+      - "3005:3000"
     # Wait for the backend to start before starting the frontend
     depends_on:
       - backend
