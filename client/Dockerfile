@@ -10,16 +10,16 @@ COPY . .
 RUN npm run build
 
 # ==========================================
-# STAGE 2: Serve the App using Nginx
+# STAGE 2: Serve the App using Node 'serve'
 # ==========================================
-FROM nginx:alpine
+FROM node:20-alpine
 
-# Remove default nginx config and copy our custom one
-RUN rm /etc/nginx/conf.d/default.conf
-COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
+WORKDIR /app
+# Install 'serve' to serve static files
+RUN npm install -g serve
 
-# Copy the built React files from STAGE 1 to Nginx's serving directory
-COPY --from=build /app/build /usr/share/nginx/html
+# Copy only the built React files from STAGE 1
+COPY --from=build /app/build ./build
 
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+EXPOSE 3000
+CMD ["serve", "-s", "build", "-l", "3000"]
