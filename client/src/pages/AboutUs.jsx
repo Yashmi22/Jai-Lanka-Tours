@@ -13,13 +13,13 @@ import yasmiImg from '../assets/yasmi.jpg';
 const AboutUs = () => {
   const topTeam = [
     {
-      name: "hjd djd",
-      role: "Business Director",
+      name: "Amin Sardar",
+      role: "Business Development Manager",
       image: businessImg,
       bio: "Driving global strategy and sustainable growth while upholding luxury standards."
     },
     {
-      name: "Chalana Deon",
+      name: "Chalana Diyon",
       role: "Sales Manager",
       image: weligamaImg,
       bio: "Crafting bespoke travel packages and ensuring seamless client satisfaction."
