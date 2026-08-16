@@ -1,6 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { FaWhatsapp, FaGem, FaHotel, FaCarAlt, FaMapMarkerAlt, FaStar, FaChevronDown } from 'react-icons/fa';
+import { 
+  FaWhatsapp, 
+  FaInstagram, 
+  FaFacebook, 
+  FaGem, 
+  FaHotel, 
+  FaCarAlt, 
+  FaMapMarkerAlt, 
+  FaStar, 
+  FaChevronDown 
+} from 'react-icons/fa';
 
 // logo1.png
 import myLogo from '../assets/logo1.png'; 
@@ -143,7 +153,7 @@ const Home = () => {
                   JAI LANKA <span className="text-amber-400">TOURS</span>
                 </span>
                 <span className="block text-[8px] md:text-[9px] tracking-[0.3em] text-amber-200/60 uppercase font-serif">
-                  Experience The Art Of  Luxury Travel
+                  Experience The Art Of Luxury Travel
                 </span>
               </div>
             </Link>
@@ -191,7 +201,7 @@ const Home = () => {
             <Link to="/accommodation" className="hover:text-amber-400 transition-colors whitespace-nowrap">Accommodation</Link>
             <Link to="/discoversrilanka" className="hover:text-amber-400 transition-colors whitespace-nowrap">Discover Sri Lanka</Link>
             <Link to="/blog" className="hover:text-amber-400 transition-colors whitespace-nowrap">Blog</Link>
-            <Link to="/our-story" className="hover:text-amber-400 transition-colors whitespace-nowrap">Our Story</Link>
+            <Link to="/aboutus" className="hover:text-amber-400 transition-colors whitespace-nowrap">About Us</Link>
           </nav>
 
           {/* Far Right Action Button */}
@@ -238,7 +248,7 @@ const Home = () => {
             JAI LANKA <span className="italic font-normal text-amber-400">TOURS</span>
           </h1>
           <p className="text-xs md:text-base font-serif italic tracking-[0.3em] text-amber-200/80 mb-8 max-w-xl mx-auto">
-            Experience The Art Of  Luxury Travel 
+            Experience The Art Of Luxury Travel 
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -480,16 +490,39 @@ const Home = () => {
         </div>
       </footer>
 
-      {/* ----------------- FLOATING WHATSAPP BUTTON ----------------- */}
-      <div className="fixed bottom-8 right-8 z-50">
+      {/* ----------------- FLOATING SOCIAL MEDIA BUTTONS ----------------- */}
+      <div className="fixed bottom-8 right-8 z-50 flex flex-col gap-3">
+        {/* WhatsApp */}
         <a 
           href="https://wa.me/94740966449" 
           target="_blank" 
           rel="noopener noreferrer"
           aria-label="Chat on WhatsApp"
-          className="w-14 h-14 flex items-center justify-center rounded-full bg-emerald-500 hover:bg-emerald-600 transition-all text-white shadow-2xl hover:scale-110 duration-300 border-2 border-white/20"
+          className="w-12 h-12 md:w-14 md:h-14 flex items-center justify-center rounded-full bg-emerald-500 hover:bg-emerald-600 transition-all text-white shadow-2xl hover:scale-110 duration-300 border-2 border-white/20"
         >
-          <FaWhatsapp size={28} />
+          <FaWhatsapp className="text-2xl md:text-3xl" />
+        </a>
+
+        {/* Instagram */}
+        <a 
+          href="https://www.instagram.com/jailankatours?igsh=bzJycHRzb2RnYnBw&utm_source=ig_contact_invite" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          aria-label="Visit Instagram Page"
+          className="w-12 h-12 md:w-14 md:h-14 flex items-center justify-center rounded-full bg-gradient-to-tr from-amber-500 via-rose-500 to-purple-600 hover:opacity-90 transition-all text-white shadow-2xl hover:scale-110 duration-300 border-2 border-white/20"
+        >
+          <FaInstagram className="text-2xl md:text-3xl" />
+        </a>
+
+        {/* Facebook */}
+        <a 
+          href="https://www.facebook.com/share/1DF32gN2H4/" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          aria-label="Visit Facebook Page"
+          className="w-12 h-12 md:w-14 md:h-14 flex items-center justify-center rounded-full bg-blue-600 hover:bg-blue-700 transition-all text-white shadow-2xl hover:scale-110 duration-300 border-2 border-white/20"
+        >
+          <FaFacebook className="text-2xl md:text-3xl" />
         </a>
       </div>
 

@@ -1,9 +1,13 @@
 import React, { useEffect } from "react";
-import { Sparkles } from "lucide-react";
+import { Compass, Star } from "lucide-react";
 
 // --- IMAGES IMPORT FROM ASSETS ---
-import aliyaImg from "../assets/aliya.jpg";
-import sevenAngelsImg from "../assets/7angels.jpg";
+import aliyaImg from "../assets/aliya_resort.jpg";
+import sevenAngelsImg from "../assets/seven.jpg";
+import accommodationImg from "../assets/accommodation.jpg";
+import thema1Img from "../assets/thema1.jpg";
+import thema2Img from "../assets/thema2.jpg";
+import thema3Img from "../assets/thema3.jpg";
 
 const Accommodation = () => {
   useEffect(() => {
@@ -13,171 +17,232 @@ const Accommodation = () => {
   return (
     <div className="min-h-screen bg-slate-950 text-white font-sans antialiased pb-20">
       
-      {/* --- HERO HEADER SECTION --- */}
-      <div className="relative py-24 px-4 md:px-8 border-b border-slate-900/60 overflow-hidden bg-gradient-to-b from-slate-900/40 via-slate-950 to-slate-950">
-        <div className="max-w-4xl mx-auto text-center relative z-10 space-y-6">
-          <h1 className="text-4xl md:text-6xl font-bold font-serif tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-slate-300">
-            Dream in or of Sri Lanka
-          </h1>
-          
-          <div className="space-y-4 text-slate-400 font-light text-base md:text-lg leading-relaxed max-w-3xl mx-auto text-justify md:text-center">
-            <p>
-              When it comes to accommodation or hotels in Sri Lanka, the offering is as diverse as the island itself. 
-              There's something for everyone, and we can help you find the best spot to rest your eyes each night.
-            </p>
-            <p>
-              Because we want to help you find the best match and enjoy each hotel, we don't restrict ourselves to a set list of partner hotels. 
-              With most hotels (and some guest houses) we can get preferential rates for you.
-            </p>
+      {/* --- HERO SECTION --- */}
+      <div className="relative min-h-[85vh] flex items-center justify-center overflow-hidden px-4 md:px-8">
+        <img 
+          src={accommodationImg} 
+          alt="Luxury Accommodation Sri Lanka" 
+          className="absolute inset-0 w-full h-full object-cover object-center scale-105"
+        />
+        
+        <div className="absolute inset-0 bg-slate-950/45"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-slate-950/50"></div>
+
+        <div className="relative z-10 max-w-5xl mx-auto text-center space-y-8 pt-12">
+          <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-slate-900/60 border border-amber-500/30 text-amber-300 text-xs font-semibold tracking-[0.25em] uppercase backdrop-blur-md shadow-lg">
+            <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
+            Curated Stays & Sanctuaries
           </div>
 
-          {/* How It Works Card */}
-          <div className="mt-10 p-6 md:p-8 bg-slate-900/40 border border-slate-900 rounded-2xl text-left backdrop-blur-sm max-w-3xl mx-auto">
-            <h3 className="text-emerald-400 font-serif font-semibold text-lg mb-3 flex items-center gap-2">
-              <Sparkles className="w-5 h-5" /> So how does it work?
-            </h3>
-            <p className="text-sm text-slate-400 font-light leading-relaxed">
-              You can tell us what you have in mind for your accommodation needs and wishes: what type of hotel, what star rating and especially what budget range on average per night. 
-              Based on this we will suggest per destination you'll be staying at, a list of probably 3-5 hotels for your review. 
-              You can select the ones you like best and for those we will get our special rate and share this with you, transparently for each hotel. 
-              You can then choose for us to book it for you, or we continue searching or if you prefer to book yourself, that's of course totally fine too.
-            </p>
-          </div>
-
-          {/* Coming Soon Tag */}
-          <div className="pt-4">
-            <span className="px-4 py-1.5 bg-amber-500/10 text-amber-400 text-xs font-bold tracking-widest uppercase rounded-full border border-amber-500/20 inline-block animate-pulse">
-              COMING SOON
+          <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-serif tracking-tight text-white leading-none drop-shadow-2xl">
+            Dream in or of <br />
+            <span className="italic font-light text-transparent bg-clip-text bg-gradient-to-r from-amber-100 via-emerald-200 to-amber-300">
+              Sri Lanka
             </span>
-            <p className="text-xs text-slate-500 max-w-xl mx-auto mt-3 font-light">
-              By popular demand, we are working on putting together a list of properties that we can recommend (it's not a finished list and we continue to add more hotels and update based on our & our guest's experiences.)
+          </h1>
+
+          <p className="text-slate-200 font-light text-base md:text-xl max-w-2xl mx-auto leading-relaxed drop-shadow-md">
+            Handpicked luxury resorts, serene boutique retreats, and authentic stays curated thoughtfully for your journey.
+          </p>
+
+          <div className="pt-4 flex justify-center">
+            <a 
+              href="#explore" 
+              className="inline-flex items-center gap-3 px-8 py-4 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-medium text-sm tracking-widest uppercase rounded-full transition-all duration-300 shadow-xl shadow-emerald-500/20 hover:scale-105"
+            >
+              <Compass className="w-4 h-4" /> Discover Properties
+            </a>
+          </div>
+        </div>
+
+        <div className="absolute bottom-0 inset-x-0 h-32 bg-gradient-to-t from-slate-950 to-transparent pointer-events-none" />
+      </div>
+
+      {/* --- INTRO SECTION --- */}
+      <div id="explore" className="max-w-5xl mx-auto px-4 md:px-8 mt-12 space-y-12">
+        <div className="text-center space-y-4 max-w-3xl mx-auto">
+          <h2 className="text-2xl md:text-4xl font-serif font-bold text-slate-100 tracking-wide">
+            Tailored Experiences, Exclusive Rates
+          </h2>
+          <p className="text-slate-300 font-light text-base md:text-lg leading-relaxed">
+            We don't restrict ourselves to a fixed list of partner hotels. Tell us your accommodation preferences, star rating, and nightly budget, and we'll craft a bespoke selection just for you.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
+          <div className="p-8 bg-slate-900/40 border border-slate-800/80 rounded-2xl backdrop-blur-sm space-y-3">
+            <span className="text-xs font-bold text-emerald-400 tracking-widest uppercase">STEP 01</span>
+            <h3 className="text-lg font-serif font-semibold text-white">Share Your Vision</h3>
+            <p className="text-xs text-slate-400 font-light leading-relaxed">
+              Tell us your preferred hotel style, star rating, and nightly budget for your stay.
+            </p>
+          </div>
+
+          <div className="p-8 bg-slate-900/40 border border-slate-800/80 rounded-2xl backdrop-blur-sm space-y-3">
+            <span className="text-xs font-bold text-emerald-400 tracking-widest uppercase">STEP 02</span>
+            <h3 className="text-lg font-serif font-semibold text-white">Curated Selection</h3>
+            <p className="text-xs text-slate-400 font-light leading-relaxed">
+              We curate a list of 3–5 tailored properties per destination along with special rates.
+            </p>
+          </div>
+
+          <div className="p-8 bg-slate-900/40 border border-slate-800/80 rounded-2xl backdrop-blur-sm space-y-3">
+            <span className="text-xs font-bold text-emerald-400 tracking-widest uppercase">STEP 03</span>
+            <h3 className="text-lg font-serif font-semibold text-white">Your Choice</h3>
+            <p className="text-xs text-slate-400 font-light leading-relaxed">
+              Book seamlessly through us or directly on your own—complete flexibility for you.
             </p>
           </div>
         </div>
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-emerald-500/5 blur-[130px] rounded-full pointer-events-none" />
+
+        <div className="text-center pt-2">
+          <span className="px-5 py-2 bg-amber-500/10 text-amber-400 text-xs font-bold tracking-widest uppercase rounded-full border border-amber-500/20 inline-block animate-pulse">
+            Curated Directory Coming Soon
+          </span>
+        </div>
       </div>
 
       {/* --- THEMA COLLECTION SECTION --- */}
-      <div className="max-w-7xl mx-auto px-4 md:px-8 mt-20">
+      <div className="max-w-7xl mx-auto px-4 md:px-8 mt-28 space-y-8">
         <div className="border-l-2 border-emerald-500 pl-4 mb-8">
           <h2 className="text-3xl font-serif font-bold tracking-wide text-slate-100">
             Thema Collection
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-          
-          {/* Left Column: Image Wrap fixed from assets */}
-          <div className="lg:col-span-5 sticky top-6">
-            <div className="border border-slate-900 rounded-3xl overflow-hidden bg-slate-900/20 group">
-              <img 
-                src={aliyaImg} 
-                alt="Aliya Resort and Spa" 
-                className="w-full h-auto object-contain block group-hover:scale-101 transition-transform duration-500"
-              />
-              <div className="p-4 bg-slate-950/80 border-t border-slate-900 text-center">
-                <p className="text-xs text-emerald-400 font-medium">Featured: Aliya Resort & Spa (Sigiriya)</p>
-              </div>
+        {/* ROW 1: Logo (Left) + Cultural Card (Right) */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+          <div className="border border-slate-900 rounded-3xl overflow-hidden bg-slate-900/20 group flex flex-col justify-center items-center">
+            <img 
+              src={aliyaImg} 
+              alt="Aliya Resort and Spa" 
+              className="w-full h-full object-contain block group-hover:scale-105 transition-transform duration-500 min-h-[250px]"
+            />
+            <div className="p-3 w-full bg-slate-950/80 border-t border-slate-900 text-center">
+              <p className="text-xs text-emerald-400 font-medium">Featured: Aliya Resort & Spa (Sigiriya)</p>
             </div>
           </div>
 
-          {/* Right Column: Hotel Details */}
-          <div className="lg:col-span-7 space-y-8">
-            
-            {/* Cultural & Wellness */}
-            <div className="space-y-4 bg-slate-900/20 p-6 rounded-2xl border border-slate-900/60">
-              <h4 className="text-emerald-400 text-xs font-semibold uppercase tracking-wider">Cultural & Wellness Retreats</h4>
-              <div className="space-y-4 divide-y divide-slate-900/60">
-                <p className="text-sm text-slate-300 font-light leading-relaxed pt-2">
-                  <strong className="text-white font-semibold font-serif block text-base mb-1">aliya Resort & Spa (Sigiriya):</strong> 
-                  An elephant-themed luxury resort with clear views of the iconic Sigiriya Rock Fortress.
-                </p>
-                <p className="text-sm text-slate-300 font-light leading-relaxed pt-4">
-                  <strong className="text-white font-semibold font-serif block text-base mb-1">Ayurvie Sigiriya (Sigiriya):</strong> 
-                  An eco-friendly, dedicated Ayurveda and holistic wellness retreat.
-                </p>
-                <p className="text-sm text-slate-300 font-light leading-relaxed pt-4">
-                  <strong className="text-white font-semibold font-serif block text-base mb-1">Amba Yaalu (Kandalama):</strong> 
-                  Sri Lanka's first hotel fully managed and staffed by women, themed around traditional culture and the golden age of Sri Lankan cinema.
-                </p>
-              </div>
+          <div className="space-y-4 bg-slate-900/20 p-6 rounded-2xl border border-slate-900/60 flex flex-col justify-center">
+            <h4 className="text-emerald-400 text-xs font-semibold uppercase tracking-wider">Cultural & Wellness Retreats</h4>
+            <div className="space-y-4 divide-y divide-slate-900/60">
+              <p className="text-sm text-slate-300 font-light leading-relaxed pt-2">
+                <strong className="text-white font-semibold font-serif block text-base mb-1">Aliya Resort & Spa (Sigiriya):</strong> 
+                An elephant-themed luxury resort with clear views of the iconic Sigiriya Rock Fortress.
+              </p>
+              <p className="text-sm text-slate-300 font-light leading-relaxed pt-4">
+                <strong className="text-white font-semibold font-serif block text-base mb-1">Ayurvie Sigiriya (Sigiriya):</strong> 
+                An eco-friendly, dedicated Ayurveda and holistic wellness retreat.
+              </p>
+              <p className="text-sm text-slate-300 font-light leading-relaxed pt-4">
+                <strong className="text-white font-semibold font-serif block text-base mb-1">Amba Yaalu (Kandalama):</strong> 
+                Sri Lanka's first hotel fully managed and staffed by women, themed around traditional culture and cinema.
+              </p>
             </div>
-
-            {/* Tea Country & Hill Country */}
-            <div className="space-y-4 bg-slate-900/20 p-6 rounded-2xl border border-slate-900/60">
-              <h4 className="text-emerald-400 text-xs font-semibold uppercase tracking-wider">Tea Country & Hill Country</h4>
-              <div className="space-y-4 divide-y divide-slate-900/60">
-                <p className="text-sm text-slate-300 font-light leading-relaxed pt-2">
-                  <strong className="text-white font-semibold font-serif block text-base mb-1">Mountbatten Bungalow (Kandy):</strong> 
-                  A historic Victorian-style colonial bungalow with deep ties to Kandyan history.
-                </p>
-                <p className="text-sm text-slate-300 font-light leading-relaxed pt-4">
-                  <strong className="text-white font-semibold font-serif block text-base mb-1">Tea & Experience Factory (Mandaram Nuwara):</strong> 
-                  An experiential resort built inside a real, converted operational tea factory.
-                </p>
-                <p className="text-sm text-slate-300 font-light leading-relaxed pt-4">
-                  <strong className="text-white font-semibold font-serif block text-base mb-1">Scottish Planter (Nuwara Eliya):</strong> 
-                  A stone bungalow offering a cozy look into the traditional lives of early tea planters.
-                </p>
-                <p className="text-sm text-slate-300 font-light leading-relaxed pt-4">
-                  <strong className="text-white font-semibold font-serif block text-base mb-1">Wild Glamping Knuckles (Knuckles Mountain Range):</strong> 
-                  Luxury tented camps hidden away in a rugged, UNESCO World Heritage-listed conservation forest.
-                </p>
-              </div>
-            </div>
-
-            {/* Deep South, Wildlife & Safaris */}
-            <div className="space-y-4 bg-slate-900/20 p-6 rounded-2xl border border-slate-900/60">
-              <h4 className="text-emerald-400 text-xs font-semibold uppercase tracking-wider">Deep South, Wildlife & Safaris</h4>
-              <div className="space-y-4 divide-y divide-slate-900/60">
-                <p className="text-sm text-slate-300 font-light leading-relaxed pt-2">
-                  <strong className="text-white font-semibold font-serif block text-base mb-1">Kithala Resort (Tissamaharama / Yala):</strong> 
-                  A peaceful resort popular with birdwatchers and safari-goers heading into Yala National Park.
-                </p>
-                <p className="text-sm text-slate-300 font-light leading-relaxed pt-4">
-                  <strong className="text-white font-semibold font-serif block text-base mb-1">Wild Glamping Gal Oya (Gal Oya):</strong> 
-                  An eco-luxury glamping property that allows guests to immerse themselves in nature near Gal Oya.
-                </p>
-                <p className="text-sm text-slate-300 font-light leading-relaxed pt-4">
-                  <strong className="text-white font-semibold font-serif block text-base mb-1">Waraka (Udawalawe):</strong> 
-                  An intimate eco-lodge built specifically for travelers wanting to experience the Udawalawe wildlife.
-                </p>
-                <p className="text-sm text-slate-300 font-light leading-relaxed pt-4">
-                  <strong className="text-white font-semibold font-serif block text-base mb-1">Villa Blue Monk (Tissamaharama / Yala):</strong> 
-                  A mindful, eco-luxury boutique escape situated between ancient lakes and nature reserves.
-                </p>
-              </div>
-            </div>
-
-            {/* Coastal & Beach Escapes */}
-            <div className="space-y-4 bg-slate-900/20 p-6 rounded-2xl border border-slate-900/60">
-              <h4 className="text-emerald-400 text-xs font-semibold uppercase tracking-wider">Coastal & Beach Escapes</h4>
-              <div className="space-y-4 divide-y divide-slate-900/60">
-                <p className="text-sm text-slate-300 font-light leading-relaxed pt-2">
-                  <strong className="text-white font-semibold font-serif block text-base mb-1">Maalu Maalu Resort & Spa (Pasikuda):</strong> 
-                  A beachfront resort with chalets designed to mimic a traditional Sri Lankan Wadiya (fishing village).
-                </p>
-                <p className="text-sm text-slate-300 font-light leading-relaxed pt-4">
-                  <strong className="text-white font-semibold font-serif block text-base mb-1">Ayurvie Weligama (Weligama):</strong> 
-                  A southern beach resort focused entirely on authentic Ayurvedic medical packages and yoga.
-                </p>
-                <p className="text-sm text-slate-300 font-light leading-relaxed pt-4">
-                  <strong className="text-white font-semibold font-serif block text-base mb-1">Parangi Weligama Bay (Weligama):</strong> 
-                  A chic, modern boutique property catering to coastal travelers and surfers.
-                </p>
-                <p className="text-sm text-slate-300 font-light leading-relaxed pt-4">
-                  <strong className="text-white font-semibold font-serif block text-base mb-1">Vis Ta Vie (Mirissa):</strong> 
-                  An intimate beachfront boutique villa situated in a prime area for whale and turtle watching.
-                </p>
-                <p className="text-sm text-slate-300 font-light leading-relaxed pt-4">
-                  <strong className="text-white font-semibold font-serif block text-base mb-1">Hikka House (Hikkaduwa):</strong> 
-                  A private holiday villa right in the center of Sri Lanka's vibrant surf town.
-                </p>
-              </div>
-            </div>
-
           </div>
         </div>
+
+        {/* ROW 2: Horizontal 3 Images Row */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 py-2">
+          <div className="rounded-2xl overflow-hidden border border-slate-800 bg-slate-900/30 group">
+            <img 
+              src={thema1Img} 
+              alt="Thema Collection 1" 
+              className="w-full h-48 sm:h-56 object-cover group-hover:scale-105 transition-transform duration-300"
+            />
+          </div>
+          <div className="rounded-2xl overflow-hidden border border-slate-800 bg-slate-900/30 group">
+            <img 
+              src={thema2Img} 
+              alt="Thema Collection 2" 
+              className="w-full h-48 sm:h-56 object-cover group-hover:scale-105 transition-transform duration-300"
+            />
+          </div>
+          <div className="rounded-2xl overflow-hidden border border-slate-800 bg-slate-900/30 group">
+            <img 
+              src={thema3Img} 
+              alt="Thema Collection 3" 
+              className="w-full h-48 sm:h-56 object-cover group-hover:scale-105 transition-transform duration-300"
+            />
+          </div>
+        </div>
+
+        {/* ROW 3: Tea Country (Left) + Deep South (Right) */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+          <div className="space-y-4 bg-slate-900/20 p-6 rounded-2xl border border-slate-900/60 h-full">
+            <h4 className="text-emerald-400 text-xs font-semibold uppercase tracking-wider">Tea Country & Hill Country</h4>
+            <div className="space-y-4 divide-y divide-slate-900/60">
+              <p className="text-sm text-slate-300 font-light leading-relaxed pt-2">
+                <strong className="text-white font-semibold font-serif block text-base mb-1">Mountbatten Bungalow (Kandy):</strong> 
+                A historic Victorian-style colonial bungalow with deep ties to Kandyan history.
+              </p>
+              <p className="text-sm text-slate-300 font-light leading-relaxed pt-4">
+                <strong className="text-white font-semibold font-serif block text-base mb-1">Tea & Experience Factory (Mandaram Nuwara):</strong> 
+                An experiential resort built inside a real, converted operational tea factory.
+              </p>
+              <p className="text-sm text-slate-300 font-light leading-relaxed pt-4">
+                <strong className="text-white font-semibold font-serif block text-base mb-1">Scottish Planter (Nuwara Eliya):</strong> 
+                A stone bungalow offering a cozy look into the traditional lives of early tea planters.
+              </p>
+              <p className="text-sm text-slate-300 font-light leading-relaxed pt-4">
+                <strong className="text-white font-semibold font-serif block text-base mb-1">Wild Glamping Knuckles (Knuckles Mountain Range):</strong> 
+                Luxury tented camps hidden away in a UNESCO World Heritage-listed conservation forest.
+              </p>
+            </div>
+          </div>
+
+          <div className="space-y-4 bg-slate-900/20 p-6 rounded-2xl border border-slate-900/60 h-full">
+            <h4 className="text-emerald-400 text-xs font-semibold uppercase tracking-wider">Deep South, Wildlife & Safaris</h4>
+            <div className="space-y-4 divide-y divide-slate-900/60">
+              <p className="text-sm text-slate-300 font-light leading-relaxed pt-2">
+                <strong className="text-white font-semibold font-serif block text-base mb-1">Kithala Resort (Tissamaharama / Yala):</strong> 
+                A peaceful resort popular with birdwatchers and safari-goers heading into Yala National Park.
+              </p>
+              <p className="text-sm text-slate-300 font-light leading-relaxed pt-4">
+                <strong className="text-white font-semibold font-serif block text-base mb-1">Wild Glamping Gal Oya (Gal Oya):</strong> 
+                An eco-luxury glamping property near Gal Oya National Park.
+              </p>
+              <p className="text-sm text-slate-300 font-light leading-relaxed pt-4">
+                <strong className="text-white font-semibold font-serif block text-base mb-1">Waraka (Udawalawe):</strong> 
+                An intimate eco-lodge built specifically for travelers wanting to experience Udawalawe wildlife.
+              </p>
+              <p className="text-sm text-slate-300 font-light leading-relaxed pt-4">
+                <strong className="text-white font-semibold font-serif block text-base mb-1">Villa Blue Monk (Tissamaharama / Yala):</strong> 
+                A mindful, eco-luxury boutique escape situated between ancient lakes and nature reserves.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* ROW 4: Coastal & Beach Escapes (Centered Below) */}
+        <div className="flex justify-center pt-2">
+          <div className="w-full lg:w-2/3 space-y-4 bg-slate-900/20 p-6 rounded-2xl border border-slate-900/60">
+            <h4 className="text-emerald-400 text-xs font-semibold uppercase tracking-wider text-center lg:text-left">Coastal & Beach Escapes</h4>
+            <div className="space-y-4 divide-y divide-slate-900/60">
+              <p className="text-sm text-slate-300 font-light leading-relaxed pt-2">
+                <strong className="text-white font-semibold font-serif block text-base mb-1">Maalu Maalu Resort & Spa (Pasikuda):</strong> 
+                A beachfront resort with chalets designed to mimic a traditional Sri Lankan fishing village.
+              </p>
+              <p className="text-sm text-slate-300 font-light leading-relaxed pt-4">
+                <strong className="text-white font-semibold font-serif block text-base mb-1">Ayurvie Weligama (Weligama):</strong> 
+                A southern beach resort focused entirely on authentic Ayurvedic medical packages and yoga.
+              </p>
+              <p className="text-sm text-slate-300 font-light leading-relaxed pt-4">
+                <strong className="text-white font-semibold font-serif block text-base mb-1">Parangi Weligama Bay (Weligama):</strong> 
+                A chic, modern boutique property catering to coastal travelers and surfers.
+              </p>
+              <p className="text-sm text-slate-300 font-light leading-relaxed pt-4">
+                <strong className="text-white font-semibold font-serif block text-base mb-1">Vis Ta Vie (Mirissa):</strong> 
+                An intimate beachfront boutique villa situated in a prime area for whale watching.
+              </p>
+              <p className="text-sm text-slate-300 font-light leading-relaxed pt-4">
+                <strong className="text-white font-semibold font-serif block text-base mb-1">Hikka House (Hikkaduwa):</strong> 
+                A private holiday villa right in the center of Sri Lanka's vibrant surf town.
+              </p>
+            </div>
+          </div>
+        </div>
+
       </div>
 
       {/* --- THE SEVEN ANGELS PROPERTY SECTION --- */}
@@ -189,97 +254,115 @@ const Accommodation = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          
-          {/* Left Column: Details */}
           <div className="lg:col-span-7 space-y-6 order-2 lg:order-1">
             <div className="bg-slate-900/30 p-6 md:p-8 rounded-3xl border border-slate-900 space-y-4">
               <p className="text-sm font-medium text-emerald-400 tracking-wide uppercase">The Seven Angels Collection</p>
               <p className="text-sm text-slate-400 font-light leading-relaxed">
-                These properties explicitly form the Seven Angels portfolio, often offering exclusive boutique experiences:
+                These properties explicitly form the Seven Angels portfolio, offering exclusive boutique experiences:
               </p>
               
               <ul className="space-y-4 pt-2">
                 <li className="text-sm text-slate-300 font-light leading-relaxed pl-2 border-l border-emerald-500/30">
-                  <strong className="text-white font-semibold font-serif">Heritage Boutique by Seven Angels (Kandy)</strong> – A historic, colonial-style governor house conversion located right next to the Temple of the Sacred Tooth Relic.
+                  <strong className="text-white font-semibold font-serif">Heritage Boutique by Seven Angels (Kandy)</strong> – A historic, colonial-style governor house conversion right next to the Temple of the Sacred Tooth Relic.
                 </li>
                 <li className="text-sm text-slate-300 font-light leading-relaxed pl-2 border-l border-emerald-500/30">
                   <strong className="text-white font-semibold font-serif">Castle Hill Bungalow (Kandy)</strong> – A centrally located luxury bungalow providing stunning hill views and quick access to Kandy Lake.
                 </li>
                 <li className="text-sm text-slate-300 font-light leading-relaxed pl-2 border-l border-emerald-500/30">
-                  <strong className="text-white font-semibold font-serif">Liyya Water Villas (Dambulla)</strong> – A peaceful luxury resort situated en route to the Cultural Triangle landmarks like the Dambulla Cave Temple and Sigiriya.
+                  <strong className="text-white font-semibold font-serif">Liyya Water Villas (Dambulla)</strong> – A peaceful luxury resort en route to Cultural Triangle landmarks like Dambulla and Sigiriya.
                 </li>
               </ul>
             </div>
           </div>
 
-          {/* Right Column: Image fixed from assets */}
           <div className="lg:col-span-5 order-1 lg:order-2">
             <div className="border border-slate-900 rounded-3xl overflow-hidden bg-slate-900/20 group">
               <img 
                 src={sevenAngelsImg} 
                 alt="7 Angels Collection" 
-                className="w-full h-auto object-contain block group-hover:scale-101 transition-transform duration-500"
+                className="w-full h-auto object-contain block group-hover:scale-105 transition-transform duration-500"
               />
               <div className="p-4 bg-slate-950/80 border-t border-slate-900 text-center">
                 <p className="text-xs text-emerald-400 font-medium">The Seven Angels Portfolio</p>
               </div>
             </div>
           </div>
-
         </div>
       </div>
 
-      {/* --- OUR PARTNERS LOGO BAR (Ref: image_17595e.png) --- */}
-      <div className="mt-28 border-t border-b border-slate-900 bg-slate-900/20 py-8">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-stretch gap-6 md:gap-0">
+      {/* --- OUR PARTNERS LOGO BAR (EXACT IMAGE BRAND MATCH) --- */}
+      <div className="mt-28 border-t border-b border-slate-900 bg-slate-900/40 py-8">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-8 md:gap-0">
           
-          {/* Label Area */}
-          <div className="px-8 flex flex-col justify-center items-center md:items-start shrink-0 min-w-[220px]">
-            <span className="text-xs text-slate-500 tracking-widest font-bold uppercase block">OUR</span>
-            <span className="text-xl font-black font-sans tracking-widest text-white block">PARTNERS</span>
+          {/* Title Box */}
+          <div className="px-8 flex flex-col justify-center items-center md:items-start shrink-0 min-w-[200px]">
+            <span className="text-xs text-slate-400 tracking-[0.2em] font-bold uppercase block text-right">OUR</span>
+            <span className="text-xl font-black font-sans tracking-[0.15em] text-white block">PARTNERS</span>
           </div>
 
-          {/* Logo Content Grid Line - Higher & High-quality Vector SVGs representing original brands */}
-          <div className="flex-1 flex flex-wrap md:flex-nowrap items-center justify-center md:justify-around gap-12 px-8 min-w-0">
+          {/* Logos Row - Exact Order and Design Matching Your Provided Image */}
+          <div className="flex-1 flex flex-wrap md:flex-nowrap items-center justify-center md:justify-between gap-8 md:gap-4 px-6 min-w-0 w-full">
             
-            {/* 1. AMAYA RESORTS LOGO (Golden Elegant Tree Motif) */}
-            <div className="flex flex-col items-center justify-center opacity-80 hover:opacity-100 transition-opacity shrink-0">
-              <svg className="w-10 h-10 text-amber-500 mb-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <path d="M12 22V10M12 10C14.5 7.5 17 9 19 6M12 10C9.5 7.5 7 9 5 6M12 6C14 3.5 16 5 18 2M12 6C10 3.5 8 5 6 2" strokeLinecap="round"/>
+            {/* 1. Cinnamon Loop Logo */}
+            <div className="flex items-center justify-center h-12 opacity-90 hover:opacity-100 transition-opacity">
+              <svg className="h-10 w-auto" viewBox="0 0 50 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M15 52C28 52 38 42 38 25C38 15 32 8 25 8C18 8 12 15 12 25C12 35 18 45 25 45" stroke="#00C4B4" strokeWidth="2.5" strokeLinecap="round" fill="none"/>
+                <path d="M25 8L27 3L29 8L34 9L30 13L31 18L26 15L22 18L23 13L19 9L24 8Z" fill="#F1C40F"/>
               </svg>
-              <span className="text-xs font-serif font-black tracking-[0.3em] text-amber-500/90">AMAYA</span>
             </div>
 
-            {/* 2. TAJ HOTELS LOGO (Classic Royal Emblem Typography) */}
-            <div className="flex flex-col items-center justify-center opacity-80 hover:opacity-100 transition-opacity shrink-0">
-              <span className="text-2xl font-serif font-extrabold tracking-[0.2em] text-yellow-500/90 leading-none">TAJ</span>
-              <span className="text-[7px] tracking-[0.25em] text-yellow-600/60 uppercase font-sans mt-1">Hotels • Resorts</span>
+            {/* 2. Amaya Resorts Golden Tree */}
+            <div className="flex flex-col items-center justify-center h-12 opacity-90 hover:opacity-100 transition-opacity">
+              <svg className="h-8 w-auto" viewBox="0 0 60 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M28 42C28 42 22 36 22 28C22 20 28 14 34 14C38 14 42 17 42 21C42 25 38 28 34 28C32 28 30 27 30 25C30 23 32 22 33 22" stroke="#E67E22" strokeWidth="2.5" strokeLinecap="round" fill="none"/>
+                <path d="M30 42C30 42 20 32 18 22C16 12 24 6 32 6C38 6 46 10 46 18" stroke="#E67E22" strokeWidth="2" strokeLinecap="round" fill="none"/>
+                <path d="M26 42L28 42L26 30" stroke="#E67E22" strokeWidth="3" strokeLinecap="round"/>
+              </svg>
+              <span className="text-[10px] font-bold tracking-[0.25em] text-[#E67E22] mt-0.5">AMAYA</span>
             </div>
 
-            {/* 3. JETWING HOTELS LOGO (Signature Script style with Brand Dot) */}
-            <div className="flex flex-col items-center justify-center opacity-80 hover:opacity-100 transition-opacity shrink-0">
-              <div className="flex items-baseline">
-                <span className="text-xl font-serif font-black text-pink-500 tracking-wide italic">Jetwing</span>
-                <span className="w-1.5 h-1.5 bg-orange-400 rounded-full ml-0.5"></span>
+            {/* 3. TAJ Hotels Original Emblem */}
+            <div className="flex items-center justify-center h-12 opacity-90 hover:opacity-100 transition-opacity">
+              <div className="flex items-center gap-2">
+                <span className="text-xl font-serif font-black tracking-[0.25em] text-[#D4AF37]">TAJ</span>
+                <svg className="w-5 h-5 text-[#D4AF37]" viewBox="0 0 24 24" fill="currentColor">
+                  <polygon points="12,2 15,8 21,9 17,14 18,20 12,17 6,20 7,14 3,9 9,8" />
+                </svg>
               </div>
-              <span className="text-[8px] text-slate-500 tracking-[0.3em] uppercase block mt-0.5">HOTELS</span>
             </div>
 
-            {/* 4. GIRITALE HOTEL LOGO (Oceanic Crest/Teal Circular Icon) */}
-            <div className="flex flex-col items-center justify-center opacity-80 hover:opacity-100 transition-opacity shrink-0">
-              <svg className="w-9 h-9 text-sky-400 mb-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M12 3a9 9 0 0 0-9 9c0 2.5 1 4.8 2.6 6.4L12 12h9a9 9 0 0 0-9-9z" strokeLinecap="round" strokeLinejoin="round"/>
-                <circle cx="12" cy="12" r="3" fill="currentColor" className="text-emerald-400"/>
+            {/* 4. Jetwing Hotels Classic Logo */}
+            <div className="flex flex-col items-center justify-center h-12 opacity-90 hover:opacity-100 transition-opacity">
+              <div className="flex items-center">
+                <span className="text-lg font-serif font-bold text-[#3B82F6] italic tracking-tight">Jetwing</span>
+                <span className="w-2 h-2 rounded-full bg-[#E11D48] ml-0.5 mb-2"></span>
+              </div>
+              <span className="text-[8px] font-sans tracking-[0.3em] text-[#E11D48] uppercase font-semibold -mt-1">HOTELS</span>
+            </div>
+
+            {/* 5. Giritale Hotel Blue Spiral Logo */}
+            <div className="flex flex-col items-center justify-center h-12 opacity-90 hover:opacity-100 transition-opacity">
+              <svg className="w-7 h-7 text-[#0284C7]" viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <path d="M16 4C9.37 4 4 9.37 4 16C4 22.63 9.37 28 16 28C21 28 25.5 24.5 27 20" strokeLinecap="round"/>
+                <circle cx="16" cy="16" r="4" fill="#0284C7"/>
               </svg>
-              <span className="text-[10px] font-sans font-bold tracking-[0.15em] text-sky-400">GIRITALE</span>
-              <span className="text-[7px] text-slate-500 tracking-widest uppercase">HOTEL</span>
+              <span className="text-[8px] font-bold tracking-[0.15em] text-[#0284C7] uppercase mt-0.5">GIRITALE</span>
+              <span className="text-[6px] tracking-widest text-slate-400 uppercase -mt-0.5">HOTEL</span>
             </div>
 
-            {/* 5. THEMA COLLECTION "𝜕" EMBLEM (Elegant Script Glyph) */}
-            <div className="flex items-center justify-center opacity-80 hover:opacity-100 transition-opacity shrink-0">
-              <span className="text-4xl font-serif font-normal italic text-purple-500 transform -rotate-12">
+            {/* 6. Theme Resorts Purple Swirl Logo */}
+            <div className="flex items-center justify-center h-12 opacity-90 hover:opacity-100 transition-opacity">
+              <span className="text-3xl font-serif text-[#9333EA] font-normal italic transform -rotate-6">
                 𝜕
               </span>
+            </div>
+
+            {/* 7. Cinnamon Loop Logo */}
+            <div className="flex items-center justify-center h-12 opacity-90 hover:opacity-100 transition-opacity">
+              <svg className="h-10 w-auto" viewBox="0 0 50 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M15 52C28 52 38 42 38 25C38 15 32 8 25 8C18 8 12 15 12 25C12 35 18 45 25 45" stroke="#00C4B4" strokeWidth="2.5" strokeLinecap="round" fill="none"/>
+                <path d="M25 8L27 3L29 8L34 9L30 13L31 18L26 15L22 18L23 13L19 9L24 8Z" fill="#F1C40F"/>
+              </svg>
             </div>
 
           </div>
