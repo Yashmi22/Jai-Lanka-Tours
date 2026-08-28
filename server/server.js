@@ -52,6 +52,73 @@ app.get('/', (req, res) => {
 app.use('/api/packages', packageRoute);
 app.use('/api/tours', tourRoutes); 
 
+// --- DYNAMIC SITEMAP GENERATION ---
+app.get('/api/sitemap.xml', async (req, res) => {
+    try {
+        const baseUrl = 'https://www.jailankatours.com';
+        
+        // Static URLs
+        const staticUrls = [
+            '/',
+            '/day-tours',
+            '/accommodation',
+            '/discoversrilanka',
+            '/blog',
+            '/about-us',
+            '/plan-journey',
+            '/enquiry',
+            '/itineraries',
+            '/itineraries/adventure',
+            '/itineraries/culture',
+            '/itineraries/romantic',
+            '/itineraries/ayurvedic',
+            '/itineraries/differently-abled'
+        ];
+
+        // Fetch dynamic IDs from Database
+        const itineraries = await Itinerary.find({}, '_id updatedAt');
+        const discovers = await Discover.find({}, '_id');
+
+        let xml = `<?xml version="1.0" encoding="UTF-8"?>\n`;
+        xml += `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
+
+        // Add static URLs
+        staticUrls.forEach(url => {
+            xml += `  <url>\n`;
+            xml += `    <loc>${baseUrl}${url}</loc>\n`;
+            xml += `    <changefreq>weekly</changefreq>\n`;
+            xml += `    <priority>${url === '/' ? '1.0' : '0.8'}</priority>\n`;
+            xml += `  </url>\n`;
+        });
+
+        // Add dynamic itinerary URLs
+        itineraries.forEach(item => {
+            xml += `  <url>\n`;
+            xml += `    <loc>${baseUrl}/itinerary/${item._id}</loc>\n`;
+            xml += `    <changefreq>monthly</changefreq>\n`;
+            xml += `    <priority>0.7</priority>\n`;
+            xml += `  </url>\n`;
+        });
+
+        // Add dynamic discover URLs
+        discovers.forEach(item => {
+            xml += `  <url>\n`;
+            xml += `    <loc>${baseUrl}/discover/${item._id}</loc>\n`;
+            xml += `    <changefreq>monthly</changefreq>\n`;
+            xml += `    <priority>0.6</priority>\n`;
+            xml += `  </url>\n`;
+        });
+
+        xml += `</urlset>`;
+
+        res.header('Content-Type', 'application/xml');
+        res.status(200).send(xml);
+    } catch (error) {
+        console.error('Error generating sitemap:', error);
+        res.status(500).send('Error generating sitemap');
+    }
+});
+
 // --- ADMIN AUTHENTICATION API ---
 const JWT_SECRET = process.env.JWT_SECRET || "JaiLankaSuperSecretKey123";
 

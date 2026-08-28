@@ -64,7 +64,7 @@ const AdminItinerary = () => {
         };
 
         fetchItineraries();
-    }, [API_BASE_URL]);
+    }, []);
 
     // 🔄 Images 4
     const handleMultipleImagesUpload = async (e) => {
