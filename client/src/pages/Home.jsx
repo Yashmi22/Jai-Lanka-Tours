@@ -17,8 +17,6 @@ import myLogo from '../assets/logo1.png';
 
 const Home = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [openDropdown, setOpenDropdown] = useState(null);
-  const [isScrolled, setIsScrolled] = useState(false);
 
   // Luxury Background Images
   const slideshowImages = [
@@ -110,19 +108,6 @@ const Home = () => {
     }
   ];
 
-  // Handle Navbar Background Change on Scroll
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 80) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
   // Slideshow Timer
   useEffect(() => {
     const timer = setInterval(() => {
@@ -134,87 +119,6 @@ const Home = () => {
   return (
     <div className="w-full bg-[#080b11] text-white font-sans antialiased overflow-x-hidden">
       
-      {/* ----------------- FIXED LUXURY NAVBAR ----------------- */}
-      <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
-        isScrolled ? 'bg-[#080b11]/90 backdrop-blur-md border-b border-amber-500/10 py-3 shadow-2xl' : 'bg-gradient-to-b from-black/80 via-black/40 to-transparent py-5'
-      }`}>
-        <div className="w-full px-4 md:px-8 flex items-center justify-between">
-          
-          {/* Logo & Brand Name (Far Left Corner) */}
-          <div className="flex items-center">
-            <Link to="/" className="flex items-center gap-3 group">
-              <img 
-                src={myLogo} 
-                alt="Jai Lanka Logo" 
-                className="w-10 h-10 md:w-12 md:h-12 object-contain transition-transform group-hover:scale-105" 
-              />
-              <div className="text-left">
-                <span className="block text-sm md:text-base font-serif font-bold tracking-[0.25em] text-white uppercase leading-tight">
-                  JAI LANKA <span className="text-amber-400">TOURS</span>
-                </span>
-                <span className="block text-[8px] md:text-[9px] tracking-[0.3em] text-amber-200/60 uppercase font-serif">
-                  Experience The Art Of Luxury Travel
-                </span>
-              </div>
-            </Link>
-          </div>
-
-          {/* Centered Desktop Navigation */}
-          <nav className="hidden lg:flex items-center justify-center gap-6 xl:gap-8 text-[11px] font-medium uppercase tracking-[0.2em]">
-            <Link to="/" className="text-amber-400 hover:text-amber-300 transition-colors whitespace-nowrap">Home</Link>
-
-            {/* Itineraries Dropdown */}
-            <div 
-              className="relative py-2 cursor-pointer"
-              onMouseEnter={() => setOpenDropdown('itineraries')}
-              onMouseLeave={() => setOpenDropdown(null)}
-            >
-              <button className="hover:text-amber-400 transition-colors flex items-center gap-1 focus:outline-none whitespace-nowrap">
-                ITINERARIES
-                <FaChevronDown className="w-2.5 h-2.5 text-amber-400/80" />
-              </button>
-              
-              {openDropdown === 'itineraries' && (
-                <div className="absolute top-full left-1/2 -translate-x-1/2 mt-1 bg-[#0d121d]/95 backdrop-blur-xl border border-amber-500/20 rounded-xl shadow-2xl min-w-[240px] z-50 overflow-hidden py-2 animate-fadeIn">
-                  <Link 
-                    to="/itineraries" 
-                    onClick={() => setOpenDropdown(null)}
-                    className="block px-5 py-3 hover:bg-amber-500 hover:text-black transition-all text-[10px] font-bold uppercase tracking-wider border-b border-white/5 bg-white/5 text-amber-400"
-                  >
-                    All Itineraries
-                  </Link>
-                  {itineraryLinks.map((item, index) => (
-                    <Link 
-                      key={index}
-                      to={item.path} 
-                      onClick={() => setOpenDropdown(null)}
-                      className="block px-5 py-3 text-slate-300 hover:bg-amber-500/20 hover:text-amber-300 transition-all text-[10px] uppercase tracking-wider border-b border-white/5 last:border-0"
-                    >
-                      {item.name}
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            <Link to="/day-tours" className="hover:text-amber-400 transition-colors whitespace-nowrap">Day Tours</Link>
-            <Link to="/accommodation" className="hover:text-amber-400 transition-colors whitespace-nowrap">Accommodation</Link>
-            <Link to="/discoversrilanka" className="hover:text-amber-400 transition-colors whitespace-nowrap">Discover Sri Lanka</Link>
-            <Link to="/blog" className="hover:text-amber-400 transition-colors whitespace-nowrap">Blog</Link>
-            <Link to="/aboutus" className="hover:text-amber-400 transition-colors whitespace-nowrap">About Us</Link>
-          </nav>
-
-          {/* Far Right Action Button */}
-          <div className="flex items-center">
-            <Link to="/plan-journey">
-              <button className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-black text-[10px] font-bold uppercase tracking-[0.2em] px-6 py-2.5 rounded-full transition-all duration-300 shadow-lg shadow-amber-500/20">
-                Plan Journey
-              </button>
-            </Link>
-          </div>
-
-        </div>
-      </header>
 
       {/* ----------------- HERO SLIDESHOW SECTION ----------------- */}
       <section className="relative w-full h-screen flex items-center justify-center overflow-hidden">

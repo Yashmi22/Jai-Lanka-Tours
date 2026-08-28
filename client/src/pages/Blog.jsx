@@ -7,7 +7,6 @@ import {
     Facebook, 
     Twitter 
 } from '@mui/icons-material';
-import api from '../api';
 
 // Assets Import
 import foodImg from '../assets/food.jpg';
