@@ -129,9 +129,8 @@ const Blog = () => {
                 <img 
                     src={teaImg} 
                     alt="Ceylon Tea Estates" 
-                    className="absolute inset-0 w-full h-full object-cover brightness-[45%] scale-101" 
+                    className="absolute inset-0 w-full h-full object-cover brightness-100 scale-101" 
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0b0f19] via-black/30 to-black/50"></div>
                 
                 <div className="relative max-w-3xl mx-auto text-center px-6 z-10 flex flex-col items-center">
                     <span className="text-[10px] font-bold tracking-[0.3em] uppercase text-amber-400 bg-amber-950/60 border border-amber-600/30 px-5 py-2 rounded-full mb-6 inline-block backdrop-blur-sm">
