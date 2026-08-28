@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import { 
   FaWhatsapp, 
   FaInstagram, 
@@ -119,7 +120,19 @@ const Home = () => {
   return (
     <div className="w-full bg-[#080b11] text-white font-sans antialiased overflow-x-hidden">
       
-
+      {/* 🚀 SEO DYNAMIC TAGS & STRUCTURED DATA */}
+      <Helmet>
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "TravelAgency",
+            "name": "Jai Lanka Tours",
+            "image": "https://www.jailankatours.com/logo.png",
+            "telephone": "+94740966449",
+            "url": "https://www.jailankatours.com"
+          })}
+        </script>
+      </Helmet>
       {/* ----------------- HERO SLIDESHOW SECTION ----------------- */}
       <section className="relative w-full h-screen flex items-center justify-center overflow-hidden">
         

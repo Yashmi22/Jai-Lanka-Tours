@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import axios from 'axios';
 import api from '../api';
 
@@ -463,6 +464,32 @@ const BlogDetails = () => {
     return (
         <div className="bg-[#030508] min-h-screen text-slate-300 font-sans pb-32 pt-36 selection:bg-amber-500/20 selection:text-amber-400">
             
+            {/* 🚀 SEO DYNAMIC TAGS */}
+            <Helmet>
+                <title>{`${currentPost.title} | Jai Lanka Tours Blog`}</title>
+                <meta name="description" content={currentPost.intro} />
+                <meta property="og:title" content={`${currentPost.title} | Jai Lanka Tours Blog`} />
+                <meta property="og:description" content={currentPost.intro} />
+                {/* Fallback to first image in story array if it exists */}
+                {currentPost.story.find(s => s.image) && (
+                    <meta property="og:image" content={currentPost.story.find(s => s.image).image} />
+                )}
+                <meta property="twitter:title" content={`${currentPost.title} | Jai Lanka Tours Blog`} />
+                <meta property="twitter:description" content={currentPost.intro} />
+                {currentPost.story.find(s => s.image) && (
+                    <meta property="twitter:image" content={currentPost.story.find(s => s.image).image} />
+                )}
+                <script type="application/ld+json">
+                {JSON.stringify({
+                    "@context": "https://schema.org",
+                    "@type": "BlogPosting",
+                    "headline": currentPost.title,
+                    "description": currentPost.intro,
+                    "image": currentPost.story.find(s => s.image)?.image || ""
+                })}
+                </script>
+            </Helmet>
+
             {/* Ambient Background Grid & Luxury Glows */}
             <div className="fixed inset-0 pointer-events-none overflow-hidden z-0 opacity-40">
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-full border-x border-white/[0.02] bg-[linear-gradient(to_right,rgba(255,255,255,0.01)_1px,transparent_1px)] bg-[size:100px_100px]"></div>

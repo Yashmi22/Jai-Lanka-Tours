@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import api from '../api';
 
 // 📷 1. Polonnaruwa Images
@@ -402,6 +403,37 @@ const TourDetails = () => {
   return (
     <div className="bg-[#05070f] min-h-screen pb-24 text-slate-200 font-sans antialiased pt-28 relative overflow-hidden">
       
+      {/* 🚀 SEO DYNAMIC TAGS */}
+      <Helmet>
+        <title>{`${tour.title} | Jai Lanka Tours`}</title>
+        <meta name="description" content={tour.mainDesc} />
+        <meta property="og:title" content={`${tour.title} | Jai Lanka Tours`} />
+        <meta property="og:description" content={tour.mainDesc} />
+        <meta property="og:image" content={tour.places[0]?.image} />
+        <meta property="twitter:title" content={`${tour.title} | Jai Lanka Tours`} />
+        <meta property="twitter:description" content={tour.mainDesc} />
+        <meta property="twitter:image" content={tour.places[0]?.image} />
+        <script type="application/ld+json">
+          {JSON.stringify(
+            {
+              "@context": "https://schema.org",
+              "@type": "TouristTrip",
+              "name": tour.title,
+              "description": tour.mainDesc,
+              "image": tour.places[0]?.image || "https://www.jailankatours.com/logo.png",
+              "touristType": [
+                "Sightseeing",
+                "Cultural"
+              ],
+              "provider": {
+                "@type": "TravelAgency",
+                "name": "Jai Lanka Tours"
+              }
+            }
+          )}
+        </script>
+      </Helmet>
+
       {/* Background Luxury Ambient Glows */}
       <div className="absolute top-40 left-[-20%] w-[600px] h-[600px] bg-amber-500/5 blur-[150px] rounded-full pointer-events-none"></div>
       <div className="absolute top-[40%] right-[-20%] w-[600px] h-[600px] bg-blue-600/5 blur-[150px] rounded-full pointer-events-none"></div>
