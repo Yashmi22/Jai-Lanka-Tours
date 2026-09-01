@@ -8,6 +8,7 @@ import Navbar from './components/Navbar';
 import ProtectedRoute from './components/ProtectedRoute';
 import ScrollToTop from './components/ScrollToTop';
 
+
 // Lazy load Pages
 const Home = lazy(() => import('./pages/Home'));
 const DayTours = lazy(() => import('./pages/DayTours'));
@@ -25,6 +26,7 @@ const AdminLogin = lazy(() => import('./pages/admin/AdminLogin'));
 const BlogDetails = lazy(() => import('./pages/BlogDetails'));
 const Accommodation = lazy(() => import('./pages/Accommodation'));
 const BlogPostDetail = lazy(() => import('./pages/BlogPostDetail'));
+
 
 // Loading Fallback Component
 const Loader = () => (

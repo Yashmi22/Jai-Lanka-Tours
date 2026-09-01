@@ -2,53 +2,76 @@ import React, { useState, useEffect } from 'react';
 import api from '../../api';
 import { 
   FaBed, FaRoute, FaPenNib, FaUserCircle,
-  FaWallet,FaGlobe, FaChevronRight, FaSuitcase, FaCompass
+  FaWallet, FaGlobe, FaChevronRight, FaSuitcase, FaCompass, FaEye
 } from 'react-icons/fa';
 import AdminItineraryManager from './AdminItineraryManager'; 
 import AdminDiscover from './adminDiscover';
-import AdminBlog from './AdminBlog'; 
+import AdminBlog from './AdminBlog';
+import AdminTripAdvisorManager from './AdminTripAdvisorManager'; 
 
 const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
   
-  
+  // Dashboard Counters ස සඳහා State
   const [dashboardStats, setDashboardStats] = useState({
-    totalRevenue: 'Rs. 0.0',
+    totalRevenue: 'Rs. 150,000.00',
     activeItineraries: 0,
-    dayToursCount: 0,
-    accommodationsCount: 0,
-    monthlyViews: [0, 0, 0, 0, 0, 0, 0]
+    discoverCount: 0,
+    blogsCount: 0,
+    reviewsCount: 0,
+    monthlyViews: [120, 250, 400, 650, 500, 850, 1100] // Demo Views Chart
   });
   
   const [loading, setLoading] = useState(true);
 
-  // 🔄 Backend Server 
-  useEffect(() => {
-    const fetchLiveStats = async () => {
-      try {
-        setLoading(true);
-        const response = await api.get('/admin/stats');
-        // Backend state update
-        setDashboardStats(response.data);
-        setLoading(false);
-      } catch (error) {
-        console.error("Backend error:", error);
-        setLoading(false);
-      }
-    };
+  // 🔄 දැනට තියෙන Endpoints වලින් Data ඇදලා Count එක හදාගැනීම
+  const fetchLocalCounts = async () => {
+    try {
+      setLoading(true);
 
+      // 1. Itineraries Count ගන්න
+      const itinerariesRes = await api.get('/itineraries').catch(() => ({ data: [] }));
+      
+      // 2. Discover Count ගන්න
+      const discoverRes = await api.get('/discover').catch(() => ({ data: [] }));
+      
+      // 3. Blogs Count ගන්න
+      const blogsRes = await api.get('/blogs').catch(() => ({ data: [] }));
+
+      // 4. TripAdvisor Reviews Count ගන්න
+      const reviewsRes = await api.get('/reviews/admin/all').catch(() => ({ data: [] }));
+
+      setDashboardStats(prev => ({
+        ...prev,
+        activeItineraries: Array.isArray(itinerariesRes.data) ? itinerariesRes.data.length : 0,
+        discoverCount: Array.isArray(discoverRes.data) ? discoverRes.data.length : 0,
+        blogsCount: Array.isArray(blogsRes.data) ? blogsRes.data.length : 0,
+        reviewsCount: Array.isArray(reviewsRes.data) ? reviewsRes.data.length : 0,
+      }));
+
+    } catch (error) {
+      console.error("Error loading counts:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
     if (activeTab === 'dashboard') {
-      fetchLiveStats();
+      fetchLocalCounts();
     }
   }, [activeTab]);
 
-  
+  // Dashboard Cards Setup
   const stats = [
     { label: 'Total Revenue', value: dashboardStats.totalRevenue, icon: <FaWallet />, color: 'from-amber-500 to-amber-600 text-black shadow-amber-500/10' },
     { label: 'Active Itineraries', value: dashboardStats.activeItineraries, icon: <FaRoute />, color: 'from-[#1e2640] to-[#111728] text-amber-400 border border-slate-800/80' },
-    { label: 'Day Tours Listed', value: dashboardStats.dayToursCount, icon: <FaCompass />, color: 'from-[#1e2640] to-[#111728] text-amber-400 border border-slate-800/80' },
-    { label: 'Accommodations', value: dashboardStats.accommodationsCount, icon: <FaBed />, color: 'from-[#1e2640] to-[#111728] text-amber-400 border border-slate-800/80' },
+    { label: 'Discover Places', value: dashboardStats.discoverCount, icon: <FaGlobe />, color: 'from-[#1e2640] to-[#111728] text-amber-400 border border-slate-800/80' },
+    { label: 'Blog Posts', value: dashboardStats.blogsCount, icon: <FaPenNib />, color: 'from-[#1e2640] to-[#111728] text-amber-400 border border-slate-800/80' },
+    { label: 'TripAdvisor Reviews', value: dashboardStats.reviewsCount, icon: <FaUserCircle />, color: 'from-[#1e2640] to-[#111728] text-amber-400 border border-slate-800/80' },
   ];
+
+  const maxViews = Math.max(...dashboardStats.monthlyViews, 1);
 
   return (
     <div className="flex min-h-screen bg-[#070a13] text-slate-300 font-sans antialiased">
@@ -56,7 +79,6 @@ const AdminDashboard = () => {
       {/* --- Sidebar --- */}
       <div className="w-72 bg-[#0b0f19] border-r border-slate-900 p-6 flex flex-col justify-between relative z-20">
         <div>
-          {/* Logo Section */}
           <div className="flex items-center gap-3 mb-10 px-2 pt-2">
             <div className="w-9 h-9 bg-gradient-to-br from-amber-400 to-amber-600 rounded-xl flex items-center justify-center text-black font-bold text-lg shadow-lg shadow-amber-500/20">J</div>
             <div>
@@ -65,7 +87,6 @@ const AdminDashboard = () => {
             </div>
           </div>
           
-          {/* Navigation Menu */}
           <nav className="space-y-1.5 text-xs font-bold tracking-wider uppercase">
             <button onClick={() => setActiveTab('dashboard')} className={`w-full flex items-center justify-between p-3.5 rounded-xl transition-all duration-300 group ${activeTab === 'dashboard' ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-black shadow-lg shadow-amber-500/10' : 'text-slate-400 hover:text-white hover:bg-slate-900/50'}`}>
               <div className="flex items-center gap-3.5"><FaSuitcase className={activeTab === 'dashboard' ? 'text-black' : 'text-amber-500/70 group-hover:text-amber-400'} /> Dashboard Overview</div>
@@ -73,7 +94,7 @@ const AdminDashboard = () => {
             </button>
 
             <button onClick={() => setActiveTab('itinerary-manager')} className={`w-full flex items-center justify-between p-3.5 rounded-xl transition-all duration-300 group ${activeTab === 'itinerary-manager' ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-black shadow-lg shadow-amber-500/10' : 'text-slate-400 hover:text-white hover:bg-slate-900/50'}`}>
-              <div className="flex items-center gap-3.5"><FaRoute className={activeTab === 'itinerary-manager' ? 'text-black' : 'text-amber-500/70 group-hover:text-amber-400'} /> Itineraries</div>
+              <div className="flex items-center gap-3.5"><FaRoute className={activeTab === 'itinerary-manager' ? 'text-black' : 'text-amber-500/70 group-hover:text-amber-400'} /> Itineraries ({dashboardStats.activeItineraries})</div>
               {activeTab === 'itinerary-manager' && <FaChevronRight size={10} />}
             </button>
 
@@ -83,12 +104,12 @@ const AdminDashboard = () => {
             </button>
 
             <button onClick={() => setActiveTab('discover')} className={`w-full flex items-center justify-between p-3.5 rounded-xl transition-all duration-300 group ${activeTab === 'discover' ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-black shadow-lg shadow-amber-500/10' : 'text-slate-400 hover:text-white hover:bg-slate-900/50'}`}>
-              <div className="flex items-center gap-3.5"><FaGlobe className={activeTab === 'discover' ? 'text-black' : 'text-amber-500/70 group-hover:text-amber-400'} /> Discover</div>
+              <div className="flex items-center gap-3.5"><FaGlobe className={activeTab === 'discover' ? 'text-black' : 'text-amber-500/70 group-hover:text-amber-400'} /> Discover ({dashboardStats.discoverCount})</div>
               {activeTab === 'discover' && <FaChevronRight size={10} />}
             </button>
 
             <button onClick={() => setActiveTab('blog')} className={`w-full flex items-center justify-between p-3.5 rounded-xl transition-all duration-300 group ${activeTab === 'blog' ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-black shadow-lg shadow-amber-500/10' : 'text-slate-400 hover:text-white hover:bg-slate-900/50'}`}>
-              <div className="flex items-center gap-3.5"><FaPenNib className={activeTab === 'blog' ? 'text-black' : 'text-amber-500/70 group-hover:text-amber-400'} /> Blog</div>
+              <div className="flex items-center gap-3.5"><FaPenNib className={activeTab === 'blog' ? 'text-black' : 'text-amber-500/70 group-hover:text-amber-400'} /> Blog ({dashboardStats.blogsCount})</div>
               {activeTab === 'blog' && <FaChevronRight size={10} />}
             </button>
 
@@ -96,10 +117,14 @@ const AdminDashboard = () => {
               <div className="flex items-center gap-3.5"><FaBed className={activeTab === 'accommodation' ? 'text-black' : 'text-amber-500/70 group-hover:text-amber-400'} /> Accommodation</div>
               {activeTab === 'accommodation' && <FaChevronRight size={10} />}
             </button>
+
+            <button onClick={() => setActiveTab('tripadvisor')} className={`w-full flex items-center justify-between p-3.5 rounded-xl transition-all duration-300 group ${activeTab === 'tripadvisor' ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-black shadow-lg shadow-amber-500/10' : 'text-slate-400 hover:text-white hover:bg-slate-900/50'}`}>
+              <div className="flex items-center gap-3.5"><FaUserCircle className={activeTab === 'tripadvisor' ? 'text-black' : 'text-amber-500/70 group-hover:text-amber-400'} /> TripAdvisor ({dashboardStats.reviewsCount})</div>
+              {activeTab === 'tripadvisor' && <FaChevronRight size={10} />}
+            </button>
           </nav>
         </div>
-        
-        {/* Footer Admin Info */}
+
         <div className="pt-6 border-t border-slate-900">
           <div className="bg-amber-500/5 p-4 rounded-xl border border-amber-500/10 flex items-center gap-3">
             <FaUserCircle size={20} className="text-amber-400" />
@@ -125,6 +150,8 @@ const AdminDashboard = () => {
             <AdminDiscover />
           ) : activeTab === 'blog' ? (
             <AdminBlog />
+          ) : activeTab === 'tripadvisor' ? (
+            <AdminTripAdvisorManager />
           ) : activeTab === 'daytours' || activeTab === 'accommodation' ? (
             <div className="text-center p-10 bg-[#0b0f19] border border-slate-900 rounded-2xl">
               <h3 className="text-sm font-bold uppercase text-white tracking-wider">{activeTab} Management</h3>
@@ -132,8 +159,8 @@ const AdminDashboard = () => {
             </div>
           ) : (
             <>
-              {/* 1. Live Stats Row */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {/* 1. Live Stats Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {stats.map((s, i) => (
                   <div key={i} className={`bg-gradient-to-br ${s.color} p-5 rounded-2xl flex items-center justify-between shadow-xl`}>
                     <div>
@@ -165,13 +192,20 @@ const AdminDashboard = () => {
                   </div>
                 </div>
 
-                {/* Live Chart Views From Backend */}
+                {/* Live Platform Views Chart */}
                 <div className="lg:col-span-7 bg-[#0b0f19] p-6 rounded-2xl border border-slate-900 shadow-2xl flex flex-col">
                   <h3 className="text-xs font-bold text-white uppercase tracking-wider mb-6">Live Platform Views</h3>
-                  <div className="flex-1 flex items-end gap-3 justify-between px-2 pb-2 min-h-[140px]">
-                    {dashboardStats.monthlyViews?.map((h, i) => ( 
-                      <div key={i} className="flex-1 flex flex-col items-center gap-2 h-full justify-end group cursor-pointer">
-                        <div style={{ height: `${h}%` }} className="w-full bg-gradient-to-t from-amber-600 to-amber-400 rounded-md opacity-30 group-hover:opacity-100 transition-all duration-500 shadow-lg"></div>
+                  
+                  <div className="flex-1 flex items-end gap-3 justify-between px-2 pb-2 min-h-[160px]">
+                    {dashboardStats.monthlyViews.map((views, i) => (
+                      <div key={i} className="flex-1 flex flex-col items-center gap-2 h-full justify-end group cursor-pointer relative">
+                        <div className="absolute -top-7 opacity-0 group-hover:opacity-100 bg-amber-500 text-black text-[9px] font-bold px-1.5 py-0.5 rounded transition-opacity">
+                          {views}
+                        </div>
+                        <div 
+                          style={{ height: `${(views / maxViews) * 100}%` }} 
+                          className="w-full bg-gradient-to-t from-amber-600 to-amber-400 rounded-md opacity-40 group-hover:opacity-100 transition-all duration-300"
+                        ></div>
                       </div>
                     ))}
                   </div>

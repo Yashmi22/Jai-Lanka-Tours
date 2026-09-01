@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { FaLeaf, FaCompass, FaHeart, FaAward, FaGlobeAsia, FaEye } from 'react-icons/fa';
+import api from '../api'; 
+import { FaLeaf, FaCompass, FaHeart, FaAward, FaGlobeAsia, FaEye, FaStar, FaQuoteLeft } from 'react-icons/fa';
 
-// Assets - Local Images from src/assets folder
+// Assets - Local Images
 import founderImg from '../assets/founder.jpg';
 import businessImg from '../assets/business.jpg';
 import weligamaImg from '../assets/weligama.jpg';
@@ -11,6 +12,33 @@ import disiniImg from '../assets/disini.jpg';
 import yasmiImg from '../assets/yasmi.jpg';
 
 const AboutUs = () => {
+  const [reviews, setReviews] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  // Fetch Published TripAdvisor Reviews from Backend
+  useEffect(() => {
+    const fetchReviews = async () => {
+      try {
+        // api instance  Backend Call 
+        const res = await api.get('/reviews/admin/all');
+        
+        // Console  Data 
+        console.log("Fetched Reviews:", res.data);
+
+        // Published  Reviews 
+        const publishedReviews = res.data.filter(review => review.isPublished === true);
+        
+        setReviews(publishedReviews);
+      } catch (err) {
+        console.error("Error fetching TripAdvisor reviews:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchReviews();
+  }, []);
+
   const topTeam = [
     {
       name: "Amin Sardar",
@@ -50,7 +78,7 @@ const AboutUs = () => {
   return (
     <div className="w-full bg-[#030914] text-slate-100 font-sans antialiased min-h-screen pt-24 pb-20 overflow-x-hidden">
       
-      {/* ----------------- HERO HEADER SECTION ----------------- */}
+      {/* HERO HEADER SECTION */}
       <section className="relative py-20 px-6 overflow-hidden">
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-amber-500/10 blur-[150px] rounded-full pointer-events-none" />
         <div className="absolute top-10 left-10 w-80 h-80 bg-blue-600/10 blur-[130px] rounded-full pointer-events-none" />
@@ -68,10 +96,8 @@ const AboutUs = () => {
         </div>
       </section>
 
-      {/* ----------------- EDITORIAL STORY & VISION ----------------- */}
+      {/* EDITORIAL STORY & VISION */}
       <section className="py-16 px-6 max-w-5xl mx-auto">
-        
-        {/* Story Section */}
         <div className="mb-20">
           <div className="flex items-center gap-3 mb-4">
             <FaCompass className="text-amber-400 text-xl" />
@@ -100,7 +126,6 @@ const AboutUs = () => {
           </div>
         </div>
 
-        {/* Vision Section */}
         <div className="border-l-2 border-amber-400 pl-6 md:pl-10 py-2">
           <div className="flex items-center gap-3 mb-3">
             <FaEye className="text-amber-400 text-lg" />
@@ -111,10 +136,9 @@ const AboutUs = () => {
             "To be the Sri Lanka’s most trusted eco-conscious travel partner inspiring travelers worldwide through authentic cultural experiences, incredible sightseeing, and sustainable travel practices that preserve our island for generations to come."
           </p>
         </div>
-
       </section>
 
-      {/* ----------------- MEET OUR FOUNDER SECTION ----------------- */}
+      {/* MEET OUR FOUNDER SECTION */}
       <section className="py-20 px-6 max-w-6xl mx-auto">
         <div className="text-center mb-16">
           <span className="text-amber-400 text-xs font-semibold tracking-[0.35em] uppercase block mb-2">Leadership</span>
@@ -123,8 +147,6 @@ const AboutUs = () => {
         </div>
 
         <div className="bg-[#071328]/90 border border-amber-500/30 rounded-3xl overflow-hidden shadow-2xl grid grid-cols-1 md:grid-cols-12 items-center">
-          
-          {/* Founder Image */}
           <div className="md:col-span-5 relative group overflow-hidden">
             <img 
               src={founderImg} 
@@ -133,7 +155,6 @@ const AboutUs = () => {
             />
           </div>
 
-          {/* Founder Info */}
           <div className="md:col-span-7 p-8 md:p-12">
             <span className="text-amber-400 text-xs font-bold uppercase tracking-[0.2em] block mb-2">Founder & CEO</span>
             <h3 className="text-2xl md:text-4xl font-serif text-white mb-6">Sahabandu Kodagoda</h3>
@@ -155,11 +176,10 @@ const AboutUs = () => {
               </div>
             </div>
           </div>
-
         </div>
       </section>
 
-      {/* ----------------- OUR TEAM SECTION ----------------- */}
+      {/* OUR TEAM SECTION */}
       <section className="py-20 px-6 max-w-6xl mx-auto">
         <div className="text-center mb-16">
           <span className="text-amber-400 text-xs font-semibold tracking-[0.35em] uppercase block mb-2">The Experts Behind Your Journey</span>
@@ -167,7 +187,6 @@ const AboutUs = () => {
           <div className="w-16 h-0.5 bg-amber-400 mx-auto mt-4 rounded-full" />
         </div>
 
-        {/* Row 1: Top 3 Directors & Managers */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
           {topTeam.map((member, index) => (
             <div 
@@ -203,7 +222,6 @@ const AboutUs = () => {
           ))}
         </div>
 
-        {/* Row 2: Admin Cards - CENTERED & CLEAN */}
         <div className="flex flex-col sm:flex-row justify-center items-center gap-8">
           {adminTeam.map((member, index) => (
             <div 
@@ -240,7 +258,60 @@ const AboutUs = () => {
         </div>
       </section>
 
-      {/* ----------------- CALL TO ACTION ----------------- */}
+      {/* TRIPADVISOR REVIEWS SECTION */}
+      <section className="py-20 px-6 max-w-6xl mx-auto border-t border-slate-800/80">
+        <div className="text-center mb-16">
+          <span className="bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold tracking-[0.25em] uppercase px-4 py-1.5 rounded-full inline-block mb-3">
+            Verified TripAdvisor Reviews
+          </span>
+          <h2 className="text-3xl md:text-4xl font-serif text-white">What Our Travelers Say</h2>
+          <div className="w-16 h-0.5 bg-amber-400 mx-auto mt-4 rounded-full" />
+        </div>
+
+        {loading ? (
+          <div className="text-center text-slate-400 text-sm">Loading reviews...</div>
+        ) : reviews.length === 0 ? (
+          <div className="text-center text-slate-500 text-sm">No reviews added yet.</div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {reviews.map((rev) => (
+              <div 
+                key={rev._id} 
+                className="bg-[#071328]/80 border border-amber-500/20 p-8 rounded-2xl flex flex-col justify-between hover:border-amber-400/50 transition-all duration-300 shadow-xl relative group"
+              >
+                <FaQuoteLeft className="absolute top-6 right-6 text-amber-500/10 text-4xl group-hover:text-amber-500/20 transition-colors" />
+
+                <div>
+                  <div className="flex gap-1 text-amber-400 mb-4">
+                    {[...Array(rev.rating || 5)].map((_, i) => (
+                      <FaStar key={i} className="text-sm" />
+                    ))}
+                  </div>
+
+                  <h3 className="text-lg font-serif text-white mb-3">{rev.reviewTitle}</h3>
+                  <p className="text-slate-300 text-xs md:text-sm leading-relaxed font-light mb-6 italic">
+                    "{rev.reviewText}"
+                  </p>
+                </div>
+
+                <div className="pt-4 border-t border-slate-800 flex justify-between items-end">
+                  <div>
+                    <h4 className="text-white text-sm font-semibold">{rev.authorName}</h4>
+                    {rev.authorLocation && (
+                      <p className="text-slate-400 text-xs font-light">{rev.authorLocation}</p>
+                    )}
+                  </div>
+                  {rev.reviewDate && (
+                    <span className="text-amber-400/80 text-[11px] font-medium">{rev.reviewDate}</span>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </section>
+
+      {/* CALL TO ACTION */}
       <section className="mt-12 px-6 max-w-4xl mx-auto text-center">
         <div className="bg-gradient-to-r from-amber-500/10 via-[#0a1832] to-amber-500/10 border border-amber-500/30 rounded-3xl p-10 md:p-14 shadow-2xl relative overflow-hidden">
           <FaHeart className="text-amber-500/10 text-9xl absolute -bottom-10 -right-10 pointer-events-none" />

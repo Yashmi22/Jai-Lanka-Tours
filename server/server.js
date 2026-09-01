@@ -6,15 +6,18 @@ require('dotenv').config();
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs'); 
 const Admin = require('./models/Admin'); 
+const adminRoutes = require('./routes/adminRoutes');
 
 const Itinerary = require('./models/Itinerary');
 const Accommodation = require('./models/Accommodation');
 const Discover = require('./models/Discover');
+const Tripadvisor = require ('./models/TripAdvisorReview');
 
 // 1. Route require 
 const packageRoute = require('./routes/packageRoutes');
 const tourRoutes = require('./routes/tourRoutes');
 const { seedAnuradhapuraTour, seedOffRoadAdventureItinerary } = require('./config/dbSeeder');
+const tripAdvisorRoutes = require('./routes/tripAdvisorRoutes');
 
 const app = express();
 
@@ -50,7 +53,9 @@ app.get('/', (req, res) => {
 
 // 3. API Routes 
 app.use('/api/packages', packageRoute);
-app.use('/api/tours', tourRoutes); 
+app.use('/api/tours', tourRoutes);
+app.use('/api/reviews', tripAdvisorRoutes); 
+app.use('/api/admin', adminRoutes);
 
 // --- DYNAMIC SITEMAP GENERATION ---
 app.get('/api/sitemap.xml', async (req, res) => {
@@ -297,6 +302,59 @@ app.put('/api/discover/:id', async (req, res) => {
         res.status(200).json(updatedDiscover);
     } catch (err) {
         res.status(400).json({ message: err.message, details: err.errors });
+    }
+});
+
+// --- TRIPADVISOR REVIEWS ROUTES ---
+
+// 1. Get All Reviews (Admin)
+app.get('/api/reviews/admin/all', async (req, res) => {
+    try {
+        const reviews = await Tripadvisor.find().sort({ createdAt: -1 });
+        res.status(200).json(reviews);
+    } catch (err) {
+        res.status(500).json({ message: "Error fetching reviews", error: err.message });
+    }
+});
+
+// 2. Create New Review
+app.post('/api/reviews/admin', async (req, res) => {
+    try {
+        const newReview = new Tripadvisor(req.body);
+        const savedReview = await newReview.save();
+        res.status(201).json(savedReview);
+    } catch (err) {
+        res.status(400).json({ message: "Error saving review", error: err.message });
+    }
+});
+
+// 3. Update Existing Review
+app.put('/api/reviews/admin/:id', async (req, res) => {
+    try {
+        const updatedReview = await Tripadvisor.findByIdAndUpdate(
+            req.params.id,
+            { $set: req.body },
+            { new: true }
+        );
+        if (!updatedReview) {
+            return res.status(404).json({ message: "Review not found" });
+        }
+        res.status(200).json(updatedReview);
+    } catch (err) {
+        res.status(400).json({ message: "Error updating review", error: err.message });
+    }
+});
+
+// 4. Delete Review
+app.delete('/api/reviews/admin/:id', async (req, res) => {
+    try {
+        const deletedReview = await Tripadvisor.findByIdAndDelete(req.params.id);
+        if (!deletedReview) {
+            return res.status(404).json({ message: "Review not found" });
+        }
+        res.status(200).json({ message: "Review deleted successfully" });
+    } catch (err) {
+        res.status(500).json({ message: "Error deleting review", error: err.message });
     }
 });
 
