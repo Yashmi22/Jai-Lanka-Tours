@@ -9,6 +9,14 @@ import thema1Img from "../assets/thema1.jpg";
 import thema2Img from "../assets/thema2.jpg";
 import thema3Img from "../assets/thema3.jpg";
 
+// --- PARTNER LOGO IMAGES ---
+import A1 from "../assets/A1.png";
+import A2 from "../assets/A2.png";
+import A3 from "../assets/A3.png";
+import A4 from "../assets/A4.png";
+import A5 from "../assets/A5.png";
+import A6 from "../assets/A6.png";
+
 const Accommodation = () => {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -290,82 +298,38 @@ const Accommodation = () => {
         </div>
       </div>
 
-      {/* --- OUR PARTNERS LOGO BAR (EXACT IMAGE BRAND MATCH) --- */}
-      <div className="mt-28 border-t border-b border-slate-900 bg-slate-900/40 py-8">
+      {/* --- OUR PARTNERS LOGO BAR --- */}
+      <div className="mt-28 border-t border-b border-slate-900 bg-slate-900/60 py-10">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-8 md:gap-0">
           
           {/* Title Box */}
           <div className="px-8 flex flex-col justify-center items-center md:items-start shrink-0 min-w-[200px]">
-            <span className="text-xs text-slate-400 tracking-[0.2em] font-bold uppercase block text-right">OUR</span>
+            <span className="text-xs text-slate-400 tracking-[0.2em] font-bold uppercase block text-center md:text-left">OUR</span>
             <span className="text-xl font-black font-sans tracking-[0.15em] text-white block">PARTNERS</span>
           </div>
 
-          {/* Logos Row - Exact Order and Design Matching Your Provided Image */}
-          <div className="flex-1 flex flex-wrap md:flex-nowrap items-center justify-center md:justify-between gap-8 md:gap-4 px-6 min-w-0 w-full">
-            
-            {/* 1. Cinnamon Loop Logo */}
-            <div className="flex items-center justify-center h-12 opacity-90 hover:opacity-100 transition-opacity">
-              <svg className="h-10 w-auto" viewBox="0 0 50 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M15 52C28 52 38 42 38 25C38 15 32 8 25 8C18 8 12 15 12 25C12 35 18 45 25 45" stroke="#00C4B4" strokeWidth="2.5" strokeLinecap="round" fill="none"/>
-                <path d="M25 8L27 3L29 8L34 9L30 13L31 18L26 15L22 18L23 13L19 9L24 8Z" fill="#F1C40F"/>
-              </svg>
+          {/* Logos Row */}
+          <div className="flex-1 flex flex-wrap md:flex-nowrap items-center justify-center md:justify-around gap-8 md:gap-6 px-6 min-w-0 w-full">
+            <div className="flex items-center justify-center h-20 opacity-90 hover:opacity-100 transition-opacity">
+              <img src={A1} alt="Partner 1" className="h-16 md:h-20 w-auto object-contain filter brightness-110 contrast-125 hover:scale-105 transition-transform duration-300" />
             </div>
-
-            {/* 2. Amaya Resorts Golden Tree */}
-            <div className="flex flex-col items-center justify-center h-12 opacity-90 hover:opacity-100 transition-opacity">
-              <svg className="h-8 w-auto" viewBox="0 0 60 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M28 42C28 42 22 36 22 28C22 20 28 14 34 14C38 14 42 17 42 21C42 25 38 28 34 28C32 28 30 27 30 25C30 23 32 22 33 22" stroke="#E67E22" strokeWidth="2.5" strokeLinecap="round" fill="none"/>
-                <path d="M30 42C30 42 20 32 18 22C16 12 24 6 32 6C38 6 46 10 46 18" stroke="#E67E22" strokeWidth="2" strokeLinecap="round" fill="none"/>
-                <path d="M26 42L28 42L26 30" stroke="#E67E22" strokeWidth="3" strokeLinecap="round"/>
-              </svg>
-              <span className="text-[10px] font-bold tracking-[0.25em] text-[#E67E22] mt-0.5">AMAYA</span>
+            <div className="flex items-center justify-center h-20 opacity-90 hover:opacity-100 transition-opacity">
+              <img src={A2} alt="Partner 2" className="h-16 md:h-20 w-auto object-contain filter brightness-110 contrast-125 hover:scale-105 transition-transform duration-300" />
             </div>
-
-            {/* 3. TAJ Hotels Original Emblem */}
-            <div className="flex items-center justify-center h-12 opacity-90 hover:opacity-100 transition-opacity">
-              <div className="flex items-center gap-2">
-                <span className="text-xl font-serif font-black tracking-[0.25em] text-[#D4AF37]">TAJ</span>
-                <svg className="w-5 h-5 text-[#D4AF37]" viewBox="0 0 24 24" fill="currentColor">
-                  <polygon points="12,2 15,8 21,9 17,14 18,20 12,17 6,20 7,14 3,9 9,8" />
-                </svg>
-              </div>
+            <div className="flex items-center justify-center h-20 opacity-90 hover:opacity-100 transition-opacity">
+              <img src={A3} alt="Partner 3" className="h-16 md:h-20 w-auto object-contain filter brightness-110 contrast-125 hover:scale-105 transition-transform duration-300" />
             </div>
-
-            {/* 4. Jetwing Hotels Classic Logo */}
-            <div className="flex flex-col items-center justify-center h-12 opacity-90 hover:opacity-100 transition-opacity">
-              <div className="flex items-center">
-                <span className="text-lg font-serif font-bold text-[#3B82F6] italic tracking-tight">Jetwing</span>
-                <span className="w-2 h-2 rounded-full bg-[#E11D48] ml-0.5 mb-2"></span>
-              </div>
-              <span className="text-[8px] font-sans tracking-[0.3em] text-[#E11D48] uppercase font-semibold -mt-1">HOTELS</span>
+            <div className="flex items-center justify-center h-20 opacity-90 hover:opacity-100 transition-opacity">
+              <img src={A4} alt="Partner 4" className="h-16 md:h-20 w-auto object-contain filter brightness-110 contrast-125 hover:scale-105 transition-transform duration-300" />
             </div>
-
-            {/* 5. Giritale Hotel Blue Spiral Logo */}
-            <div className="flex flex-col items-center justify-center h-12 opacity-90 hover:opacity-100 transition-opacity">
-              <svg className="w-7 h-7 text-[#0284C7]" viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="2.5">
-                <path d="M16 4C9.37 4 4 9.37 4 16C4 22.63 9.37 28 16 28C21 28 25.5 24.5 27 20" strokeLinecap="round"/>
-                <circle cx="16" cy="16" r="4" fill="#0284C7"/>
-              </svg>
-              <span className="text-[8px] font-bold tracking-[0.15em] text-[#0284C7] uppercase mt-0.5">GIRITALE</span>
-              <span className="text-[6px] tracking-widest text-slate-400 uppercase -mt-0.5">HOTEL</span>
+            <div className="flex items-center justify-center h-20 opacity-90 hover:opacity-100 transition-opacity">
+              <img src={A5} alt="Partner 5" className="h-16 md:h-20 w-auto object-contain filter brightness-110 contrast-125 hover:scale-105 transition-transform duration-300" />
             </div>
-
-            {/* 6. Theme Resorts Purple Swirl Logo */}
-            <div className="flex items-center justify-center h-12 opacity-90 hover:opacity-100 transition-opacity">
-              <span className="text-3xl font-serif text-[#9333EA] font-normal italic transform -rotate-6">
-                𝜕
-              </span>
+            <div className="flex items-center justify-center h-20 opacity-90 hover:opacity-100 transition-opacity">
+              <img src={A6} alt="Partner 6" className="h-16 md:h-20 w-auto object-contain filter brightness-110 contrast-125 hover:scale-105 transition-transform duration-300" />
             </div>
-
-            {/* 7. Cinnamon Loop Logo */}
-            <div className="flex items-center justify-center h-12 opacity-90 hover:opacity-100 transition-opacity">
-              <svg className="h-10 w-auto" viewBox="0 0 50 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M15 52C28 52 38 42 38 25C38 15 32 8 25 8C18 8 12 15 12 25C12 35 18 45 25 45" stroke="#00C4B4" strokeWidth="2.5" strokeLinecap="round" fill="none"/>
-                <path d="M25 8L27 3L29 8L34 9L30 13L31 18L26 15L22 18L23 13L19 9L24 8Z" fill="#F1C40F"/>
-              </svg>
-            </div>
-
           </div>
+
         </div>
       </div>
 
