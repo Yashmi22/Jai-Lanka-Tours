@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { MailOutlined, Facebook, Instagram, WhatsApp } from '@mui/icons-material';
+import { MailOutlined, Facebook, Instagram, WhatsApp, VerifiedUser } from '@mui/icons-material';
 
 const Footer = () => {
   return (
@@ -12,7 +12,7 @@ const Footer = () => {
         {/* Main Footer Content Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-12 mb-16 items-start">
           
-          {/* Logo, Description & Social Media Icons */}
+          {/* Logo, Description, Registration & Social Media Icons */}
           <div className="space-y-6">
             <div>
               <h2 className="text-3xl font-headline font-light text-white tracking-widest uppercase">
@@ -25,7 +25,27 @@ const Footer = () => {
               Hallmark of Sri Lankan Travel. Specializing in bespoke luxury tours and curated exotic experiences for the modern traveler.
             </p>
 
-            {/* 🌐 Modern Social Media Icons Wrapper with Official Brand Hover Colors */}
+            {/* 🛡️ Government Registration Badge */}
+            <div className="p-3.5 rounded-xl bg-slate-900/80 border border-amber-500/20 backdrop-blur-sm max-w-sm">
+              <div className="flex items-center gap-3">
+                <div className="p-2.5 rounded-lg bg-amber-500/10 text-amber-400 flex items-center justify-center shrink-0">
+                  <VerifiedUser style={{ fontSize: '22px' }} />
+                </div>
+                <div>
+                  <p className="text-[10px] font-bold text-amber-400 tracking-wider uppercase">
+                    JAI LANKA TOURS (PRIVATE) LIMITED
+                  </p>
+                  <p className="text-[11px] font-medium text-slate-200 tracking-wide mt-0.5">
+                    Government Registered Agency
+                  </p>
+                  <p className="text-[10px] text-slate-400 font-mono mt-0.5">
+                    Reg No: <span className="text-slate-300 font-semibold">PV 00373092</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* 🌐 Modern Social Media Icons Wrapper */}
             <div className="flex items-center gap-3 pt-2">
               <a 
                 href="https://www.facebook.com/share/1DF32gN2H4/" 
@@ -113,7 +133,7 @@ const Footer = () => {
         {/* Bottom Copyright Bar */}
         <div className="pt-8 border-t border-slate-800/60 flex flex-col md:flex-row justify-between items-center gap-6 text-center md:text-left">
           <p className="text-[10px] text-slate-500 uppercase tracking-[0.2em] font-medium">
-            © 2026 Jai Lanka Tours. All Rights Reserved.
+            © 2026 Jai Lanka Tours. All Rights Reserved. <span className="hidden md:inline">|</span> <span className="block md:inline text-slate-600 mt-1 md:mt-0">JAI LANKA TOURS (PVT) LTD - Reg No: PV 00373092</span>
           </p>
           <div className="flex gap-8 text-[10px] text-slate-500 uppercase tracking-[0.2em] font-medium">
             <Link to="/privacy-policy" className="hover:text-amber-400 cursor-pointer transition-all duration-300">Privacy Policy</Link>
@@ -125,4 +145,4 @@ const Footer = () => {
   );
 }
 
-export default Footer;  
+export default Footer;
