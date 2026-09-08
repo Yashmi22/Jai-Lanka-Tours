@@ -100,12 +100,12 @@ const Itineraries = ({ categoryFilter = "All" }) => {
         <div className="w-full min-h-screen bg-[#0b0f19] font-body text-slate-100 antialiased pb-24">
             
             {/* --- 1. HIGH-END HERO BANNER --- */}
-            <div className="relative pt-32 pb-16 px-6 text-center overflow-hidden border-b border-yellow-600/20 bg-gradient-to-b from-[#060a13] via-[#0b1220] to-[#0b0f19]">
+            <div className="relative pt-24 md:pt-32 pb-12 md:pb-16 px-4 sm:px-6 text-center overflow-hidden border-b border-yellow-600/20 bg-gradient-to-b from-[#060a13] via-[#0b1220] to-[#0b0f19]">
                 <div className="max-w-4xl mx-auto relative z-10">
-                    <span className="text-[10px] font-bold tracking-[0.3em] uppercase text-amber-400 bg-amber-950/40 border border-amber-600/30 px-5 py-2 rounded-full mb-4 inline-block">
+                    <span className="text-[9px] md:text-[10px] font-bold tracking-[0.2em] md:tracking-[0.3em] uppercase text-amber-400 bg-amber-950/40 border border-amber-600/30 px-4 py-1.5 md:px-5 md:py-2 rounded-full mb-4 inline-block">
                         Bespoke Ceylon Expeditions
                     </span>
-                    <h1 className="text-4xl md:text-5xl font-headline font-light text-white tracking-wide uppercase mt-2">
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-headline font-light text-white tracking-wide uppercase mt-2">
                         {categoryFilter === "All" ? "All Itineraries" : `${categoryFilter} `}
                         <span className="font-serif italic text-amber-400">
                             {categoryFilter === "All" ? "" : " "}
@@ -115,8 +115,8 @@ const Itineraries = ({ categoryFilter = "All" }) => {
             </div>
 
             {/* --- 2. CARDS GRID SECTION --- */}
-            <main className="max-w-7xl mx-auto px-6 mt-16">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
+            <main className="max-w-7xl mx-auto px-4 sm:px-6 mt-10 md:mt-16">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-4 md:gap-x-8 gap-y-10 md:gap-y-16">
                     {itineraries.length > 0 ? itineraries.map((item, index) => (
                         <motion.div 
                             key={item._id}
@@ -150,7 +150,7 @@ const Itineraries = ({ categoryFilter = "All" }) => {
                             </div>
 
                             {/* Card Content Body */}
-                            <div className="p-6 flex flex-col justify-between flex-grow text-center">
+                            <div className="p-4 sm:p-6 flex flex-col justify-between flex-grow text-center">
                                 <div>
                                     {/* Category Subtitle */}
                                     <p className="text-[9px] uppercase tracking-widest text-amber-400/80 font-bold mb-2">
@@ -158,19 +158,19 @@ const Itineraries = ({ categoryFilter = "All" }) => {
                                     </p>
                                     
                                     {/* Title */}
-                                    <h3 className="text-xl font-headline font-bold text-white mb-3 group-hover:text-amber-400 transition-colors leading-tight min-h-[3.5rem] line-clamp-2">
+                                    <h3 className="text-lg sm:text-xl font-headline font-bold text-white mb-3 group-hover:text-amber-400 transition-colors leading-tight min-h-[3.5rem] line-clamp-2 px-1 sm:px-0">
                                         {item.title}
                                     </h3>
                                     
                                     {/* Description (Fixed with break-words) */}
-                                    <p className="text-slate-400 text-sm leading-relaxed mb-6 line-clamp-4 italic font-light px-2 break-words w-full">
+                                    <p className="text-slate-400 text-xs sm:text-sm leading-relaxed mb-6 line-clamp-4 italic font-light px-1 sm:px-2 break-words w-full">
                                         "{item.description}"
                                     </p>
                                 </div>
 
                                 {/* Bottom Button */}
                                 <div className="pt-4 border-t border-slate-800/50 mt-auto">
-                                    <button className="inline-flex items-center justify-center px-8 py-3 bg-transparent text-white border border-slate-700 rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-amber-500 hover:text-black hover:border-amber-500 transition-all duration-300 shadow-sm w-full">
+                                    <button className="inline-flex items-center justify-center px-6 sm:px-8 py-3 bg-transparent text-white border border-slate-700 rounded-xl text-[10px] sm:text-xs font-bold uppercase tracking-widest hover:bg-amber-500 hover:text-black hover:border-amber-500 transition-all duration-300 shadow-sm w-full">
                                         Details <ArrowForward className="ml-2 !text-[14px]" />
                                     </button>
                                 </div>

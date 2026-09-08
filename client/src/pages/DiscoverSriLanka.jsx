@@ -43,27 +43,27 @@ const DiscoverSriLanka = () => {
     <div className="bg-[#0b0f19] min-h-screen pb-16 md:pb-24 text-slate-100 font-body antialiased">
       
       {/* --- 1. HERO BANNER --- */}
-      <div className="relative pt-24 sm:pt-32 pb-12 sm:pb-20 px-4 sm:px-6 text-center overflow-hidden border-b border-yellow-600/20 bg-gradient-to-b from-[#060a13] via-[#0b1220] to-[#0b0f19]">
+      <div className="relative pt-24 sm:pt-32 pb-10 sm:pb-20 px-4 sm:px-6 text-center overflow-hidden border-b border-yellow-600/20 bg-gradient-to-b from-[#060a13] via-[#0b1220] to-[#0b0f19]">
         <div className="max-w-4xl mx-auto relative z-10">
-          <span className="text-[9px] sm:text-[10px] font-bold tracking-[0.2em] sm:tracking-[0.3em] uppercase text-amber-400 bg-amber-950/40 border border-amber-600/30 px-4 sm:px-5 py-1.5 sm:py-2 rounded-full mb-4 sm:mb-6 inline-block">
+          <span className="text-[8px] sm:text-[10px] font-bold tracking-[0.2em] sm:tracking-[0.3em] uppercase text-amber-400 bg-amber-950/40 border border-amber-600/30 px-3 sm:px-5 py-1.5 sm:py-2 rounded-full mb-4 sm:mb-6 whitespace-nowrap w-fit mx-auto inline-flex items-center justify-center">
             Bespoke Sri Lankan Wonders
           </span>
-          <h1 className="text-3xl sm:text-5xl md:text-6xl font-headline font-light text-white tracking-wide mt-2 mb-4 sm:mb-6 uppercase leading-tight">
+          <h1 className="text-3xl sm:text-5xl md:text-6xl font-headline font-light text-white tracking-wide mt-2 mb-3 sm:mb-6 uppercase leading-tight">
             A Tapestry of <span className="font-serif italic text-amber-400">Terrains</span>
           </h1>
-          <p className="text-slate-400 text-xs sm:text-sm md:text-base font-light max-w-2xl mx-auto leading-relaxed tracking-wide px-2">
+          <p className="text-slate-400 text-[11px] sm:text-sm md:text-base font-light max-w-2xl mx-auto leading-relaxed tracking-wide px-2">
             From the mist-shrouded highlands to the sun-kissed coasts, we have curated the most unforgettable journeys and iconic ceylon experiences.
           </p>
         </div>
       </div>
 
-      <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 md:px-12 mt-8 sm:mt-12">
+      <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 md:px-12 mt-6 sm:mt-12">
         
         {/* --- 2. PRIMARY TOGGLE --- */}
-        <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-6 mb-8 sm:mb-12 max-w-md sm:max-w-none mx-auto">
+        <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-6 mb-6 sm:mb-12 max-w-md sm:max-w-none mx-auto">
           <button 
             onClick={() => { setActiveTab('destination'); setFilter('All'); }}
-            className={`w-full sm:w-auto px-6 sm:px-10 py-3.5 sm:py-4 rounded-xl text-[10px] sm:text-[11px] font-bold tracking-[0.2em] uppercase transition-all duration-500 ${
+            className={`w-full sm:w-auto px-6 sm:px-10 py-3 sm:py-4 rounded-xl text-[10px] sm:text-[11px] font-bold tracking-[0.2em] uppercase transition-all duration-500 ${
               activeTab === 'destination' ? 'bg-amber-500 text-black shadow-2xl font-bold' : 'bg-slate-900 text-slate-400 hover:bg-slate-800'
             }`}
           >
@@ -71,7 +71,7 @@ const DiscoverSriLanka = () => {
           </button>
           <button 
             onClick={() => { setActiveTab('experience'); setFilter('All'); }}
-            className={`w-full sm:w-auto px-6 sm:px-10 py-3.5 sm:py-4 rounded-xl text-[10px] sm:text-[11px] font-bold tracking-[0.2em] uppercase transition-all duration-500 ${
+            className={`w-full sm:w-auto px-6 sm:px-10 py-3 sm:py-4 rounded-xl text-[10px] sm:text-[11px] font-bold tracking-[0.2em] uppercase transition-all duration-500 ${
               activeTab === 'experience' ? 'bg-amber-500 text-black shadow-2xl font-bold' : 'bg-slate-900 text-slate-400 hover:bg-slate-800'
             }`}
           >
@@ -80,13 +80,13 @@ const DiscoverSriLanka = () => {
         </div>
 
         {/* --- 3. MODERN SUB-FILTER (HORIZONTALLY SCROLLABLE ON MOBILE) --- */}
-        <div className="w-full overflow-x-auto no-scrollbar mb-12 sm:mb-24 border-b border-slate-800">
-          <div className="flex justify-start sm:justify-center items-center gap-6 sm:gap-8 md:gap-12 min-w-max mx-auto px-4 sm:px-10 pb-1">
+        <div className="w-full overflow-x-auto no-scrollbar mb-8 sm:mb-24 border-b border-slate-800">
+          <div className="flex justify-start sm:justify-center items-center gap-4 sm:gap-8 md:gap-12 min-w-max mx-auto px-4 sm:px-10 pb-1">
             {['All', 'Cultural', 'Adventure', 'Wellness', 'Romantic', 'Beach'].map((cat) => (
               <button
                 key={cat}
                 onClick={() => setFilter(cat)}
-                className={`relative py-3 sm:py-4 text-[9px] sm:text-[10px] font-bold tracking-[0.25em] sm:tracking-[0.3em] uppercase transition-all duration-300 whitespace-nowrap ${
+                className={`relative py-3 sm:py-4 text-[9px] sm:text-[10px] font-bold tracking-[0.2em] sm:tracking-[0.3em] uppercase transition-all duration-300 whitespace-nowrap ${
                   filter === cat ? 'text-amber-400' : 'text-slate-500 hover:text-slate-300'
                 }`}
               >
@@ -100,10 +100,10 @@ const DiscoverSriLanka = () => {
         </div>
 
         {/* --- SECTION TITLE --- */}
-        <div className="border-b border-slate-800 pb-4 sm:pb-6 mb-8 sm:mb-12 flex justify-between items-end">
+        <div className="border-b border-slate-800 pb-3 sm:pb-6 mb-6 sm:mb-12 flex justify-between items-end">
           <div>
-            <p className="text-[10px] sm:text-xs uppercase tracking-widest text-amber-400 font-bold mb-1">Our Elite Discoveries</p>
-            <h2 className="text-xl sm:text-2xl md:text-3xl font-headline tracking-wide uppercase text-white">
+            <p className="text-[9px] sm:text-[10px] uppercase tracking-[0.2em] sm:tracking-widest text-amber-400 font-bold mb-1">Our Elite Discoveries</p>
+            <h2 className="text-lg sm:text-2xl md:text-3xl font-headline tracking-wide uppercase text-white">
               {activeTab === 'destination' ? 'Curated Destinations' : 'Curated Experiences'}
             </h2>
           </div>

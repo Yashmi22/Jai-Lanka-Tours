@@ -89,29 +89,29 @@ const DiscoverDetail = () => {
       ></div>
 
       {/* Top Header Navigation */}
-      <div className="max-w-6xl mx-auto px-6 pt-8 md:pt-12 relative z-10">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-6 sm:pt-8 md:pt-12 relative z-10">
         <button 
           onClick={() => navigate('/discover')}
-          className="flex items-center gap-2 group text-[10px] font-bold uppercase tracking-[0.25em] text-slate-400 hover:text-amber-400 transition-colors bg-slate-900/60 backdrop-blur-md border border-slate-800/60 px-5 py-3 rounded-full w-fit shadow-xl"
+          className="flex items-center gap-1.5 sm:gap-2 group text-[8px] sm:text-[10px] font-bold uppercase tracking-[0.2em] sm:tracking-[0.25em] text-slate-400 hover:text-amber-400 transition-colors bg-slate-900/60 backdrop-blur-md border border-slate-800/60 px-4 sm:px-5 py-2 sm:py-3 rounded-full w-fit shadow-xl"
         >
-          <ArrowBack fontSize="small" className="group-hover:-translate-x-1.5 transition-transform duration-300 text-amber-500" /> Back to Explorations
+          <ArrowBack fontSize="small" className="group-hover:-translate-x-1.5 transition-transform duration-300 text-amber-500 w-3 sm:w-5" /> Back to Explorations
         </button>
       </div>
 
       {/* Main Container */}
-      <main className="max-w-6xl mx-auto px-6 mt-8 md:mt-12 relative z-10">
+      <main className="max-w-6xl mx-auto px-4 sm:px-6 mt-6 sm:mt-8 md:mt-12 relative z-10">
         
         {/* MAGAZINE-STYLE TWO COLUMN LAYOUT */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
           
           {/* LEFT COLUMN: Image & Editorial Content */}
-          <div className="lg:col-span-7 space-y-8">
+          <div className="lg:col-span-7 space-y-6 sm:space-y-8">
             
             {/* 📸 Corrected Elegant & Small Image Section (No more blurriness!) */}
             <div className="max-w-xl relative group">
-              <div className="absolute -inset-1.5 bg-gradient-to-r from-amber-500/20 to-transparent rounded-[2rem] -z-10 blur-xl opacity-40"></div>
+              <div className="absolute -inset-1.5 bg-gradient-to-r from-amber-500/20 to-transparent rounded-[1.5rem] sm:rounded-[2rem] -z-10 blur-xl opacity-40"></div>
               
-              <div className="w-full aspect-[16/10] rounded-[2rem] overflow-hidden shadow-2xl border border-slate-800/90 bg-slate-900 relative">
+              <div className="w-full aspect-[16/10] rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden shadow-2xl border border-slate-800/90 bg-slate-900 relative">
                 <img 
                   src={normalizeImagePath(item.img)} 
                   alt={item.name} 
@@ -120,43 +120,43 @@ const DiscoverDetail = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 via-transparent to-transparent pointer-events-none"></div>
                 
                 {/* Floating Brand Badge */}
-                <div className="absolute bottom-4 left-4 bg-[#0b101f]/90 backdrop-blur-md shadow-lg px-4 py-2 rounded-xl border border-slate-700/30 flex items-center gap-2.5">
-                  <div className="w-6 h-6 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400">
-                    <LocalMall style={{ fontSize: '12px' }} />
+                <div className="absolute bottom-3 left-3 sm:bottom-4 sm:left-4 bg-[#0b101f]/90 backdrop-blur-md shadow-lg px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl border border-slate-700/30 flex items-center gap-2 sm:gap-2.5">
+                  <div className="w-5 sm:w-6 h-5 sm:h-6 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400">
+                    <LocalMall style={{ fontSize: '10px' }} className="sm:text-[12px]" />
                   </div>
                   <div>
-                    <p className="text-[7px] text-slate-400 font-bold uppercase tracking-wider">Signature Tour</p>
-                    <p className="text-[10px] font-semibold text-white">Jai Lanka</p>
+                    <p className="text-[6px] sm:text-[7px] text-slate-400 font-bold uppercase tracking-wider">Signature Tour</p>
+                    <p className="text-[8px] sm:text-[10px] font-semibold text-white">Jai Lanka</p>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Category & Tag Badges */}
-            <div className="flex flex-wrap items-center gap-3">
-              <span className="text-[9px] font-extrabold tracking-[0.2em] uppercase bg-amber-500 text-black px-4 py-1.5 rounded-lg font-mono shadow-md">
+            <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+              <span className="text-[8px] sm:text-[9px] font-extrabold tracking-[0.2em] uppercase bg-amber-500 text-black px-3 sm:px-4 py-1 sm:py-1.5 rounded-lg font-mono shadow-md">
                 {item.category}
               </span>
-              <span className="text-[10px] font-bold tracking-[0.15em] uppercase bg-slate-900/80 border border-slate-800/80 text-slate-300 px-4 py-1.5 rounded-lg flex items-center gap-2">
-                <LocationOn className="text-amber-400" style={{ fontSize: '14px' }} /> {item.type}
+              <span className="text-[8px] sm:text-[10px] font-bold tracking-[0.15em] uppercase bg-slate-900/80 border border-slate-800/80 text-slate-300 px-3 sm:px-4 py-1 sm:py-1.5 rounded-lg flex items-center gap-1.5 sm:gap-2">
+                <LocationOn className="text-amber-400 text-[10px] sm:text-[14px]" /> {item.type}
               </span>
             </div>
 
             {/* Destination Title & Tagline */}
-            <div className="space-y-4">
-              <h1 className="text-4xl md:text-5xl font-headline font-black text-white tracking-tight uppercase leading-tight">
+            <div className="space-y-3 sm:space-y-4">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-headline font-black text-white tracking-tight uppercase leading-tight">
                 {item.name}
               </h1>
-              <p className="text-amber-400/90 font-serif italic text-lg md:text-xl tracking-wide border-l-4 border-amber-500 pl-5 py-1 bg-gradient-to-r from-amber-500/[0.02] to-transparent rounded-r-xl">
+              <p className="text-amber-400/90 font-serif italic text-base sm:text-lg md:text-xl tracking-wide border-l-4 border-amber-500 pl-4 sm:pl-5 py-1 bg-gradient-to-r from-amber-500/[0.02] to-transparent rounded-r-xl">
                 "{item.tag}"
               </p>
             </div>
 
-            <div className="w-24 h-[1px] bg-gradient-to-r from-amber-500 to-transparent my-6"></div>
+            <div className="w-16 sm:w-24 h-[1px] bg-gradient-to-r from-amber-500 to-transparent my-4 sm:my-6"></div>
 
             {/* Description Block */}
-            <div className="text-slate-300 text-sm md:text-base font-light leading-relaxed tracking-wide space-y-6 text-justify">
-              <p className="whitespace-pre-line first-letter:text-5xl first-letter:font-serif first-letter:font-bold first-letter:text-amber-400 first-letter:mr-3 first-letter:float-left first-letter:leading-none">
+            <div className="text-slate-300 text-sm md:text-base font-light leading-relaxed tracking-wide space-y-4 sm:space-y-6 text-left md:text-justify px-1 sm:px-0">
+              <p className="whitespace-pre-line first-letter:text-4xl sm:first-letter:text-5xl first-letter:font-serif first-letter:font-bold first-letter:text-amber-400 first-letter:mr-2 sm:first-letter:mr-3 first-letter:float-left first-letter:leading-none">
                 {item.content || item.desc}
               </p>
             </div>

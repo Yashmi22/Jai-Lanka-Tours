@@ -497,43 +497,43 @@ const BlogDetails = () => {
                 <div className="absolute bottom-[-20%] left-[-10%] w-[700px] h-[700px] bg-blue-500/[0.03] blur-[150px] rounded-full"></div>
             </div>
 
-            <div className="max-w-6xl mx-auto px-6 relative z-10">
+            <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
                 
                 {/* Editorial Header */}
-                <header className="max-w-4xl mb-24 border-b border-white/5 pb-16">
-                    <Link to="/blog" className="inline-flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.4em] text-amber-500 hover:text-white transition-all mb-12 group">
+                <header className="max-w-4xl mb-12 sm:mb-24 border-b border-white/5 pb-8 sm:pb-16">
+                    <Link to="/blog" className="inline-flex items-center gap-2 sm:gap-3 text-[8px] sm:text-[10px] font-bold uppercase tracking-[0.25em] sm:tracking-[0.4em] text-amber-500 hover:text-white transition-all mb-8 sm:mb-12 group">
                         <span className="group-hover:-translate-x-1.5 transition-transform duration-300">←</span> Back to Journal
                     </Link>
                     
-                    <div className="flex items-center gap-5 mb-8">
-                        <span className="bg-amber-500/10 border border-amber-500/30 text-amber-400 px-5 py-2 rounded-full text-[10px] font-black tracking-[0.2em] uppercase">
+                    <div className="flex items-center gap-3 sm:gap-5 mb-6 sm:mb-8 flex-wrap">
+                        <span className="bg-amber-500/10 border border-amber-500/30 text-amber-400 px-3 sm:px-5 py-1.5 sm:py-2 rounded-full text-[8px] sm:text-[10px] font-black tracking-[0.2em] uppercase whitespace-nowrap">
                             {currentPost.category}
                         </span>
-                        <div className="h-px w-8 bg-white/10"></div>
-                        <span className="text-slate-500 text-[10px] font-bold tracking-widest uppercase">
+                        <div className="h-px w-6 sm:w-8 bg-white/10"></div>
+                        <span className="text-slate-500 text-[8px] sm:text-[10px] font-bold tracking-[0.1em] sm:tracking-widest uppercase">
                             {currentPost.readTime}
                         </span>
                     </div>
 
-                    <h1 className="text-4xl md:text-6xl font-serif text-white tracking-tight leading-[1.08] mb-10">
+                    <h1 className="text-3xl sm:text-4xl md:text-6xl font-serif text-white tracking-tight leading-tight sm:leading-[1.08] mb-6 sm:mb-10">
                         {currentPost.title}
                     </h1>
                     
-                    <p className="text-xl text-slate-400 font-light leading-relaxed max-w-3xl border-l-2 border-amber-500/40 pl-8 italic">
+                    <p className="text-lg sm:text-xl text-slate-400 font-light leading-relaxed max-w-3xl border-l-2 border-amber-500/40 pl-4 sm:pl-8 italic">
                         {currentPost.intro}
                     </p>
                 </header>
 
                 {/* Magazine Layout Structure */}
-                <div className="space-y-28">
+                <div className="space-y-12 sm:space-y-28">
                     {currentPost.story.map((element, idx) => {
                         if (element.type === "text") {
                             return (
-                                <section key={idx} className="max-w-3xl mx-auto space-y-8">
-                                    <h2 className="text-2xl font-serif text-white tracking-wide mt-4">
+                                <section key={idx} className="max-w-3xl mx-auto space-y-6 sm:space-y-8 px-1 sm:px-0">
+                                    <h2 className="text-xl sm:text-2xl font-serif text-white tracking-wide mt-2 sm:mt-4">
                                         {element.title}
                                     </h2>
-                                    <div className="space-y-6 text-slate-300 text-base md:text-[17px] font-light leading-relaxed text-justify opacity-95">
+                                    <div className="space-y-4 sm:space-y-6 text-slate-300 text-sm sm:text-base md:text-[17px] font-light leading-relaxed text-left md:text-justify opacity-95">
                                         {element.paragraphs.map((p, pIdx) => (
                                             <p key={pIdx}>{p}</p>
                                         ))}
@@ -546,7 +546,7 @@ const BlogDetails = () => {
                             return (
                                 <section 
                                     key={idx} 
-                                    className={`grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16 items-center ${
+                                    className={`grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8 md:gap-16 items-center ${
                                         element.imageLeft ? "" : "md:direction-rtl"
                                     }`}
                                     style={{ direction: element.imageLeft ? 'ltr' : 'rtl' }}
@@ -565,11 +565,11 @@ const BlogDetails = () => {
                                     </div>
 
                                     {/* Text Content Container */}
-                                    <div className="md:col-span-6 space-y-4" style={{ direction: 'ltr' }}>
-                                        <h3 className="text-xl font-serif text-white tracking-wide">
+                                    <div className="md:col-span-6 space-y-3 sm:space-y-4 px-2 sm:px-0" style={{ direction: 'ltr' }}>
+                                        <h3 className="text-lg sm:text-xl font-serif text-white tracking-wide">
                                             {element.title}
                                         </h3>
-                                        <p className="text-slate-400 text-sm md:text-base font-light leading-relaxed text-justify opacity-90">
+                                        <p className="text-slate-400 text-sm md:text-base font-light leading-relaxed text-left md:text-justify opacity-90">
                                             {element.text}
                                         </p>
                                     </div>

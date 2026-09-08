@@ -132,37 +132,37 @@ const ItineraryDetails = () => {
     <div className="min-h-screen bg-[#070a13] font-sans text-slate-100 antialiased selection:bg-amber-500/30">
 
       {/* 1. LUXURY HERO SECTION */}
-      <header className="relative w-full overflow-hidden border-b border-slate-800/80 bg-gradient-to-b from-[#0a0f1d] via-[#070a13] to-[#070a13] pt-32 pb-20 px-6 md:px-12">
-        <div className="max-w-screen-xl mx-auto flex flex-col lg:flex-row items-center gap-12 relative z-10">
+      <header className="relative w-full overflow-hidden border-b border-slate-800/80 bg-gradient-to-b from-[#0a0f1d] via-[#070a13] to-[#070a13] pt-24 md:pt-32 pb-12 md:pb-20 px-4 sm:px-6 md:px-12">
+        <div className="max-w-screen-xl mx-auto flex flex-col lg:flex-row items-center gap-8 md:gap-12 relative z-10">
 
           {/* Left Hero Details */}
-          <div className="w-full lg:w-1/2 space-y-6 text-center lg:text-left flex flex-col items-center lg:items-start">
+          <div className="w-full lg:w-1/2 space-y-5 md:space-y-6 text-center lg:text-left flex flex-col items-center lg:items-start">
             <button
               onClick={() => navigate(-1)}
-              className="text-slate-400 hover:text-amber-400 flex items-center gap-2 group text-[11px] font-bold uppercase tracking-[0.25em] transition-colors duration-300 outline-none"
+              className="text-slate-400 hover:text-amber-400 flex items-center gap-2 group text-[10px] md:text-[11px] font-bold uppercase tracking-[0.25em] transition-colors duration-300 outline-none"
             >
               <FaArrowLeft className="group-hover:-translate-x-1 transition-transform duration-300 text-amber-500" /> Go Back
             </button>
 
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-amber-500/5 border border-amber-500/20 rounded-full shadow-inner">
+            <div className="inline-flex items-center gap-2 px-3 md:px-4 py-1.5 md:py-2 bg-amber-500/5 border border-amber-500/20 rounded-full shadow-inner">
               <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
-              <span className="text-[10px] font-bold tracking-[0.15em] uppercase text-amber-400">{details.category}</span>
+              <span className="text-[9px] md:text-[10px] font-bold tracking-[0.15em] uppercase text-amber-400">{details.category}</span>
             </div>
 
-            <h1 className="text-3xl sm:text-5xl md:text-6xl font-light tracking-tight leading-tight text-white uppercase font-headline text-center lg:text-left">
+            <h1 className="text-2xl sm:text-4xl md:text-6xl font-light tracking-tight leading-tight text-white uppercase font-headline text-center lg:text-left">
               {details.title}
             </h1>
 
-            <div className="flex flex-wrap justify-center lg:justify-start gap-6 border-y border-slate-800/60 py-4 w-full my-4">
-              <div className="flex items-center gap-2.5 text-slate-300 font-medium text-sm md:text-base">
+            <div className="flex flex-wrap justify-center lg:justify-start gap-4 md:gap-6 border-y border-slate-800/60 py-3 md:py-4 w-full my-3 md:my-4">
+              <div className="flex items-center gap-2 md:gap-2.5 text-slate-300 font-medium text-xs md:text-base">
                 <FaCalendarAlt className="text-amber-400 shadow-sm" /> <span>{details.tag || details.duration || "Premium Expedition"}</span>
               </div>
-              <div className="flex items-center gap-2.5 text-slate-300 font-medium text-sm md:text-base">
+              <div className="flex items-center gap-2 md:gap-2.5 text-slate-300 font-medium text-xs md:text-base">
                 <FaMapMarkerAlt className="text-amber-400 shadow-sm" /> <span>Sri Lanka Bound</span>
               </div>
             </div>
 
-            <p className="text-slate-300 text-sm md:text-base font-normal leading-relaxed tracking-wide text-justify max-w-xl mx-auto lg:mx-0 whitespace-pre-line bg-slate-900/40 p-5 rounded-2xl border border-slate-800/60 break-words w-full shadow-inner">
+            <p className="text-slate-300 text-xs sm:text-sm md:text-base font-normal leading-relaxed tracking-wide text-left md:text-justify max-w-xl mx-auto lg:mx-0 whitespace-pre-line bg-slate-900/40 p-4 md:p-5 rounded-xl md:rounded-2xl border border-slate-800/60 break-words w-full shadow-inner">
               {details.description}
             </p>
           </div>
@@ -215,20 +215,20 @@ const ItineraryDetails = () => {
       </header>
 
       {/* 2. DYNAMIC TIMELINE (TOUR PLAN) */}
-      <main className="max-w-screen-xl mx-auto px-6 md:px-12 py-24">
+      <main className="max-w-screen-xl mx-auto px-4 sm:px-6 md:px-12 py-16 md:py-24">
 
-        <div className="text-center max-w-2xl mx-auto mb-24 space-y-3">
-          <p className="text-[10px] uppercase font-bold tracking-[0.3em] text-amber-400/80">Signature Tour Schedule</p>
-          <h2 className="text-2xl md:text-4xl font-headline text-white font-light uppercase tracking-wide">
+        <div className="text-center max-w-2xl mx-auto mb-16 md:mb-24 space-y-2 md:space-y-3">
+          <p className="text-[9px] md:text-[10px] uppercase font-bold tracking-[0.2em] md:tracking-[0.3em] text-amber-400/80">Signature Tour Schedule</p>
+          <h2 className="text-xl sm:text-2xl md:text-4xl font-headline text-white font-light uppercase tracking-wide">
             Your Crafted <span className="font-serif italic text-amber-400 lowercase font-medium">itinerary</span> plan
           </h2>
-          <div className="w-12 h-0.5 bg-amber-500/40 mx-auto mt-4"></div>
+          <div className="w-10 md:w-12 h-0.5 bg-amber-500/40 mx-auto mt-4"></div>
         </div>
 
-        <div className="relative max-w-4xl mx-auto pl-8 md:pl-12">
-          <div className="absolute left-2.5 md:left-4 top-4 bottom-4 w-px bg-gradient-to-b from-amber-500/50 via-slate-800 to-slate-900"></div>
+        <div className="relative max-w-4xl mx-auto pl-6 sm:pl-8 md:pl-12">
+          <div className="absolute left-[9px] sm:left-2.5 md:left-4 top-4 bottom-4 w-px bg-gradient-to-b from-amber-500/50 via-slate-800 to-slate-900"></div>
 
-          <div className="space-y-12">
+          <div className="space-y-10 md:space-y-12">
             {details.tourPlan && details.tourPlan.map((item, idx) => {
               let imagesArray = [];
               if (item.images && Array.isArray(item.images) && item.images.length > 0) {
@@ -240,30 +240,30 @@ const ItineraryDetails = () => {
 
               return (
                 <div key={idx} className="relative z-10">
-                  <div className="absolute -left-[27px] md:-left-[37px] top-6 w-3 h-3 rounded-full bg-amber-400 ring-4 ring-[#070a13] shadow-lg shadow-amber-500/50"></div>
+                  <div className="absolute -left-[19px] sm:-left-[27px] md:-left-[37px] top-6 w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-amber-400 ring-4 ring-[#070a13] shadow-lg shadow-amber-500/50"></div>
 
                   <div className="w-full">
-                    <div className="bg-[#111625] rounded-2xl border border-slate-800/80 p-6 md:p-8 hover:border-amber-500/20 transition-all duration-300 shadow-xl relative group">
-                      <span className="absolute -top-4 left-6 bg-gradient-to-r from-amber-500 to-amber-600 text-black px-4 py-1 rounded-full font-bold text-xs shadow-md tracking-wider">
+                    <div className="bg-[#111625] rounded-xl md:rounded-2xl border border-slate-800/80 p-5 sm:p-6 md:p-8 hover:border-amber-500/20 transition-all duration-300 shadow-xl relative group">
+                      <span className="absolute -top-3.5 md:-top-4 left-4 md:left-6 bg-gradient-to-r from-amber-500 to-amber-600 text-black px-3 md:px-4 py-1 rounded-full font-bold text-[10px] md:text-xs shadow-md tracking-wider">
                         {item.day || `Day ${item.dayNumber || idx + 1}`}
                       </span>
 
-                      <div className="flex flex-col lg:flex-row justify-between items-start gap-8 mt-2">
-                        <div className="w-full lg:flex-1 space-y-3 order-2 lg:order-1">
-                          <h3 className="text-xl font-bold text-white tracking-wide uppercase group-hover:text-amber-400 transition-colors">
+                      <div className="flex flex-col lg:flex-row justify-between items-start gap-6 md:gap-8 mt-2">
+                        <div className="w-full lg:flex-1 space-y-3 order-1">
+                          <h3 className="text-lg sm:text-xl font-bold text-white tracking-wide uppercase group-hover:text-amber-400 transition-colors">
                             {item.title}
                           </h3>
                           <div className="w-full border-t border-slate-800/60 pt-3 text-left">
-                            <p className="text-slate-400 text-sm leading-relaxed font-light break-words w-full whitespace-pre-line text-justify">
+                            <p className="text-slate-400 text-xs sm:text-sm leading-relaxed font-light break-words w-full whitespace-pre-line text-left">
                               {Array.isArray(item.activities) ? item.activities.join('\n') : item.activities}
                             </p>
                           </div>
                         </div>
 
                         {imagesArray.length > 0 && (
-                          <div className="w-full lg:w-auto flex flex-wrap sm:flex-nowrap gap-4 order-1 lg:order-2 shrink-0 max-w-full">
+                          <div className={`w-full lg:w-auto grid ${imagesArray.length === 1 ? 'grid-cols-1' : 'grid-cols-2'} sm:flex sm:flex-wrap gap-3 sm:gap-4 order-2 shrink-0 max-w-full mt-2 lg:mt-0`}>
                             {imagesArray.map((imgUrl, imgIdx) => (
-                              <div key={imgIdx} className="w-[calc(50%-8px)] sm:w-44 md:w-48 h-32 sm:h-36 overflow-hidden rounded-xl border border-slate-800/80 relative shadow-md z-0 shrink-0">
+                              <div key={imgIdx} className={`h-32 sm:h-36 overflow-hidden rounded-xl border border-slate-800/80 relative shadow-md z-0 shrink-0 ${imagesArray.length === 1 ? 'w-full sm:w-56' : 'w-full sm:w-44 md:w-48'}`}>
                                 <img src={imgUrl} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 brightness-[90%] group-hover:brightness-100" alt={`${item.title || 'Day'} - Attachment ${imgIdx + 1}`} />
                                 <div className="absolute inset-0 bg-gradient-to-t from-[#111625]/30 to-transparent pointer-events-none"></div>
                               </div>
@@ -280,10 +280,10 @@ const ItineraryDetails = () => {
         </div>
 {/* 3. LUXURY HOTELS CARDS */}
 {details.hotels && details.hotels.length > 0 && (
-  <section className="mt-44 border-t border-slate-900 pt-24">
-    <div className="text-center max-w-2xl mx-auto mb-20 space-y-2">
+  <section className="mt-20 md:mt-44 border-t border-slate-900 pt-16 md:pt-24">
+    <div className="text-center max-w-2xl mx-auto mb-12 md:mb-20 space-y-2">
       <p className="text-[10px] uppercase font-bold tracking-[0.3em] text-emerald-400">Premium Stay</p>
-      <h2 className="text-2xl md:text-4xl font-headline text-white font-light uppercase tracking-wide">Luxury Accommodations</h2>
+      <h2 className="text-2xl sm:text-3xl md:text-4xl font-headline text-white font-light uppercase tracking-wide">Luxury Accommodations</h2>
       <div className="w-12 h-0.5 bg-emerald-500/40 mx-auto mt-4"></div>
     </div>
 
@@ -343,20 +343,20 @@ const ItineraryDetails = () => {
 
 {/* 5. HOTEL DETAILS MODAL VIEW */}
 {selectedHotel && (
-  <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/85 backdrop-blur-md transition-all duration-300">
-    <div className="bg-[#111625] w-full max-w-4xl rounded-[2rem] overflow-hidden shadow-2xl border border-slate-800 relative">
-      <button onClick={() => setSelectedHotel(null)} className="absolute top-5 right-5 z-10 bg-[#070a13]/90 border border-slate-800 text-slate-300 p-2.5 rounded-full hover:bg-amber-500 hover:text-black transition-colors duration-300 outline-none">
+  <div className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-4 bg-black/85 backdrop-blur-md transition-all duration-300">
+    <div className="bg-[#111625] w-full max-w-4xl rounded-2xl sm:rounded-[2rem] overflow-hidden shadow-2xl border border-slate-800 relative">
+      <button onClick={() => setSelectedHotel(null)} className="absolute top-4 sm:top-5 right-4 sm:right-5 z-10 bg-[#070a13]/90 border border-slate-800 text-slate-300 p-2 sm:p-2.5 rounded-full hover:bg-amber-500 hover:text-black transition-colors duration-300 outline-none">
         <FaTimes className="text-sm" />
       </button>
       <div className="grid grid-cols-1 md:grid-cols-2">
-        <div className="h-56 md:h-full min-h-[240px] relative">
+        <div className="h-48 sm:h-56 md:h-full min-h-[200px] md:min-h-[240px] relative">
           <img src={selectedHotel.img || selectedHotel.hotelImage} className="w-full h-full object-cover brightness-[88%]" alt={selectedHotel.name} />
           <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-[#111625] via-transparent to-transparent"></div>
         </div>
-        <div className="p-8 md:p-10 space-y-5 overflow-y-auto max-h-[75vh] md:max-h-[85vh] text-left">
+        <div className="p-5 sm:p-8 md:p-10 space-y-4 sm:space-y-5 overflow-y-auto max-h-[70vh] md:max-h-[85vh] text-left">
           <div className="space-y-1">
-            <span className="text-[9px] font-bold tracking-widest text-emerald-400 uppercase bg-emerald-950/40 border border-emerald-800/30 px-2.5 py-1 rounded">Luxury Elite Stay</span>
-            <h2 className="text-2xl md:text-3xl font-bold text-white uppercase tracking-wide pt-2">{selectedHotel.name}</h2>
+            <span className="text-[8px] sm:text-[9px] font-bold tracking-widest text-emerald-400 uppercase bg-emerald-950/40 border border-emerald-800/30 px-2 py-1 sm:px-2.5 rounded">Luxury Elite Stay</span>
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white uppercase tracking-wide pt-2">{selectedHotel.name}</h2>
           </div>
           <p className="text-slate-400 text-xs flex items-center gap-1.5 font-light">
             <FaMapMarkerAlt className="text-emerald-400 shrink-0" /> {selectedHotel.location}

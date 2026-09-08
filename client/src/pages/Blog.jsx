@@ -124,23 +124,23 @@ const Blog = () => {
         <div className="bg-[#0b0f19] min-h-screen text-slate-100 font-body antialiased">
             
             {/* 1. LUXURY HERO SECTION */}
-            <header className="relative w-full h-[600px] overflow-hidden bg-[#060a13] flex items-center justify-center">
+            <header className="relative w-full h-[400px] sm:h-[600px] overflow-hidden bg-[#060a13] flex items-center justify-center">
                 <img 
                     src={teaImg} 
                     alt="Ceylon Tea Estates" 
                     className="absolute inset-0 w-full h-full object-cover brightness-100 scale-101" 
                 />
                 
-                <div className="relative max-w-3xl mx-auto text-center px-6 z-10 flex flex-col items-center">
-                    <span className="text-[10px] font-bold tracking-[0.3em] uppercase text-amber-400 bg-amber-950/60 border border-amber-600/30 px-5 py-2 rounded-full mb-6 inline-block backdrop-blur-sm">
+                <div className="relative max-w-3xl mx-auto text-center px-4 sm:px-6 z-10 flex flex-col items-center">
+                    <span className="text-[8px] sm:text-[10px] font-bold tracking-[0.2em] sm:tracking-[0.3em] uppercase text-amber-400 bg-amber-950/60 border border-amber-600/30 px-4 sm:px-5 py-1.5 sm:py-2 rounded-full mb-4 sm:mb-6 whitespace-nowrap w-fit mx-auto inline-flex backdrop-blur-sm">
                         The Island Journal
                     </span>
                     
-                    <h1 className="text-4xl md:text-6xl font-headline font-light text-white tracking-wide mb-4 uppercase drop-shadow-lg">
-                        Whispers of <span className="font-serif italic text-amber-400">Ceylon</span>
+                    <h1 className="text-3xl sm:text-4xl md:text-6xl font-headline font-light text-white tracking-wide mb-3 sm:mb-4 uppercase drop-shadow-lg leading-tight">
+                        Whispers of <br className="sm:hidden" /><span className="font-serif italic text-amber-400">Ceylon</span>
                     </h1>
                     
-                    <p className="text-slate-300 text-xs md:text-sm font-light max-w-xl mx-auto leading-relaxed tracking-wide drop-shadow mb-8">
+                    <p className="text-slate-300 text-[10px] sm:text-xs md:text-sm font-light max-w-xl mx-auto leading-relaxed tracking-wide drop-shadow mb-6 sm:mb-8 px-2">
                         Curating bespoke narratives through the emerald landscapes of Ceylon. From misty tea trails to ancient coastal secrets.
                     </p>
 

@@ -134,7 +134,7 @@ const Home = () => {
         </script>
       </Helmet>
       {/* ----------------- HERO SLIDESHOW SECTION ----------------- */}
-      <section className="relative w-full h-screen flex items-center justify-center overflow-hidden">
+      <section className="relative w-full h-[100dvh] flex items-center justify-center overflow-hidden">
         
         {/* Background Images */}
         {slideshowImages.map((img, index) => (
@@ -155,27 +155,27 @@ const Home = () => {
         <div className="absolute inset-0 bg-gradient-to-t from-[#080b11] via-transparent to-black/50 z-20" />
 
         {/* Hero Content */}
-        <div className="relative z-30 max-w-4xl mx-auto text-center px-4 mt-12">
+        <div className="relative z-30 max-w-4xl mx-auto text-center px-4 mt-16 sm:mt-12">
           <img 
             src={myLogo} 
             alt="Jai Lanka Logo Hero" 
-            className="w-24 h-24 md:w-32 md:h-32 object-contain mx-auto mb-4 filter drop-shadow-2xl animate-pulse" 
+            className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 object-contain mx-auto mb-4 filter drop-shadow-2xl animate-pulse" 
           />
-          <h1 className="text-3xl md:text-6xl font-serif font-light tracking-[0.2em] uppercase text-white mb-4">
+          <h1 className="text-3xl sm:text-4xl md:text-6xl font-serif font-light tracking-[0.2em] uppercase text-white mb-4">
             JAI LANKA <span className="italic font-normal text-amber-400">TOURS</span>
           </h1>
-          <p className="text-xs md:text-base font-serif italic tracking-[0.3em] text-amber-200/80 mb-8 max-w-xl mx-auto">
+          <p className="text-[10px] sm:text-xs md:text-base font-serif italic tracking-[0.2em] sm:tracking-[0.3em] text-amber-200/80 mb-8 max-w-xl mx-auto">
             Experience The Art Of Luxury Travel 
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link to="/itineraries">
-              <button className="bg-amber-400 hover:bg-amber-300 text-black font-bold text-xs uppercase tracking-[0.25em] px-8 py-3.5 rounded-full transition-all duration-300 shadow-xl shadow-amber-500/20 w-full sm:w-auto">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full px-4 sm:px-0">
+            <Link to="/itineraries" className="w-full sm:w-auto">
+              <button className="bg-amber-400 hover:bg-amber-300 text-black font-bold text-xs uppercase tracking-[0.25em] px-8 py-3.5 rounded-full transition-all duration-300 shadow-xl shadow-amber-500/20 w-full">
                 Explore Itineraries
               </button>
             </Link>
-            <Link to="/plan-journey">
-              <button className="border border-white/30 hover:border-amber-400 text-white hover:text-amber-400 text-xs font-semibold uppercase tracking-[0.25em] px-8 py-3.5 rounded-full transition-all duration-300 backdrop-blur-xs w-full sm:w-auto">
+            <Link to="/plan-journey" className="w-full sm:w-auto">
+              <button className="border border-white/30 hover:border-amber-400 text-white hover:text-amber-400 text-xs font-semibold uppercase tracking-[0.25em] px-8 py-3.5 rounded-full transition-all duration-300 backdrop-blur-xs w-full">
                 Tailor-Made Tour
               </button>
             </Link>
@@ -195,16 +195,16 @@ const Home = () => {
       </section>
 
       {/* ----------------- WELCOME / ESSENCE OF SRI LANKA ----------------- */}
-      <section className="py-24 px-6 max-w-6xl mx-auto text-center">
-        <span className="text-amber-400 text-xs font-semibold tracking-[0.3em] uppercase block mb-3">Welcome to Jai Lanka Tours</span>
-        <h2 className="text-2xl md:text-4xl font-serif font-light text-white mb-6">
+      <section className="py-16 md:py-24 px-4 sm:px-6 max-w-6xl mx-auto text-center">
+        <span className="text-amber-400 text-[10px] sm:text-xs font-semibold tracking-[0.2em] sm:tracking-[0.3em] uppercase block mb-3">Welcome to Jai Lanka Tours</span>
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif font-light text-white mb-4 md:mb-6">
           Unveil The Pearl Of The Indian Ocean In Unrivaled Comfort
         </h2>
-        <p className="text-slate-400 text-sm md:text-base leading-relaxed max-w-3xl mx-auto font-light">
+        <p className="text-slate-400 text-xs sm:text-sm md:text-base leading-relaxed max-w-3xl mx-auto font-light px-2 sm:px-0">
           We curate ultra-private, tailor-made luxury journeys designed for discerning travelers. From private helicopter transfers above misty tea mountains to exclusive safari glamping in wild sanctuaries, we turn your Sri Lankan dream into a golden memory.
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mt-12 md:mt-16">
           <div className="bg-[#0f1523]/50 p-8 rounded-2xl border border-white/5 hover:border-amber-500/30 transition-all duration-500 group">
             <FaGem className="text-amber-400 text-3xl mx-auto mb-4 group-hover:scale-110 transition-transform" />
             <h3 className="font-serif text-lg text-white mb-2">Bespoke itineraries</h3>
@@ -224,19 +224,19 @@ const Home = () => {
       </section>
 
       {/* ----------------- FEATURED LUXURY ITINERARIES ----------------- */}
-      <section className="py-20 bg-[#06090e] px-6">
+      <section className="py-16 md:py-20 bg-[#06090e] px-4 sm:px-6">
         <div className="max-w-6xl mx-auto">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12">
-            <div>
-              <span className="text-amber-400 text-xs font-semibold tracking-[0.3em] uppercase block mb-2">Curated Experiences</span>
-              <h2 className="text-2xl md:text-4xl font-serif text-white">Popular Signature Journeys</h2>
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 md:mb-12">
+            <div className="w-full">
+              <span className="text-amber-400 text-[10px] sm:text-xs font-semibold tracking-[0.2em] sm:tracking-[0.3em] uppercase block mb-2">Curated Experiences</span>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif text-white">Popular Signature Journeys</h2>
             </div>
-            <Link to="/itineraries" className="text-amber-400 hover:text-amber-300 text-xs font-semibold tracking-widest uppercase mt-4 md:mt-0 flex items-center gap-2">
+            <Link to="/itineraries" className="text-amber-400 hover:text-amber-300 text-[10px] sm:text-xs font-semibold tracking-widest uppercase mt-4 md:mt-0 flex items-center gap-2 whitespace-nowrap">
               View All Journeys &rarr;
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {featuredTours.map((tour, idx) => (
               <div key={idx} className="bg-[#0f1523] rounded-2xl overflow-hidden border border-white/5 hover:border-amber-500/30 transition-all duration-500 group">
                 <div className="relative h-64 overflow-hidden">
@@ -264,18 +264,18 @@ const Home = () => {
       </section>
 
       {/* ----------------- FEATURED DAY TOURS ----------------- */}
-      <section className="py-20 px-6 max-w-6xl mx-auto">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12">
-          <div>
-            <span className="text-amber-400 text-xs font-semibold tracking-[0.3em] uppercase block mb-2">Short Excursions</span>
-            <h2 className="text-2xl md:text-4xl font-serif text-white">Popular Day Tours</h2>
+      <section className="py-16 md:py-20 px-4 sm:px-6 max-w-6xl mx-auto">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 md:mb-12">
+          <div className="w-full">
+            <span className="text-amber-400 text-[10px] sm:text-xs font-semibold tracking-[0.2em] sm:tracking-[0.3em] uppercase block mb-2">Short Excursions</span>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif text-white">Popular Day Tours</h2>
           </div>
-          <Link to="/day-tours" className="text-amber-400 hover:text-amber-300 text-xs font-semibold tracking-widest uppercase mt-4 md:mt-0 flex items-center gap-2">
+          <Link to="/day-tours" className="text-amber-400 hover:text-amber-300 text-[10px] sm:text-xs font-semibold tracking-widest uppercase mt-4 md:mt-0 flex items-center gap-2 whitespace-nowrap">
             View All Day Tours &rarr;
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {featuredDayTours.map((tour, idx) => (
             <div key={idx} className="bg-[#0f1523] rounded-2xl overflow-hidden border border-white/5 hover:border-amber-500/30 transition-all duration-500 group">
               <div className="relative h-64 overflow-hidden">
@@ -302,19 +302,19 @@ const Home = () => {
       </section>
 
       {/* ----------------- LATEST BLOG & ARTICLES ----------------- */}
-      <section className="py-20 bg-[#06090e] px-6">
+      <section className="py-16 md:py-20 bg-[#06090e] px-4 sm:px-6">
         <div className="max-w-6xl mx-auto">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12">
-            <div>
-              <span className="text-amber-400 text-xs font-semibold tracking-[0.3em] uppercase block mb-2">Travel Journal</span>
-              <h2 className="text-2xl md:text-4xl font-serif text-white">Latest From Our Blog</h2>
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 md:mb-12">
+            <div className="w-full">
+              <span className="text-amber-400 text-[10px] sm:text-xs font-semibold tracking-[0.2em] sm:tracking-[0.3em] uppercase block mb-2">Travel Journal</span>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif text-white">Latest From Our Blog</h2>
             </div>
-            <Link to="/blog" className="text-amber-400 hover:text-amber-300 text-xs font-semibold tracking-widest uppercase mt-4 md:mt-0 flex items-center gap-2">
+            <Link to="/blog" className="text-amber-400 hover:text-amber-300 text-[10px] sm:text-xs font-semibold tracking-widest uppercase mt-4 md:mt-0 flex items-center gap-2 whitespace-nowrap">
               View All Posts &rarr;
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {featuredBlogs.map((blog, idx) => (
               <div key={idx} className="bg-[#0f1523] rounded-2xl overflow-hidden border border-white/5 hover:border-amber-500/30 transition-all duration-500 group flex flex-col justify-between">
                 <div>
@@ -341,11 +341,11 @@ const Home = () => {
       </section>
 
       {/* ----------------- TESTIMONIALS ----------------- */}
-      <section className="py-24 px-6 max-w-5xl mx-auto text-center">
-        <span className="text-amber-400 text-xs font-semibold tracking-[0.3em] uppercase block mb-3">Guest Experiences</span>
-        <h2 className="text-2xl md:text-3xl font-serif text-white mb-12">What Our Luxury Travelers Say</h2>
+      <section className="py-16 md:py-24 px-4 sm:px-6 max-w-5xl mx-auto text-center">
+        <span className="text-amber-400 text-[10px] sm:text-xs font-semibold tracking-[0.2em] sm:tracking-[0.3em] uppercase block mb-3">Guest Experiences</span>
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif text-white mb-8 md:mb-12">What Our Luxury Travelers Say</h2>
 
-        <div className="bg-[#0f1523]/80 border border-white/10 p-8 md:p-12 rounded-3xl relative">
+        <div className="bg-[#0f1523]/80 border border-white/10 p-6 sm:p-8 md:p-12 rounded-2xl md:rounded-3xl relative mx-2 sm:mx-0">
           <div className="flex justify-center text-amber-400 gap-1 mb-6">
             {[...Array(5)].map((_, i) => <FaStar key={i} size={16} />)}
           </div>
@@ -359,8 +359,8 @@ const Home = () => {
       </section>
 
       {/* ----------------- FOOTER SECTION ----------------- */}
-      <footer className="bg-[#040609] border-t border-white/10 py-16 px-6">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10">
+      <footer className="bg-[#040609] border-t border-white/10 py-10 md:py-16 px-4 sm:px-6">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 md:gap-10">
           <div>
             <div className="flex items-center gap-3 mb-4">
               <img src={myLogo} alt="Jai Lanka Logo" className="w-10 h-10 object-contain" />
@@ -374,10 +374,10 @@ const Home = () => {
           <div>
             <h4 className="text-xs font-bold uppercase tracking-widest text-amber-400 mb-4">Quick Links</h4>
             <ul className="space-y-2 text-xs text-slate-400">
-              <li><Link to="/itineraries" className="hover:text-amber-400">Tailor-Made Itineraries</Link></li>
-              <li><Link to="/day-tours" className="hover:text-amber-400">Day Excursions</Link></li>
-              <li><Link to="/accommodation" className="hover:text-amber-400">Luxury Resorts</Link></li>
-              <li><Link to="/our-story" className="hover:text-amber-400">About Our Agency</Link></li>
+              <li><Link to="/itineraries" className="hover:text-amber-400 transition-colors">Tailor-Made Itineraries</Link></li>
+              <li><Link to="/day-tours" className="hover:text-amber-400 transition-colors">Day Excursions</Link></li>
+              <li><Link to="/accommodation" className="hover:text-amber-400 transition-colors">Luxury Resorts</Link></li>
+              <li><Link to="/our-story" className="hover:text-amber-400 transition-colors">About Our Agency</Link></li>
             </ul>
           </div>
 
@@ -393,31 +393,31 @@ const Home = () => {
             <p className="text-xs text-slate-400 leading-relaxed mb-4">
               SLTDA Approved Tourist Chauffeur & Tour Operator in Sri Lanka.
             </p>
-            <Link to="/plan-journey">
-              <button className="bg-amber-400 hover:bg-amber-300 text-black text-[10px] font-bold uppercase tracking-wider px-5 py-2.5 rounded-lg w-full">
+            <Link to="/plan-journey" className="block w-full">
+              <button className="bg-amber-400 hover:bg-amber-300 text-black text-[10px] font-bold uppercase tracking-wider px-5 py-3 rounded-lg w-full transition-colors">
                 Contact Travel Expert
               </button>
             </Link>
           </div>
         </div>
 
-        <div className="max-w-6xl mx-auto border-t border-white/5 mt-12 pt-6 flex flex-col md:flex-row justify-between items-center text-[10px] text-slate-500">
-          <p>© {new Date().getFullYear()} Jai Lanka Tours. All Rights Reserved.</p>
-          <p className="mt-2 md:mt-0">Crafted with Luxury Excellence</p>
+        <div className="max-w-6xl mx-auto border-t border-white/5 mt-10 md:mt-12 pt-6 flex flex-col md:flex-row justify-between items-center text-[10px] text-slate-500 gap-2 md:gap-0">
+          <p className="text-center md:text-left">© {new Date().getFullYear()} Jai Lanka Tours. All Rights Reserved.</p>
+          <p className="text-center md:text-right">Crafted with Luxury Excellence</p>
         </div>
       </footer>
 
       {/* ----------------- FLOATING SOCIAL MEDIA BUTTONS ----------------- */}
-      <div className="fixed bottom-8 right-8 z-50 flex flex-col gap-3">
+      <div className="fixed bottom-4 right-4 md:bottom-8 md:right-8 z-50 flex flex-col gap-2 md:gap-3">
         {/* WhatsApp */}
         <a 
           href="https://wa.me/94740966449" 
           target="_blank" 
           rel="noopener noreferrer"
           aria-label="Chat on WhatsApp"
-          className="w-12 h-12 md:w-14 md:h-14 flex items-center justify-center rounded-full bg-emerald-500 hover:bg-emerald-600 transition-all text-white shadow-2xl hover:scale-110 duration-300 border-2 border-white/20"
+          className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 flex items-center justify-center rounded-full bg-emerald-500 hover:bg-emerald-600 transition-all text-white shadow-2xl hover:scale-110 duration-300 border-2 border-white/20"
         >
-          <FaWhatsapp className="text-2xl md:text-3xl" />
+          <FaWhatsapp className="text-xl sm:text-2xl md:text-3xl" />
         </a>
 
         {/* Instagram */}
@@ -426,9 +426,9 @@ const Home = () => {
           target="_blank" 
           rel="noopener noreferrer"
           aria-label="Visit Instagram Page"
-          className="w-12 h-12 md:w-14 md:h-14 flex items-center justify-center rounded-full bg-gradient-to-tr from-amber-500 via-rose-500 to-purple-600 hover:opacity-90 transition-all text-white shadow-2xl hover:scale-110 duration-300 border-2 border-white/20"
+          className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 flex items-center justify-center rounded-full bg-gradient-to-tr from-amber-500 via-rose-500 to-purple-600 hover:opacity-90 transition-all text-white shadow-2xl hover:scale-110 duration-300 border-2 border-white/20"
         >
-          <FaInstagram className="text-2xl md:text-3xl" />
+          <FaInstagram className="text-xl sm:text-2xl md:text-3xl" />
         </a>
 
         {/* Facebook */}
@@ -437,9 +437,9 @@ const Home = () => {
           target="_blank" 
           rel="noopener noreferrer"
           aria-label="Visit Facebook Page"
-          className="w-12 h-12 md:w-14 md:h-14 flex items-center justify-center rounded-full bg-blue-600 hover:bg-blue-700 transition-all text-white shadow-2xl hover:scale-110 duration-300 border-2 border-white/20"
+          className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 flex items-center justify-center rounded-full bg-blue-600 hover:bg-blue-700 transition-all text-white shadow-2xl hover:scale-110 duration-300 border-2 border-white/20"
         >
-          <FaFacebook className="text-2xl md:text-3xl" />
+          <FaFacebook className="text-xl sm:text-2xl md:text-3xl" />
         </a>
       </div>
 

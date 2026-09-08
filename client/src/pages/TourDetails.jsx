@@ -446,27 +446,27 @@ const TourDetails = () => {
         </Link>
 
         {/* Intro Banner */}
-        <div className="mb-32 relative py-8 md:py-12 border-b border-white/5">
-          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[10px] text-amber-400 uppercase tracking-widest font-black mb-4">
+        <div className="mb-12 sm:mb-20 md:mb-32 relative py-6 md:py-12 border-b border-white/5">
+          <div className="flex flex-wrap items-center gap-x-2 sm:gap-x-3 gap-y-1 sm:gap-y-2 text-[9px] sm:text-[10px] text-amber-400 uppercase tracking-widest font-black mb-3 sm:mb-4">
             <span>✨ {tour.category}</span>
-            <span className="text-slate-700">•</span>
+            <span className="text-slate-700 hidden sm:inline">•</span>
             <span>⏱️ {tour.duration}</span>
-            <span className="text-slate-700">•</span>
+            <span className="text-slate-700 hidden sm:inline">•</span>
             <span>🚗 {tour.type}</span>
           </div>
-          <h1 className="text-4xl md:text-6xl font-black text-white tracking-tight uppercase leading-tight max-w-4xl mb-8">
+          <h1 className="text-3xl sm:text-4xl md:text-6xl font-black text-white tracking-tight uppercase leading-tight max-w-4xl mb-6 sm:mb-8">
             {tour.title}
           </h1>
-          <p className="text-slate-400 text-sm md:text-base font-light leading-relaxed max-w-3xl">
+          <p className="text-slate-400 text-xs sm:text-sm md:text-base font-light leading-relaxed max-w-3xl">
             {tour.mainDesc}
           </p>
         </div>
 
         {/* 🗺️ Immersive Zig-Zag Flowing Experience */}
-        <div className="space-y-40 mb-32">
-          <div className="text-center max-w-xl mx-auto mb-24">
-            <h2 className="text-xs font-black uppercase tracking-widest text-amber-500/80">Curated Landmark Expeditions</h2>
-            <div className="w-12 h-[1px] bg-amber-500/30 mx-auto mt-3"></div>
+        <div className="space-y-12 sm:space-y-20 md:space-y-32 mb-12 sm:mb-20 md:mb-32">
+          <div className="text-center max-w-xl mx-auto mb-10 sm:mb-16 md:mb-24">
+            <h2 className="text-[10px] sm:text-xs font-black uppercase tracking-widest text-amber-500/80">Curated Landmark Expeditions</h2>
+            <div className="w-10 sm:w-12 h-[1px] bg-amber-500/30 mx-auto mt-2 sm:mt-3"></div>
           </div>
 
           {tour.places.map((place, index) => {
@@ -474,22 +474,22 @@ const TourDetails = () => {
 
             if (place.isPeradeniyaGroup) {
               return (
-                <div key={index} className="flex flex-col space-y-8 py-12 border-b border-white/5">
-                  <div className="flex flex-col space-y-3">
-                    <div className="flex items-center gap-3 text-amber-500/40 font-serif text-sm italic font-bold">
+                <div key={index} className="flex flex-col space-y-6 md:space-y-8 py-8 md:py-12 border-b border-white/5">
+                  <div className="flex flex-col space-y-2 md:space-y-3">
+                    <div className="flex items-center gap-3 text-amber-500/40 font-serif text-xs md:text-sm italic font-bold">
                       <span>0{index + 1}</span>
                       <span className="w-6 h-[1px] bg-amber-500/20"></span>
                     </div>
-                    <h3 className="text-2xl font-black text-white uppercase tracking-wider">{place.name}</h3>
-                    <p className="text-slate-400 text-sm font-light leading-relaxed max-w-3xl">{place.desc}</p>
+                    <h3 className="text-xl sm:text-2xl font-black text-white uppercase tracking-wider">{place.name}</h3>
+                    <p className="text-slate-400 text-xs sm:text-sm font-light leading-relaxed max-w-3xl">{place.desc}</p>
                   </div>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 pt-2 md:pt-4">
                     {place.images.map((img, imgIdx) => (
                       <div key={imgIdx} className="w-full flex items-center justify-center">
                         <img 
                           src={img} 
                           alt={`${place.name} view ${imgIdx + 1}`} 
-                          className="w-full h-auto aspect-auto object-contain rounded-2xl hover:scale-[1.03] transition-transform duration-500 max-h-[300px] shadow-xl shadow-black/30" 
+                          className="w-full h-auto aspect-auto object-contain rounded-xl sm:rounded-2xl hover:scale-[1.03] transition-transform duration-500 max-h-[250px] md:max-h-[300px] shadow-xl shadow-black/30" 
                         />
                       </div>
                     ))}
@@ -499,24 +499,24 @@ const TourDetails = () => {
             }
 
             return (
-              <div key={index} className={`flex flex-col ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'} gap-12 md:gap-16 items-center justify-between`}>
+              <div key={index} className={`flex flex-col ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'} gap-8 md:gap-16 items-center justify-between`}>
                 
                 {/* 100% Borderless Premium Full-Aspect Image Layout */}
                 <div className="w-full md:w-[48%] flex items-center justify-center">
                   <img 
                     src={place.image} 
                     alt={place.name} 
-                    className="w-full h-auto aspect-auto object-contain rounded-2xl transition-transform duration-700 hover:scale-[1.03] max-h-[380px] shadow-2xl shadow-black/40" 
+                    className="w-full h-auto aspect-auto object-contain rounded-xl sm:rounded-2xl transition-transform duration-700 hover:scale-[1.03] max-h-[300px] md:max-h-[380px] shadow-2xl shadow-black/40" 
                   />
                 </div>
 
-                <div className="w-full md:w-[48%] space-y-4">
-                  <div className="flex items-center gap-3 text-amber-500/40 font-serif text-sm italic font-bold">
+                <div className="w-full md:w-[48%] space-y-3 md:space-y-4 text-center md:text-left">
+                  <div className="flex items-center justify-center md:justify-start gap-3 text-amber-500/40 font-serif text-xs md:text-sm italic font-bold">
                     <span>0{index + 1}</span>
                     <span className="w-6 h-[1px] bg-amber-500/20"></span>
                   </div>
                   <h3 className="text-xl md:text-2xl font-black text-white uppercase tracking-wider leading-snug">{place.name}</h3>
-                  <p className="text-slate-400 text-sm font-light leading-relaxed">{place.desc}</p>
+                  <p className="text-slate-400 text-xs sm:text-sm font-light leading-relaxed">{place.desc}</p>
                 </div>
 
               </div>
@@ -526,24 +526,24 @@ const TourDetails = () => {
 
         {/* Gastronomy Highlight */}
         {tour.hasHighlight && (
-          <div className="relative p-8 md:p-12 border-t border-b border-white/5 my-32 flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
-            <div className="max-w-2xl space-y-2">
-              <span className="text-[9px] text-amber-500 uppercase tracking-widest font-black block">Gastronomy Indulgence</span>
-              <h2 className="text-2xl font-black text-white uppercase tracking-wide">{tour.highlightTitle}</h2>
-              <p className="text-slate-400 text-sm font-light leading-relaxed">{tour.highlightDesc}</p>
+          <div className="relative p-6 sm:p-8 md:p-12 border-t border-b border-white/5 my-12 sm:my-20 md:my-32 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 sm:gap-8">
+            <div className="max-w-2xl space-y-2 text-center md:text-left mx-auto md:mx-0">
+              <span className="text-[8px] sm:text-[9px] text-amber-500 uppercase tracking-widest font-black block">Gastronomy Indulgence</span>
+              <h2 className="text-xl sm:text-2xl font-black text-white uppercase tracking-wide">{tour.highlightTitle}</h2>
+              <p className="text-slate-400 text-xs sm:text-sm font-light leading-relaxed">{tour.highlightDesc}</p>
             </div>
-            <div className="text-left md:text-right min-w-[150px]">
-              <span className="text-3xl block mb-2 md:mb-0">🍛</span>
-              <h4 className="text-xs font-bold text-amber-400 uppercase tracking-wider">Elite Curation</h4>
+            <div className="text-center md:text-right min-w-[150px] mx-auto md:mx-0">
+              <span className="text-2xl sm:text-3xl block mb-2 md:mb-0">🍛</span>
+              <h4 className="text-[10px] sm:text-xs font-bold text-amber-400 uppercase tracking-wider">Elite Curation</h4>
             </div>
           </div>
         )}
 
         {/* Booking Trigger */}
-        <div className="text-center py-16 border-t border-white/5 relative overflow-hidden">
-          <h3 className="text-2xl font-black text-white uppercase tracking-widest mb-3">Begin Your Curated Expedition</h3>
-          <p className="text-slate-400 text-xs font-light mb-8 max-w-xl mx-auto leading-relaxed">Secure an exceptional all-inclusive private day tour orchestrated to your specific travel desires, featuring dedicated executive transport.</p>
-          <button onClick={handleWhatsAppBooking} className="bg-amber-500 text-black px-12 py-4 rounded-xl text-xs font-black uppercase tracking-widest hover:bg-white hover:scale-[1.03] transition-all duration-300 shadow-xl shadow-amber-500/10">Connect via WhatsApp</button>
+        <div className="text-center py-12 sm:py-16 border-t border-white/5 relative overflow-hidden">
+          <h3 className="text-xl sm:text-2xl font-black text-white uppercase tracking-widest mb-3">Begin Your Curated Expedition</h3>
+          <p className="text-slate-400 text-[10px] sm:text-xs font-light mb-6 sm:mb-8 max-w-xl mx-auto leading-relaxed px-4 sm:px-0">Secure an exceptional all-inclusive private day tour orchestrated to your specific travel desires, featuring dedicated executive transport.</p>
+          <button onClick={handleWhatsAppBooking} className="bg-amber-500 text-black px-8 sm:px-12 py-3 sm:py-4 rounded-xl text-[10px] sm:text-xs font-black uppercase tracking-widest hover:bg-white hover:scale-[1.03] transition-all duration-300 shadow-xl shadow-amber-500/10 w-full sm:w-auto">Connect via WhatsApp</button>
         </div>
 
       </div>

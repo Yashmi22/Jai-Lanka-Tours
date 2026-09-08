@@ -36,29 +36,29 @@ const Accommodation = () => {
         <div className="absolute inset-0 bg-slate-950/45"></div>
         <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-slate-950/50"></div>
 
-        <div className="relative z-10 max-w-5xl mx-auto text-center space-y-8 pt-12">
-          <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-slate-900/60 border border-amber-500/30 text-amber-300 text-xs font-semibold tracking-[0.25em] uppercase backdrop-blur-md shadow-lg">
-            <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
+        <div className="relative z-10 max-w-5xl mx-auto text-center space-y-6 sm:space-y-8 pt-12">
+          <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-5 py-1.5 sm:py-2 rounded-full bg-slate-900/60 border border-amber-500/30 text-amber-300 text-[8px] sm:text-xs font-semibold tracking-[0.2em] sm:tracking-[0.25em] uppercase backdrop-blur-md shadow-lg whitespace-nowrap w-fit mx-auto">
+            <Star className="w-3 sm:w-3.5 h-3 sm:h-3.5 text-amber-400 fill-amber-400" />
             Curated Stays & Sanctuaries
           </div>
 
-          <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-serif tracking-tight text-white leading-none drop-shadow-2xl">
+          <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-serif tracking-tight text-white leading-tight sm:leading-none drop-shadow-2xl">
             Dream in or of <br />
             <span className="italic font-light text-transparent bg-clip-text bg-gradient-to-r from-amber-100 via-emerald-200 to-amber-300">
               Sri Lanka
             </span>
           </h1>
 
-          <p className="text-slate-200 font-light text-base md:text-xl max-w-2xl mx-auto leading-relaxed drop-shadow-md">
+          <p className="text-slate-200 font-light text-sm sm:text-base md:text-xl max-w-2xl mx-auto leading-relaxed drop-shadow-md px-2 sm:px-0">
             Handpicked luxury resorts, serene boutique retreats, and authentic stays curated thoughtfully for your journey.
           </p>
 
-          <div className="pt-4 flex justify-center">
+          <div className="pt-2 sm:pt-4 flex justify-center w-full px-4 sm:px-0">
             <a 
               href="#explore" 
-              className="inline-flex items-center gap-3 px-8 py-4 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-medium text-sm tracking-widest uppercase rounded-full transition-all duration-300 shadow-xl shadow-emerald-500/20 hover:scale-105"
+              className="inline-flex items-center justify-center w-full sm:w-auto gap-2 sm:gap-3 px-6 sm:px-8 py-3 sm:py-4 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-medium text-[10px] sm:text-sm tracking-[0.2em] sm:tracking-widest uppercase rounded-xl sm:rounded-full transition-all duration-300 shadow-xl shadow-emerald-500/20 hover:scale-[1.02] sm:hover:scale-105"
             >
-              <Compass className="w-4 h-4" /> Discover Properties
+              <Compass className="w-3 sm:w-4 h-3 sm:h-4" /> Discover Properties
             </a>
           </div>
         </div>
@@ -67,53 +67,53 @@ const Accommodation = () => {
       </div>
 
       {/* --- INTRO SECTION --- */}
-      <div id="explore" className="max-w-5xl mx-auto px-4 md:px-8 mt-12 space-y-12">
-        <div className="text-center space-y-4 max-w-3xl mx-auto">
-          <h2 className="text-2xl md:text-4xl font-serif font-bold text-slate-100 tracking-wide">
+      <div id="explore" className="max-w-5xl mx-auto px-4 md:px-8 mt-10 sm:mt-12 space-y-8 sm:space-y-12">
+        <div className="text-center space-y-3 sm:space-y-4 max-w-3xl mx-auto">
+          <h2 className="text-xl sm:text-2xl md:text-4xl font-serif font-bold text-slate-100 tracking-wide">
             Tailored Experiences, Exclusive Rates
           </h2>
-          <p className="text-slate-300 font-light text-base md:text-lg leading-relaxed">
+          <p className="text-slate-300 font-light text-xs sm:text-base md:text-lg leading-relaxed px-2 sm:px-0">
             We don't restrict ourselves to a fixed list of partner hotels. Tell us your accommodation preferences, star rating, and nightly budget, and we'll craft a bespoke selection just for you.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
-          <div className="p-8 bg-slate-900/40 border border-slate-800/80 rounded-2xl backdrop-blur-sm space-y-3">
-            <span className="text-xs font-bold text-emerald-400 tracking-widest uppercase">STEP 01</span>
-            <h3 className="text-lg font-serif font-semibold text-white">Share Your Vision</h3>
-            <p className="text-xs text-slate-400 font-light leading-relaxed">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 pt-2 sm:pt-4">
+          <div className="p-6 sm:p-8 bg-slate-900/40 border border-slate-800/80 rounded-2xl backdrop-blur-sm space-y-2 sm:space-y-3">
+            <span className="text-[10px] sm:text-xs font-bold text-emerald-400 tracking-widest uppercase">STEP 01</span>
+            <h3 className="text-base sm:text-lg font-serif font-semibold text-white">Share Your Vision</h3>
+            <p className="text-[11px] sm:text-xs text-slate-400 font-light leading-relaxed">
               Tell us your preferred hotel style, star rating, and nightly budget for your stay.
             </p>
           </div>
 
-          <div className="p-8 bg-slate-900/40 border border-slate-800/80 rounded-2xl backdrop-blur-sm space-y-3">
-            <span className="text-xs font-bold text-emerald-400 tracking-widest uppercase">STEP 02</span>
-            <h3 className="text-lg font-serif font-semibold text-white">Curated Selection</h3>
-            <p className="text-xs text-slate-400 font-light leading-relaxed">
+          <div className="p-6 sm:p-8 bg-slate-900/40 border border-slate-800/80 rounded-2xl backdrop-blur-sm space-y-2 sm:space-y-3">
+            <span className="text-[10px] sm:text-xs font-bold text-emerald-400 tracking-widest uppercase">STEP 02</span>
+            <h3 className="text-base sm:text-lg font-serif font-semibold text-white">Curated Selection</h3>
+            <p className="text-[11px] sm:text-xs text-slate-400 font-light leading-relaxed">
               We curate a list of 3–5 tailored properties per destination along with special rates.
             </p>
           </div>
 
-          <div className="p-8 bg-slate-900/40 border border-slate-800/80 rounded-2xl backdrop-blur-sm space-y-3">
-            <span className="text-xs font-bold text-emerald-400 tracking-widest uppercase">STEP 03</span>
-            <h3 className="text-lg font-serif font-semibold text-white">Your Choice</h3>
-            <p className="text-xs text-slate-400 font-light leading-relaxed">
+          <div className="p-6 sm:p-8 bg-slate-900/40 border border-slate-800/80 rounded-2xl backdrop-blur-sm space-y-2 sm:space-y-3">
+            <span className="text-[10px] sm:text-xs font-bold text-emerald-400 tracking-widest uppercase">STEP 03</span>
+            <h3 className="text-base sm:text-lg font-serif font-semibold text-white">Your Choice</h3>
+            <p className="text-[11px] sm:text-xs text-slate-400 font-light leading-relaxed">
               Book seamlessly through us or directly on your own—complete flexibility for you.
             </p>
           </div>
         </div>
 
         <div className="text-center pt-2">
-          <span className="px-5 py-2 bg-amber-500/10 text-amber-400 text-xs font-bold tracking-widest uppercase rounded-full border border-amber-500/20 inline-block animate-pulse">
+          <span className="px-4 sm:px-5 py-2 bg-amber-500/10 text-amber-400 text-[10px] sm:text-xs font-bold tracking-widest uppercase rounded-full border border-amber-500/20 inline-block animate-pulse w-full sm:w-auto">
             Curated Directory Coming Soon
           </span>
         </div>
       </div>
 
       {/* --- THEMA COLLECTION SECTION --- */}
-      <div className="max-w-7xl mx-auto px-4 md:px-8 mt-28 space-y-8">
-        <div className="border-l-2 border-emerald-500 pl-4 mb-8">
-          <h2 className="text-3xl font-serif font-bold tracking-wide text-slate-100">
+      <div className="max-w-7xl mx-auto px-4 md:px-8 mt-16 sm:mt-20 md:mt-28 space-y-6 sm:space-y-8">
+        <div className="border-l-2 border-emerald-500 pl-3 sm:pl-4 mb-6 sm:mb-8">
+          <h2 className="text-2xl sm:text-3xl font-serif font-bold tracking-wide text-slate-100">
             Thema Collection
           </h2>
         </div>
@@ -254,44 +254,44 @@ const Accommodation = () => {
       </div>
 
       {/* --- THE SEVEN ANGELS PROPERTY SECTION --- */}
-      <div className="max-w-7xl mx-auto px-4 md:px-8 mt-24 pt-16 border-t border-slate-900/60">
-        <div className="border-l-2 border-emerald-500 pl-4 mb-8">
-          <h2 className="text-3xl font-serif font-bold tracking-wide text-slate-100">
+      <div className="max-w-7xl mx-auto px-4 md:px-8 mt-16 sm:mt-24 pt-12 sm:pt-16 border-t border-slate-900/60">
+        <div className="border-l-2 border-emerald-500 pl-3 sm:pl-4 mb-6 sm:mb-8">
+          <h2 className="text-2xl sm:text-3xl font-serif font-bold tracking-wide text-slate-100">
             Our Ray 7 Angel Property
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          <div className="lg:col-span-7 space-y-6 order-2 lg:order-1">
-            <div className="bg-slate-900/30 p-6 md:p-8 rounded-3xl border border-slate-900 space-y-4">
-              <p className="text-sm font-medium text-emerald-400 tracking-wide uppercase">The Seven Angels Collection</p>
-              <p className="text-sm text-slate-400 font-light leading-relaxed">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 items-center">
+          <div className="lg:col-span-7 space-y-4 sm:space-y-6 order-2 lg:order-1">
+            <div className="bg-slate-900/30 p-5 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl border border-slate-900 space-y-3 sm:space-y-4">
+              <p className="text-xs sm:text-sm font-medium text-emerald-400 tracking-wide uppercase">The Seven Angels Collection</p>
+              <p className="text-xs sm:text-sm text-slate-400 font-light leading-relaxed">
                 These properties explicitly form the Seven Angels portfolio, offering exclusive boutique experiences:
               </p>
               
-              <ul className="space-y-4 pt-2">
-                <li className="text-sm text-slate-300 font-light leading-relaxed pl-2 border-l border-emerald-500/30">
-                  <strong className="text-white font-semibold font-serif">Heritage Boutique by Seven Angels (Kandy)</strong> – A historic, colonial-style governor house conversion right next to the Temple of the Sacred Tooth Relic.
+              <ul className="space-y-3 sm:space-y-4 pt-2">
+                <li className="text-xs sm:text-sm text-slate-300 font-light leading-relaxed pl-2 border-l border-emerald-500/30">
+                  <strong className="text-white font-semibold font-serif block sm:inline">Heritage Boutique by Seven Angels (Kandy)</strong> <span className="hidden sm:inline">–</span> A historic, colonial-style governor house conversion right next to the Temple of the Sacred Tooth Relic.
                 </li>
-                <li className="text-sm text-slate-300 font-light leading-relaxed pl-2 border-l border-emerald-500/30">
-                  <strong className="text-white font-semibold font-serif">Castle Hill Bungalow (Kandy)</strong> – A centrally located luxury bungalow providing stunning hill views and quick access to Kandy Lake.
+                <li className="text-xs sm:text-sm text-slate-300 font-light leading-relaxed pl-2 border-l border-emerald-500/30">
+                  <strong className="text-white font-semibold font-serif block sm:inline">Castle Hill Bungalow (Kandy)</strong> <span className="hidden sm:inline">–</span> A centrally located luxury bungalow providing stunning hill views and quick access to Kandy Lake.
                 </li>
-                <li className="text-sm text-slate-300 font-light leading-relaxed pl-2 border-l border-emerald-500/30">
-                  <strong className="text-white font-semibold font-serif">Liyya Water Villas (Dambulla)</strong> – A peaceful luxury resort en route to Cultural Triangle landmarks like Dambulla and Sigiriya.
+                <li className="text-xs sm:text-sm text-slate-300 font-light leading-relaxed pl-2 border-l border-emerald-500/30">
+                  <strong className="text-white font-semibold font-serif block sm:inline">Liyya Water Villas (Dambulla)</strong> <span className="hidden sm:inline">–</span> A peaceful luxury resort en route to Cultural Triangle landmarks like Dambulla and Sigiriya.
                 </li>
               </ul>
             </div>
           </div>
 
           <div className="lg:col-span-5 order-1 lg:order-2">
-            <div className="border border-slate-900 rounded-3xl overflow-hidden bg-slate-900/20 group">
+            <div className="border border-slate-900 rounded-2xl sm:rounded-3xl overflow-hidden bg-slate-900/20 group">
               <img 
                 src={sevenAngelsImg} 
                 alt="7 Angels Collection" 
                 className="w-full h-auto object-contain block group-hover:scale-105 transition-transform duration-500"
               />
-              <div className="p-4 bg-slate-950/80 border-t border-slate-900 text-center">
-                <p className="text-xs text-emerald-400 font-medium">The Seven Angels Portfolio</p>
+              <div className="p-3 sm:p-4 bg-slate-950/80 border-t border-slate-900 text-center">
+                <p className="text-[10px] sm:text-xs text-emerald-400 font-medium">The Seven Angels Portfolio</p>
               </div>
             </div>
           </div>
@@ -299,8 +299,8 @@ const Accommodation = () => {
       </div>
 
       {/* --- OUR PARTNERS LOGO BAR --- */}
-      <div className="mt-28 border-t border-b border-slate-900 bg-slate-900/60 py-10">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-8 md:gap-0">
+      <div className="mt-16 sm:mt-28 border-t border-b border-slate-900 bg-slate-900/60 py-8 sm:py-10">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-6 sm:gap-8 md:gap-0">
           
           {/* Title Box */}
           <div className="px-8 flex flex-col justify-center items-center md:items-start shrink-0 min-w-[200px]">

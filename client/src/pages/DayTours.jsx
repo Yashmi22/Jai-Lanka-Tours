@@ -54,51 +54,51 @@ const DayTours = () => {
     <div className="bg-[#0b0f19] min-h-screen pb-24 text-slate-100 font-body antialiased">
       
       {/* 1. HIGH-END HERO BANNER */}
-      <div className="relative pt-32 pb-20 px-6 text-center overflow-hidden border-b border-yellow-600/20 bg-gradient-to-b from-[#060a13] via-[#0b1220] to-[#0b0f19]">
+      <div className="relative pt-24 md:pt-32 pb-12 md:pb-20 px-4 sm:px-6 text-center overflow-hidden border-b border-yellow-600/20 bg-gradient-to-b from-[#060a13] via-[#0b1220] to-[#0b0f19]">
         <div className="max-w-4xl mx-auto relative z-10">
-          <span className="text-[10px] font-bold tracking-[0.3em] uppercase text-amber-400 bg-amber-950/40 border border-amber-600/30 px-5 py-2 rounded-full mb-6 inline-block">
+          <span className="text-[8px] sm:text-[10px] font-bold tracking-[0.2em] sm:tracking-[0.3em] uppercase text-amber-400 bg-amber-950/40 border border-amber-600/30 px-4 py-1.5 sm:px-5 sm:py-2 rounded-full mb-4 sm:mb-6 inline-block w-fit mx-auto whitespace-nowrap">
             Bespoke Sri Lankan Journeys
           </span>
-          <h1 className="text-4xl md:text-6xl font-headline font-light text-white tracking-wide mt-2 mb-6 uppercase">
+          <h1 className="text-3xl sm:text-4xl md:text-6xl font-headline font-light text-white tracking-wide mt-2 mb-4 sm:mb-6 uppercase">
             Prive <span className="font-serif italic text-amber-400">Day Excursions</span>
           </h1>
-          <p className="text-slate-400 text-sm md:text-base font-light max-w-2xl mx-auto leading-relaxed tracking-wide">
+          <p className="text-slate-400 text-xs sm:text-sm md:text-base font-light max-w-2xl mx-auto leading-relaxed tracking-wide px-2 sm:px-0">
             Immerse yourself in unrivaled luxury. Seamless full-day private journeys crafted meticulously for the discerning traveler. No templates, no crowds—just pure, tailored discovery.
           </p>
         </div>
       </div>
 
       {/* 2. PREMIUM HERO PHOTO COLLAGE GRID */}
-      <div className="max-w-screen-2xl mx-auto px-6 md:px-12 mb-20 -mt-6">
-        <div className="grid grid-cols-12 gap-4 h-[350px] md:h-[450px]">
-          <div className="col-span-6 md:col-span-4 h-full overflow-hidden rounded-2xl border border-white/5 relative group">
+      <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 md:px-12 mb-12 sm:mb-20 -mt-6">
+        <div className="grid grid-cols-12 gap-3 sm:gap-4 h-[220px] sm:h-[350px] md:h-[450px]">
+          <div className="col-span-6 md:col-span-4 h-full overflow-hidden rounded-xl sm:rounded-2xl border border-white/5 relative group">
             <img src={sigiriyaImg} alt="Luxury Sigiriya" className="w-full h-full object-cover grayscale-[30%] group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-6"><p className="text-xs uppercase tracking-widest font-bold text-amber-400">Cultural Grandeur</p></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-4 sm:p-6"><p className="text-[9px] sm:text-xs uppercase tracking-widest font-bold text-amber-400">Cultural Grandeur</p></div>
           </div>
-          <div className="col-span-6 md:col-span-3 h-full overflow-hidden rounded-2xl border border-white/5 relative group">
+          <div className="col-span-6 md:col-span-3 h-full overflow-hidden rounded-xl sm:rounded-2xl border border-white/5 relative group">
             <img src={galleImg} alt="Luxury Galle" className="w-full h-full object-cover grayscale-[30%] group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-6"><p className="text-xs uppercase tracking-widest font-bold text-amber-400">Colonial Elegance</p></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-4 sm:p-6"><p className="text-[9px] sm:text-xs uppercase tracking-widest font-bold text-amber-400">Colonial Elegance</p></div>
           </div>
-          <div className="hidden md:block md:col-span-3 h-full overflow-hidden rounded-2xl border border-white/5 relative group">
+          <div className="hidden md:block md:col-span-3 h-full overflow-hidden rounded-xl sm:rounded-2xl border border-white/5 relative group">
             <img src={yalaImg} alt="Luxury Yala" className="w-full h-full object-cover grayscale-[30%] group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-6"><p className="text-xs uppercase tracking-widest font-bold text-amber-400">Untamed Wilderness</p></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-4 sm:p-6"><p className="text-[9px] sm:text-xs uppercase tracking-widest font-bold text-amber-400">Untamed Wilderness</p></div>
           </div>
-          <div className="hidden md:block md:col-span-2 h-full overflow-hidden rounded-2xl border border-white/5 relative group">
+          <div className="hidden md:block md:col-span-2 h-full overflow-hidden rounded-xl sm:rounded-2xl border border-white/5 relative group">
             <img src={ellaImg} alt="Luxury Ella" className="w-full h-full object-cover grayscale-[30%] group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-6"><p className="text-xs uppercase tracking-widest font-bold text-amber-400">Alpine Serenity</p></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-4 sm:p-6"><p className="text-[9px] sm:text-xs uppercase tracking-widest font-bold text-amber-400">Alpine Serenity</p></div>
           </div>
         </div>
       </div>
 
-      <div className="max-w-screen-2xl mx-auto px-6 md:px-12">
+      <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 md:px-12">
         
         {/* SECTION TITLE */}
-        <div className="border-b border-slate-800 pb-6 mb-12 flex justify-between items-end">
+        <div className="border-b border-slate-800 pb-6 mb-8 sm:mb-12 flex justify-between items-end">
           <div>
-            <p className="text-xs uppercase tracking-widest text-amber-400 font-bold mb-1">Our Elite Portfolio</p>
-            <h2 className="text-2xl md:text-3xl font-headline tracking-wide uppercase text-white">Signature Single-Day Itineraries</h2>
+            <p className="text-[10px] sm:text-xs uppercase tracking-[0.2em] sm:tracking-widest text-amber-400 font-bold mb-1">Our Elite Portfolio</p>
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-headline tracking-wide uppercase text-white">Signature Single-Day Itineraries</h2>
           </div>
-          <p className="text-xs text-slate-500 tracking-wider hidden sm:block">All itineraries are fully flexible and 100% private</p>
+          <p className="text-[10px] sm:text-xs text-slate-500 tracking-wider hidden sm:block">All itineraries are fully flexible and 100% private</p>
         </div>
 
         {/* 3. DYNAMIC LUXURY CARDS GRID */}
@@ -158,24 +158,24 @@ const DayTours = () => {
         </div>
 
         {/* 4. CUSTOMIZE YOUR LUXURY TOUR FORM SECTION */}
-        <div className="bg-gradient-to-br from-[#12192c] to-[#0d1424] rounded-3xl p-8 md:p-12 border border-amber-500/10 shadow-2xl relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="bg-gradient-to-br from-[#12192c] to-[#0d1424] rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-12 border border-amber-500/10 shadow-2xl relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-64 md:w-96 h-64 md:h-96 bg-amber-500/5 rounded-full blur-3xl pointer-events-none"></div>
           
-          <div className="max-w-3xl mx-auto text-center mb-10">
-            <span className="text-[9px] font-bold tracking-[0.25em] uppercase text-amber-400">Tailor-Made Elegance</span>
-            <h2 className="text-3xl font-headline text-white mt-2 mb-4 uppercase tracking-wide">Can't find your perfect journey?</h2>
-            <p className="text-slate-400 text-xs md:text-sm font-light leading-relaxed">
+          <div className="max-w-3xl mx-auto text-center mb-8 sm:mb-10">
+            <span className="text-[9px] font-bold tracking-[0.2em] sm:tracking-[0.25em] uppercase text-amber-400">Tailor-Made Elegance</span>
+            <h2 className="text-2xl sm:text-3xl font-headline text-white mt-2 mb-4 uppercase tracking-wide">Can't find your perfect journey?</h2>
+            <p className="text-slate-400 text-xs md:text-sm font-light leading-relaxed px-2 sm:px-0">
               Let us sketch a completely customized luxury itinerary based entirely on your preferences. Choose your destination, vehicle type, and activities.
             </p>
           </div>
 
-          <form onSubmit={handleCustomizeSubmit} className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+          <form onSubmit={handleCustomizeSubmit} className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6 max-w-5xl mx-auto relative z-10">
             <div className="flex flex-col gap-2">
-              <label className="text-[10px] uppercase tracking-widest text-slate-400 font-bold">Where do you want to explore?</label>
+              <label className="text-[9px] md:text-[10px] uppercase tracking-widest text-slate-400 font-bold">Where do you want to explore?</label>
               <input 
                 type="text" 
-                placeholder="e.g. Sigiriya, Galle, Tea Estates..." 
-                className="bg-[#0b0f19] border border-slate-800 rounded-xl px-4 py-3.5 text-xs text-white outline-none focus:border-amber-500/50 transition-colors"
+                placeholder="e.g. Sigiriya, Galle..." 
+                className="bg-[#0b0f19] border border-slate-800 rounded-xl px-4 py-3 md:py-3.5 text-xs text-white outline-none focus:border-amber-500/50 transition-colors"
                 value={customTour.destinations}
                 onChange={(e) => setCustomTour({ ...customTour, destinations: e.target.value })}
                 required
@@ -183,9 +183,9 @@ const DayTours = () => {
             </div>
             
             <div className="flex flex-col gap-2">
-              <label className="text-[10px] uppercase tracking-widest text-slate-400 font-bold">Number of Aristocrats/Guests</label>
+              <label className="text-[9px] md:text-[10px] uppercase tracking-widest text-slate-400 font-bold">Number of Guests</label>
               <select 
-                className="bg-[#0b0f19] border border-slate-800 rounded-xl px-4 py-3.5 text-xs text-white outline-none focus:border-amber-500/50 transition-colors cursor-pointer"
+                className="bg-[#0b0f19] border border-slate-800 rounded-xl px-4 py-3 md:py-3.5 text-xs text-white outline-none focus:border-amber-500/50 transition-colors cursor-pointer"
                 value={customTour.guests}
                 onChange={(e) => setCustomTour({ ...customTour, guests: e.target.value })}
               >
@@ -196,10 +196,10 @@ const DayTours = () => {
             </div>
 
             <div className="flex flex-col gap-2">
-              <label className="text-[10px] uppercase tracking-widest text-slate-400 font-bold">Preferred Voyage Date</label>
+              <label className="text-[9px] md:text-[10px] uppercase tracking-widest text-slate-400 font-bold">Preferred Voyage Date</label>
               <input 
                 type="date" 
-                className="bg-[#0b0f19] border border-slate-800 rounded-xl px-4 py-3.5 text-xs text-white outline-none focus:border-slate-800 transition-colors cursor-pointer text-slate-400"
+                className="bg-[#0b0f19] border border-slate-800 rounded-xl px-4 py-3 md:py-3.5 text-xs text-white outline-none focus:border-slate-800 transition-colors cursor-pointer text-slate-400"
                 value={customTour.date}
                 onChange={(e) => setCustomTour({ ...customTour, date: e.target.value })}
                 required
@@ -207,20 +207,20 @@ const DayTours = () => {
             </div>
 
             <div className="md:col-span-3 flex flex-col gap-2 mt-2">
-              <label className="text-[10px] uppercase tracking-widest text-slate-400 font-bold">Special Elite Requests / Preferences</label>
+              <label className="text-[9px] md:text-[10px] uppercase tracking-widest text-slate-400 font-bold">Special Elite Requests / Preferences</label>
               <textarea 
                 rows="2"
-                placeholder="Share your desires (e.g., Helicopter transfers, Fine-dining reservations, Private historians...)" 
-                className="bg-[#0b0f19] border border-slate-800 rounded-xl px-4 py-3.5 text-xs text-white outline-none focus:border-amber-500/50 transition-colors resize-none"
+                placeholder="Share your desires (e.g., Helicopter transfers, Fine-dining reservations...)" 
+                className="bg-[#0b0f19] border border-slate-800 rounded-xl px-4 py-3 md:py-3.5 text-xs text-white outline-none focus:border-amber-500/50 transition-colors resize-none"
                 value={customTour.notes}
                 onChange={(e) => setCustomTour({ ...customTour, notes: e.target.value })}
               />
             </div>
 
-            <div className="md:col-span-3 text-center mt-4">
+            <div className="md:col-span-3 text-center mt-4 sm:mt-6">
               <button 
                 type="submit" 
-                className="bg-amber-500 text-black px-10 py-3.5 rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-white transition-all duration-300 shadow-xl hover:shadow-amber-500/10"
+                className="bg-amber-500 text-black px-8 md:px-10 py-3 md:py-3.5 rounded-xl text-[10px] md:text-xs font-bold uppercase tracking-widest hover:bg-white transition-all duration-300 shadow-xl hover:shadow-amber-500/10 w-full sm:w-auto"
               >
                 Design My Bespoke Tour
               </button>
