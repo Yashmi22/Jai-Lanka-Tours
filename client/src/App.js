@@ -78,9 +78,8 @@ const MainLayout = () => {
           </Routes>
         </Suspense>
       </main>
-          
-      {/* Footer visible only for non-home and non-admin pages */}
-      {!isHome && !isAdmin && <Footer />}
+      {/* Footer visible only for non-admin pages */}
+      {!isAdmin && <Footer />}
     </div>
   );
 };

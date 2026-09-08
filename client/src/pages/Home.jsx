@@ -358,54 +358,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* ----------------- FOOTER SECTION ----------------- */}
-      <footer className="bg-[#040609] border-t border-white/10 py-10 md:py-16 px-4 sm:px-6">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 md:gap-10">
-          <div>
-            <div className="flex items-center gap-3 mb-4">
-              <img src={myLogo} alt="Jai Lanka Logo" className="w-10 h-10 object-contain" />
-              <span className="font-serif font-bold text-white text-sm tracking-widest">JAI LANKA TOURS</span>
-            </div>
-            <p className="text-slate-400 text-xs leading-relaxed">
-              Your premier luxury travel partner in Sri Lanka. Creating timeless, bespoke island memories.
-            </p>
-          </div>
 
-          <div>
-            <h4 className="text-xs font-bold uppercase tracking-widest text-amber-400 mb-4">Quick Links</h4>
-            <ul className="space-y-2 text-xs text-slate-400">
-              <li><Link to="/itineraries" className="hover:text-amber-400 transition-colors">Tailor-Made Itineraries</Link></li>
-              <li><Link to="/day-tours" className="hover:text-amber-400 transition-colors">Day Excursions</Link></li>
-              <li><Link to="/accommodation" className="hover:text-amber-400 transition-colors">Luxury Resorts</Link></li>
-              <li><Link to="/our-story" className="hover:text-amber-400 transition-colors">About Our Agency</Link></li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="text-xs font-bold uppercase tracking-widest text-amber-400 mb-4">Contact Concierge</h4>
-            <p className="text-xs text-slate-400 mb-2">Email: info@jailankatours.com</p>
-            <p className="text-xs text-slate-400 mb-2">Hotline: +94 74 096 6449</p>
-            <p className="text-xs text-slate-400">Location: Colombo & Galle, Sri Lanka</p>
-          </div>
-
-          <div>
-            <h4 className="text-xs font-bold uppercase tracking-widest text-amber-400 mb-4">Official Recognition</h4>
-            <p className="text-xs text-slate-400 leading-relaxed mb-4">
-              SLTDA Approved Tourist Chauffeur & Tour Operator in Sri Lanka.
-            </p>
-            <Link to="/plan-journey" className="block w-full">
-              <button className="bg-amber-400 hover:bg-amber-300 text-black text-[10px] font-bold uppercase tracking-wider px-5 py-3 rounded-lg w-full transition-colors">
-                Contact Travel Expert
-              </button>
-            </Link>
-          </div>
-        </div>
-
-        <div className="max-w-6xl mx-auto border-t border-white/5 mt-10 md:mt-12 pt-6 flex flex-col md:flex-row justify-between items-center text-[10px] text-slate-500 gap-2 md:gap-0">
-          <p className="text-center md:text-left">© {new Date().getFullYear()} Jai Lanka Tours. All Rights Reserved.</p>
-          <p className="text-center md:text-right">Crafted with Luxury Excellence</p>
-        </div>
-      </footer>
 
       {/* ----------------- FLOATING SOCIAL MEDIA BUTTONS ----------------- */}
       <div className="fixed bottom-4 right-4 md:bottom-8 md:right-8 z-50 flex flex-col gap-2 md:gap-3">
